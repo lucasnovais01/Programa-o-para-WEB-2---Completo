@@ -1,0 +1,126 @@
+/*
+		{
+			"path": "."
+		},
+		{
+			"path": "nest_academic"
+		},
+		{
+			"path": "react_academic"
+		}
+
+    pww2.code-workspace
+*/
+{
+	"folders": [
+		{
+			"path": "."
+		},
+/*
+		{
+			"path": "ppw2/nest_academic"
+		},
+		{
+			"path": "ppw2/react_academic"
+		}
+*/
+	],
+	"settings": {
+    "window.zoomLevel": 0,
+    "editor.fontSize": 20,
+    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.tabs.enabled": true,
+    "editor.suggestFontSize": 24,
+    "debug.console.fontSize": 24,
+    "editor.minimap.enabled": false,
+
+    // Terminal: escolher o desejado abaixo
+    "terminal.integrated.defaultProfile.windows": "Command Prompt", // <- padrão do Windows
+    // "terminal.integrated.defaultProfile.windows": "Git Bash",    // <- descomente se for usar Git Bash
+
+    //"terminal.integrated.env.windows": {
+    //  "PATH": "D:\\aluno_maria\\nodejs;${env:PATH}"
+    //},
+
+    "terminal.integrated.profiles.windows": {
+      "Command Prompt": {
+        "path": "C:\\Windows\\System32\\cmd.exe"
+      },
+      "Git Bash": {
+        "path": "C:\\Program Files\\Git\\bin\\bash.exe"
+      }
+    },
+
+    // Window
+    "workbench.startupEditor": "newUntitledFile",
+    "workbench.editor.labelFormat": "short",
+    "workbench.editor.enablePreview": false,
+    "workbench.list.smoothScrolling": true,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "workbench.localHistory.enabled": true,
+    "workbench.fontAliasing": "antialiased",
+    "workbench.layoutControl.enabled": false,
+
+    // Explorer
+    "explorer.confirmDelete": true,
+    "explorer.compactFolders": false,
+
+    // Editor and breadcrumbs
+    "breadcrumbs.enabled": true,
+    "editor.largeFileOptimizations": true,
+    "editor.renderControlCharacters": true,
+    "editor.tabSize": 2,
+    "editor.renderLineHighlight": "gutter",
+    "editor.rulers": [79, 120],
+    "editor.detectIndentation": true,
+    "editor.snippetSuggestions": "bottom",
+    "editor.wordBasedSuggestions": "off",
+    "editor.suggest.localityBonus": false,
+    "editor.acceptSuggestionOnCommitCharacter": false,
+    "editor.suggestSelection": "first",
+    "editor.suggest.showValues": true,
+    "editor.quickSuggestions": {
+      "other": "on",
+      "comments": "off",
+      "strings": "off"
+    },
+    "editor.quickSuggestionsDelay": 1,
+    "editor.suggestOnTriggerCharacters": false,
+    "editor.parameterHints.enabled": false,
+    "editor.formatOnPaste": false,
+    "editor.cursorSmoothCaretAnimation": "on",
+    "editor.mouseWheelScrollSensitivity": 1,
+    "editor.fastScrollSensitivity": 4,
+    "editor.smoothScrolling": true,
+    "editor.mouseWheelZoom": true,
+    "editor.fontLigatures": true,
+    "editor.formatOnSave": true,
+    "editor.linkedEditing": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.accessibilitySupport": "off",
+    "editor.renderWhitespace": "all",
+    "editor.glyphMargin": true,
+    "editor.inlineSuggest.enabled": true,
+
+    // Git
+    "git.enableSmartCommit": true,
+    "git.openRepositoryInParentFolders": "never",
+    "diffEditor.ignoreTrimWhitespace": true,
+
+    // Eslint and fix on save
+    "workbench.settings.useSplitJSON": true,
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": "always",
+      "source.fixAll": "explicit"
+    },
+    "files.eol": "\n",
+    "prettier.endOfLine": "lf",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+    // Ocultar node_modules e dist
+    "files.exclude": {
+      "**/node_modules": true,
+      "**/dist": true
+    }
+  }
+}
