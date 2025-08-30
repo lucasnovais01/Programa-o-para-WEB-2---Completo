@@ -4,6 +4,7 @@ import {
   HttpCode,
   HttpStatus,
   Param,
+  ParseIntPipe,
   Put,
 } from "@nestjs/common";
 import { CidadeRequest } from "../dto/request/cidade.request";
@@ -16,8 +17,11 @@ export class CidadeControllerUpdate {
   @HttpCode(HttpStatus.OK)
   @Put("/alterar/:id")
   // o método PUT envia o objeto a ser persistido, a ser modificado
-  update(@Param("id") id: string, @Body() cidadeRequest: CidadeRequest) {
-    console.log("recebendo o id " + id);
+  update(
+    @Param("id", ParseIntPipe) id: number,
+    @Body() cidadeRequest: CidadeRequest,
+  ) {
+    // console.log("recebendo o id " + id);
     const response = this.cidadeServiceUpdate.update(id, cidadeRequest);
     return response;
   }

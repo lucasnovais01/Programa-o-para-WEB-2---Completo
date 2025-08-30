@@ -3,5 +3,5 @@ import { CidadeServiceUpdate } from "../service/cidade.service.update";
 export declare class CidadeControllerUpdate {
     private readonly cidadeServiceUpdate;
     constructor(cidadeServiceUpdate: CidadeServiceUpdate);
-    update(id: string, cidadeRequest: CidadeRequest): import("../dto/response/cidade.response").CidadeResponse;
+    update(id: number, cidadeRequest: CidadeRequest): import("../dto/response/cidade.response").CidadeResponse;
 }

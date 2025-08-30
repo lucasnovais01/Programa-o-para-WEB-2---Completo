@@ -17,7 +17,7 @@ let CidadeServiceFindOne = class CidadeServiceFindOne {
         this.cidadeServiceFindOne = cidadeServiceFindOne;
     }
     findOne(id) {
-        const cidade = this.cidadeServiceFindOne.find((c) => c.idCidade === id);
+        const cidade = this.cidadeServiceFindOne.findOne((c) => c.idCidade === id);
         return cidade;
     }
 };

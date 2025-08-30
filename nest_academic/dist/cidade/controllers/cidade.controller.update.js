@@ -22,7 +22,6 @@ let CidadeControllerUpdate = class CidadeControllerUpdate {
         this.cidadeServiceUpdate = cidadeServiceUpdate;
     }
     update(id, cidadeRequest) {
-        console.log("recebendo o id " + id);
         const response = this.cidadeServiceUpdate.update(id, cidadeRequest);
         return response;
     }
@@ -31,10 +30,10 @@ exports.CidadeControllerUpdate = CidadeControllerUpdate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Put)("/alterar/:id"),
-    __param(0, (0, common_1.Param)("id")),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, cidade_request_1.CidadeRequest]),
+    __metadata("design:paramtypes", [Number, cidade_request_1.CidadeRequest]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerUpdate.prototype, "update", null);
 exports.CidadeControllerUpdate = CidadeControllerUpdate = __decorate([

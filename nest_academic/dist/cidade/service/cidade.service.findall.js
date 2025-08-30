@@ -16,7 +16,7 @@ let CidadeServiceFindAll = class CidadeServiceFindAll {
     cidades = tabela_service_1.tabelaCidade;
     constructor() { }
     findAll() {
-        return .this.cidades;
+        return this.cidades;
     }
 };
 exports.CidadeServiceFindAll = CidadeServiceFindAll;

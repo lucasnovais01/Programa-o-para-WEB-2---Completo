@@ -1,5 +1,9 @@
 export declare class CidadeServiceFindAll {
     private cidades;
     constructor();
-    findAll(): any;
+    findAll(): {
+        idCidade: number;
+        codCidade: string;
+        nomeCidade: string;
+    }[];
 }
