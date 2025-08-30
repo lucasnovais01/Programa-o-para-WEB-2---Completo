@@ -11,19 +11,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceFindOne = void 0;
 const common_1 = require("@nestjs/common");
+const tabela_service_1 = require("./tabela.service");
 let CidadeServiceFindOne = class CidadeServiceFindOne {
-    cidadeServiceFindOne;
-    constructor(cidadeServiceFindOne) {
-        this.cidadeServiceFindOne = cidadeServiceFindOne;
-    }
+    cidade = tabela_service_1.tabelaCidade;
+    constructor() { }
     findOne(id) {
-        const cidade = this.cidadeServiceFindOne.findOne((c) => c.idCidade === id);
+        const cidade = this.cidade.find((c) => c.idCidade === id);
         return cidade;
     }
 };
 exports.CidadeServiceFindOne = CidadeServiceFindOne;
 exports.CidadeServiceFindOne = CidadeServiceFindOne = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [CidadeServiceFindOne])
+    __metadata("design:paramtypes", [])
 ], CidadeServiceFindOne);
 //# sourceMappingURL=cidade.service.findone.js.map

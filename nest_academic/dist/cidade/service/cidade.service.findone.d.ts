@@ -1,5 +1,9 @@
 export declare class CidadeServiceFindOne {
-    private readonly cidadeServiceFindOne;
-    constructor(cidadeServiceFindOne: CidadeServiceFindOne);
-    findOne(id: number): any;
+    private cidade;
+    constructor();
+    findOne(id: number): {
+        idCidade: number;
+        codCidade: string;
+        nomeCidade: string;
+    } | undefined;
 }

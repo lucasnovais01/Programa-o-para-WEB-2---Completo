@@ -8,7 +8,7 @@ export class CidadeServiceUpdate {
   private cidades = tabelaCidade;
   constructor() {}
 
-  update(id: string, cidadeRequest: CidadeRequest) {
+  update(id: number, cidadeRequest: CidadeRequest) {
     const cidade = ConverterCidade.toCidade(cidadeRequest);
 
     const cidadeIndex = this.cidades.findIndex((c) => c.idCidade === id);
