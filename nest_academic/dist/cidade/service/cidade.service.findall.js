@@ -11,13 +11,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceFindAll = void 0;
 const common_1 = require("@nestjs/common");
-const cidade_converter_1 = require("../dto/converter/cidade.converter");
+const tabela_service_1 = require("./tabela.service");
 let CidadeServiceFindAll = class CidadeServiceFindAll {
+    cidades = tabela_service_1.tabelaCidade;
     constructor() { }
-    findAll(id, cidadeRequest) {
-        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
-        const cidadeResponse = cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
-        return cidadeResponse;
+    findAll() {
+        return .this.cidades;
     }
 };
 exports.CidadeServiceFindAll = CidadeServiceFindAll;

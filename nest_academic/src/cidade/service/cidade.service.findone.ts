@@ -1,10 +1,13 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class CidadeServiceFindOne {
-  constructor() {}
-  //Está incompleto, falta este e o findall, verificar o codigo no Moodle até domingo o professor coloca
+  constructor(private readonly cidadeServiceFindOne: CidadeServiceFindOne) {}
+
+  findOne(id: number) {
+    const cidade = this.cidadeServiceFindOne.find((c) => c.idCidade === id);
+    return cidade;
+  }
 }
 
-
-// continua incompleto
+// Arrow Function = Cria uma função anônimo

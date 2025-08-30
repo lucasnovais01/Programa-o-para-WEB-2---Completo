@@ -4,17 +4,18 @@ import {
   HttpCode,
   HttpStatus,
   Param,
-} from '@nestjs/common';
-import { CidadeServiceRemove } from '../service/cidade.service.remove';
+  ParseIntPipe,
+} from "@nestjs/common";
+import { CidadeServiceRemove } from "../service/cidade.service.remove";
 
-@Controller('/cidade')
+@Controller("/cidade")
 export class CidadeControllerRemove {
   constructor(private readonly cidadeServiceRemove: CidadeServiceRemove) {}
 
   @HttpCode(HttpStatus.OK) //O correto é o NO_CONTENT, a exclusão sempre retorna NO_CONTENT
-  @Delete('/remover/:id')
-  remove(@Param('id') id: string) {
-    return `registro apagado com o id = ${id}`;
+  @Delete("/remover/:id")
+  remove(@Param("id", ParseIntPipe) id: number) {
+    return this.cidadeServiceRemove.remove(id);
   }
 }
 /*

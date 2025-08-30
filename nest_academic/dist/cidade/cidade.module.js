@@ -17,6 +17,7 @@ const cidade_service_create_1 = require("./service/cidade.service.create");
 const cidade_service_update_1 = require("./service/cidade.service.update");
 const cidade_service_remove_1 = require("./service/cidade.service.remove");
 const cidade_service_findall_1 = require("./service/cidade.service.findall");
+const cidade_service_findone_1 = require("./service/cidade.service.findone");
 const cidadeControllers = [
     cidade_controller_findall_1.CidadeControllerFindAll,
     cidade_controller_findone_1.CidadeControllerFindOne,
@@ -29,6 +30,7 @@ const cidadeServices = [
     cidade_service_update_1.CidadeServiceUpdate,
     cidade_service_remove_1.CidadeServiceRemove,
     cidade_service_findall_1.CidadeServiceFindAll,
+    cidade_service_findone_1.CidadeServiceFindOne,
 ];
 let CidadeModule = class CidadeModule {
 };

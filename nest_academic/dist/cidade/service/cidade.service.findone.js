@@ -12,11 +12,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceFindOne = void 0;
 const common_1 = require("@nestjs/common");
 let CidadeServiceFindOne = class CidadeServiceFindOne {
-    constructor() { }
+    cidadeServiceFindOne;
+    constructor(cidadeServiceFindOne) {
+        this.cidadeServiceFindOne = cidadeServiceFindOne;
+    }
+    findOne(id) {
+        const cidade = this.cidadeServiceFindOne.find((c) => c.idCidade === id);
+        return cidade;
+    }
 };
 exports.CidadeServiceFindOne = CidadeServiceFindOne;
 exports.CidadeServiceFindOne = CidadeServiceFindOne = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [CidadeServiceFindOne])
 ], CidadeServiceFindOne);
 //# sourceMappingURL=cidade.service.findone.js.map

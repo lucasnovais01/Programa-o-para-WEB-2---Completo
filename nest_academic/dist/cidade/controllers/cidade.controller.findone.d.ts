@@ -1,3 +1,6 @@
+import { CidadeServiceFindOne } from "../service/cidade.service.findone";
 export declare class CidadeControllerFindOne {
-    findOne(id: string): string;
+    private readonly cidadeServiceFindOne;
+    constructor(cidadeServiceFindOne: CidadeServiceFindOne);
+    findOne(id: string): any;
 }

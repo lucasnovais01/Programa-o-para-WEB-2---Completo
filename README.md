@@ -24,3 +24,5 @@ DTO = Data Transfer Object, serve para esconder coisas no backend
 Entidade = é uma representação orientada a objeto da tabela
 
 Converter = Serve para converter para entidade, para ela poder trabalhar
+
+Quandos se coloca ? na variável em typescript, diz que ela não é obrigatória

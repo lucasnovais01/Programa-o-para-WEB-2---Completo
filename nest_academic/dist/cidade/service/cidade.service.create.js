@@ -12,11 +12,19 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceCreate = void 0;
 const common_1 = require("@nestjs/common");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
+const tabela_service_1 = require("./tabela.service");
 let CidadeServiceCreate = class CidadeServiceCreate {
+    cidades = tabela_service_1.tabelaCidade;
     constructor() { }
     create(cidadeRequest) {
         const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
-        const cidadeResponse = cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
+        const newIdCidade = this.cidades.length + 1;
+        const newCidade = {
+            ...cidade,
+            idCidade: newIdCidade,
+        };
+        this.cidades.push(newCidade);
+        const cidadeResponse = cidade_converter_1.ConverterCidade.toCidadeResponse(newCidade);
         return cidadeResponse;
     }
 };

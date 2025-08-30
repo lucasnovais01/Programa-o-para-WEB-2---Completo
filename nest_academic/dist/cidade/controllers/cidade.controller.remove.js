@@ -21,20 +21,20 @@ let CidadeControllerRemove = class CidadeControllerRemove {
         this.cidadeServiceRemove = cidadeServiceRemove;
     }
     remove(id) {
-        return `registro apagado com o id = ${id}`;
+        return this.cidadeServiceRemove.remove(id);
     }
 };
 exports.CidadeControllerRemove = CidadeControllerRemove;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Delete)('/remover/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)("/remover/:id"),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerRemove.prototype, "remove", null);
 exports.CidadeControllerRemove = CidadeControllerRemove = __decorate([
-    (0, common_1.Controller)('/cidade'),
+    (0, common_1.Controller)("/cidade"),
     __metadata("design:paramtypes", [cidade_service_remove_1.CidadeServiceRemove])
 ], CidadeControllerRemove);
 //# sourceMappingURL=cidade.controller.remove.js.map

@@ -29,14 +29,14 @@ let CidadeControllerCreate = class CidadeControllerCreate {
 exports.CidadeControllerCreate = CidadeControllerCreate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
-    (0, common_1.Post)('/criar'),
+    (0, common_1.Post)("/criar"),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [cidade_request_1.CidadeRequest]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerCreate.prototype, "create", null);
 exports.CidadeControllerCreate = CidadeControllerCreate = __decorate([
-    (0, common_1.Controller)('/cidade'),
+    (0, common_1.Controller)("/cidade"),
     __metadata("design:paramtypes", [cidade_service_create_1.CidadeServiceCreate])
 ], CidadeControllerCreate);
 //# sourceMappingURL=cidade.controller.create.js.map

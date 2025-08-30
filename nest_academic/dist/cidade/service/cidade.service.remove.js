@@ -11,13 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceRemove = void 0;
 const common_1 = require("@nestjs/common");
-const cidade_converter_1 = require("../dto/converter/cidade.converter");
+const tabela_service_1 = require("./tabela.service");
 let CidadeServiceRemove = class CidadeServiceRemove {
+    cidade = tabela_service_1.tabelaCidade;
     constructor() { }
-    remove(id, cidadeRequest) {
-        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
-        const cidadeResponse = cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
-        return cidadeResponse;
+    remove(id) {
+        const cidadeIndex = this.cidade.findIndex((c) => c.idCidade === id);
+        this.cidade.splice(cidadeIndex, 1);
+        return this.cidade;
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;

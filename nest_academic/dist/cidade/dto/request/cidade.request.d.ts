@@ -1,5 +1,5 @@
 export declare class CidadeRequest {
-    idCidade: number;
+    idCidade?: number;
     codCidade: string;
     nomeCidade: string;
 }

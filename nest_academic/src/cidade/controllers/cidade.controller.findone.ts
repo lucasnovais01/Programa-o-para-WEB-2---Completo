@@ -1,11 +1,23 @@
-import { Controller, Get, HttpCode, HttpStatus, Param } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+} from "@nestjs/common";
+import { CidadeServiceFindOne } from "../service/cidade.service.findone";
 
-@Controller('/cidade')
+@Controller("/cidade")
 export class CidadeControllerFindOne {
+  constructor(private readonly cidadeServiceFindOne: CidadeServiceFindOne) {}
+
   @HttpCode(HttpStatus.OK) // 200
-  @Get('/listar/:id')
-  findOne(@Param('id') id: string) {
-    return `retorna o registro uma única cidade do banco de dados = ${id} `;
-    //não pode ser aspas simples, tem que ser crase no return
+  @Get("/listar/:id")
+  findOne(@Param("id", ParseIntPipe) id: string) {
+    const cidade = this.cidadeServiceFindOne.findOne(+id);
+    return cidade;
   }
 }
+
+// http://localhost:8000/cidade/listar/1

@@ -14,21 +14,28 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerFindOne = void 0;
 const common_1 = require("@nestjs/common");
+const cidade_service_findone_1 = require("../service/cidade.service.findone");
 let CidadeControllerFindOne = class CidadeControllerFindOne {
+    cidadeServiceFindOne;
+    constructor(cidadeServiceFindOne) {
+        this.cidadeServiceFindOne = cidadeServiceFindOne;
+    }
     findOne(id) {
-        return `retorna o registro uma única cidade do banco de dados = ${id} `;
+        const cidade = this.cidadeServiceFindOne.findOne(+id);
+        return cidade;
     }
 };
 exports.CidadeControllerFindOne = CidadeControllerFindOne;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Get)('/listar/:id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)("/listar/:id"),
+    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerFindOne.prototype, "findOne", null);
 exports.CidadeControllerFindOne = CidadeControllerFindOne = __decorate([
-    (0, common_1.Controller)('/cidade')
+    (0, common_1.Controller)("/cidade"),
+    __metadata("design:paramtypes", [cidade_service_findone_1.CidadeServiceFindOne])
 ], CidadeControllerFindOne);
 //# sourceMappingURL=cidade.controller.findone.js.map

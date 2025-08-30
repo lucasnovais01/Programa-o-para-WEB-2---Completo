@@ -1,5 +1,5 @@
-import { CidadeRequest } from '../dto/request/cidade.request';
 export declare class CidadeServiceFindAll {
+    private cidades;
     constructor();
-    findAll(id: string, cidadeRequest: CidadeRequest): import("../dto/response/cidade.response").CidadeResponse;
+    findAll(): any;
 }

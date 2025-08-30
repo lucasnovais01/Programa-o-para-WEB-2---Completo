@@ -1,3 +1,5 @@
 export declare class CidadeServiceFindOne {
-    constructor();
+    private readonly cidadeServiceFindOne;
+    constructor(cidadeServiceFindOne: CidadeServiceFindOne);
+    findOne(id: number): any;
 }

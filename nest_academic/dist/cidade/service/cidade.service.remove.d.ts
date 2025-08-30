@@ -1,5 +1,9 @@
-import { CidadeRequest } from '../dto/request/cidade.request';
 export declare class CidadeServiceRemove {
+    private cidade;
     constructor();
-    remove(id: string, cidadeRequest: CidadeRequest): import("../dto/response/cidade.response").CidadeResponse;
+    remove(id: number): {
+        idCidade: number;
+        codCidade: string;
+        nomeCidade: string;
+    }[];
 }

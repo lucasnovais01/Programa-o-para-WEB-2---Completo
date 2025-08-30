@@ -6,7 +6,9 @@ const cidade_response_1 = require("../response/cidade.response");
 class ConverterCidade {
     static toCidade(cidadeRequest) {
         const cidade = new cidade_entity_1.Cidade();
-        cidade.idCidade = cidadeRequest.idCidade;
+        if (cidadeRequest.idCidade != null) {
+            cidade.idCidade = cidadeRequest.idCidade;
+        }
         cidade.nomeCidade = cidadeRequest.nomeCidade;
         cidade.codCidade = cidadeRequest.codCidade;
         return cidade;
