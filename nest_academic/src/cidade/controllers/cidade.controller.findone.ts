@@ -14,7 +14,7 @@ export class CidadeControllerFindOne {
 
   @HttpCode(HttpStatus.OK) // 200
   @Get("/listar/:id")
-  findOne(@Param("id", ParseIntPipe) id: string) {
+  findOne(@Param("id", ParseIntPipe) id: number) {
     const cidade = this.cidadeServiceFindOne.findOne(+id);
     return cidade;
   }

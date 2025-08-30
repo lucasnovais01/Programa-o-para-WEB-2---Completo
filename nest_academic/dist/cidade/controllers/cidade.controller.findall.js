@@ -18,19 +18,19 @@ let CidadeControllerFindAll = class CidadeControllerFindAll {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
     findAll() {
-        return 'Listar todas as cidades do banco de dados';
+        return "Listar todas as cidades do banco de dados";
     }
 };
 exports.CidadeControllerFindAll = CidadeControllerFindAll;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Get)('/listar'),
+    (0, common_1.Get)("/listar"),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], CidadeControllerFindAll.prototype, "findAll", null);
 exports.CidadeControllerFindAll = CidadeControllerFindAll = __decorate([
-    (0, common_1.Controller)('/cidade'),
+    (0, common_1.Controller)("/cidade"),
     __metadata("design:paramtypes", [cidade_service_findall_1.CidadeServiceFindAll])
 ], CidadeControllerFindAll);
 //# sourceMappingURL=cidade.controller.findall.js.map

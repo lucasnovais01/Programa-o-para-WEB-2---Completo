@@ -18,6 +18,7 @@ export class ConverterCidade {
   static toCidadeResponse(cidade: Cidade) {
     const cidadeResponse = new CidadeResponse();
 
+    cidadeResponse.idCidade = cidade.idCidade ?? 0;
     cidadeResponse.codCidade = cidade.codCidade;
     cidadeResponse.nomeCidade = cidade.nomeCidade;
 

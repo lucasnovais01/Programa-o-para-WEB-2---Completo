@@ -1,15 +1,15 @@
-import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
-import { CidadeServiceFindAll } from '../service/cidade.service.findall';
+import { Controller, Get, HttpCode, HttpStatus } from "@nestjs/common";
+import { CidadeServiceFindAll } from "../service/cidade.service.findall";
 
-@Controller('/cidade')
+@Controller("/cidade")
 //PascalCamel
 export class CidadeControllerFindAll {
   constructor(private readonly cidadeServiceFindAll: CidadeServiceFindAll) {}
 
   @HttpCode(HttpStatus.OK) // 200
-  @Get('/listar')
+  @Get("/listar")
   findAll() {
-    return 'Listar todas as cidades do banco de dados';
+    return "Listar todas as cidades do banco de dados";
   }
 }
 

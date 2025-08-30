@@ -31,7 +31,7 @@ __decorate([
     (0, common_1.Get)("/listar/:id"),
     __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
+    __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerFindOne.prototype, "findOne", null);
 exports.CidadeControllerFindOne = CidadeControllerFindOne = __decorate([
