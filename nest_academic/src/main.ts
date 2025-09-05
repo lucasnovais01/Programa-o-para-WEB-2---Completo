@@ -7,3 +7,13 @@ async function bootstrap() {
 }
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 bootstrap();
+
+
+// http://localhost:8000
+
+// http://localhost:8000/cidade/listar
+// http://localhost:8000/cidade/listar/1
+// http://localhost:8000/cidade/criar
+// http://localhost:8000/cidade/atualizar/1
+// http://localhost:8000/cidade/remover/1
+
