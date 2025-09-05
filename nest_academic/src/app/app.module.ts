@@ -8,7 +8,7 @@ import { CidadeModule } from 'src/cidade/cidade.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: '',
+      type: 'testestestesteste',
       host: '',
       port: ,
       username: '',
