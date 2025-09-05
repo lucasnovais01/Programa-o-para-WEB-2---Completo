@@ -6,19 +6,20 @@ import {
   Param,
   ParseIntPipe,
   Put,
-} from "@nestjs/common";
-import { CidadeRequest } from "../dto/request/cidade.request";
-import { CidadeServiceUpdate } from "../service/cidade.service.update";
+} from '@nestjs/common';
+import { CidadeRequest } from '../dto/request/cidade.request';
+import { CidadeServiceUpdate } from '../service/cidade.service.update';
+import { ROTA } from 'src/commons/constants/url.sistema';
 
-@Controller("/cidade")
+@Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerUpdate {
   constructor(private readonly cidadeServiceUpdate: CidadeServiceUpdate) {}
 
   @HttpCode(HttpStatus.OK)
-  @Put("/alterar/:id")
+  @Put(ROTA.CIDADE.UPDATE)
   // o método PUT envia o objeto a ser persistido, a ser modificado
   update(
-    @Param("id", ParseIntPipe) id: number,
+    @Param('id', ParseIntPipe) id: number,
     @Body() cidadeRequest: CidadeRequest,
   ) {
     // console.log("recebendo o id " + id);

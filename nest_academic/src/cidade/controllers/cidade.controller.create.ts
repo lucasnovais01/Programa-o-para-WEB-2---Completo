@@ -1,13 +1,14 @@
-import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
-import { CidadeRequest } from "../dto/request/cidade.request";
-import { CidadeServiceCreate } from "../service/cidade.service.create";
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { CidadeRequest } from '../dto/request/cidade.request';
+import { CidadeServiceCreate } from '../service/cidade.service.create';
+import { ROTA } from 'src/commons/constants/url.sistema';
 
-@Controller("/cidade")
+@Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerCreate {
   constructor(private readonly cidadeServiceCreate: CidadeServiceCreate) {}
 
   @HttpCode(HttpStatus.CREATED) // 201
-  @Post("/criar")
+  @Post(ROTA.CIDADE.CREATE)
   create(@Body() cidadeRequest: CidadeRequest) {
     // o método POST é usado para criar novos recursos
     //return cidadeRequest; // Retorna o objeto recebido no corpo da requisição

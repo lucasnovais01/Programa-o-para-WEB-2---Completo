@@ -1,14 +1,14 @@
-import { Module } from "@nestjs/common";
-import { CidadeControllerFindAll } from "./controllers/cidade.controller.findall";
-import { CidadeControllerFindOne } from "./controllers/cidade.controller.findone";
-import { CidadeControllerCreate } from "./controllers/cidade.controller.create";
-import { CidadeControllerUpdate } from "./controllers/cidade.controller.update";
-import { CidadeControllerRemove } from "./controllers/cidade.controller.remove";
-import { CidadeServiceCreate } from "./service/cidade.service.create";
-import { CidadeServiceUpdate } from "./service/cidade.service.update";
-import { CidadeServiceRemove } from "./service/cidade.service.remove";
-import { CidadeServiceFindAll } from "./service/cidade.service.findall";
-import { CidadeServiceFindOne } from "./service/cidade.service.findone";
+import { Module } from '@nestjs/common';
+import { CidadeControllerFindAll } from './controllers/cidade.controller.findall';
+import { CidadeControllerFindOne } from './controllers/cidade.controller.findone';
+import { CidadeControllerCreate } from './controllers/cidade.controller.create';
+import { CidadeControllerUpdate } from './controllers/cidade.controller.update';
+import { CidadeControllerRemove } from './controllers/cidade.controller.remove';
+import { CidadeServiceCreate } from './service/cidade.service.create';
+import { CidadeServiceUpdate } from './service/cidade.service.update';
+import { CidadeServiceRemove } from './service/cidade.service.remove';
+import { CidadeServiceFindAll } from './service/cidade.service.findall';
+import { CidadeServiceFindOne } from './service/cidade.service.findone';
 
 const cidadeControllers = [
   CidadeControllerFindAll,
