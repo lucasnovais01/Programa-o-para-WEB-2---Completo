@@ -21,3 +21,4 @@ Thumbs.db
 
 # Ignorar arquivo de configuração com dados sensíveis
 nest_academic/src/app/app.module.ts
+
