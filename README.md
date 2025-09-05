@@ -28,4 +28,13 @@ Converter = Serve para converter para entidade, para ela poder trabalhar
 Quandos se coloca ? na variável em typescript, diz que ela não é obrigatória
 
 
-Acesso ao workspace antes da escola teste, deletar este comentário de teste
+O que foi instalado recentemente com o CMD, após o ATUALIZADO commons, foi digitado:
+npm i @nestjs/typeorm --save
+npm i typeorm --save
+npm i oracledb --save
+
+npm i class-transform --save
+npm i class-validator --save
+
+
+O ultimo é pra acessar o oracle

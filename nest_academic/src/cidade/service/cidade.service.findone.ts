@@ -1,5 +1,5 @@
-import { Injectable } from "@nestjs/common";
-import { tabelaCidade } from "./tabela.service";
+import { Injectable } from '@nestjs/common';
+import { tabelaCidade } from './tabela.service';
 
 @Injectable()
 export class CidadeServiceFindOne {
