@@ -8,9 +8,9 @@ import { CidadeModule } from 'src/cidade/cidade.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: '',
-      host: '',
-      port: ,
+      type: 'teste',
+      host: 'aaaa',
+      port: 123,
       username: '',
       database: '',
       password: '',
