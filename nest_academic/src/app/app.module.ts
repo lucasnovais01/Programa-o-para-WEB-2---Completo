@@ -15,7 +15,7 @@ oracledb.initOracleClient ({
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'TESTE',
+      type: '',
       host: '',
       port: ,
       username: '',
