@@ -38,6 +38,13 @@ npm i class-validator --save
 
 O ultimo é pra acessar o oracle
 
+npm i @nestjs/config joi --save
+
+para instalar esta biblioteca
+
+
+
+
 
 Os dados dentro do app.module.ts são Sensíveis, e Por tanto é importante utilizarmos o comando:
 

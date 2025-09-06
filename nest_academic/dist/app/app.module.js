@@ -21,12 +21,12 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             typeorm_1.TypeOrmModule.forRoot({
-                type: 'batatadocenapanela',
-                host: '',
-                port: ,
-                username: '',
-                database: '',
-                password: '',
+                type: 'oracle',
+                host: '187.17.169.253',
+                port: 1521,
+                username: 'C##BRIBND2_LUCAS_NOVAIS',
+                database: 'XE',
+                password: 'BI303268X',
             }),
             cidade_module_1.CidadeModule,
         ],
