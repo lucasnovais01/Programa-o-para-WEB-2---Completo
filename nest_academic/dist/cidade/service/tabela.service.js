@@ -4,28 +4,28 @@ exports.tabelaCidade = void 0;
 exports.tabelaCidade = [
     {
         idCidade: 1,
-        codCidade: "COD120",
-        nomeCidade: "Birigui",
+        codCidade: 'COD120',
+        nomeCidade: 'Birigui',
     },
     {
         idCidade: 2,
-        codCidade: "COD121",
-        nomeCidade: "Araçatuba",
+        codCidade: 'COD121',
+        nomeCidade: 'Araçatuba',
     },
     {
         idCidade: 3,
-        codCidade: "COD122",
-        nomeCidade: "Coroados",
+        codCidade: 'COD122',
+        nomeCidade: 'Coroados',
     },
     {
         idCidade: 4,
-        codCidade: "COD123",
-        nomeCidade: "Bilac",
+        codCidade: 'COD123',
+        nomeCidade: 'Bilac',
     },
     {
         idCidade: 5,
-        codCidade: "COD124",
-        nomeCidade: "Brejo Alegre",
+        codCidade: 'COD124',
+        nomeCidade: 'Brejo Alegre',
     },
 ];
 //# sourceMappingURL=tabela.service.js.map

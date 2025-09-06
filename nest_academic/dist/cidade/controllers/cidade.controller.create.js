@@ -16,6 +16,7 @@ exports.CidadeControllerCreate = void 0;
 const common_1 = require("@nestjs/common");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_service_create_1 = require("../service/cidade.service.create");
+const url_sistema_1 = require("../../commons/constants/url.sistema");
 let CidadeControllerCreate = class CidadeControllerCreate {
     cidadeServiceCreate;
     constructor(cidadeServiceCreate) {
@@ -29,14 +30,14 @@ let CidadeControllerCreate = class CidadeControllerCreate {
 exports.CidadeControllerCreate = CidadeControllerCreate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
-    (0, common_1.Post)("/criar"),
+    (0, common_1.Post)(url_sistema_1.ROTA.CIDADE.CREATE),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [cidade_request_1.CidadeRequest]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerCreate.prototype, "create", null);
 exports.CidadeControllerCreate = CidadeControllerCreate = __decorate([
-    (0, common_1.Controller)("/cidade"),
+    (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),
     __metadata("design:paramtypes", [cidade_service_create_1.CidadeServiceCreate])
 ], CidadeControllerCreate);
 //# sourceMappingURL=cidade.controller.create.js.map

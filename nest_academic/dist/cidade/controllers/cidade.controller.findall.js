@@ -12,25 +12,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerFindAll = void 0;
 const common_1 = require("@nestjs/common");
 const cidade_service_findall_1 = require("../service/cidade.service.findall");
+const url_sistema_1 = require("../../commons/constants/url.sistema");
 let CidadeControllerFindAll = class CidadeControllerFindAll {
     cidadeServiceFindAll;
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
     findAll() {
-        return "Listar todas as cidades do banco de dados";
+        return 'Listar todas as cidades do banco de dados';
     }
 };
 exports.CidadeControllerFindAll = CidadeControllerFindAll;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Get)("/listar"),
+    (0, common_1.Get)(url_sistema_1.ROTA.CIDADE.LIST),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], CidadeControllerFindAll.prototype, "findAll", null);
 exports.CidadeControllerFindAll = CidadeControllerFindAll = __decorate([
-    (0, common_1.Controller)("/cidade"),
+    (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),
     __metadata("design:paramtypes", [cidade_service_findall_1.CidadeServiceFindAll])
 ], CidadeControllerFindAll);
 //# sourceMappingURL=cidade.controller.findall.js.map

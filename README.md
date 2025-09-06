@@ -36,5 +36,15 @@ npm i oracledb --save
 npm i class-transform --save
 npm i class-validator --save
 
-
 O ultimo é pra acessar o oracle
+
+
+Os dados dentro do app.module.ts são Sensíveis, e Por tanto é importante utilizarmos o comando:
+
+git update-index --assume-unchanged src/app/app.module.ts
+
+e pra reverter:
+
+git update-index --no-assume-unchanged src/app/app.module.ts
+
+Observação sobre este comando: Ele é SOMENTE LOCAL, tomar cuidado com isto e não fica visível que nem o .gitignore

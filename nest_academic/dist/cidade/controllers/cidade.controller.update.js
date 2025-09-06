@@ -16,6 +16,7 @@ exports.CidadeControllerUpdate = void 0;
 const common_1 = require("@nestjs/common");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_service_update_1 = require("../service/cidade.service.update");
+const url_sistema_1 = require("../../commons/constants/url.sistema");
 let CidadeControllerUpdate = class CidadeControllerUpdate {
     cidadeServiceUpdate;
     constructor(cidadeServiceUpdate) {
@@ -29,15 +30,15 @@ let CidadeControllerUpdate = class CidadeControllerUpdate {
 exports.CidadeControllerUpdate = CidadeControllerUpdate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Put)("/alterar/:id"),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    (0, common_1.Put)(url_sistema_1.ROTA.CIDADE.UPDATE),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number, cidade_request_1.CidadeRequest]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerUpdate.prototype, "update", null);
 exports.CidadeControllerUpdate = CidadeControllerUpdate = __decorate([
-    (0, common_1.Controller)("/cidade"),
+    (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),
     __metadata("design:paramtypes", [cidade_service_update_1.CidadeServiceUpdate])
 ], CidadeControllerUpdate);
 //# sourceMappingURL=cidade.controller.update.js.map

@@ -15,6 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerFindOne = void 0;
 const common_1 = require("@nestjs/common");
 const cidade_service_findone_1 = require("../service/cidade.service.findone");
+const url_sistema_1 = require("../../commons/constants/url.sistema");
 let CidadeControllerFindOne = class CidadeControllerFindOne {
     cidadeServiceFindOne;
     constructor(cidadeServiceFindOne) {
@@ -28,14 +29,14 @@ let CidadeControllerFindOne = class CidadeControllerFindOne {
 exports.CidadeControllerFindOne = CidadeControllerFindOne;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
-    (0, common_1.Get)("/listar/:id"),
-    __param(0, (0, common_1.Param)("id", common_1.ParseIntPipe)),
+    (0, common_1.Get)(url_sistema_1.ROTA.CIDADE.BY_ID),
+    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", void 0)
 ], CidadeControllerFindOne.prototype, "findOne", null);
 exports.CidadeControllerFindOne = CidadeControllerFindOne = __decorate([
-    (0, common_1.Controller)("/cidade"),
+    (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),
     __metadata("design:paramtypes", [cidade_service_findone_1.CidadeServiceFindOne])
 ], CidadeControllerFindOne);
 //# sourceMappingURL=cidade.controller.findone.js.map
