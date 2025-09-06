@@ -12,6 +12,9 @@ oracledb.initOracleClient ({
 // IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
 // E NÃO DEVEM SER FEITO UPLOAD DELES NO GITHUB
 
+// SEMPRE USAR este comando abaixo antes de fazer commit
+// git update-index --assume-unchanged src/app/app.module.ts
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
