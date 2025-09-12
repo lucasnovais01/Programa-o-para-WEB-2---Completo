@@ -1,5 +1,5 @@
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
-import { Type } from 'class-transform';
+import { Type } from 'class-transformer';
 
 export class CidadeRequest {
   @Type(() => Number)
@@ -20,7 +20,7 @@ export class CidadeRequest {
   })
   nomeCidade: string = '';
 
-  constructor(data: Partial<CidadeRequest> = {}){
+  constructor(data: Partial<CidadeRequest> = {}) {
     Object.assign(this, data);
 
     /*this.codCidade = data.codCidade;
