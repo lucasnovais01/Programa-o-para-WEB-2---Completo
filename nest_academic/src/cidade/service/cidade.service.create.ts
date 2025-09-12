@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { CidadeRequest } from '../dto/request/cidade.request';
-import { ConverterCidade } from '../dto/converter/cidade.converter';
-import { tabelaCidade } from './tabela.service';
+import { Injectable } from "@nestjs/common";
+import { ConverterCidade } from "../dto/converter/cidade.converter";
+import { CidadeRequest } from "../dto/request/cidade.request";
+import { tabelaCidade } from "./tabela.service";
 
 @Injectable()
 export class CidadeServiceCreate {

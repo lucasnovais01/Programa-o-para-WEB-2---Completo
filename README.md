@@ -47,6 +47,7 @@ para instalar esta biblioteca
 npm i class-transform --save
 npm i @nest/swagger --save
 npm i swagger-ui-express --save
+npm i class-transformer --save
 --------------------------
 
 
