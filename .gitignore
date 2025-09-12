@@ -21,3 +21,44 @@ Thumbs.db
 
 # Ignorar arquivo de configuração com dados sensíveis
 nest_academic/src/app/app.module.ts
+
+
+
+✅ Resultado final sugerido (.gitignore completo)
+# Ignorar dependências
+node_modules/
+
+# Ignorar arquivos de build
+dist/
+build/
+
+# Ignorar variáveis de ambiente
+.env
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# Testes
+coverage/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDEs e editores
+.vscode/
+.idea/
+
+# Outros
+*.tsbuildinfo
+
+# Uploads e arquivos pesados
+uploads/
+public/uploads/
+
+# O comando abaixo foi adicionado dia 05/09/2025 - para proteger os dados sensíveis, 
+# conforme solicitado pelo professor da disciplina
+nest_academic/src/app/app.module.ts
