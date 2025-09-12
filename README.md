@@ -43,7 +43,11 @@ npm i @nestjs/config joi --save
 para instalar esta biblioteca
 
 
-
+-------------------------
+npm i class-transform --save
+npm i @nest/swagger --save
+npm i swagger-ui-express --save
+--------------------------
 
 
 Os dados dentro do app.module.ts são Sensíveis, e Por tanto é importante utilizarmos o comando:
