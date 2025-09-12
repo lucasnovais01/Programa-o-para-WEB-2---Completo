@@ -9,6 +9,8 @@ import { CidadeServiceUpdate } from './service/cidade.service.update';
 import { CidadeServiceRemove } from './service/cidade.service.remove';
 import { CidadeServiceFindAll } from './service/cidade.service.findall';
 import { CidadeServiceFindOne } from './service/cidade.service.findone';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Cidade } from './entity/cidade.entity';
 
 const cidadeControllers = [
   CidadeControllerFindAll,
@@ -27,11 +29,11 @@ const cidadeServices = [
 ];
 
 @Module({
-  imports: [],
+  imports: [TypeOrmModule.forFeature([Cidade])],
   controllers: [
     ...cidadeControllers, //Este é um floreio pra deixar o código mais bonito, pega o array acima
   ],
   providers: [...cidadeServices],
-  exports: [...cidadeServices],
+  exports: [TypeOrmModule, ...cidadeServices],
 })
 export class CidadeModule {}
