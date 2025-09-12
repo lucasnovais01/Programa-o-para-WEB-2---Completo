@@ -25,13 +25,14 @@ oracledb.initOracleClient ({
         DATABASE_NAME: Joi.string().required(),
         DATABASE_PASSWORD: Joi.string().required(),
         DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
-        DATABASE_SYNCHRONIZE: Joi.boolean().default(true),
+        DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
         DATABASE_LOGGING: Joi.boolean().default(true),
+
         DATABASE_ROW_NUMBER: Joi.boolean().default(true),
       }),
     }),
 
-    TypeOrmModule.forRootaAsync({
+    TypeOrmModule.forRootaAsync ({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
