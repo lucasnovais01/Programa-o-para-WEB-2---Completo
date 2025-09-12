@@ -55,3 +55,15 @@ e pra reverter:
 git update-index --no-assume-unchanged src/app/app.module.ts
 
 Observação sobre este comando: Ele é SOMENTE LOCAL, tomar cuidado com isto e não fica visível que nem o .gitignore
+
+
+
+
+
+
+
+O all-files.txt foi criado usando o:
+
+git rev-list --objects --all | sort -k 2 > all-files.txt
+
+git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10

@@ -20,7 +20,7 @@ oracledb.initOracleClient ({
     TypeOrmModule.forRoot({
       type: '',
       host: '',
-      port: ,
+      port: '',
       username: '',
       database: '',
       password: '',
