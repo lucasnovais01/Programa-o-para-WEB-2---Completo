@@ -60,7 +60,7 @@ Observação sobre este comando: Ele é SOMENTE LOCAL, tomar cuidado com isto e 
 
 
 
-
+12-09-2025 - atualizado tamanho total, agora a unica pasta grande é o pack de objects dentro da pasta git
 
 O all-files.txt foi criado usando o:
 
