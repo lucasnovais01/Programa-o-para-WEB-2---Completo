@@ -15,7 +15,7 @@ export class CidadeServiceFindOne {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  async findOne(idCidade: number): Promise<CidadeResponse> {
+  async findOne(idCidade: number): Promise<CidadeResponse | null> {
     const cidade = await this.cidadeRepository
       .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
@@ -23,14 +23,18 @@ export class CidadeServiceFindOne {
 
     // é isto que ele ta falando pro banco: 'SELECT * FROM CIDADE cidade WHERE cidade.idCidade = idCidade'
 
-    return ConverterCidade.toCidadeResponse(cidade);
+    if (!cidade) {
+      throw new Error('Cidade não localizada ');
+    }
+
+    return cidade ? ConverterCidade.toCidadeResponse(cidade) : null;
   }
-  /*
-  findOne(id: number) {
-    const cidade = this.cidade.find((c) => c.idCidade === id);
-    return cidade;
-  }
-  */
 }
+/*
+findOne(id: number) {
+  const cidade = this.cidade.find((c) => c.idCidade === id);
+  return cidade;
+}
+*/
 
 // Arrow Function = Cria uma função anônimo

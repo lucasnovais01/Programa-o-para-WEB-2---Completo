@@ -5,5 +5,5 @@ export declare class CidadeServiceFindOne {
     private cidadeRepository;
     private cidade;
     constructor(cidadeRepository: Repository<Cidade>);
-    findOne(idCidade: number): Promise<CidadeResponse>;
+    findOne(idCidade: number): Promise<CidadeResponse | null>;
 }

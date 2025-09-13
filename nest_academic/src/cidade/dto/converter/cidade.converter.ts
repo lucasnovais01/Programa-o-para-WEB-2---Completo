@@ -16,7 +16,7 @@ export class ConverterCidade {
 
     return cidade;
   }
-  static toCidadeResponse(cidade: Cidade) {
+  static toCidadeResponse(cidade: Cidade): CidadeResponse {
     return plainToInstance(CidadeResponse, cidade, {
       excludeExtraneousValues: true,
     });

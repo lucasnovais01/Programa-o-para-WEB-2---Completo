@@ -30,7 +30,10 @@ let CidadeServiceFindOne = class CidadeServiceFindOne {
             .createQueryBuilder('cidade')
             .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
             .getOne();
-        return cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
+        if (!cidade) {
+            throw new Error('Cidade não localizada ');
+        }
+        return cidade ? cidade_converter_1.ConverterCidade.toCidadeResponse(cidade) : null;
     }
 };
 exports.CidadeServiceFindOne = CidadeServiceFindOne;
