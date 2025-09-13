@@ -24,8 +24,15 @@ let CidadeServiceRemove = class CidadeServiceRemove {
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    remove() {
-        return null;
+    async remove(idCidade) {
+        const cidadeCadastrada = this.cidadeRepository.findOne;
+        createQueryBuilder(cidade)
+            .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
+            .getOne();
+        if (cidadeCadastrada?.idCidade) {
+            throw new Error('Cidade não localizada');
+        }
+        await this.cidadeRepository.delete(cidadeCadastrada.idCidade);
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;

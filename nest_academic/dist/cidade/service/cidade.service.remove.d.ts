@@ -4,5 +4,5 @@ export declare class CidadeServiceRemove {
     private cidadeRepository;
     private cidade;
     constructor(cidadeRepository: Repository<Cidade>);
-    remove(): null;
+    remove(idCidade: number): Promise<void>;
 }

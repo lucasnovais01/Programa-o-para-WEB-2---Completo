@@ -15,19 +15,27 @@ export class CidadeServiceRemove {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  remove() {
-    return null;
-  }
-  /*
-  remove(id: number) {
-    const cidadeIndex = this.cidade.findIndex((c) => c.idCidade === id);
+  async remove(idCidade: number): Promise<void> {
+    const cidadeCadastrada = this.cidadeRepository.findOne;
+      .createQueryBuilder(cidade)
+      .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
+      .getOne();
 
-    this.cidade.splice(cidadeIndex, 1);
-
-    return this.cidade;
+    if (cidadeCadastrada?.idCidade) {
+      throw new Error('Cidade não localizada');
+    }
+    await this.cidadeRepository.delete(cidadeCadastrada.idCidade);
   }
-  */
 }
+/*
+remove(id: number) {
+  const cidadeIndex = this.cidade.findIndex((c) => c.idCidade === id);
+
+  this.cidade.splice(cidadeIndex, 1);
+
+  return this.cidade;
+}
+*/
 
 /*
   constructor() {}

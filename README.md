@@ -72,3 +72,7 @@ O all-files.txt foi criado usando o:
 git rev-list --objects --all | sort -k 2 > all-files.txt
 
 git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10
+
+
+testar depois no POSTMAN
+http://localhost:8000/rest/sistema/cidade/buscar/10
