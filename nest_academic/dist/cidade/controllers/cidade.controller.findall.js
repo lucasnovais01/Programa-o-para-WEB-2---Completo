@@ -18,8 +18,9 @@ let CidadeControllerFindAll = class CidadeControllerFindAll {
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
-    findAll() {
-        return 'Listar todas as cidades do banco de dados';
+    async findAll() {
+        const response = await this.cidadeServiceFindAll.findAll();
+        return response;
     }
 };
 exports.CidadeControllerFindAll = CidadeControllerFindAll;
@@ -28,7 +29,7 @@ __decorate([
     (0, common_1.Get)(url_sistema_1.ROTA.CIDADE.LIST),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], CidadeControllerFindAll.prototype, "findAll", null);
 exports.CidadeControllerFindAll = CidadeControllerFindAll = __decorate([
     (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),

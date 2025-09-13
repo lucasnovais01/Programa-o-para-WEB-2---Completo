@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import Joi from 'joi';
 import { CidadeModule } from 'src/cidade/cidade.module';
+//import { Cidade } from 'src/cidade/entity/cidade.entity';
 
 const oracledb = require('oracledb');
 
@@ -46,6 +47,7 @@ oracledb.initOracleClient({
         autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
         synchronize: configService.get('DATABASE_SYNCHRONIZE'),
         logging: ['query', 'error'],
+        //entities: [Cidade],
       }),
     }),
     CidadeModule,

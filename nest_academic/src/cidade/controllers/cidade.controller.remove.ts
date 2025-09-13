@@ -3,8 +3,8 @@ import {
   Delete,
   HttpCode,
   HttpStatus,
-  Param,
-  ParseIntPipe,
+  //Param,
+  //ParseIntPipe,
 } from '@nestjs/common';
 import { CidadeServiceRemove } from '../service/cidade.service.remove';
 import { ROTA } from 'src/commons/constants/url.sistema';
@@ -15,9 +15,16 @@ export class CidadeControllerRemove {
 
   @HttpCode(HttpStatus.OK) //O correto é o NO_CONTENT, a exclusão sempre retorna NO_CONTENT
   @Delete(ROTA.CIDADE.DELETE)
+  remove() {
+    return null;
+  }
+  /*
+
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.cidadeServiceRemove.remove(id);
   }
+
+  */
 }
 /*
     const response = this.cidadeServiceRemove.remove(id, cidadeRequest);

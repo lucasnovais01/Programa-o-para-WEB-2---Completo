@@ -1,6 +1,7 @@
 import { Controller, Get, HttpCode, HttpStatus } from '@nestjs/common';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 import { ROTA } from 'src/commons/constants/url.sistema';
+import { CidadeResponse } from '../dto/response/cidade.response';
 
 @Controller(ROTA.CIDADE.BASE)
 //PascalCamel
@@ -9,8 +10,9 @@ export class CidadeControllerFindAll {
 
   @HttpCode(HttpStatus.OK) // 200
   @Get(ROTA.CIDADE.LIST)
-  findAll() {
-    return 'Listar todas as cidades do banco de dados';
+  async findAll(): Promise<CidadeResponse[]> {
+    const response = await this.cidadeServiceFindAll.findAll();
+    return response;
   }
 }
 

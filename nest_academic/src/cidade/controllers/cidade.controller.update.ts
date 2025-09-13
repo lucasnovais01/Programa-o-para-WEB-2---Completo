@@ -3,11 +3,11 @@ import {
   Controller,
   HttpCode,
   HttpStatus,
-  Param,
-  ParseIntPipe,
+  //Param,
+  //ParseIntPipe,
   Put,
 } from '@nestjs/common';
-import { CidadeRequest } from '../dto/request/cidade.request';
+//import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeServiceUpdate } from '../service/cidade.service.update';
 import { ROTA } from 'src/commons/constants/url.sistema';
 
@@ -18,6 +18,11 @@ export class CidadeControllerUpdate {
   @HttpCode(HttpStatus.OK)
   @Put(ROTA.CIDADE.UPDATE)
   // o método PUT envia o objeto a ser persistido, a ser modificado
+  update() {
+    return null;
+  }
+  /*
+
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() cidadeRequest: CidadeRequest,
@@ -26,4 +31,6 @@ export class CidadeControllerUpdate {
     const response = this.cidadeServiceUpdate.update(id, cidadeRequest);
     return response;
   }
+  
+  */
 }

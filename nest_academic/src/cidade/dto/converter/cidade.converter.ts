@@ -1,6 +1,7 @@
 import { Cidade } from 'src/cidade/entity/cidade.entity';
 import { CidadeRequest } from '../request/cidade.request';
 import { CidadeResponse } from '../response/cidade.response';
+import { plainToInstance } from 'class-transformer';
 
 export class ConverterCidade {
   static toCidade(cidadeRequest: CidadeRequest) {
@@ -16,6 +17,20 @@ export class ConverterCidade {
     return cidade;
   }
   static toCidadeResponse(cidade: Cidade) {
+    return plainToInstance(CidadeResponse, cidade, {
+      excludeExtraneousValues: true,
+    });
+  }
+  static toListCidadeResponse(cidades: Cidade[] = []) {
+    return plainToInstance(CidadeResponse, cidades, {
+      excludeExtraneousValues: true,
+    });
+  }
+}
+
+/*Outra forma de escrever
+
+  static toCidadeResponse(cidade: Cidade) {
     const cidadeResponse = new CidadeResponse();
 
     cidadeResponse.idCidade = cidade.idCidade ?? 0;
@@ -23,5 +38,4 @@ export class ConverterCidade {
     cidadeResponse.nomeCidade = cidade.nomeCidade;
 
     return cidadeResponse;
-  }
-}
+*/

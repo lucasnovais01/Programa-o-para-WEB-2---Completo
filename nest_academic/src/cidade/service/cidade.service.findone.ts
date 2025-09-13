@@ -3,6 +3,8 @@ import { tabelaCidade } from './tabela.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cidade } from '../entity/cidade.entity';
+import { CidadeResponse } from '../dto/response/cidade.response';
+import { ConverterCidade } from '../dto/converter/cidade.converter';
 
 @Injectable()
 export class CidadeServiceFindOne {
@@ -13,8 +15,15 @@ export class CidadeServiceFindOne {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  findOne() {
-    return null;
+  async findOne(idCidade: number): Promise<CidadeResponse> {
+    const cidade = await this.cidadeRepository
+      .createQueryBuilder('cidade')
+      .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
+      .getOne();
+
+    // é isto que ele ta falando pro banco: 'SELECT * FROM CIDADE cidade WHERE cidade.idCidade = idCidade'
+
+    return ConverterCidade.toCidadeResponse(cidade);
   }
   /*
   findOne(id: number) {

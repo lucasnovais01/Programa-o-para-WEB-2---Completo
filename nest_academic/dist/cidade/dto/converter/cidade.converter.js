@@ -3,6 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ConverterCidade = void 0;
 const cidade_entity_1 = require("../../entity/cidade.entity");
 const cidade_response_1 = require("../response/cidade.response");
+const class_transformer_1 = require("class-transformer");
 class ConverterCidade {
     static toCidade(cidadeRequest) {
         const cidade = new cidade_entity_1.Cidade();
@@ -14,11 +15,14 @@ class ConverterCidade {
         return cidade;
     }
     static toCidadeResponse(cidade) {
-        const cidadeResponse = new cidade_response_1.CidadeResponse();
-        cidadeResponse.idCidade = cidade.idCidade ?? 0;
-        cidadeResponse.codCidade = cidade.codCidade;
-        cidadeResponse.nomeCidade = cidade.nomeCidade;
-        return cidadeResponse;
+        return (0, class_transformer_1.plainToInstance)(cidade_response_1.CidadeResponse, cidade, {
+            excludeExtraneousValues: true,
+        });
+    }
+    static toListCidadeResponse(cidades = []) {
+        return (0, class_transformer_1.plainToInstance)(cidade_response_1.CidadeResponse, cidades, {
+            excludeExtraneousValues: true,
+        });
     }
 }
 exports.ConverterCidade = ConverterCidade;

@@ -18,6 +18,7 @@ const tabela_service_1 = require("./tabela.service");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
+const cidade_converter_1 = require("../dto/converter/cidade.converter");
 let CidadeServiceFindAll = class CidadeServiceFindAll {
     cidadeRepository;
     cidades = tabela_service_1.tabelaCidade;
@@ -28,7 +29,7 @@ let CidadeServiceFindAll = class CidadeServiceFindAll {
         const cidades = await this.cidadeRepository
             .createQueryBuilder('cidade')
             .getMany();
-        return cidades;
+        return cidade_converter_1.ConverterCidade.toListCidadeResponse(cidades);
     }
 };
 exports.CidadeServiceFindAll = CidadeServiceFindAll;
