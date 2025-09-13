@@ -13,10 +13,15 @@ export class CidadeServiceFindOne {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
+  findOne() {
+    return null;
+  }
+  /*
   findOne(id: number) {
     const cidade = this.cidade.find((c) => c.idCidade === id);
     return cidade;
   }
+  */
 }
 
 // Arrow Function = Cria uma função anônimo

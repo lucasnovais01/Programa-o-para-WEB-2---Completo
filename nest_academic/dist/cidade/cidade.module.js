@@ -18,6 +18,8 @@ const cidade_service_update_1 = require("./service/cidade.service.update");
 const cidade_service_remove_1 = require("./service/cidade.service.remove");
 const cidade_service_findall_1 = require("./service/cidade.service.findall");
 const cidade_service_findone_1 = require("./service/cidade.service.findone");
+const typeorm_1 = require("@nestjs/typeorm");
+const cidade_entity_1 = require("./entity/cidade.entity");
 const cidadeControllers = [
     cidade_controller_findall_1.CidadeControllerFindAll,
     cidade_controller_findone_1.CidadeControllerFindOne,
@@ -37,12 +39,12 @@ let CidadeModule = class CidadeModule {
 exports.CidadeModule = CidadeModule;
 exports.CidadeModule = CidadeModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [typeorm_1.TypeOrmModule.forFeature([cidade_entity_1.Cidade])],
         controllers: [
             ...cidadeControllers,
         ],
         providers: [...cidadeServices],
-        exports: [...cidadeServices],
+        exports: [typeorm_1.TypeOrmModule, ...cidadeServices],
     })
 ], CidadeModule);
 //# sourceMappingURL=cidade.module.js.map

@@ -1,6 +1,8 @@
-import { CidadeRequest } from '../dto/request/cidade.request';
+import { Cidade } from '../entity/cidade.entity';
+import { Repository } from 'typeorm';
 export declare class CidadeServiceUpdate {
+    private cidadeRepository;
     private cidades;
-    constructor();
-    update(id: number, cidadeRequest: CidadeRequest): import("../dto/response/cidade.response").CidadeResponse;
+    constructor(cidadeRepository: Repository<Cidade>);
+    update(): null;
 }

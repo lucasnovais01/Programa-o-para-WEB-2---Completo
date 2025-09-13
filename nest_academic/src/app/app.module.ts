@@ -6,7 +6,7 @@ import { CidadeModule } from 'src/cidade/cidade.module';
 
 const oracledb = require('oracledb');
 
-oracledb.initOracleClient ({
+oracledb.initOracleClient({
   libDir: 'D:/.Lucas Novais/oracle/client',
 });
 
@@ -32,7 +32,7 @@ oracledb.initOracleClient ({
       }),
     }),
 
-    TypeOrmModule.forRootaAsync ({
+    TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({

@@ -8,22 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceRemove = void 0;
 const common_1 = require("@nestjs/common");
 const tabela_service_1 = require("./tabela.service");
+const typeorm_1 = require("@nestjs/typeorm");
+const cidade_entity_1 = require("../entity/cidade.entity");
+const typeorm_2 = require("typeorm");
 let CidadeServiceRemove = class CidadeServiceRemove {
+    cidadeRepository;
     cidade = tabela_service_1.tabelaCidade;
-    constructor() { }
-    remove(id) {
-        const cidadeIndex = this.cidade.findIndex((c) => c.idCidade === id);
-        this.cidade.splice(cidadeIndex, 1);
-        return this.cidade;
+    constructor(cidadeRepository) {
+        this.cidadeRepository = cidadeRepository;
+    }
+    remove() {
+        return null;
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;
 exports.CidadeServiceRemove = CidadeServiceRemove = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __param(0, (0, typeorm_1.InjectRepository)(cidade_entity_1.Cidade)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], CidadeServiceRemove);
 //# sourceMappingURL=cidade.service.remove.js.map

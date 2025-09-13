@@ -14,10 +14,21 @@ export class CidadeServiceFindAll {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  findAll(/*id: string, cidadeRequest: CidadeRequest*/) {
-    return this.cidades;
+  //async E await são comandos que sempre aparece juntos
+
+  async findAll(): Promise<Cidade[]> {
+    const cidades = await this.cidadeRepository
+      .createQueryBuilder('cidade')
+      .getMany();
+
+    return cidades;
   }
 }
+/*
+findAll(/*id: string, cidadeRequest: CidadeRequest*/ /*) {
+  return this.cidades;
+}
+*/
 
 /*
 const cidade = ConverterCidade.toCidade(cidadeRequest);

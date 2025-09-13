@@ -8,29 +8,30 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceCreate = void 0;
 const common_1 = require("@nestjs/common");
-const cidade_converter_1 = require("../dto/converter/cidade.converter");
 const tabela_service_1 = require("./tabela.service");
+const typeorm_1 = require("typeorm");
+const cidade_entity_1 = require("../entity/cidade.entity");
+const typeorm_2 = require("@nestjs/typeorm");
 let CidadeServiceCreate = class CidadeServiceCreate {
+    cidadeRepository;
     cidades = tabela_service_1.tabelaCidade;
-    constructor() { }
-    create(cidadeRequest) {
-        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
-        const newIdCidade = this.cidades.length + 1;
-        const newCidade = {
-            ...cidade,
-            idCidade: newIdCidade,
-        };
-        this.cidades.push(newCidade);
-        const cidadeResponse = cidade_converter_1.ConverterCidade.toCidadeResponse(newCidade);
-        return cidadeResponse;
+    constructor(cidadeRepository) {
+        this.cidadeRepository = cidadeRepository;
+    }
+    create() {
+        return null;
     }
 };
 exports.CidadeServiceCreate = CidadeServiceCreate;
 exports.CidadeServiceCreate = CidadeServiceCreate = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __param(0, (0, typeorm_2.InjectRepository)(cidade_entity_1.Cidade)),
+    __metadata("design:paramtypes", [typeorm_1.Repository])
 ], CidadeServiceCreate);
 //# sourceMappingURL=cidade.service.create.js.map

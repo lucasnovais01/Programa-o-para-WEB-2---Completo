@@ -15,6 +15,10 @@ export class CidadeServiceRemove {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
+  remove() {
+    return null;
+  }
+  /*
   remove(id: number) {
     const cidadeIndex = this.cidade.findIndex((c) => c.idCidade === id);
 
@@ -22,6 +26,7 @@ export class CidadeServiceRemove {
 
     return this.cidade;
   }
+  */
 }
 
 /*

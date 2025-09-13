@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { CidadeRequest } from '../dto/request/cidade.request';
-import { ConverterCidade } from '../dto/converter/cidade.converter';
+//import { CidadeRequest } from '../dto/request/cidade.request';
+//import { ConverterCidade } from '../dto/converter/cidade.converter';
 import { tabelaCidade } from './tabela.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cidade } from '../entity/cidade.entity';
@@ -15,7 +15,13 @@ export class CidadeServiceUpdate {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
+  update() {
+    return null;
+  }
+
+  /*
   update(id: number, cidadeRequest: CidadeRequest) {
+    
     const cidade = ConverterCidade.toCidade(cidadeRequest);
 
     const cidadeIndex = this.cidades.findIndex((c) => c.idCidade === id);
@@ -32,5 +38,7 @@ export class CidadeServiceUpdate {
     );
 
     return cidadeResponse;
+    
   }
+  */
 }

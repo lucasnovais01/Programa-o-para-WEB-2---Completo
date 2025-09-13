@@ -1,9 +1,8 @@
+import { Cidade } from '../entity/cidade.entity';
+import { Repository } from 'typeorm';
 export declare class CidadeServiceRemove {
+    private cidadeRepository;
     private cidade;
-    constructor();
-    remove(id: number): {
-        idCidade: number;
-        codCidade: string;
-        nomeCidade: string;
-    }[];
+    constructor(cidadeRepository: Repository<Cidade>);
+    remove(): null;
 }

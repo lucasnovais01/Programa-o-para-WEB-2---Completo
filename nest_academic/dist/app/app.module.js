@@ -40,7 +40,7 @@ exports.AppModule = AppModule = __decorate([
                     DATABASE_ROW_NUMBER: joi_1.default.boolean().default(true),
                 }),
             }),
-            typeorm_1.TypeOrmModule.forRootaAsync({
+            typeorm_1.TypeOrmModule.forRootAsync({
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
                 useFactory: (configService) => ({

@@ -10,19 +10,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cidade = void 0;
-let Cidade = class Cidade {
+const typeorm_1 = require("typeorm");
+let Cidade = class Cidade extends typeorm_1.BaseEntity {
     idCidade = 0;
     codCidade = '';
     nomeCidade = '';
+    constructor(data = {}) {
+        super();
+        Object.assign(this, data);
+    }
 };
 exports.Cidade = Cidade;
 __decorate([
-    PrimaryColumn(),
-    PrimaryGeneratedColumn(),
+    (0, typeorm_1.PrimaryGeneratedColumn)('increment', {
+        name: 'ID_CIDADE',
+        type: 'number',
+    }),
     __metadata("design:type", Number)
 ], Cidade.prototype, "idCidade", void 0);
 __decorate([
-    Column({
+    (0, typeorm_1.Column)({
         name: 'COD_CIDADE',
         type: 'varchar2',
         length: 10,
@@ -30,19 +37,11 @@ __decorate([
     __metadata("design:type", String)
 ], Cidade.prototype, "codCidade", void 0);
 __decorate([
-    Column({ name: 'COD_CIDADE',
-        type: 'varchar2',
-        length: 20,
-    }),
+    (0, typeorm_1.Column)({ name: 'COD_CIDADE', type: 'varchar2', length: 20 }),
     __metadata("design:type", String)
 ], Cidade.prototype, "nomeCidade", void 0);
 exports.Cidade = Cidade = __decorate([
-    Entity('CIDADE')
+    (0, typeorm_1.Entity)('CIDADE'),
+    __metadata("design:paramtypes", [Object])
 ], Cidade);
-{ }
-{
-    super
-        .
-    ;
-}
 //# sourceMappingURL=cidade.entity.js.map

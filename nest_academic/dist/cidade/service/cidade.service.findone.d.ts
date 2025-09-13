@@ -1,9 +1,8 @@
+import { Repository } from 'typeorm';
+import { Cidade } from '../entity/cidade.entity';
 export declare class CidadeServiceFindOne {
+    private cidadeRepository;
     private cidade;
-    constructor();
-    findOne(id: number): {
-        idCidade: number;
-        codCidade: string;
-        nomeCidade: string;
-    } | undefined;
+    constructor(cidadeRepository: Repository<Cidade>);
+    findOne(): null;
 }
