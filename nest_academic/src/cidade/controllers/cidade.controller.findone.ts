@@ -3,11 +3,12 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  //Param,
-  //ParseIntPipe,
+  Param,
+  ParseIntPipe,
 } from '@nestjs/common';
 import { CidadeServiceFindOne } from '../service/cidade.service.findone';
 import { ROTA } from 'src/commons/constants/url.sistema';
+import { CidadeResponse } from '../dto/response/cidade.response';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindOne {
@@ -15,8 +16,12 @@ export class CidadeControllerFindOne {
 
   @HttpCode(HttpStatus.OK) // 200
   @Get(ROTA.CIDADE.BY_ID)
-  findOne() {
-    return null;
+  async findOne(
+    @Param('id', ParseIntPipe) id: number,
+  ): Promise<CidadeResponse | null> {
+    const response = await this.cidadeServiceFindOne.findOne(+id);
+
+    return response;
   }
   /*
 
