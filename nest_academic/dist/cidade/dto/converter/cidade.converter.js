@@ -5,6 +5,15 @@ const cidade_entity_1 = require("../../entity/cidade.entity");
 const cidade_response_1 = require("../response/cidade.response");
 const class_transformer_1 = require("class-transformer");
 class ConverterCidade {
+    static ConverterCidade(cidade) {
+        throw new Error('Method not implemented.');
+    }
+    static ConverterCidade(cidade) {
+        throw new Error('Method not implemented.');
+    }
+    static ConverterCidade(cidade) {
+        throw new Error('Method not implemented.');
+    }
     static toCidade(cidadeRequest) {
         const cidade = new cidade_entity_1.Cidade();
         if (cidadeRequest.idCidade != null) {

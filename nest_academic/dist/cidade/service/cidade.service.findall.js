@@ -14,14 +14,12 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceFindAll = void 0;
 const common_1 = require("@nestjs/common");
-const tabela_service_1 = require("./tabela.service");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_1 = require("typeorm");
 const typeorm_2 = require("@nestjs/typeorm");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
 let CidadeServiceFindAll = class CidadeServiceFindAll {
     cidadeRepository;
-    cidades = tabela_service_1.tabelaCidade;
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }

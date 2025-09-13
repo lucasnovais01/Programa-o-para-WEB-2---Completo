@@ -10,7 +10,7 @@ import { ConverterCidade } from '../dto/converter/cidade.converter';
 
 @Injectable()
 export class CidadeServiceFindAll {
-  private cidades = tabelaCidade;
+  //private cidades = tabelaCidade;
   constructor(
     @InjectRepository(Cidade)
     private cidadeRepository: Repository<Cidade>,

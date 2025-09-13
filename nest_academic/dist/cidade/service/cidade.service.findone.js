@@ -14,18 +14,16 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceFindOne = void 0;
 const common_1 = require("@nestjs/common");
-const tabela_service_1 = require("./tabela.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
 let CidadeServiceFindOne = class CidadeServiceFindOne {
     cidadeRepository;
-    cidade = tabela_service_1.tabelaCidade;
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    async findOne(idCidade) {
+    async findById(idCidade) {
         const cidade = await this.cidadeRepository
             .createQueryBuilder('cidade')
             .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })

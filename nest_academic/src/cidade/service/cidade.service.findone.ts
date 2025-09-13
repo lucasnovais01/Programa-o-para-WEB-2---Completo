@@ -1,21 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { tabelaCidade } from './tabela.service';
+//import { tabelaCidade } from './tabela.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Cidade } from '../entity/cidade.entity';
-import { CidadeResponse } from '../dto/response/cidade.response';
+//import { CidadeResponse } from '../dto/response/cidade.response';
 import { ConverterCidade } from '../dto/converter/cidade.converter';
 
 @Injectable()
 export class CidadeServiceFindOne {
-  private cidade = tabelaCidade;
+  //private cidade = tabelaCidade;
 
   constructor(
     @InjectRepository(Cidade)
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  async findOne(idCidade: number): Promise<CidadeResponse | null> {
+  async findById(idCidade: number): Promise<Cidade | null> {
     const cidade = await this.cidadeRepository
       .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })

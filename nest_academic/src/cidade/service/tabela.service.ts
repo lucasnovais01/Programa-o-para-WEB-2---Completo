@@ -1,3 +1,5 @@
+/* Não serve mais, pode apagar este arquivo
+
 export const tabelaCidade = [
   {
     idCidade: 1,
@@ -25,3 +27,4 @@ export const tabelaCidade = [
     nomeCidade: 'Brejo Alegre',
   },
 ];
+*/

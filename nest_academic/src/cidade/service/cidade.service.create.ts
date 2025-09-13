@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 //import { ConverterCidade } from '../dto/converter/cidade.converter';
 //import { CidadeRequest } from '../dto/request/cidade.request';
-import { tabelaCidade } from './tabela.service';
+//import { tabelaCidade } from './tabela.service';
 import { Repository } from 'typeorm';
 import { Cidade } from '../entity/cidade.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class CidadeServiceCreate {
-  private cidades = tabelaCidade;
+  //private cidades = tabelaCidade;
 
   constructor(
     @InjectRepository(Cidade)

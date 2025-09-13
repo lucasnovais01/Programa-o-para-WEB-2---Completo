@@ -3,7 +3,6 @@ import { Repository } from 'typeorm';
 import { CidadeResponse } from '../dto/response/cidade.response';
 export declare class CidadeServiceFindAll {
     private cidadeRepository;
-    private cidades;
     constructor(cidadeRepository: Repository<Cidade>);
     findAll(): Promise<CidadeResponse[]>;
 }

@@ -4,6 +4,15 @@ import { CidadeResponse } from '../response/cidade.response';
 import { plainToInstance } from 'class-transformer';
 
 export class ConverterCidade {
+  static ConverterCidade(cidade: Cidade): Cidade | PromiseLike<Cidade | null> | null {
+    throw new Error('Method not implemented.');
+  }
+  static ConverterCidade(cidade: Cidade): Cidade | PromiseLike<Cidade | null> | null {
+    throw new Error('Method not implemented.');
+  }
+  static ConverterCidade(cidade: Cidade): Cidade | PromiseLike<Cidade | null> | null {
+    throw new Error('Method not implemented.');
+  }
   static toCidade(cidadeRequest: CidadeRequest) {
     //vai receber o cidadeRequest, que é do tipo CidadeRequest
     const cidade = new Cidade();
