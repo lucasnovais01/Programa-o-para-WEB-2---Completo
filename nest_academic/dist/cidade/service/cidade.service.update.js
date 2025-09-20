@@ -26,12 +26,14 @@ let CidadeServiceUpdate = class CidadeServiceUpdate {
         this.cidadeRepository = cidadeRepository;
         this.cidadeServiceFindOne = cidadeServiceFindOne;
     }
-    update(id, cidadeRequest) {
-        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
-        const cidadeCadastrada = this.cidadeServiceFindOne;
-        if (cidadeCadastrada) {
-            throw new Error('Cidade não cadastrada');
+    async update(id, cidadeRequest) {
+        let cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
+        const cidadeCadastrada = await this.cidadeServiceFindOne.findById(idCidade);
+        if (!cidadeCadastrada) {
+            throw new common_1.HttpException('Cidade não cadastrada', common_1.HttpStatus.NOT_FOUND);
         }
+        const cidadeAtualizada = Object.assign(cidadeCadastrada, cidade);
+        cidade = await this.cidadeRepository.save(cidadeAtualizada);
         return null;
     }
 };
