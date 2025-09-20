@@ -34,7 +34,7 @@ let CidadeServiceUpdate = class CidadeServiceUpdate {
         }
         const cidadeAtualizada = Object.assign(cidadeCadastrada, cidade);
         cidade = await this.cidadeRepository.save(cidadeAtualizada);
-        return null;
+        return cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
     }
 };
 exports.CidadeServiceUpdate = CidadeServiceUpdate;

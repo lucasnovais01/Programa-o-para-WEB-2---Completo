@@ -37,7 +37,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsNotEmpty)({ message: 'Nome da ciadade deve ser informado' }),
     (0, class_validator_1.IsString)({ message: 'A informação só pode conter somente texto' }),
-    (0, class_validator_1.MaxLength)(10, {
+    (0, class_validator_1.MaxLength)(50, {
         message: 'O tamanho máximo é de 10 caracteres para o nome da cidade',
     }),
     __metadata("design:type", String)

@@ -15,7 +15,7 @@ export class CidadeRequest {
 
   @IsNotEmpty({ message: 'Nome da ciadade deve ser informado' })
   @IsString({ message: 'A informação só pode conter somente texto' })
-  @MaxLength(10, {
+  @MaxLength(50, {
     message: 'O tamanho máximo é de 10 caracteres para o nome da cidade',
   })
   nomeCidade: string = '';

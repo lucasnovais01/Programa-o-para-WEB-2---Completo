@@ -34,7 +34,7 @@ export class CidadeServiceUpdate {
 
     cidade = await this.cidadeRepository.save(cidadeAtualizada);
 
-    return null;
+    return ConverterCidade.toCidadeResponse(cidade);
   }
 
   /*
