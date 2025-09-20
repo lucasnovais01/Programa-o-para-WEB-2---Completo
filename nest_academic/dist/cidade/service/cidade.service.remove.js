@@ -17,26 +17,34 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_2 = require("typeorm");
+const cidade_service_findone_1 = require("./cidade.service.findone");
 let CidadeServiceRemove = class CidadeServiceRemove {
     cidadeRepository;
-    constructor(cidadeRepository) {
+    service;
+    constructor(cidadeRepository, service) {
         this.cidadeRepository = cidadeRepository;
+        this.service = service;
     }
     async remove(idCidade) {
-        const cidadeCadastrada = this.cidadeRepository.findById(idCidade);
-        createQueryBuilder(cidade)
+        const cidadeCadastrada = await this.cidadeRepository.findById(idCidade);
+        createQueryBuilder('cidade')
             .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
             .getOne();
         if (cidadeCadastrada?.idCidade) {
             throw new Error('Cidade não localizada');
         }
-        await this.cidadeRepository.delete(cidadeCadastrada.idCidade);
+        await this.cidadeRepository
+            .createQueryBuilder('cidade')
+            .delete(cidadeCadastrada.idCidade)
+            .from(cidade_entity_1.Cidade)
+            .where('cidade.ID_CIDADE = idCidade', idCidade, cidadeCadastrada.idCidade);
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;
 exports.CidadeServiceRemove = CidadeServiceRemove = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(cidade_entity_1.Cidade)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        cidade_service_findone_1.CidadeServiceFindOne])
 ], CidadeServiceRemove);
 //# sourceMappingURL=cidade.service.remove.js.map

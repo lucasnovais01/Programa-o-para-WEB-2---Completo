@@ -5,28 +5,36 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cidade } from '../entity/cidade.entity';
 import { Repository } from 'typeorm';
+import { CidadeServiceFindOne } from './cidade.service.findone';
 
 @Injectable()
 export class CidadeServiceRemove {
-  //private cidade = tabelaCidade;
-
   constructor(
     @InjectRepository(Cidade)
     private cidadeRepository: Repository<Cidade>,
+    private readonly service: CidadeServiceFindOne,
   ) {}
 
   async remove(idCidade: number): Promise<void> {
-    const cidadeCadastrada = this.cidadeRepository.findById(idCidade); //trocado findOne por findById
-      .createQueryBuilder(cidade)
+    const cidadeCadastrada = await this.cidadeRepository.findById(idCidade); //trocado findOne por findById
+      .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
       .getOne();
 
     if (cidadeCadastrada?.idCidade) {
       throw new Error('Cidade não localizada');
     }
-    await this.cidadeRepository.delete(cidadeCadastrada.idCidade);
+
+    await this.cidadeRepository
+      .createQueryBuilder('cidade')
+      .delete(cidadeCadastrada.idCidade)
+      .from(Cidade)
+      .where('cidade.ID_CIDADE = idCidade'
+        idCidade: cidadeCadastrada.idCidade
+      )
   }
 }
+
 /*
 remove(id: number) {
   const cidadeIndex = this.cidade.findIndex((c) => c.idCidade === id);

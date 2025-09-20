@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeResponse = void 0;
 const class_transformer_1 = require("class-transformer");
 class CidadeResponse {
-    idCidade = 0;
+    idCidade;
     codCidade = '';
     nomeCidade = '';
 }

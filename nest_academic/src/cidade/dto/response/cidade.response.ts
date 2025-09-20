@@ -4,7 +4,7 @@ export class CidadeResponse {
   // Todo campo que é permitido ao cliente ver
 
   @Expose()
-  idCidade: number = 0;
+  idCidade?: number;
 
   @Expose()
   codCidade: string = '';

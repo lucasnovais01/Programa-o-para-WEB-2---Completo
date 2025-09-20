@@ -8,12 +8,6 @@ class ConverterCidade {
     static ConverterCidade(cidade) {
         throw new Error('Method not implemented.');
     }
-    static ConverterCidade(cidade) {
-        throw new Error('Method not implemented.');
-    }
-    static ConverterCidade(cidade) {
-        throw new Error('Method not implemented.');
-    }
     static toCidade(cidadeRequest) {
         const cidade = new cidade_entity_1.Cidade();
         if (cidadeRequest.idCidade != null) {

@@ -14,6 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceCreate = void 0;
 const common_1 = require("@nestjs/common");
+const cidade_converter_1 = require("../dto/converter/cidade.converter");
 const typeorm_1 = require("typeorm");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_2 = require("@nestjs/typeorm");
@@ -22,7 +23,15 @@ let CidadeServiceCreate = class CidadeServiceCreate {
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    create() {
+    async create(cidadeRequest) {
+        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
+        const cidadeCadastrada = await this.cidadeRepository
+            .createQueryBuilder('cidade')
+            .where('cidade.nomeCidade =:nome', { nome: cidade.nomeCidade })
+            .getOne();
+        if (cidadeCadastrada) {
+            throw new common_1.HttpException('A cidade com o nome informado já está cadastrada', common_1.HttpStatus.BAD_REQUEST);
+        }
         return null;
     }
 };

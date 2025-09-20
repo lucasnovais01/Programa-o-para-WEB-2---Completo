@@ -29,9 +29,9 @@ let CidadeServiceFindOne = class CidadeServiceFindOne {
             .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
             .getOne();
         if (!cidade) {
-            throw new Error('Cidade não localizada ');
+            throw new common_1.HttpException('Cidade não cadastrada', common_1.HttpStatus.NOT_FOUND);
         }
-        return cidade ? cidade_converter_1.ConverterCidade.toCidadeResponse(cidade) : null;
+        return cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
     }
 };
 exports.CidadeServiceFindOne = CidadeServiceFindOne;
