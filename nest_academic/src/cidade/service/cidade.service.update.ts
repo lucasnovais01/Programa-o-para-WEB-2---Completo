@@ -24,7 +24,7 @@ export class CidadeServiceUpdate {
   ): Promise<CidadeResponse | null> {
     let cidade = ConverterCidade.toCidade(cidadeRequest);
 
-    const cidadeCadastrada = await this.cidadeServiceFindOne.findById(idCidade);
+    const cidadeCadastrada = await this.cidadeServiceFindOne.findById(id);
 
     if (!cidadeCadastrada) {
       throw new HttpException('Cidade não cadastrada', HttpStatus.NOT_FOUND);

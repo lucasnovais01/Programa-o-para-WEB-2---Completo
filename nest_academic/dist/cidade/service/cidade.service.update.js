@@ -28,7 +28,7 @@ let CidadeServiceUpdate = class CidadeServiceUpdate {
     }
     async update(id, cidadeRequest) {
         let cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
-        const cidadeCadastrada = await this.cidadeServiceFindOne.findById(idCidade);
+        const cidadeCadastrada = await this.cidadeServiceFindOne.findById(id);
         if (!cidadeCadastrada) {
             throw new common_1.HttpException('Cidade não cadastrada', common_1.HttpStatus.NOT_FOUND);
         }

@@ -17,16 +17,15 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_2 = require("typeorm");
-const cidade_service_findone_1 = require("./cidade.service.findone");
 let CidadeServiceRemove = class CidadeServiceRemove {
     cidadeRepository;
-    service;
-    constructor(cidadeRepository, service) {
+    constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
-        this.service = service;
     }
     async remove(idCidade) {
-        const cidadeCadastrada = await this.cidadeRepository.findOne(where, { idCidade });
+        const cidadeCadastrada = await this.cidadeRepository.findOne({
+            where: { idCidade },
+        });
         if (cidadeCadastrada?.idCidade) {
             throw new Error('Cidade não localizada');
         }
@@ -42,7 +41,6 @@ exports.CidadeServiceRemove = CidadeServiceRemove;
 exports.CidadeServiceRemove = CidadeServiceRemove = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(cidade_entity_1.Cidade)),
-    __metadata("design:paramtypes", [typeorm_2.Repository,
-        cidade_service_findone_1.CidadeServiceFindOne])
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], CidadeServiceRemove);
 //# sourceMappingURL=cidade.service.remove.js.map

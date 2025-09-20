@@ -2,18 +2,20 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cidade } from '../entity/cidade.entity';
 import { Repository } from 'typeorm';
-import { CidadeServiceFindOne } from './cidade.service.findone';
+//import { CidadeServiceFindOne } from './cidade.service.findone';
 
 @Injectable()
 export class CidadeServiceRemove {
   constructor(
     @InjectRepository(Cidade)
     private cidadeRepository: Repository<Cidade>,
-    private readonly service: CidadeServiceFindOne,
+    //private readonly service: CidadeServiceFindOne,
   ) {}
 
   async remove(idCidade: number): Promise<void> {
-      const cidadeCadastrada = await this.cidadeRepository.findOne( where: { idCidade } ); //trocado findOne por findById
+    const cidadeCadastrada = await this.cidadeRepository.findOne({
+      where: { idCidade },
+    }); //trocado findOne por findById
     /*
       .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
