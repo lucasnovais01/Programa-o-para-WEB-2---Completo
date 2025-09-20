@@ -1,7 +1,10 @@
+import { CidadeRequest } from '../dto/request/cidade.request';
 import { Cidade } from '../entity/cidade.entity';
 import { Repository } from 'typeorm';
+import { CidadeServiceFindOne } from './cidade.service.findone';
 export declare class CidadeServiceUpdate {
     private cidadeRepository;
-    constructor(cidadeRepository: Repository<Cidade>);
-    update(): null;
+    private cidadeServiceFindOne;
+    constructor(cidadeRepository: Repository<Cidade>, cidadeServiceFindOne: CidadeServiceFindOne);
+    update(id: number, cidadeRequest: CidadeRequest): null;
 }

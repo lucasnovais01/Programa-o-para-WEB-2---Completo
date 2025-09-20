@@ -24,7 +24,7 @@ let CidadeServiceCreate = class CidadeServiceCreate {
         this.cidadeRepository = cidadeRepository;
     }
     async create(cidadeRequest) {
-        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
+        let cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
         const cidadeCadastrada = await this.cidadeRepository
             .createQueryBuilder('cidade')
             .where('cidade.nomeCidade =:nome', { nome: cidade.nomeCidade })
@@ -32,7 +32,8 @@ let CidadeServiceCreate = class CidadeServiceCreate {
         if (cidadeCadastrada) {
             throw new common_1.HttpException('A cidade com o nome informado já está cadastrada', common_1.HttpStatus.BAD_REQUEST);
         }
-        return null;
+        cidade = await this.cidadeRepository.save(cidade);
+        return cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
     }
 };
 exports.CidadeServiceCreate = CidadeServiceCreate;

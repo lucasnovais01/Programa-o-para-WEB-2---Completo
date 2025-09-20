@@ -14,15 +14,24 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceUpdate = void 0;
 const common_1 = require("@nestjs/common");
+const cidade_converter_1 = require("../dto/converter/cidade.converter");
 const typeorm_1 = require("@nestjs/typeorm");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_2 = require("typeorm");
+const cidade_service_findone_1 = require("./cidade.service.findone");
 let CidadeServiceUpdate = class CidadeServiceUpdate {
     cidadeRepository;
-    constructor(cidadeRepository) {
+    cidadeServiceFindOne;
+    constructor(cidadeRepository, cidadeServiceFindOne) {
         this.cidadeRepository = cidadeRepository;
+        this.cidadeServiceFindOne = cidadeServiceFindOne;
     }
-    update() {
+    update(id, cidadeRequest) {
+        const cidade = cidade_converter_1.ConverterCidade.toCidade(cidadeRequest);
+        const cidadeCadastrada = this.cidadeServiceFindOne;
+        if (cidadeCadastrada) {
+            throw new Error('Cidade não cadastrada');
+        }
         return null;
     }
 };
@@ -30,6 +39,7 @@ exports.CidadeServiceUpdate = CidadeServiceUpdate;
 exports.CidadeServiceUpdate = CidadeServiceUpdate = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(cidade_entity_1.Cidade)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        cidade_service_findone_1.CidadeServiceFindOne])
 ], CidadeServiceUpdate);
 //# sourceMappingURL=cidade.service.update.js.map

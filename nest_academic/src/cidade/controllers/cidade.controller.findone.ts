@@ -23,14 +23,14 @@ export class CidadeControllerFindOne {
 
     return response;
   }
-  /*
-
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    const cidade = this.cidadeServiceFindOne.findOne(+id);
-    return cidade;
-  }
-  
-  */
 }
+/*
+
+findOne(@Param('id', ParseIntPipe) id: number) {
+  const cidade = this.cidadeServiceFindOne.findOne(+id);
+  return cidade;
+}
+
+*/
 
 // http://localhost:8000/cidade/listar/1

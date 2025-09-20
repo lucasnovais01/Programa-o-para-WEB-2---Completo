@@ -7,6 +7,7 @@ import { ConverterCidade } from '../dto/converter/cidade.converter';
 
 @Injectable()
 export class CidadeServiceFindOne {
+  idCidade: any;
   //private cidade = tabelaCidade;
 
   constructor(

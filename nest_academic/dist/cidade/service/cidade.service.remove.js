@@ -26,7 +26,7 @@ let CidadeServiceRemove = class CidadeServiceRemove {
         this.service = service;
     }
     async remove(idCidade) {
-        const cidadeCadastrada = await this.cidadeRepository.findById(idCidade);
+        const cidadeCadastrada = await this.cidadeRepository.findOne(idCidade);
         createQueryBuilder('cidade')
             .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
             .getOne();
@@ -35,9 +35,10 @@ let CidadeServiceRemove = class CidadeServiceRemove {
         }
         await this.cidadeRepository
             .createQueryBuilder('cidade')
-            .delete(cidadeCadastrada.idCidade)
+            .delete()
             .from(cidade_entity_1.Cidade)
-            .where('cidade.ID_CIDADE = idCidade', idCidade, cidadeCadastrada.idCidade);
+            .where('cidade.ID_CIDADE =:idCidade', { idCidade })
+            .execute();
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;

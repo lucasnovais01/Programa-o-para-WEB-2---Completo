@@ -5,6 +5,7 @@ import { CidadeRequest } from '../dto/request/cidade.request';
 import { Repository } from 'typeorm';
 import { Cidade } from '../entity/cidade.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CidadeResponse } from '../dto/response/cidade.response';
 
 @Injectable()
 export class CidadeServiceCreate {
@@ -15,8 +16,8 @@ export class CidadeServiceCreate {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  async create(cidadeRequest: CidadeRequest) {
-    const cidade = ConverterCidade.toCidade(cidadeRequest);
+  async create(cidadeRequest: CidadeRequest): Promise<CidadeResponse | null> {
+    let cidade = ConverterCidade.toCidade(cidadeRequest);
 
     const cidadeCadastrada = await this.cidadeRepository
       .createQueryBuilder('cidade')
@@ -30,7 +31,9 @@ export class CidadeServiceCreate {
       );
     }
 
-    return null;
+    cidade = await this.cidadeRepository.save(cidade);
+
+    return ConverterCidade.toCidadeResponse(cidade);
   }
 }
 /*

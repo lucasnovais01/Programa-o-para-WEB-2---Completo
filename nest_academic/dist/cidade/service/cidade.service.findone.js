@@ -20,6 +20,7 @@ const cidade_entity_1 = require("../entity/cidade.entity");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
 let CidadeServiceFindOne = class CidadeServiceFindOne {
     cidadeRepository;
+    idCidade;
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }

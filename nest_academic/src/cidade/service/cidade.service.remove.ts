@@ -1,7 +1,4 @@
-import { Injectable } from '@nestjs/common';
-//import { CidadeRequest } from '../dto/request/cidade.request';
-//import { ConverterCidade } from '../dto/converter/cidade.converter';
-//import { tabelaCidade } from './tabela.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cidade } from '../entity/cidade.entity';
 import { Repository } from 'typeorm';
@@ -16,7 +13,8 @@ export class CidadeServiceRemove {
   ) {}
 
   async remove(idCidade: number): Promise<void> {
-    const cidadeCadastrada = await this.cidadeRepository.findById(idCidade); //trocado findOne por findById
+    const cidadeCadastrada = await this.cidadeRepository.findOne(idCidade); //trocado findOne por findById
+
       .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
       .getOne();
@@ -27,11 +25,10 @@ export class CidadeServiceRemove {
 
     await this.cidadeRepository
       .createQueryBuilder('cidade')
-      .delete(cidadeCadastrada.idCidade)
+      .delete()
       .from(Cidade)
-      .where('cidade.ID_CIDADE = idCidade'
-        idCidade: cidadeCadastrada.idCidade
-      )
+      .where('cidade.ID_CIDADE =:idCidade', { idCidade })
+      .execute();
   }
 }
 
