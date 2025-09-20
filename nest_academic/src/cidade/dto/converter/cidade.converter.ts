@@ -5,6 +5,7 @@ import { plainToInstance } from 'class-transformer';
 
 export class ConverterCidade {
   static ConverterCidade(
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     cidade: Cidade,
   ): Cidade | PromiseLike<Cidade | null> | null {
     throw new Error('Method not implemented.');
