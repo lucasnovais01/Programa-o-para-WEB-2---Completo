@@ -18,7 +18,11 @@ export class Cidade extends BaseEntity {
   })
   codCidade: string = '';
 
-  @Column({ name: 'COD_CIDADE', type: 'varchar2', length: 20 })
+  @Column({
+    name: 'NOME_CIDADE',
+    type: 'varchar2',
+    length: 20,
+  })
   nomeCidade: string = '';
 
   constructor(data: Partial<Cidade> = {}) {

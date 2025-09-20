@@ -14,11 +14,14 @@ export class CidadeServiceFindOne {
     @InjectRepository(Cidade)
     private cidadeRepository: Repository<Cidade>,
   ) {}
+
   async findById(idCidade: number): Promise<CidadeResponse> {
-    const cidade = await this.cidadeRepository
+    const cidade = await this.cidadeRepository.findOne({ where: { idCidade } });
+    /*
       .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
       .getOne();
+    */
     // é isto que ele ta falando pro banco: 'SELECT * FROM CIDADE cidade WHERE cidade.idCidade = idCidade'
 
     if (!cidade) {

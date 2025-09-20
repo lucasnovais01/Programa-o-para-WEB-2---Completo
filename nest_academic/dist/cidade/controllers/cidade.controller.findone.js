@@ -22,7 +22,7 @@ let CidadeControllerFindOne = class CidadeControllerFindOne {
         this.cidadeServiceFindOne = cidadeServiceFindOne;
     }
     async findOne(id) {
-        const response = await this.cidadeServiceFindOne.findOne(+id);
+        const response = await this.cidadeServiceFindOne.findById(+id);
         return response;
     }
 };

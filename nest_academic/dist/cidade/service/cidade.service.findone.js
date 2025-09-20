@@ -25,10 +25,7 @@ let CidadeServiceFindOne = class CidadeServiceFindOne {
         this.cidadeRepository = cidadeRepository;
     }
     async findById(idCidade) {
-        const cidade = await this.cidadeRepository
-            .createQueryBuilder('cidade')
-            .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
-            .getOne();
+        const cidade = await this.cidadeRepository.findOne({ where: { idCidade } });
         if (!cidade) {
             throw new common_1.HttpException('Cidade não cadastrada', common_1.HttpStatus.NOT_FOUND);
         }

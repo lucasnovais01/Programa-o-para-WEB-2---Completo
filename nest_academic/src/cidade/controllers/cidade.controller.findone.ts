@@ -19,7 +19,7 @@ export class CidadeControllerFindOne {
   async findOne(
     @Param('id', ParseIntPipe) id: number,
   ): Promise<CidadeResponse | null> {
-    const response = await this.cidadeServiceFindOne.findOne(+id);
+    const response = await this.cidadeServiceFindOne.findById(+id);
 
     return response;
   }

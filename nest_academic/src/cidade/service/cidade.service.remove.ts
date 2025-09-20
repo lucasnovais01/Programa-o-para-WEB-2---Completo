@@ -13,12 +13,12 @@ export class CidadeServiceRemove {
   ) {}
 
   async remove(idCidade: number): Promise<void> {
-    const cidadeCadastrada = await this.cidadeRepository.findOne(idCidade); //trocado findOne por findById
-
+      const cidadeCadastrada = await this.cidadeRepository.findOne( where: { idCidade } ); //trocado findOne por findById
+    /*
       .createQueryBuilder('cidade')
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
       .getOne();
-
+    */
     if (cidadeCadastrada?.idCidade) {
       throw new Error('Cidade não localizada');
     }

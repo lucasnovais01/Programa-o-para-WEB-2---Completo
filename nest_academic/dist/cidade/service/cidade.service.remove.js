@@ -26,10 +26,7 @@ let CidadeServiceRemove = class CidadeServiceRemove {
         this.service = service;
     }
     async remove(idCidade) {
-        const cidadeCadastrada = await this.cidadeRepository.findOne(idCidade);
-        createQueryBuilder('cidade')
-            .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
-            .getOne();
+        const cidadeCadastrada = await this.cidadeRepository.findOne(where, { idCidade });
         if (cidadeCadastrada?.idCidade) {
             throw new Error('Cidade não localizada');
         }

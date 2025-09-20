@@ -37,7 +37,11 @@ __decorate([
     __metadata("design:type", String)
 ], Cidade.prototype, "codCidade", void 0);
 __decorate([
-    (0, typeorm_1.Column)({ name: 'COD_CIDADE', type: 'varchar2', length: 20 }),
+    (0, typeorm_1.Column)({
+        name: 'NOME_CIDADE',
+        type: 'varchar2',
+        length: 20,
+    }),
     __metadata("design:type", String)
 ], Cidade.prototype, "nomeCidade", void 0);
 exports.Cidade = Cidade = __decorate([
