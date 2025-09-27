@@ -37,6 +37,8 @@ export class CidadeControllerUpdate {
     );
   }
   /*
+    /rest/sistema/cidade/alterar/:id, PUT
+
 
   update(
     @Param('id', ParseIntPipe) id: number,

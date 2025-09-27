@@ -77,6 +77,20 @@ git verify-pack -v .git/objects/pack/*.idx | sort -k 3 -n | tail -10
 testar depois no POSTMAN
 http://localhost:8000/rest/sistema/cidade/buscar/10
 
-26-09-2025
+26-09-2025 - decorar abaixo:
+
+Ler e decorar do Moodle
+
+O que vai cair na prova: O que é um controller, o que é um service
 
 decorar o que é o PUT, GET, post, do HTML
+
+Todo dado numa função/tipagem, todo, sempre, primeiro os dados reais, e depois, os dados que podem ser opcionais
+Na função, nunca vai conseguir inverter a ordem
+
+No controller, TODA resposta dele é uma JSON
+
+
+Na classe de tratamento de erro (HttpExceptionFilter por exemplo), filtro de erros do sistema,
+ele NÃO CONVERTE para um JSON,
+O que requer colocar algo como status(status) para converter para um JSON 
