@@ -17,24 +17,26 @@ const common_1 = require("@nestjs/common");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_service_update_1 = require("../service/cidade.service.update");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
+const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 let CidadeControllerUpdate = class CidadeControllerUpdate {
     cidadeServiceUpdate;
     constructor(cidadeServiceUpdate) {
         this.cidadeServiceUpdate = cidadeServiceUpdate;
     }
-    async update(id, cidadeRequest) {
+    async update(res, id, cidadeRequest) {
         const response = await this.cidadeServiceUpdate.update(id, cidadeRequest);
-        return response;
+        return mensagem_sistema_1.MensagemSistema.showMessage(common_1.HttpStatus.OK, 'A cidade foi alterada com sucesso !', response, res.path, null);
     }
 };
 exports.CidadeControllerUpdate = CidadeControllerUpdate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Put)(url_sistema_1.ROTA.CIDADE.UPDATE),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Body)()),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
+    __param(2, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, cidade_request_1.CidadeRequest]),
+    __metadata("design:paramtypes", [Object, Number, cidade_request_1.CidadeRequest]),
     __metadata("design:returntype", Promise)
 ], CidadeControllerUpdate.prototype, "update", null);
 exports.CidadeControllerUpdate = CidadeControllerUpdate = __decorate([
