@@ -1,9 +1,8 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 export interface Result<T> {
   status: number;
   timestamp?: string;
   mensagem: string | null;
-  erro?: string | null | unknown;
+  erro?: string | null;
   dados?: T | null;
   path: string | null;
 }
@@ -12,7 +11,7 @@ export class Mensagem<T> {
   status: number = 0;
   timestamp?: string = '';
   mensagem: string | null = null;
-  erro?: string | unknown | null = null;
+  erro?: string | any | null = null;
   dados?: T | null;
   path: string | null = null;
 
@@ -20,9 +19,9 @@ export class Mensagem<T> {
     status: number,
     timestamp?: string,
     mensagem: string | null = null,
-    erro: string | unknown | null = null,
     dados: T | null = null,
     path: string | null = null,
+    erro: string | unknown | null = null,
   ) {
     this.status = status;
     this.mensagem = mensagem;

@@ -7,7 +7,7 @@ export function sendHttpResponse<T>(
   mensagem: string | null,
   dados: T | null,
   path: string | null,
-  erro: string | null,
+  erro: string | any,
 ) {
   return res
     .status(status)

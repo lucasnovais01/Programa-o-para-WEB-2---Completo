@@ -18,7 +18,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const message = exception.message;
     const erro = exception.cause;
 
-    return sendHttpResponse({
+    return sendHttpResponse(
       res,
       status,
       //Timestamp: new Date().toISOString(),  // não precisa mandar
@@ -26,6 +26,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       null,
       req.path,
       erro
-    });
+    );
   }
 }

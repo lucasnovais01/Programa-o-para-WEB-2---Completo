@@ -9,3 +9,4 @@ entregar pro cocão, 6 CLASSES, tendo 1:1, 1:N, e N:N (muito para muitos)
 
 ENUMERAR as classes,
 
+pergunta pro professor, mais sobre o que mandar
