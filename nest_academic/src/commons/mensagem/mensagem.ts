@@ -29,6 +29,7 @@ export class Mensagem<T> {
     this.erro = erro;
     this.path = path;
   }
+
   toJSON(): Result<T> {
     const result: Result<T> = {
       status: this.status,

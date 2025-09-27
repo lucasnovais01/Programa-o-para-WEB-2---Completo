@@ -1,4 +1,4 @@
-/* Não serve mais, pode apagar este arquivo
+// Não serve mais, pode apagar este arquivo
 
 export const tabelaCidade = [
   {
@@ -27,4 +27,3 @@ export const tabelaCidade = [
     nomeCidade: 'Brejo Alegre',
   },
 ];
-*/

@@ -8,27 +8,35 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerCreate = void 0;
 const common_1 = require("@nestjs/common");
+const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_service_create_1 = require("../service/cidade.service.create");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
+const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 let CidadeControllerCreate = class CidadeControllerCreate {
     cidadeServiceCreate;
     constructor(cidadeServiceCreate) {
         this.cidadeServiceCreate = cidadeServiceCreate;
     }
-    create() {
-        return null;
+    async create(res, cidadeRequest) {
+        const response = await this.cidadeServiceCreate.create(cidadeRequest);
+        return mensagem_sistema_1.MensagemSistema.showMessage(common_1.HttpStatus.CREATED, 'Cidade cadastrada com sucesso!!!', response, res.path, null);
     }
 };
 exports.CidadeControllerCreate = CidadeControllerCreate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, common_1.Post)(url_sistema_1.ROTA.CIDADE.CREATE),
+    __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:paramtypes", [Object, cidade_request_1.CidadeRequest]),
+    __metadata("design:returntype", Promise)
 ], CidadeControllerCreate.prototype, "create", null);
 exports.CidadeControllerCreate = CidadeControllerCreate = __decorate([
     (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),

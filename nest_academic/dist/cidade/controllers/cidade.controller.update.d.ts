@@ -1,6 +1,7 @@
+import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeServiceUpdate } from '../service/cidade.service.update';
 export declare class CidadeControllerUpdate {
     private readonly cidadeServiceUpdate;
     constructor(cidadeServiceUpdate: CidadeServiceUpdate);
-    update(): null;
+    update(id: number, cidadeRequest: CidadeRequest): Promise<import("../dto/response/cidade.response").CidadeResponse | null>;
 }

@@ -78,3 +78,5 @@ testar depois no POSTMAN
 http://localhost:8000/rest/sistema/cidade/buscar/10
 
 26-09-2025
+
+decorar o que é o PUT, GET, post, do HTML

@@ -7,10 +7,12 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
-  await app.listen(process.env.PORT ?? 5000); // Default to port 8000, pq no react é 3000
+  await app.listen(process.env.PORT ?? 8000); // Default to port 8000, pq no react é 3000
 }
 
 void bootstrap();
+
+// http://localhost:8000/rest/sistema/cidade/criar
 
 // http://localhost:8000
 
