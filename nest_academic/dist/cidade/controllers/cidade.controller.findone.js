@@ -24,7 +24,7 @@ let CidadeControllerFindOne = class CidadeControllerFindOne {
     }
     async findOne(req, id) {
         const response = await this.cidadeServiceFindOne.findById(+id);
-        return mensagem_sistema_1.MensagemSistema.showMessage(common_1.HttpStatus.OK, 'Cidade localizada com sucesso!', response, req.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade localizada com sucesso!', response, req.path, null);
     }
 };
 exports.CidadeControllerFindOne = CidadeControllerFindOne;

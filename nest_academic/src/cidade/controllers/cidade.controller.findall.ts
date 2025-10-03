@@ -16,7 +16,7 @@ export class CidadeControllerFindAll {
   async findAll(@Req() res: Request): Promise<Result<CidadeResponse[]>> {
     const response = await this.cidadeServiceFindAll.findAll();
 
-    return MensagemSistema.showMessage(
+    return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Lista de cidade gerada com sucesso!',
       response,

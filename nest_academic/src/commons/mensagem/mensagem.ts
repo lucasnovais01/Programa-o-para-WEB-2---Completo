@@ -1,23 +1,26 @@
+// Interface Genérica -
 export interface Result<T> {
   status: number;
-  timestamp?: string;
-  mensagem: string | null;
-  erro?: string | null;
+  timestamp: string;
+  mensagem?: string | null;
+  erro?: string | null | unknown;
   dados?: T | null;
   path: string | null;
 }
 
+// Classe Genérica - consegue trabalhar com
+// qualquer tipo de objeto - Cidade, Usuário, Professor, Disciplina
+// Aluno --- etc.
+
 export class Mensagem<T> {
   status: number = 0;
-  timestamp?: string = '';
   mensagem: string | null = null;
-  erro?: string | any | null = null;
-  dados?: T | null;
+  erro: string | unknown | null = null;
+  dados: T | null = null;
   path: string | null = null;
 
   constructor(
     status: number,
-    timestamp?: string,
     mensagem: string | null = null,
     dados: T | null = null,
     path: string | null = null,
@@ -26,8 +29,8 @@ export class Mensagem<T> {
     this.status = status;
     this.mensagem = mensagem;
     this.dados = dados;
-    this.erro = erro;
     this.path = path;
+    this.erro = erro;
   }
 
   toJSON(): Result<T> {
@@ -35,22 +38,24 @@ export class Mensagem<T> {
       status: this.status,
       timestamp: new Date().toISOString().split('T')[0],
       path: this.path,
-      mensagem: null,
     };
 
-    if (
-      this.mensagem != null &&
-      this.mensagem !== undefined
-      // && this.erro !== unknown
-    ) {
+    if (this.mensagem !== null && this.mensagem !== undefined) {
       result.mensagem = this.mensagem;
     }
-    if (this.dados !== null && this.dados != undefined) {
+
+    if (this.dados !== null && this.dados !== undefined) {
       result.dados = this.dados;
     }
+
+    if (this.erro !== null && this.erro !== undefined) {
+      result.erro = this.erro;
+    }
+
     return result;
   }
 }
+
 /*
     if (this.mensagem != null && this.mensagem !== undefined && this.erro !== unknown) {
       result.mensagem = this.mensagem;

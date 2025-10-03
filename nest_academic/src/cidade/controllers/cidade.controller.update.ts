@@ -28,7 +28,7 @@ export class CidadeControllerUpdate {
     @Body() cidadeRequest: CidadeRequest,
   ): Promise<Result<CidadeResponse>> {
     const response = await this.cidadeServiceUpdate.update(id, cidadeRequest);
-    return MensagemSistema.showMessage(
+    return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'A cidade foi alterada com sucesso !',
       response,

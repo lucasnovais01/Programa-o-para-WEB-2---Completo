@@ -25,7 +25,7 @@ export class CidadeControllerCreate {
     @Body() cidadeRequest: CidadeRequest,
   ): Promise<Result<CidadeResponse>> {
     const response = await this.cidadeServiceCreate.create(cidadeRequest);
-    return MensagemSistema.showMessage(
+    return MensagemSistema.showMensagem(
       HttpStatus.CREATED,
       'Cidade cadastrada com sucesso!!!',
       response,

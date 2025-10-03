@@ -26,7 +26,7 @@ export class CidadeControllerFindOne {
   ): Promise<Result<CidadeResponse | null>> {
     const response = await this.cidadeServiceFindOne.findById(+id);
 
-    return MensagemSistema.showMessage(
+    return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Cidade localizada com sucesso!',
       response,

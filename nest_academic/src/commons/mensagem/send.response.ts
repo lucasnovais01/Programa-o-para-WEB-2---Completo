@@ -7,9 +7,9 @@ export function sendHttpResponse<T>(
   mensagem: string | null,
   dados: T | null,
   path: string | null,
-  erro: string | any,
+  erro: string | any | null,
 ) {
   return res
     .status(status)
-    .json(MensagemSistema.showMessage(status, mensagem, dados, path, erro));
+    .json(MensagemSistema.showMensagem(status, mensagem, dados, path, erro));
 }

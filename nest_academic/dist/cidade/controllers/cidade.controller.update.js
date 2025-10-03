@@ -25,7 +25,7 @@ let CidadeControllerUpdate = class CidadeControllerUpdate {
     }
     async update(res, id, cidadeRequest) {
         const response = await this.cidadeServiceUpdate.update(id, cidadeRequest);
-        return mensagem_sistema_1.MensagemSistema.showMessage(common_1.HttpStatus.OK, 'A cidade foi alterada com sucesso !', response, res.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'A cidade foi alterada com sucesso !', response, res.path, null);
     }
 };
 exports.CidadeControllerUpdate = CidadeControllerUpdate;

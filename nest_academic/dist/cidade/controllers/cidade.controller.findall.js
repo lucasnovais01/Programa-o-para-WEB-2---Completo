@@ -24,7 +24,7 @@ let CidadeControllerFindAll = class CidadeControllerFindAll {
     }
     async findAll(res) {
         const response = await this.cidadeServiceFindAll.findAll();
-        return mensagem_sistema_1.MensagemSistema.showMessage(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, res.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, res.path, null);
     }
 };
 exports.CidadeControllerFindAll = CidadeControllerFindAll;

@@ -24,7 +24,7 @@ export class CidadeControllerRemove {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
     await this.cidadeServiceRemove.remove(id);
-    return MensagemSistema.showMessage(
+    return MensagemSistema.showMensagem(
       HttpStatus.OK, // O NO_CONTENT é o normal, porém, não volta nada
       'Cidade excluída com sucesso!',
       null,
