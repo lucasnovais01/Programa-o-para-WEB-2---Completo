@@ -1,3 +1,16 @@
+import Layout from "./components/layout/Layout";
+
+function App() {
+  return 
+  <div>
+    <Layout/>
+  </div>
+}
+
+export default App;
+
+
+/*
 //import { Fragment } from "react/jsx-runtime" // está errado, o correto é o que está abaixo:
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -60,3 +73,4 @@ function App() {
 }
 
 export default App
+*/

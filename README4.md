@@ -1,3 +1,5 @@
+Dia 17 prova
+
 aula 03-10-2025
 
 Foi configurando o VITE
@@ -10,4 +12,8 @@ Em package.json do react_academic do professor está assim: O json não permite 
     "preview": "vite preview"
   },
 
+!! Perguntar ao professor como fazer o run star dev do react
 
+npm run dev
+
+copia o endereço e cola no drive
