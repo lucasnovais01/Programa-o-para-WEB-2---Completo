@@ -79,7 +79,7 @@ http://localhost:8000/rest/sistema/cidade/buscar/10
 
 26-09-2025 - decorar abaixo:
 
-Ler e decorar do Moodle
+Ler e decorar do MoodleE
 
 O que vai cair na prova: O que é um controller, o que é um service
 
