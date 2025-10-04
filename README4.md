@@ -15,5 +15,9 @@ Em package.json do react_academic do professor está assim: O json não permite 
 !! Perguntar ao professor como fazer o run star dev do react
 
 npm run dev
+copia o endereço e cola no browser pra ver o site
 
-copia o endereço e cola no drive
+----
+O que foi instalado
+----
+npm install axios --save

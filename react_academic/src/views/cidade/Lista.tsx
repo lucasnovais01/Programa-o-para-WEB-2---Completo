@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 export default function Lista() {
-
   // useState = hook, gancho de estado. Nada mais é que uma função.
   // Que reage a funções na variavel, ou seja, ele renderiza a tela novamente
 
@@ -17,4 +16,6 @@ export default function Lista() {
 
   //
   const [cidades, setCidades] = useState(); //sempre dois parametros, o primeiro é o valor, o segundo atribui o valor
+
+  
 }
