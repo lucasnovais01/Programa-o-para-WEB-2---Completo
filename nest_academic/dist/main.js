@@ -6,6 +6,12 @@ const http_exception_filter_1 = require("./commons/exceptions/filter/http.except
 async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.useGlobalFilters(new http_exception_filter_1.HttpExceptionFilter());
+    app.enableCors({
+        origin: ['http://localhost:3000', 'http://localhost:8000'],
+        methods: 'GET, POST, PUT, DELETE',
+        allowedheaders: 'Content-Type, Accept',
+        credentials: false,
+    });
     await app.listen(process.env.PORT ?? 8000);
 }
 void bootstrap();

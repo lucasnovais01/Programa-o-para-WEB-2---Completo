@@ -7,6 +7,15 @@ async function bootstrap() {
 
   app.useGlobalFilters(new HttpExceptionFilter());
 
+  app.enableCors({
+    // libera o cors
+
+    origin: ['http://localhost:3000', 'http://localhost:8000'], // endereço do react
+    methods: 'GET, POST, PUT, DELETE',
+    allowedheaders: 'Content-Type, Accept',
+    credentials: false,
+  });
+
   await app.listen(process.env.PORT ?? 8000); // Default to port 8000, pq no react é 3000
 }
 

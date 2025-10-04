@@ -11,8 +11,13 @@ export default function Lista() {
   // useEffect = hook, gancho de efeito colateral. Vai reagir ao carregar a página pela primeira vez.
   useEffect(()=>{
     async function getCidades(){
-      const response = await axios.get('http://localhost:8000/rest/sistema/cidad/listar')
-      console.log(response);
+      const response = await axios.get('http://localhost:8000/rest/sistema/cidade/listar'        
+      );
+
+      if (response) {
+        setCidades(response.data.dados);
+      }
+      console.log(cidades);
     }
     getCidades();
   },[]);
