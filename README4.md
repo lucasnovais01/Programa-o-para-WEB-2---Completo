@@ -21,3 +21,6 @@ copia o endereço e cola no browser pra ver o site
 O que foi instalado
 ----
 npm install axios --save
+
+
+DOIS HOOK IMPORTANTE, o useState (mostrar na tela) e o outro HOOK importante é o UseEffect, ele aplica/altera a situação de cidade (somente pela primeira vez). Da pra saber, pq ele tem sempre um array vazio.
