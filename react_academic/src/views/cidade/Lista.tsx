@@ -10,17 +10,29 @@ export default function Lista() {
 
   // useEffect = hook, gancho de efeito colateral. Vai reagir ao carregar a página pela primeira vez.
   useEffect(()=>{
-    async function getCidades(){
-      const response = await axios.get('http://localhost:8000/rest/sistema/cidade/listar'        
-      );
-
-      if (response) {
-        setCidades(response.data.dados);
-      }
-      console.log(cidades);
+    async function getCidades() {
+      await axios
+        .get('http://localhost:8000/rest/sistema/cidade/listar')
+        .then((response: any) => {
+          setCidades(response.data.dados);
+        });
     }
     getCidades();
   },[]);
 
-  return <div>Olá Cidades</div>
+  console.log(cidades);
+
+  return <div className="display">
+    <div className="card animated fadeInDown ">
+      <div style={{
+        display: 'flex',
+        justifyContent: 'spacebetween',
+        alignItems: 'center',
+      }}>
+        <h1>Lista de Cidades</h1>
+        <a href='#' className="btn-add">Novo</a>
+      </div>
+    </div>
+  
+  </div>
 }
