@@ -1,9 +1,12 @@
 import Layout from "./components/layout/Layout";
+import Lista from "./views/cidade/Lista";
 
 function App() {
   return (
     <div>
-      <Layout></Layout>
+      <Layout>
+        <Lista />
+      </Layout>
     </div>
   );
 }

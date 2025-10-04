@@ -4,25 +4,18 @@ import { useEffect, useState } from "react";
 export default function Lista() {
   // useState = hook, gancho de estado. Nada mais é que uma função.
   // Que reage a funções na variavel, ou seja, ele renderiza a tela novamente
-
-  // toda vez que a variavel for alterada.
-  // useState retorna um array com dois elementos.
-  // O primeiro elemento é o valor da variavel.
-  // O segundo elemento é uma função que altera o valor da variavel.
   // Sempre que a função for chamada, o componente é renderizado novamente.
-
-  //const [nome, setNome] = useState<string>("");
-
-  //const [cidades, setCidades] = useState<string[]>([]);
-
   //
   const [cidades, setCidades] = useState(); //sempre dois parametros, o primeiro é o valor, o segundo atribui o valor
 
+  // useEffect = hook, gancho de efeito colateral. Vai reagir ao carregar a página pela primeira vez.
   useEffect(()=>{
-    function getCidades(){
-      const response = axios.get('http://localhost:8000/rest/sistema/cidad/listar')
+    async function getCidades(){
+      const response = await axios.get('http://localhost:8000/rest/sistema/cidad/listar')
       console.log(response);
     }
     getCidades();
-  },[])
+  },[]);
+
+  return <div>Olá Cidades</div>
 }
