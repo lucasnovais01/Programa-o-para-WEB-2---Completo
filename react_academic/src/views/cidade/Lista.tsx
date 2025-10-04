@@ -1,4 +1,5 @@
-import { useState } from "react";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 export default function Lista() {
   // useState = hook, gancho de estado. Nada mais é que uma função.
@@ -17,5 +18,11 @@ export default function Lista() {
   //
   const [cidades, setCidades] = useState(); //sempre dois parametros, o primeiro é o valor, o segundo atribui o valor
 
-  
+  useEffect(()=>{
+    function getCidades(){
+      const response = axios.get('http://localhost:8000/rest/sistema/cidad/listar')
+      console.log(response);
+    }
+    getCidades();
+  },[])
 }
