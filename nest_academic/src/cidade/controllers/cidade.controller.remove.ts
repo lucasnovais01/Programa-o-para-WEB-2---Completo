@@ -24,11 +24,11 @@ export class CidadeControllerRemove {
     @Req() req: Request,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
-
     await this.cidadeServiceRemove.remove(id);
-// 204: não retornar corpo
+    // 204: não retornar corpo
 
-// const adicionado recentemente pra ver se conserta o delete
+    // const adicionado recentemente pra ver se conserta o delete
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
     const path = (req as any).path ?? (req as any).url ?? req.originalUrl;
 
     return MensagemSistema.showMensagem(
@@ -37,16 +37,6 @@ export class CidadeControllerRemove {
       null,
       path,
       null,
-    );    
+    );
   }
 }
-
-/*remove(@Param('id', ParseIntPipe) id: number) {
-    return this.cidadeServiceRemove.remove(id);
-  }
-*/
-
-/*
-    const response = this.cidadeServiceRemove.remove(id, cidadeRequest);
-    return response;
-*/
