@@ -413,8 +413,7 @@ td.actions {
   align-items: center;
 }
 
-#defaultLayout header .system-title {
-  font-size: 1.4rem;
+#defaultLayout hrem;
   font-weight: 600;
   color: #5b08a7;
 }
@@ -470,8 +469,9 @@ td.actions {
     opacity: 1;
     transform: translateY(0);
   }
-} */
-
+} */eader .system-title {
+  font-size: 1.4
+}
 .mt-2 {
   margin-top: 1rem;
 }

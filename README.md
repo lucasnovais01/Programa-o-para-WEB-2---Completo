@@ -6,7 +6,12 @@ git config --global user.name "lucasnovais01"
 
 Para criar o servidor, precisa rodar no console, da pasta do nodejs o seguinte:
 
-npm run start:dev
+
+PARA O NEST É
+    npm run start:dev
+
+PARA O REACTJS
+    npm run dev
 
 
 para testar no postman
