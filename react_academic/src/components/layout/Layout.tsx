@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { Outlet } from "react-router-dom";
 
 type LayoutProps = {
   children?: ReactNode;
@@ -21,7 +22,9 @@ export default function Layout({ children }: LayoutProps) {
             </a>
           </div>
         </header>
-        <main>{children}</main>
+        <main>
+          <Outlet />
+        </main>
       </div>
     </div>
   );
