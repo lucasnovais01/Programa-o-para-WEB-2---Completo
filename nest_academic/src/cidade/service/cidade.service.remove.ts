@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Cidade } from '../entity/cidade.entity';
 import { Repository } from 'typeorm';
@@ -21,16 +21,29 @@ export class CidadeServiceRemove {
       .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
       .getOne();
     */
+
+    /*
+    // refeito em casa 10-10-2025
     if (cidadeCadastrada?.idCidade) {
       throw new Error('Cidade não localizada');
     }
-
     await this.cidadeRepository
       .createQueryBuilder('cidade')
       .delete()
       .from(Cidade)
       .where('cidade.ID_CIDADE =:idCidade', { idCidade })
       .execute();
+    */
+    if (!cidadeCadastrada) {
+      throw new NotFoundException('Cidade não localizada');
+    }
+    const result = await this.cidadeRepository.delete({ idCidade });
+
+    if (result.affected === 0) {
+      throw new NotFoundException('Cidade não localizada');
+    }
+
+    return;
   }
 }
 

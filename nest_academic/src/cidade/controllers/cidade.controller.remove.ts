@@ -26,7 +26,9 @@ export class CidadeControllerRemove {
   ): Promise<Result<void>> {
 
     await this.cidadeServiceRemove.remove(id);
+// 204: não retornar corpo
 
+// const adicionado recentemente pra ver se conserta o delete
     const path = (req as any).path ?? (req as any).url ?? req.originalUrl;
 
     return MensagemSistema.showMensagem(

@@ -22,14 +22,15 @@ let CidadeControllerRemove = class CidadeControllerRemove {
     constructor(cidadeServiceRemove) {
         this.cidadeServiceRemove = cidadeServiceRemove;
     }
-    async remove(res, id) {
+    async remove(req, id) {
         await this.cidadeServiceRemove.remove(id);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade excluída com sucesso!', null, res.path, null);
+        const path = req.path ?? req.url ?? req.originalUrl;
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.NO_CONTENT, 'Cidade excluída com sucesso!', null, path, null);
     }
 };
 exports.CidadeControllerRemove = CidadeControllerRemove;
 __decorate([
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     (0, common_1.Delete)(url_sistema_1.ROTA.CIDADE.DELETE),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),

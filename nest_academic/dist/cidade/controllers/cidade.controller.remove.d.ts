@@ -4,5 +4,5 @@ import type { Request } from 'express';
 export declare class CidadeControllerRemove {
     private readonly cidadeServiceRemove;
     constructor(cidadeServiceRemove: CidadeServiceRemove);
-    remove(res: Request, id: number): Promise<Result<void>>;
+    remove(req: Request, id: number): Promise<Result<void>>;
 }
