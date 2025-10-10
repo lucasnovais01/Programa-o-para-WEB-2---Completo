@@ -2,26 +2,50 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { Cidade } from "../../type/cidade";
 
+
+const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
+
+  try {
+    const response = await axios.get("http://localhost:8000/rest/sistema/cidade/listar",
+    );
+    return response.data.dados;
+  }
+  catch (error:any) {
+    console.log(error);
+  }
+  return null;
+};
+
+
 export default function ListarCidade() {
   // useState = hook - gancho - função
   // reagir as alterações na variável
   // renderiza -
-  const [cidades, setCidades] = useState<Cidade[] | null>(null);
+  const [models, setModels] = useState<Cidade[] | null>(null);
 
   //hook - função - reagir, quando carregar a página
   //pela primeira vez, quando o array for vázio.
   useEffect(() => {
     async function getCidades() {
+      const cidades = await buscarTodasCidades();
+      if (cidades) {
+        setModels(cidades);
+      }
+    }
+
+    /*
       await axios
         .get("http://localhost:8000/rest/sistema/cidade/listar")
         .then((response: any) => {
           setCidades(response.data.dados);
         });
     }
-    getCidades();
-  }, []);
+    */
 
-  console.log(cidades);
+    getCidades();
+  }, []); //array vázio, não vai reagir a nada
+
+  console.log(models);
 
   return (
     <div className="display">
@@ -51,11 +75,11 @@ export default function ListarCidade() {
           </thead>
           
           <tbody>
-            {cidades?.map((cidade) => (
+            {models?.map((model) => (
               <tr>
-                <td>{cidade.idCidade}</td>
-                <td>{cidade.codCidade}</td>
-                <td>{cidade.nomeCidade}</td>
+                <td>{model.idCidade}</td>
+                <td>{model.codCidade}</td>
+                <td>{model.nomeCidade}</td>
                 <td className="center actions">
                   <a className="btn-edit">Atualizar</a>
                 </td>

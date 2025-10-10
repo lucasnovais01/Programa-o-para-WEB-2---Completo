@@ -9,7 +9,7 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div id="defaultLayout">{/* É assim que comenta em .tsx */}
       <aside>
-        <Link to="#">Dashboard</Link>
+        <Link to="/sistema/dashboard">Dashboard</Link>
         <Link to="/sistema/cidade/listar">Cidade</Link>
 
       </aside>
@@ -28,7 +28,7 @@ export default function Layout({ children }: LayoutProps) {
               Logout
             </a>
           </div>
-          
+
         </header>
         <main>
           <Outlet />
