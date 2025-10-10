@@ -24,7 +24,8 @@ let CidadeControllerRemove = class CidadeControllerRemove {
     }
     async remove(req, id) {
         await this.cidadeServiceRemove.remove(id);
-        const path = req.path ?? req.url ?? req.originalUrl;
+        const rawPath = req.path ?? req.url ?? req.originalUrl;
+        const path = typeof rawPath === 'string' ? rawPath : null;
         return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.NO_CONTENT, 'Cidade excluída com sucesso!', null, path, null);
     }
 };

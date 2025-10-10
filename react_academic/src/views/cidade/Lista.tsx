@@ -49,6 +49,7 @@ export default function ListarCidade() {
               <th className="center actions">Show</th>
             </tr>
           </thead>
+          
           <tbody>
             {cidades?.map((cidade) => (
               <tr>
@@ -67,6 +68,8 @@ export default function ListarCidade() {
               </tr>
             ))}
           </tbody>
+          
+        
         </table>
       </div>
     </div>

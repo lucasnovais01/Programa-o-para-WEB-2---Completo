@@ -29,7 +29,8 @@ export class CidadeControllerRemove {
 
     // const adicionado recentemente pra ver se conserta o delete
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access
-    const path = (req as any).path ?? (req as any).url ?? req.originalUrl;
+    const rawPath = (req as any).path ?? (req as any).url ?? req.originalUrl;
+    const path: string | null = typeof rawPath === 'string' ? rawPath : null;
 
     return MensagemSistema.showMensagem(
       HttpStatus.NO_CONTENT, // O NO_CONTENT é o normal, porém, não volta nada

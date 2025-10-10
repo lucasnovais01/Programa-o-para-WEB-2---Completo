@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 type LayoutProps = {
   children?: ReactNode;
@@ -9,18 +9,26 @@ export default function Layout({ children }: LayoutProps) {
   return (
     <div id="defaultLayout">{/* É assim que comenta em .tsx */}
       <aside>
-        <a href="#">Dashboard</a>
-        <a href="#">Usuário</a>
+        <Link to="#">Dashboard</Link>
+        <Link to="/sistema/cidade/listar">Cidade</Link>
+
       </aside>
       <div className="content">
         <header>
-          <div>Sistema Acadêmico</div>
-          <div>
-            Francisco
+          <div className="system-title">
+            <b>Sistema Acadêmico</b>
+          </div>
+          
+          <div className="user-info">
+            <span className="username">
+              <b>Francisco</b>
+            </span>
+            
             <a href="#" className="btn-logout">
               Logout
             </a>
           </div>
+          
         </header>
         <main>
           <Outlet />
