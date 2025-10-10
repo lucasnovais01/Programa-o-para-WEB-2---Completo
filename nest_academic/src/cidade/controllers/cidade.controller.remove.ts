@@ -17,20 +17,25 @@ import type { Request } from 'express';
 export class CidadeControllerRemove {
   constructor(private readonly cidadeServiceRemove: CidadeServiceRemove) {}
 
-  @HttpCode(HttpStatus.OK) //O correto é o NO_CONTENT, a exclusão sempre retorna NO_CONTENT
+  // Retornar 204 é o mais apropriado para delete sem corpo
+  @HttpCode(HttpStatus.NO_CONTENT) //O correto é o NO_CONTENT, foi trocado (HttpStatus.OK)
   @Delete(ROTA.CIDADE.DELETE)
   async remove(
-    @Req() res: Request,
+    @Req() req: Request,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
+
     await this.cidadeServiceRemove.remove(id);
+
+    const path = (req as any).path ?? (req as any).url ?? req.originalUrl;
+
     return MensagemSistema.showMensagem(
-      HttpStatus.OK, // O NO_CONTENT é o normal, porém, não volta nada
+      HttpStatus.NO_CONTENT, // O NO_CONTENT é o normal, porém, não volta nada
       'Cidade excluída com sucesso!',
       null,
-      res.path,
+      path,
       null,
-    );
+    );    
   }
 }
 
