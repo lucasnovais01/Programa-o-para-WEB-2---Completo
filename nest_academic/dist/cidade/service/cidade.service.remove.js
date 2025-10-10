@@ -26,15 +26,14 @@ let CidadeServiceRemove = class CidadeServiceRemove {
         const cidadeCadastrada = await this.cidadeRepository.findOne({
             where: { idCidade },
         });
-        if (cidadeCadastrada?.idCidade) {
-            throw new Error('Cidade não localizada');
+        if (!cidadeCadastrada) {
+            throw new common_1.NotFoundException('Cidade não localizada');
         }
-        await this.cidadeRepository
-            .createQueryBuilder('cidade')
-            .delete()
-            .from(cidade_entity_1.Cidade)
-            .where('cidade.ID_CIDADE =:idCidade', { idCidade })
-            .execute();
+        const result = await this.cidadeRepository.delete({ idCidade });
+        if (result.affected === 0) {
+            throw new common_1.NotFoundException('Cidade não localizada');
+        }
+        return;
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;
