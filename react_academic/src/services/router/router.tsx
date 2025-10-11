@@ -1,6 +1,6 @@
 import type { RouteObject } from "react-router-dom";
 import Layout from "../../components/layout/Layout";
-import ListarCidade from "../../views/cidade/Lista";
+import ListarCidade from "../../views/cidade/Listar";
 import Dashboard from "../../views/Dashboard";
 
 // este é o servidor do REACT
