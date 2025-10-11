@@ -99,3 +99,9 @@ No controller, TODA resposta dele é uma JSON
 Na classe de tratamento de erro (HttpExceptionFilter por exemplo), filtro de erros do sistema,
 ele NÃO CONVERTE para um JSON,
 O que requer colocar algo como status(status) para converter para um JSON 
+
+
+
+para o react
+
+npm instal react-icons --save
