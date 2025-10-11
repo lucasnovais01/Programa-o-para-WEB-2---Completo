@@ -2,7 +2,9 @@
 
 #defaultLayout {
   display: flex;
-  height: 100vh;
+  height: 100vh; /* Mantenha este */
+  font-weight: 600;
+  color: #5b08a7;
 }
 
 #defaultLayout aside {
@@ -45,11 +47,6 @@
   align-items: center;
 }
 
-#defaultLayout {
-  height: 1rem;
-  font-weight: 600;
-  color: #5b08a7;
-}
 
 #defaultLayout header .username {
   font-weight: 500;

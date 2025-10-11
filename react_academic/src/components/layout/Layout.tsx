@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, Outlet } from "react-router-dom";
+import './Layout.css';
 
 type LayoutProps = {
   children?: ReactNode;

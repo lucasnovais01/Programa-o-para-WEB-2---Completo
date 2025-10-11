@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import type { Cidade } from "../../type/cidade";
+import { Link } from "react-router-dom";
 
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
@@ -57,43 +58,45 @@ export default function ListarCidade() {
             alignItems: "center",
           }}
         >
-          <h1>Lista de Cidades</h1>
-          <a href="#" className="btn-add">
+          <h2>Lista de Cidades</h2>
+          {/* O LINK É UM COMPONENTE DO REACT, ele substitui o hreaf, le substitui a tag âncora, ele não tem REFRESH de página */}
+          <Link to="#" className="btn btn-add">
             Novo
-          </a>
+          </Link>
         </div>
+        <br/>
         <table>
           <thead>
             <tr>
-              <th>ID</th>
+              {/* A ID DE UM OBJETO A GENTE NUNCA VAI MOSTRAR
+              <th>ID</th> */}
               <th>Código</th>
               <th>Nome</th>
-              <th className="center actions">Atualizar</th>
+              <th className="center actions" colSpan={3}>Ação</th>
+
+              {/*
               <th className="center actions">Excluir</th>
               <th className="center actions">Show</th>
+              */}
             </tr>
           </thead>
           
+          
           <tbody>
             {models?.map((model) => (
-              <tr>
-                <td>{model.idCidade}</td>
+              <tr key={model.idCidade}>
+                {/* A ID DE UM OBJETO A GENTE NUNCA VAI MOSTRAR
+                <td>{model.idCidade}</td> */}
                 <td>{model.codCidade}</td>
                 <td>{model.nomeCidade}</td>
                 <td className="center actions">
-                  <a className="btn-edit">Atualizar</a>
-                </td>
-                <td className="center actions">
-                  <a className="btn-delete">Excluir</a>
-                </td>
-                <td className="center actions">
-                  <a className="btn-show">Consulta</a>
+                  <Link to='' className="btn btn-edit">Atualizar</Link>
+                  <Link to='' className="btn btn-delete">Excluir</Link>
+                  <Link to='' className="btn btn-show">Consulta</Link>
                 </td>
               </tr>
             ))}
           </tbody>
-          
-        
         </table>
       </div>
     </div>
