@@ -63,7 +63,7 @@ export default function ListarCidade() {
         >
           <h2>Lista de Cidades</h2>
           {/* O LINK É UM COMPONENTE DO REACT, ele substitui o hreaf, le substitui a tag âncora, ele não tem REFRESH de página */}
-          <Link to="#" className="btn btn-add">
+          <Link to="/sistema/cidade/criar" className="btn btn-add">
             <span className="btn-icon">
               <i className="fa fa plus">
                 <FaPlus/>
@@ -98,14 +98,14 @@ export default function ListarCidade() {
                 <td>{model.codCidade}</td>
                 <td>{model.nomeCidade}</td>
                 <td className="center actions">
-                  <Link to='' className="btn btn-edit">Atualizar
+                  <Link to='/sistema/cidade/atualizar' className="btn btn-edit">Atualizar
                     <span className="btn-icon">
                       <i className="fa fa square">
                         <BsPencilSquare/>
                       </i>
                     </span>
                   </Link>
-                  <Link to='' className="btn btn-delete">Excluir
+                  <Link to='/sistema/cidade/excluir' className="btn btn-delete">Excluir
                     <span className="btn-icon">
                       <i className="fa fa trash">
                         <BsFillTrash3Fill/>
@@ -114,7 +114,7 @@ export default function ListarCidade() {
                   </Link>
 
 
-                  <Link to='' className="btn btn-show">Consulta
+                  <Link to='/sistema/cidade/consultar' className="btn btn-show">Consulta
                     <span className="btn-icon">
                       <i className="fa fa eye">
                         <BsEye/>
