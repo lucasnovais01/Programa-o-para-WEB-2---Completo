@@ -2,7 +2,10 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import type { Cidade } from "../../type/cidade";
 import { Link } from "react-router-dom";
-
+import { FaPlus } from "react-icons/fa";
+import { BsPencilSquare } from "react-icons/bs";
+import { BsFillTrash3Fill } from "react-icons/bs";
+import { BsEye } from "react-icons/bs";
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
@@ -61,6 +64,11 @@ export default function ListarCidade() {
           <h2>Lista de Cidades</h2>
           {/* O LINK É UM COMPONENTE DO REACT, ele substitui o hreaf, le substitui a tag âncora, ele não tem REFRESH de página */}
           <Link to="#" className="btn btn-add">
+            <span className="btn-icon">
+              <i className="fa fa plus">
+                <FaPlus/>
+              </i>
+            </span>
             Novo
           </Link>
         </div>
@@ -81,7 +89,7 @@ export default function ListarCidade() {
             </tr>
           </thead>
           
-          
+          {/* ACTIONS */}
           <tbody>
             {models?.map((model) => (
               <tr key={model.idCidade}>
@@ -90,9 +98,30 @@ export default function ListarCidade() {
                 <td>{model.codCidade}</td>
                 <td>{model.nomeCidade}</td>
                 <td className="center actions">
-                  <Link to='' className="btn btn-edit">Atualizar</Link>
-                  <Link to='' className="btn btn-delete">Excluir</Link>
-                  <Link to='' className="btn btn-show">Consulta</Link>
+                  <Link to='' className="btn btn-edit">Atualizar
+                    <span className="btn-icon">
+                      <i className="fa fa square">
+                        <BsPencilSquare/>
+                      </i>
+                    </span>
+                  </Link>
+                  <Link to='' className="btn btn-delete">Excluir
+                    <span className="btn-icon">
+                      <i className="fa fa trash">
+                        <BsFillTrash3Fill/>
+                      </i>
+                    </span>
+                  </Link>
+
+
+                  <Link to='' className="btn btn-show">Consulta
+                    <span className="btn-icon">
+                      <i className="fa fa eye">
+                        <BsEye/>
+                      </i>
+                    </span>
+                  
+                  </Link>
                 </td>
               </tr>
             ))}
