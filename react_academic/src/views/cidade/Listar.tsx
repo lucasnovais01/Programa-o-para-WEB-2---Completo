@@ -6,6 +6,7 @@ import { FaPlus } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { BsEye } from "react-icons/bs";
+import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
@@ -61,7 +62,11 @@ export default function ListarCidade() {
             alignItems: "center",
           }}
         >
-          <h2>Lista de Cidades</h2>
+
+{/* aqui iremos chamar o arquivo cidade.constant.ts, utilizando {cidade.titulo.lista} por exemplo
+E colocaremos no lugar dos titulos antigos <h2>Lista de cidade</h2> agora é <h2>{cidade.titulo.lista}</h2> */}
+
+          <h2>{CIDADE.TITULO.LISTA}</h2>
           {/* O LINK É UM COMPONENTE DO REACT, ele substitui o hreaf, le substitui a tag âncora, ele não tem REFRESH de página */}
           <Link to="/sistema/cidade/criar" className="btn btn-add">
             <span className="btn-icon">
@@ -78,8 +83,8 @@ export default function ListarCidade() {
             <tr>
               {/* A ID DE UM OBJETO A GENTE NUNCA VAI MOSTRAR
               <th>ID</th> */}
-              <th>Código</th>
-              <th>Nome</th>
+              <th>{CIDADE.LABEL.CODIGO}</th>
+              <th>{CIDADE.LABEL.NOME}</th>
               <th className="center actions" colSpan={3}>Ação</th>
 
               {/*

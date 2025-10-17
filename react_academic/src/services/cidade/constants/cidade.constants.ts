@@ -1,3 +1,4 @@
+import { criarMensagemOperacao } from "./mensagem.operacao";
 
 const ENTITY_NAME = 'Cidade'
 
@@ -22,7 +23,8 @@ export const CIDADE = {
 
 
   LABEL: {
-    ID: 'Código',
+    CODIGO: 'Código',
+    NOME: 'Nome'
   },
 
   TITULO: {
@@ -56,5 +58,6 @@ export const CIDADE = {
       STRING:  `O nome de ${ENTITY_NAME} deve ser um texto`,
     },
   },
-}
+  OPERACAO: criarMensagemOperacao(ENTITY_NAME),
+};
 
