@@ -1,3 +1,5 @@
+import { CIDADE } from "../cidade/constants/cidade.constants";
+
 const ROTA_SISTEMA = 'sistema';
 
 export const DASHBOARD = `/${ROTA_SISTEMA}/dashboard`;
@@ -22,5 +24,5 @@ function gerarRotaSistema(entity: string){
 }
 
 export const ROTA = {
-
+  CIDADE: gerarRotaSistema(CIDADE.ALIAS),
 }
