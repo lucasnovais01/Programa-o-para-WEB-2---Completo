@@ -42,16 +42,19 @@ export const CIDADE = {
       STRING:  `O código de ${ENTITY_NAME} deve ser um texto`,
     },
     CODIGO : {
+      BLANK: `O código de identificação do ${ENTITY_NAME} deve ser informado`,
+      VALID: `Informe um código de identificação válido para ${ENTITY_NAME}`,
+      MAX_LEN: `O código de ${ENTITY_NAME} deve ter no máximo 20 caracteres`,
+      MIN_LEN: `O código de ${ENTITY_NAME} deve ter no mínimo 6 caracteres`,
+      STRING:  `O código de ${ENTITY_NAME} deve ser um texto`,
+    },
+    NOME : {
       BLANK: `O nome de identificação do ${ENTITY_NAME} deve ser informado`,
       VALID: `Informe no nome de identificação válido para ${ENTITY_NAME}`,
       MAX_LEN: `O nome de ${ENTITY_NAME} deve ter no máximo 20 caracteres`,
       MIN_LEN: `O nome de ${ENTITY_NAME} deve ter no mínimo 6 caracteres`,
       STRING:  `O nome de ${ENTITY_NAME} deve ser um texto`,
     },
-    NOME : {
-
-    },
   },
-
 }
 
