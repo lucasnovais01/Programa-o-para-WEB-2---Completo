@@ -3,11 +3,7 @@ import Layout from "../../components/layout/Layout";
 import Dashboard from "../../views/Dashboard";
 import ListarCidade from "../../views/cidade/Listar";
 import CriarCidade from "../../views/cidade/Criar";
-import AlterarCidade from "<div styleName={} />
-<div styleName={} />
-<views />
-<cidade />
-<A></A>lterar";
+import AlterarCidade from "../../views/cidade/Alterar";
 import ExcluirCidade from "../../views/cidade/Excluir";
 import ConsultarCidade from "../../views/cidade/Consultar";
 

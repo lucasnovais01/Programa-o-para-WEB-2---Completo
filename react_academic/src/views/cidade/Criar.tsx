@@ -1,13 +1,43 @@
+import axios from "axios";
+import { useState } from "react";
 import { FaSave } from "react-icons/fa"
 import { MdCancel } from "react-icons/md"
 
 export default function CriarCidade() {
+
+  // hook para monitorar o estado do codigo
+  // assincrono
+
+  const [codigo, setCodigo] = useState("");
+  // hook para monitorar o estado do nome
+  const [nome, setNome] = useState("");
 
   /* function getInputClass() {  modo classico, sem o arrow function */
 
   const getInputClass = () => {
     return 'form-control app-label mt-2'; // appInput é uma classe global, estiliza o input
   };
+
+
+  const onSubmitForm = async (e:any) => {
+    // não deixa executa o procel normal    
+    e.preventDefault();
+    console.log(codigo)
+    console.log(nome)
+
+    const cidade = { 'codigo':codigo, 'nome':nome}
+
+    const response = await axios.post(
+      "http://localhost:8000/rest/sistema/cidade/criar",
+      cidade,
+    
+  )
+
+  };
+
+
+
+
 
   return (
     <div className="display"> {/* display é uma classe global, centraliza, pois é o display flex */}
