@@ -105,3 +105,5 @@ O que requer colocar algo como status(status) para converter para um JSON
 para o react
 
 npm instal react-icons --save
+
+a
