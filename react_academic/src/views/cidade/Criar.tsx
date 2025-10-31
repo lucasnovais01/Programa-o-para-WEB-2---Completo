@@ -3,17 +3,23 @@ import { useState } from "react";
 import { FaSave } from "react-icons/fa"
 import { MdCancel } from "react-icons/md"
 
+import { CIDADE } from "../../services/cidade/constants/cidade.constants";
+import type { Cidade } from "../../type/cidade";
+
 export default function CriarCidade() {
 
   // hook para monitorar o estado do codigo
   // assincrono
 
-  const [codigo, setCodigo] = useState("");
-  // hook para monitorar o estado do nome
-  const [nome, setNome] = useState("");
+  const [model, setModel] = useState<Cidade | null>(null); // ele pode ter um valor ou não pode ter nada
+
+  const handleChangeField = ( name: keyof Cidade, value: string ) => {
+  //  const { name, value } = e.target;
+    setModel((prev) => ({...prev, [name]:value }))
+  };
+
 
   /* function getInputClass() {  modo classico, sem o arrow function */
-
   const getInputClass = () => {
     return 'form-control app-label mt-2'; // appInput é uma classe global, estiliza o input
   };
@@ -22,56 +28,56 @@ export default function CriarCidade() {
   const onSubmitForm = async (e:any) => {
     // não deixa executa o procel normal    
     e.preventDefault();
-    console.log(codigo)
-    console.log(nome)
 
-    const cidade = { 'codigo':codigo, 'nome':nome}
+
+    //const cidade = { 'codigo':codigo, 'nome':nome}
 
     const response = await axios.post(
       "http://localhost:8000/rest/sistema/cidade/criar",
-      cidade,
-    
-  )
-
+      model,
+    );
   };
-
-
-
-
 
   return (
     <div className="display"> {/* display é uma classe global, centraliza, pois é o display flex */}
 
       <div className="card animated fadeInDown">{/* card é uma classe global, cria um cartão */}
         <h2>Nova Cidade</h2>
-        <form>
+
+        <form onSubmit={(e) => onSubmitForm(e)}> 
 
           <div className="mb-2 mt-4">
             <label htmlFor="codCidade" className="appLabel">
+              {CIDADE.LABEL.CODIGO}
               Código:
             </label>
             <input
               id="codCidade"
               name="codCidade"
+              value={model?.codCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
               autoComplete="off"
+              onChange={(e) => handleChangeField("codCidade",e.target.value)}
               >
             </input> {/* appInput é uma classe global, estiliza o input */}
           </div>
 
           <div className="mb-2 mt-4">
             <label htmlFor="nomeCidade" className="appLabel">
-              Nome:
+              {CIDADE.LABEL.NOME}
+              {/*Nome:  ESTAVA ASSIM ANTES*/}
             </label>
             <input
               id="nomeCidade"
               name="nomeCidade"
+              value={model?.nomeCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
               autoComplete="off"
+              onChange={(e) => handleChangeField("nomeCidade",e.target.value)}
               >
             </input> {/* appInput é uma classe global, estiliza o input */}
           </div>
