@@ -36,6 +36,8 @@ export default function CriarCidade() {
       "http://localhost:8000/rest/sistema/cidade/criar",
       model,
     );
+
+    console.log(response);
   };
 
   return (
@@ -49,17 +51,16 @@ export default function CriarCidade() {
           <div className="mb-2 mt-4">
             <label htmlFor="codCidade" className="appLabel">
               {CIDADE.LABEL.CODIGO}
-              Código:
             </label>
             <input
-              id="codCidade"
-              name="codCidade"
+              id={CIDADE.FIELDS.CODIGO}
+              name={CIDADE.FIELDS.CODIGO}
               value={model?.codCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
               autoComplete="off"
-              onChange={(e) => handleChangeField("codCidade",e.target.value)}
+              onChange={(e) => handleChangeField(CIDADE.FIELDS.CODIGO,e.target.value)}
               >
             </input> {/* appInput é uma classe global, estiliza o input */}
           </div>
@@ -70,14 +71,14 @@ export default function CriarCidade() {
               {/*Nome:  ESTAVA ASSIM ANTES*/}
             </label>
             <input
-              id="nomeCidade"
-              name="nomeCidade"
+              id={CIDADE.FIELDS.NOME}
+              name={CIDADE.FIELDS.NOME}
               value={model?.nomeCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
               autoComplete="off"
-              onChange={(e) => handleChangeField("nomeCidade",e.target.value)}
+              onChange={(e) => handleChangeField(CIDADE.FIELDS.NOME,e.target.value)}
               >
             </input> {/* appInput é uma classe global, estiliza o input */}
           </div>
