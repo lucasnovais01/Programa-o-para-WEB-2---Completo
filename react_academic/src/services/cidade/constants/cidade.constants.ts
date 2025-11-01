@@ -1,4 +1,4 @@
-import { criarMensagemOperacao } from "./mensagem.operacao";
+import { criarMensagemOperacao } from "../../constants/mensagem.operacao";
 
 const ENTITY_NAME = 'Cidade'
 

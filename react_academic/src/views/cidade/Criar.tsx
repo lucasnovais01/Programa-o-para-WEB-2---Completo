@@ -25,20 +25,28 @@ export default function CriarCidade() {
   };
 
 
-  const onSubmitForm = async (e:any) => {
-    // não deixa executa o procel normal    
-    e.preventDefault();
+const onSubmitForm = async (e: any) => {
+  e.preventDefault();
 
-
-    //const cidade = { 'codigo':codigo, 'nome':nome}
-
+  try {
     const response = await axios.post(
       "http://localhost:8000/rest/sistema/cidade/criar",
-      model,
+      model
     );
 
-    console.log(response);
-  };
+    // CORRETO: só o que importa
+    console.log("Cidade criada:", response.data);
+    console.log("Status:", response.status);
+
+    // Opcional: limpar formulário ou redirecionar
+    setModel(null);
+    alert("Cidade salva com sucesso!");
+
+  } catch (error: any) {
+    // Aqui sim é erro de verdade
+    console.error("Erro ao salvar:", error.response?.data || error.message);
+  }
+};
 
   return (
     <div className="display"> {/* display é uma classe global, centraliza, pois é o display flex */}
