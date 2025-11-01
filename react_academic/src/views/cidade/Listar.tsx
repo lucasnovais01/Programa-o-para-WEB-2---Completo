@@ -7,7 +7,9 @@ import { BsPencilSquare } from "react-icons/bs";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { BsEye } from "react-icons/bs";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
+
 import { apiGetCidades } from "../../services/cidade/api/api.cidade";
+
 import { ROTA } from "../../services/router/url";
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {

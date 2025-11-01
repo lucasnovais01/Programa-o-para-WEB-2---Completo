@@ -4,7 +4,9 @@ import { FaSave } from "react-icons/fa"
 import { MdCancel } from "react-icons/md"
 
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
-import type { Cidade } from "../../type/cidade";
+
+import type { Cidade } from "../../services/cidade/type/cidade";
+
 import { apiPostCidade } from "../../services/cidade/api/api.cidade";
 
 export default function CriarCidade() {
@@ -15,7 +17,6 @@ export default function CriarCidade() {
   const [model, setModel] = useState<Cidade | null>(null); // ele pode ter um valor ou não pode ter nada
 
   const handleChangeField = ( name: keyof Cidade, value: string ) => {
-  //  const { name, value } = e.target;
     setModel((prev) => ({...prev, [name]:value }))
   };
 
@@ -34,7 +35,7 @@ const onSubmitForm = async (e: any) => {
   }
 
   try {
-    const response = apiPostCidade(model!);
+    const response = apiPostCidade(model);
   }
   catch (error:any){
     console.log(error);

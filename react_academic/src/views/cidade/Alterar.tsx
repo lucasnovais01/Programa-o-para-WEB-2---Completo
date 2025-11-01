@@ -2,8 +2,12 @@ import { useEffect, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useParams } from "react-router-dom";
-import { apiGetCidade } from "../../services/cidade/api/api.cidade";
-import type { Cidade } from "../../type/cidade";
+
+import { apiGetCidades, apiPutCidade } from "../../services/cidade/api/api.cidade";
+
+import type { Cidade } from "../../services/cidade/type/cidade";
+
+import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 
 
 
@@ -16,10 +20,14 @@ export default function AlterarCidade() {
   useEffect(() => {
 
     async function getCidade() {
-
       try {
         if (idCidade) {
-          const response = await apiGetCidade(idCidade);
+          const response = await apiGetCidades(idCidade);
+          console.log(response.data.dados);
+
+          if (response.data.dados) {
+            setModel(response.data.dados);
+          }
         }
       }
       catch (error: any) {
@@ -29,26 +37,32 @@ export default function AlterarCidade() {
 
   },[idCidade])
 
-  /* function getInputClass() {  modo classico, sem o arrow function */
+
+  const handleChangeField = ( name: keyof Cidade, value: string ) => {
+    setModel((prev) => ({...prev, [name]:value }))
+  };
+
+
+  const onSubmitForm = async (e: any) => {
+    e.preventDefault();
+
+    if (!idCidade || !model) {
+      return;
+    }
+
+    try {
+      const response = apiPutCidade(idCidade, model);
+      console.log(response);
+    }
+    catch (error:any){
+      console.log(error);
+    }
+  };
+
   const getInputClass = () => {
     return 'form-control app-label mt-2'; // appInput é uma classe global, estiliza o input
   };
 
-
-const onSubmitForm = async (e: any) => {
-  e.preventDefault();
-
-  if (!model) {
-    return;
-  }
-
-  try {
-    const response = apiGetCidade(model);
-  }
-  catch (error:any){
-    console.log(error);
-  }
-};
 
   return (
     <div className="display"> {/* display é uma classe global, centraliza, pois é o display flex */}
