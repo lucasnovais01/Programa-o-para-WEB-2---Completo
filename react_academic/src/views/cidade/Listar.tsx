@@ -7,12 +7,13 @@ import { BsPencilSquare } from "react-icons/bs";
 import { BsFillTrash3Fill } from "react-icons/bs";
 import { BsEye } from "react-icons/bs";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
+import { apiGetCidades } from "../../services/cidade/api/api.cidade";
+import { ROTA } from "../../services/router/url";
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
   try {
-    const response = await axios.get("http://localhost:8000/rest/sistema/cidade/listar",
-    );
+    const response = await apiGetCidades();
     return response.data.dados;
   }
   catch (error:any) {
@@ -103,30 +104,34 @@ E colocaremos no lugar dos titulos antigos <h2>Lista de cidade</h2> agora é <h2
                 <td>{model.codCidade}</td>
                 <td>{model.nomeCidade}</td>
                 <td className="center actions">
-                  <Link to='/sistema/cidade/atualizar' className="btn btn-edit">Atualizar
+
+                  <Link to={`${ROTA.CIDADE.ATUALIZAR}/${model.idCidade}`} className="btn btn-edit">
                     <span className="btn-icon">
                       <i className="fa fa square">
                         <BsPencilSquare/>
                       </i>
                     </span>
+                    Atualizar
                   </Link>
-                  <Link to='/sistema/cidade/excluir' className="btn btn-delete">Excluir
+
+                  <Link to={`${ROTA.CIDADE.EXCLUIR}/${model.idCidade}`} className="btn btn-delete">
                     <span className="btn-icon">
                       <i className="fa fa trash">
                         <BsFillTrash3Fill/>
                       </i>
                     </span>
+                    Excluir
                   </Link>
 
-
-                  <Link to='/sistema/cidade/consultar' className="btn btn-show">Consulta
+                  <Link to={`${ROTA.CIDADE.POR_ID}/${model.idCidade}`} className="btn btn-show">
                     <span className="btn-icon">
                       <i className="fa fa eye">
                         <BsEye/>
                       </i>
                     </span>
-                  
+                    Consulta
                   </Link>
+
                 </td>
               </tr>
             ))}

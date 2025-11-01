@@ -5,6 +5,7 @@ import { MdCancel } from "react-icons/md"
 
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import type { Cidade } from "../../type/cidade";
+import { apiPostCidade } from "../../services/cidade/api/api.cidade";
 
 export default function CriarCidade() {
 
@@ -28,23 +29,15 @@ export default function CriarCidade() {
 const onSubmitForm = async (e: any) => {
   e.preventDefault();
 
+  if (!model) {
+    return;
+  }
+
   try {
-    const response = await axios.post(
-      "http://localhost:8000/rest/sistema/cidade/criar",
-      model
-    );
-
-    // CORRETO: só o que importa
-    console.log("Cidade criada:", response.data);
-    console.log("Status:", response.status);
-
-    // Opcional: limpar formulário ou redirecionar
-    setModel(null);
-    alert("Cidade salva com sucesso!");
-
-  } catch (error: any) {
-    // Aqui sim é erro de verdade
-    console.error("Erro ao salvar:", error.response?.data || error.message);
+    const response = apiPostCidade(model!);
+  }
+  catch (error:any){
+    console.log(error);
   }
 };
 

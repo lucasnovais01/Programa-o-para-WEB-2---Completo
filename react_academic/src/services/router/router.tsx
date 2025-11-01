@@ -6,6 +6,7 @@ import CriarCidade from "../../views/cidade/Criar";
 import AlterarCidade from "../../views/cidade/Alterar";
 import ExcluirCidade from "../../views/cidade/Excluir";
 import ConsultarCidade from "../../views/cidade/Consultar";
+import { ROTA } from "./url";
 
 // este é o servidor do REACT
 //http://localhost:3000/sistema/cidade/listar
@@ -20,26 +21,26 @@ export const routes:RouteObject[] = [
         element: <Dashboard />, //componente a ser carregado (FILHO)
       },
       {
-        path: '/sistema/cidade/listar',
+        path: ROTA.CIDADE.LISTAR,
         element: <ListarCidade />,
       },
 
       {
-        path: '/sistema/cidade/criar',
+        path: ROTA.CIDADE.CRIAR,
         element: <CriarCidade />,
       },
       {
-        path: '/sistema/cidade/alterar',
+        path: `${ROTA.CIDADE.ATUALIZAR}/:idCidade`,
         element: <AlterarCidade />,
       },
       {
-        path: '/sistema/cidade/excluir',
+        path: `${ROTA.CIDADE.EXCLUIR}/:idCidade`,
         element: <ExcluirCidade />,
       },
       {
-        path: '/sistema/cidade/consultar',
+        path: `${ROTA.CIDADE.POR_ID}/:idCidade`,
         element: <ConsultarCidade />,
       },
-    ]
+    ],
   },
 ];
