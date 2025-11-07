@@ -5,7 +5,7 @@ interface MensagemProps {
   mensagem: string | string [];
 }
 
-const MensagemErro = ({error, mensagem } : MensagemProps) {
+const MensagemErro = ({error, mensagem } : MensagemProps) => {
 
   const unique = Array.from(
 
