@@ -2,48 +2,48 @@ import { useEffect, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useParams } from "react-router-dom";
-
-import { apiGetCidades, apiPutCidade } from "../../services/cidade/api/api.cidade";
-
-import type { Cidade } from "../../services/cidade/type/cidade";
-
+import {
+  apiGetCidade,
+  apiPutCidade,
+} from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
+import type { Cidade } from "../../services/cidade/type/Cidade";
 
-
+Alterar.tsx
 
 export default function AlterarCidade() {
-
   const { idCidade } = useParams<{ idCidade: string }>();
-  const [ model, setModel ] = useState<Cidade | null>(null);
+  const [model, setModel] = useState<Cidade | null>(null);
 
-  // usaremos o hook
+// COLOCARO  const do erros aqui e copiar do Criar.tsx
+
   useEffect(() => {
-
     async function getCidade() {
       try {
         if (idCidade) {
-          const response = await apiGetCidades(idCidade);
+          const response = await apiGetCidade(idCidade);
           console.log(response.data.dados);
-
           if (response.data.dados) {
             setModel(response.data.dados);
           }
         }
-      }
-      catch (error: any) {
+      } catch (error: any) {
         console.log(error);
       }
     }
 
-  },[idCidade])
+    getCidade();
+  }, [idCidade]);
 
-
-  const handleChangeField = ( name: keyof Cidade, value: string ) => {
-    setModel((prev) => ({...prev, [name]:value }))
+  const handleChangeField = (name: keyof Cidade, value: string) => {
+    setModel((prev) => ({ ...prev, [name]: value }));
+    console.log(model);
   };
 
 
+
   const onSubmitForm = async (e: any) => {
+    // não deixa executar o processo normal
     e.preventDefault();
 
     if (!idCidade || !model) {
@@ -53,92 +53,84 @@ export default function AlterarCidade() {
     try {
       const response = apiPutCidade(idCidade, model);
       console.log(response);
-    }
-    catch (error:any){
+    } catch (error: any) {
       console.log(error);
     }
   };
 
   const getInputClass = () => {
-    return 'form-control app-label mt-2'; // appInput é uma classe global, estiliza o input
+    return "form-control app-label mt-2";
   };
 
-
   return (
-    <div className="display"> {/* display é uma classe global, centraliza, pois é o display flex */}
-
-      <div className="card animated fadeInDown">{/* card é uma classe global, cria um cartão */}
-        <h2>Nova Cidade</h2>
-
-        <form onSubmit={(e) => onSubmitForm(e)}> 
-
+    <div className="display">
+      <div className="card animated fadeInDown">
+        <h2>Alterar Cidade</h2>
+        <form onSubmit={(e) => onSubmitForm(e)}>
           <div className="mb-2 mt-4">
-            <label htmlFor="codCidade" className="appLabel">
-              {CIDADE.LABEL.CODIGO}
+            <label htmlFor="codCidade" className="app-label">
+              Código:
             </label>
             <input
-              id={CIDADE.FIELDS.CODIGO}
-              name={CIDADE.FIELDS.CODIGO}
+              id="codCidade"
+              name="codCidade"
               value={model?.codCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
               autoComplete="off"
-              onChange={(e) => handleChangeField(CIDADE.FIELDS.CODIGO,e.target.value)}
-              >
-            </input> {/* appInput é uma classe global, estiliza o input */}
+              onChange={(e) =>
+                handleChangeField(CIDADE.FIELDS.CODIGO, e.target.value)
+              }
+            />
           </div>
-
           <div className="mb-2 mt-4">
-            <label htmlFor="nomeCidade" className="appLabel">
-              {CIDADE.LABEL.NOME}
-              {/*Nome:  ESTAVA ASSIM ANTES*/}
+            <label htmlFor="nomeCidade" className="app-label">
+              Nome:
             </label>
             <input
-              id={CIDADE.FIELDS.NOME}
-              name={CIDADE.FIELDS.NOME}
+              id="nomeCidade"
+              name="nomeCidade"
               value={model?.nomeCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
               autoComplete="off"
-              onChange={(e) => handleChangeField(CIDADE.FIELDS.NOME,e.target.value)}
-              >
-            </input> {/* appInput é uma classe global, estiliza o input */}
+              onChange={(e) =>
+                handleChangeField(CIDADE.FIELDS.NOME, e.target.value)
+              }
+            />
           </div>
-
-          
-           <div className="btn-content mt-4">
+          <div className="btn-content mt-4">
             <button
               id="submit"
               type="submit"
-              className="btn btn-sucess"
+              className="btn btn-success"
               title="Cadastrar uma nova cidade"
             >
               <span className="btn-icon">
                 <i>
-                  <FaSave/>
+                  <FaSave />
                 </i>
               </span>
               Salvar
             </button>
-           
             <button
               id="cancel"
               type="button"
               className="btn btn-cancel"
-              title="Cancelar uma nova cidade"
+              title="Cancelar o Cadastro da cidade"
             >
               <span className="btn-icon">
                 <i>
-                  <MdCancel/>
+                  <MdCancel />
                 </i>
               </span>
               Cancelar
             </button>
-           </div>
+          </div>
         </form>
       </div>
     </div>
-  )
+  );
 }

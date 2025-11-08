@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
+import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import { useParams } from "react-router-dom";
-import { apiGetCidade } from "../../services/cidade/api/api.cidade";
+import {
+  apiGetCidade,
+  apiPutCidade,
+} from "../../services/cidade/api/api.cidade";
+import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import type { Cidade } from "../../services/cidade/type/Cidade";
 
-export default function ConsultarCidade() {
+export default function AlterarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
 
@@ -13,6 +18,7 @@ export default function ConsultarCidade() {
       try {
         if (idCidade) {
           const response = await apiGetCidade(idCidade);
+          console.log(response.data.dados);
           if (response.data.dados) {
             setModel(response.data.dados);
           }
@@ -25,6 +31,27 @@ export default function ConsultarCidade() {
     getCidade();
   }, [idCidade]);
 
+  const handleChangeField = (name: keyof Cidade, value: string) => {
+    setModel((prev) => ({ ...prev, [name]: value }));
+    console.log(model);
+  };
+
+  const onSubmitForm = async (e: any) => {
+    // não deixa executar o processo normal
+    e.preventDefault();
+
+    if (!idCidade || !model) {
+      return;
+    }
+
+    try {
+      const response = apiPutCidade(idCidade, model);
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
   const getInputClass = () => {
     return "form-control app-label mt-2";
   };
@@ -32,8 +59,8 @@ export default function ConsultarCidade() {
   return (
     <div className="display">
       <div className="card animated fadeInDown">
-        <h2>Excluir Cidade</h2>
-        <form>
+        <h2>Alterar Cidade</h2>
+        <form onSubmit={(e) => onSubmitForm(e)}>
           <div className="mb-2 mt-4">
             <label htmlFor="codCidade" className="app-label">
               Código:
@@ -41,10 +68,14 @@ export default function ConsultarCidade() {
             <input
               id="codCidade"
               name="codCidade"
-              defaultValue={model?.codCidade}
+              value={model?.codCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
+              autoComplete="off"
+              onChange={(e) =>
+                handleChangeField(CIDADE.FIELDS.CODIGO, e.target.value)
+              }
             />
           </div>
           <div className="mb-2 mt-4">
@@ -54,13 +85,30 @@ export default function ConsultarCidade() {
             <input
               id="nomeCidade"
               name="nomeCidade"
-              defaultValue={model?.nomeCidade}
+              value={model?.nomeCidade}
               className={getInputClass()}
               readOnly={false}
               disabled={false}
+              autoComplete="off"
+              onChange={(e) =>
+                handleChangeField(CIDADE.FIELDS.NOME, e.target.value)
+              }
             />
           </div>
           <div className="btn-content mt-4">
+            <button
+              id="submit"
+              type="submit"
+              className="btn btn-success"
+              title="Cadastrar uma nova cidade"
+            >
+              <span className="btn-icon">
+                <i>
+                  <FaSave />
+                </i>
+              </span>
+              Salvar
+            </button>
             <button
               id="cancel"
               type="button"
