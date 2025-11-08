@@ -7,13 +7,24 @@ import {
   apiPutCidade,
 } from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
-import type { Cidade } from "../../services/cidade/type/Cidade";
+import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
 
-Alterar.tsx
+const buscarCidadePorId = async (idCidade:string): Promise<Cidade | null> => {
+
+  try {
+    const response = await apiGetCidade(idCidade);
+    return response.data.dados;
+  }
+  catch (error: any) {
+    console.log(error);
+  }
+  return null;
+};
 
 export default function AlterarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
+  const [errors, setErrors ] = useState<ErrosCidade>({});
 
 // COLOCARO  const do erros aqui e copiar do Criar.tsx
 
@@ -22,9 +33,9 @@ export default function AlterarCidade() {
       try {
         if (idCidade) {
           const response = await apiGetCidade(idCidade);
-          console.log(response.data.dados);
-          if (response.data.dados) {
-            setModel(response.data.dados);
+          console.log(response);
+          if (!response) {
+            setModel(response);  // tipo de hook
           }
         }
       } catch (error: any) {

@@ -6,11 +6,15 @@ import {
   apiDeleteCidade,
   apiGetCidade,
 } from "../../services/cidade/api/api.cidade";
-import type { Cidade } from "../../services/cidade/type/Cidade";
+import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
 
 export default function ExcluirCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
+  const [errors, setErrors ] = useState<ErrosCidade>({});
+
+
+
 
   useEffect(() => {
     async function getCidade() {
@@ -25,6 +29,9 @@ export default function ExcluirCidade() {
         console.log(error);
       }
     }
+
+
+
 
     getCidade();
   }, [idCidade]);
