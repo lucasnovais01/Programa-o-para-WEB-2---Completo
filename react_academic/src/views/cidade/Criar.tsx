@@ -10,6 +10,7 @@ import { apiPostCidade } from "../../services/cidade/api/api.cidade";
 
 import type { Cidade } from "../../services/cidade/type/cidade";
 import type { ErrosCidade } from "../../type/cidade";
+import MensagemErro from "../../components/mensagem/MensagemErro";
 
 export default function CriarCidade() {
 
@@ -19,7 +20,7 @@ export default function CriarCidade() {
   const [model, setModel] = useState<Cidade>(CIDADE.DADOS_INICIAIS); // ele pode ter um valor ou não pode ter nada
 
 // controlar o estado do erro
-  const [erros, setErrors] = useState<ErrosCidade>({});
+  const [errors, setErrors] = useState<ErrosCidade>({});
 
 
   const handleChangeField = ( name: keyof Cidade, value: string ) => {
@@ -100,6 +101,8 @@ export default function CriarCidade() {
       isFormValid = false;
     }
 
+    // nome cidade, mensagem de erro
+
     const nomeCidadeMessages = [];
 
     if (!model.nomeCidade || model.nomeCidade.trim().length){
@@ -107,33 +110,43 @@ export default function CriarCidade() {
     }
 
     if (model.nomeCidade) {
-      if (model.nomeCidade?.length > 0) && model.nomeCidade.length
+      if (model.nomeCidade?.length > 0 && model.nomeCidade.length < 6) {
+        nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.MIN_LEN);
+      }
+      if (model.nomeCidade.length > 100) {
+        nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.MAX_LEN);
+      }
     }
-
-
-    if (model.nomeCidade?.length > 0 && typeof model.codCidade !== "string"){
-      nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.STRING)
-    }
-
 
     if (nomeCidadeMessages.length > 0){
-      newErrors.codCidade = true;
-      newErrors.codCidadeMensagem = nomeCidadeMessages;
+      newErrors.nomeCidade = true;
+      newErrors.nomeCidadeMensagem = nomeCidadeMessages;
       isFormValid = false;
     }
 
+    setErrors(newErrors);
     return isFormValid;
   };
 
 
-
   /* function getInputClass() {  modo classico, sem o arrow function */
-  const getInputClass = () => {
+  const getInputClass = (NOME: string, name: keyof Cidade): string => {
+
+    if (!errors) "form-control app-label mt-2";
+
+    const hasErrors = errors[name];
+
+    if (hasErrors) {
+      return "form-control is-invalid app-label input-error mt-2"
+    }
+
     return 'form-control app-label mt-2'; // appInput é uma classe global, estiliza o input
   };
 
 
 const onSubmitForm = async (e: any) => {
+
+  // não deixa executar o processo normal
   e.preventDefault();
 
   if (!model) {
@@ -147,6 +160,7 @@ const onSubmitForm = async (e: any) => {
     console.log(error);
   }
 
+  // AQUI É O FORMULÁRIO:
 
   return (
     <div className="display"> {/* display é uma classe global, centraliza, pois é o display flex */}
@@ -165,7 +179,9 @@ const onSubmitForm = async (e: any) => {
               id={CIDADE.FIELDS.CODIGO}
               name={CIDADE.FIELDS.CODIGO}
               value={model?.codCidade}
-              className={getInputClass()}
+
+              className={getInputClass(CIDADE.FIELDS.NOME)}
+
               readOnly={false}
               disabled={false}
               autoComplete="off"
@@ -173,10 +189,18 @@ const onSubmitForm = async (e: any) => {
               // a
 
               onChange={(e) => 
-                handleChangeField(CIDADE.FIELDS.CODIGO,e.target.value)}
+                handleChangeField(CIDADE.FIELDS.CODIGO,e.target.value)
+              }
 
               onBlur = {(e) => validateField(CIDADE.FIELDS.CODIGO, e)}
               >
+                {
+                errors.codCidade && (
+                  <MensagemErro
+                    errors={errors.codCidade}
+                    mensagem={errors.nomeCidade}
+                  ></MensagemErro>
+                )}
 
             </input> {/* appInput é uma classe global, estiliza o input */}
           </div>
@@ -190,7 +214,9 @@ const onSubmitForm = async (e: any) => {
               id={CIDADE.FIELDS.NOME}
               name={CIDADE.FIELDS.NOME}
               value={model?.nomeCidade}
-              className={getInputClass()}
+
+              className={getInputClass(CIDADE.FIELDS.NOME,e.target.value)}
+
               readOnly={false}
               disabled={false}
               autoComplete="off"
