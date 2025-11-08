@@ -6,16 +6,18 @@ import { apiPostCidade } from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
 
+
+
 export default function CriarCidade() {
   // hook para monitorar o estado do codigo
   // assincrono
   const [model, setModel] = useState<Cidade>(CIDADE.DADOS_INCIAIS);
-
   const [errors, setErrors] = useState<ErrosCidade>({});
+
+
 
   const handleChangeField = (name: keyof Cidade, value: string) => {
     setModel((prev) => ({ ...prev, [name]: value }));
-
     setErrors((prev) => ({
       ...prev,
       [name]: undefined,
@@ -23,12 +25,15 @@ export default function CriarCidade() {
     }));
   };
 
+
   const validateField = (
     name: keyof Cidade,
     e: React.FocusEvent<HTMLInputElement>,
   ) => {
     let messages: string[] = [];
     const value = model[name];
+
+
 
     switch (name) {
       case CIDADE.FIELDS.CODIGO:
@@ -106,6 +111,9 @@ export default function CriarCidade() {
 
     return "form-control app-label mt-2";
   };
+
+
+// copiar até aqui
 
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
