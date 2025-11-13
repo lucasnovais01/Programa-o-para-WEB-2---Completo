@@ -7,36 +7,20 @@ import {
   apiPutCidade,
 } from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
-import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
-
-const buscarCidadePorId = async (idCidade:string): Promise<Cidade | null> => {
-
-  try {
-    const response = await apiGetCidade(idCidade);
-    return response.data.dados;
-  }
-  catch (error: any) {
-    console.log(error);
-  }
-  return null;
-};
-
-
+import type { Cidade } from "../../services/cidade/type/Cidade";
 
 export default function AlterarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
-  const [errors, setErrors ] = useState<ErrosCidade>({});
-
 
   useEffect(() => {
     async function getCidade() {
       try {
         if (idCidade) {
           const response = await apiGetCidade(idCidade);
-          console.log(response);
-          if (!response) {
-            setModel(response);  // tipo de hook
+          console.log(response.data.dados);
+          if (response.data.dados) {
+            setModel(response.data.dados);
           }
         }
       } catch (error: any) {
@@ -47,112 +31,10 @@ export default function AlterarCidade() {
     getCidade();
   }, [idCidade]);
 
-
- const handleChangeField = (name: keyof Cidade, value: string) => {
+  const handleChangeField = (name: keyof Cidade, value: string) => {
     setModel((prev) => ({ ...prev, [name]: value }));
-    setErrors((prev) => ({
-      ...prev,
-      [name]: undefined,
-      [`${name}Mensagem`]: undefined,
-    }));
+    console.log(model);
   };
-
-
-
-/*
-
-  const validateField = (
-    name: keyof Cidade,
-    e: React.FocusEvent<HTMLInputElement>,
-  ) => {
-    let messages: string[] = [];
-    const value = model[name];
-
-
-
-    switch (name) {
-      case CIDADE.FIELDS.CODIGO:
-        if (!value) messages.push(CIDADE.INPUT_ERROR.CODIGO.BLANK);
-        if (value && typeof value !== "string")
-          messages.push(CIDADE.INPUT_ERROR.CODIGO.STRING);
-        break;
-      case CIDADE.FIELDS.NOME:
-        if (!value || String(value).trim().length === 0) {
-          messages.push(CIDADE.INPUT_ERROR.NOME.BLANK);
-        }
-        if (String(value).length > 0 && String(value).length < 6) {
-          messages.push(CIDADE.INPUT_ERROR.NOME.MIN_LEN);
-        }
-        if (String(value).length > 100) {
-          messages.push(CIDADE.INPUT_ERROR.NOME.MAX_LEN);
-        }
-        break;
-    }
-    setErrors((prev) => ({
-      ...prev,
-      [name]: messages.length > 0,
-      [`${name}Mensagem`]: messages.length > 0 ? messages : undefined,
-    }));
-  };
-
-  const validarFormulario = (): boolean => {
-    const newErrors: ErrosCidade = {};
-    let isFormValid = true;
-
-    const codCidadeMessages = [];
-
-    if (!model.codCidade) {
-      codCidadeMessages.push(CIDADE.INPUT_ERROR.CODIGO.VALID);
-    }
-    if (model.codCidade && typeof model.codCidade !== "string") {
-      codCidadeMessages.push(CIDADE.INPUT_ERROR.CODIGO.STRING);
-    }
-    if (codCidadeMessages.length > 0) {
-      newErrors.codCidade = true;
-      newErrors.codCidadeMensagem = codCidadeMessages;
-      isFormValid = false;
-    }
-
-    const nomeCidadeMessages = [];
-
-    if (!model.nomeCidade || model.nomeCidade.trim().length === 0) {
-      nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.BLANK);
-    }
-    if (model.nomeCidade) {
-      if (model.nomeCidade.length > 0 && model.nomeCidade.length < 6) {
-        nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.MIN_LEN);
-      }
-      if (model.nomeCidade.length > 100) {
-        nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.MAX_LEN);
-      }
-    }
-    if (nomeCidadeMessages.length > 0) {
-      newErrors.nomeCidade = true;
-      newErrors.nomeCidadeMensagem = nomeCidadeMessages;
-      isFormValid = false;
-    }
-
-    setErrors(newErrors);
-    return isFormValid;
-  };
-
-  const getInputClass = (name: keyof Cidade): string => {
-    if (!errors) "form-control app-label mt-2";
-
-    const hasErrors = errors[name];
-    if (hasErrors) {
-      return "form-control is-invalid app-label input-error mt-2 ";
-    }
-
-    return "form-control app-label mt-2";
-  };
-
-*/
-
-
-
-
-
 
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
