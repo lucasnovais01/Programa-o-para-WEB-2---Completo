@@ -1,3 +1,4 @@
+import type { Cidade } from "../../../type/cidade";
 import { criarMensagemOperacao } from "../../constant/mensagem.operacao";
 
 const ENTITY_NAME = "Cidade";
@@ -31,7 +32,7 @@ export const CIDADE = {
     EXCLUIR: `Excluir ${ENTITY_NAME}`,
     CONSULTAR: `Consultar ${ENTITY_NAME}`,
   },
-
+//
   INPUT_ERROR: {
     ID: {
       BLANK: `O código de identificação do ${ENTITY_NAME} deve ser informado`,
@@ -55,3 +56,22 @@ export const CIDADE = {
 
   OPERACAO: criarMensagemOperacao(ENTITY_NAME),
 };
+
+// Novo código abaixo:
+
+export const fieldsCidade: (keyof Cidade)[] = {
+  CIDADE.FIELDS.ID,
+  CIDADE.FIELDS.CODIGO,
+  CIDADE.FIELDS.NOME,
+}
+
+
+export const mapaCampoParaMensagem:Record<
+  keyof Cidade, 
+  keyof typeof CIDADE.INPUT_ERROR
+> = {
+  idCidade: "ID",
+  codCidade: "CODIGO",
+  nomeCidade: "NOME",
+};
+

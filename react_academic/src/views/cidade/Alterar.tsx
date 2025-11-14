@@ -9,6 +9,48 @@ import {
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import type { Cidade } from "../../services/cidade/type/Cidade";
 
+import type { ErrosCidade } from "../../type/cidade";
+/*
+  Novo:
+*/
+const validarCamposVaziosCidade = (
+  cidade: Cidade
+) : Partial<Record<keyof Cidade, string[]>> => {
+  const erros: Partial<Record<keyof Cidade, string[]>> = {};
+
+  fieldsCidade.forEach(field => {  //codCidade
+
+    const valor = cidade[field];  // aqui vai pegar o conteúdo do codCidade
+    const isEmpty = 
+      valor === undefined || 
+      valor === null || 
+      (typeof valor === "string" && valor.trim() === "");
+    
+    if (isEmpty) {
+      const keyMessage = mapaCampoParaMensagem[field];
+      const mensagemErro = CIDADE.INPUT_ERROR[keyMessage]?.BLANK;
+      const mensagem = mensagmeErro ?? `O campo ${field} é indefinido`
+
+      erros[field] = [mensagem]
+
+    }
+  });
+  return Object.keys(erros).length > 0 ? erros : null;
+};
+
+interface BuscarCidadePorIdProps {
+  cidade: Cidade;
+  errosCidade: ErrosCidade | null | undefined;
+}
+
+const buscarCidadePorId = async (
+  idCidade: string,
+): Promise<BuscarCidadePorIdProps | null> => {
+
+}
+
+// Acima é novo
+
 export default function AlterarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
