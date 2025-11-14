@@ -29,7 +29,7 @@ const validarCamposVaziosCidade = (
     if (isEmpty) {
       const keyMessage = mapaCampoParaMensagem[field];
       const mensagemErro = CIDADE.INPUT_ERROR[keyMessage]?.BLANK;
-      const mensagem = mensagmeErro ?? `O campo ${field} é indefinido`
+      const mensagem = mensagemErro ?? `O campo ${field} é indefinido`
 
       erros[field] = [mensagem]
 
@@ -47,7 +47,33 @@ const buscarCidadePorId = async (
   idCidade: string,
 ): Promise<BuscarCidadePorIdProps | null> => {
 
+
+let errosCidade: ErrosCidade | null = null;
+try {
+  const response = await apiGetCidade(idCidade);
+  if (response.data.dados) {
+    cidade = response.data.dados;
+    const errosValidacao = validarCamposVaziosCidade(cidade)
+    
+    if (errosValidacao) {
+      errosCidade = setServerErrorsCidade(errosValidacao);
+    }
+  }
+  return response.data.dados;
 }
+  catch (error: any) {
+    console.log(error);
+  }
+  return null;
+
+};
+
+// A ideia acima é supervalidar
+
+
+
+
+
 
 // Acima é novo
 
@@ -170,3 +196,7 @@ export default function AlterarCidade() {
     </div>
   );
 }
+function setServerErrorsCidade(errosValidacao: Partial<Record<keyof Cidade, string[]>>): ErrosCidade | null {
+  throw new Error("Function not implemented.");
+}
+
