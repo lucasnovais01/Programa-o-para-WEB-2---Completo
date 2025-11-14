@@ -13,9 +13,38 @@ import type { ErrosCidade } from "../../type/cidade";
 /*
   Novo:
 */
+
+const setServerErrorsCidade = (
+  serverErros: Partial<Record<keyof Cidade, string[]>> | null
+) :ErrosCidade | null => {
+
+  if (!serverErros) {
+    return null;
+  }
+
+  const newErrors: ErrosCidade = {};
+
+  (Object.keys(serverErros) as 
+    (keyofCidade)[]).forEach((field) => {
+      const mensagens = serverErros[field];
+
+      if (mensagens && mensagens.length > 0) {
+        newErrors[field] = true;
+
+        const msgKey = `${String(field)}Mensagem`;
+
+        (newErrors as any)[msgKey] = [mensagens];
+      }
+  });
+  return Object.keys(newErrors).length > 0 ? newErrors : null;
+};
+
+
+//
+
 const validarCamposVaziosCidade = (
   cidade: Cidade
-) : Partial<Record<keyof Cidade, string[]>> => {
+): Partial<Record<keyof Cidade, string[]>> => {
   const erros: Partial<Record<keyof Cidade, string[]>> = {};
 
   fieldsCidade.forEach(field => {  //codCidade
@@ -47,24 +76,36 @@ const buscarCidadePorId = async (
   idCidade: string,
 ): Promise<BuscarCidadePorIdProps | null> => {
 
+// LETS (variavel mutável)
 
+let cidade: Cidade;
 let errosCidade: ErrosCidade | null = null;
+
 try {
+
   const response = await apiGetCidade(idCidade);
   if (response.data.dados) {
     cidade = response.data.dados;
-    const errosValidacao = validarCamposVaziosCidade(cidade)
-    
-    if (errosValidacao) {
-      errosCidade = setServerErrorsCidade(errosValidacao);
+
+    if (cidade){
+      const errosValidacao = validarCamposVaziosCidade(cidade)
+      if (errosValidacao) {
+        errosCidade = setServerErrorsCidade(errosValidacao);
+      }
     }
   }
-  return response.data.dados;
+
+//  return response.data.dados;
+  return {
+    cidade,
+    errosCidade
+  };
 }
-  catch (error: any) {
-    console.log(error);
-  }
-  return null;
+
+catch (error: any) {
+  console.log(error);
+}
+return null;
 
 };
 
