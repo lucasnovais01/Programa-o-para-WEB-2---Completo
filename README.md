@@ -13,7 +13,6 @@ PARA O NEST É
 PARA O REACTJS
     npm run dev
 
-
 para testar no postman
 
 {
@@ -22,7 +21,7 @@ para testar no postman
     "codCidade": "COD120"
 }
 
-OBSERVAÇÕES:
+OBSERVAÇÕES::
 
 DTO = Data Transfer Object, serve para esconder coisas no backend
 
