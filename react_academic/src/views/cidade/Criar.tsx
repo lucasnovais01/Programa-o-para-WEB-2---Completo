@@ -5,6 +5,8 @@ import MensagemErro from "../../components/mensagem/MensagemErro";
 import { apiPostCidade } from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
+import { useNavigate } from "react-router-dom";
+import { ROTA } from "../../services/router/url";
 
 export default function CriarCidade() {
   // hook para monitorar o estado do codigo
@@ -12,6 +14,27 @@ export default function CriarCidade() {
   const [model, setModel] = useState<Cidade>(CIDADE.DADOS_INCIAIS);
 
   const [errors, setErrors] = useState<ErrosCidade>({});
+
+  const navigate = useNavigate();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const handleChangeField = (name: keyof Cidade, value: string) => {
     setModel((prev) => ({ ...prev, [name]: value }));
@@ -107,6 +130,8 @@ export default function CriarCidade() {
     return "form-control app-label mt-2";
   };
 
+//
+
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
     e.preventDefault();
@@ -123,10 +148,27 @@ export default function CriarCidade() {
     try {
       const response = apiPostCidade(model);
       console.log(response);
+      navigate(ROTA.CIDADE.LISTAR);
     } catch (error: any) {
       console.log(error);
     }
   };
+
+///
+
+
+
+
+
+
+
+
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROTA.CIDADE.LISTAR);
+  };
+
+// TELAS:
 
   return (
     <div className="display">
@@ -200,6 +242,7 @@ export default function CriarCidade() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro da cidade"
+              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>

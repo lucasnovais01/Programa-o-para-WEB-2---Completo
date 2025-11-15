@@ -101,7 +101,60 @@ export default function ExcluirCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
 
+  const [errors, setErrors] = useState<ErrosCidade | null>(null); // copiado de Alterar.tsx
   const navigate = useNavigate();
+
+// Solução: Adicionar useEffect com buscarCidadePorId
+// Você já tem a função buscarCidadePorId pronta e funcionando. Só falta usá-la no ExcluirCidade, assim como no AlterarCidade
+/* Não funciona
+useEffect(() => {
+    async function carregarCidade() {
+      if (idCidade) {
+        const resultado = await buscarCidadePorId(idCidade);
+        if (resultado?.cidade) {
+          setModel(resultado.cidade);
+        }
+      }
+    }
+
+    carregarCidade();
+  }, [idCidade]);
+*/
+  useEffect(() => {
+    async function getCidade() {
+      try {
+        if (idCidade) {
+          const response = await buscarCidadePorId(idCidade);
+          if (response?.cidade) {
+            setModel(response.cidade);
+            setErrors(response?.errosCidade ?? null);
+            if (response?.errosCidade) {
+              console.log("Erros existentes no registro da cidade");
+            }
+          }
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    }
+
+    getCidade();
+  }, [idCidade]);
+
+  // será que está usando está cosntante em Excluir.tsx ???
+  const handleChangeField = (name: keyof Cidade, value: string) => {
+    setModel((prev) => ({ ...prev, [name]: value }));
+    console.log(model);
+  };
+
+
+
+
+
+
+
+
+
 
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
