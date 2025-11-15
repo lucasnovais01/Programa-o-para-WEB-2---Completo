@@ -15,6 +15,8 @@ import {
 import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
 import { ROTA } from "../../services/router/url";
 
+// Aqui foi implementado novas formas de validar os erros, e preciso colocar no Consultar.tsx e Excluir.tsx
+
 const setServerErrorsCidade = (
   serverErros: Partial<Record<keyof Cidade, string[]>> | null,
 ): ErrosCidade | null => {
@@ -37,6 +39,8 @@ const setServerErrorsCidade = (
   });
   return Object.keys(newErrors).length > 0 ? newErrors : null;
 };
+
+
 
 const validarCamposVaziosCidade = (
   cidade: Cidade,
@@ -94,7 +98,9 @@ const buscarCidadePorId = async (
 export default function AlterarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade>(CIDADE.DADOS_INCIAIS);
+
   const [errors, setErrors] = useState<ErrosCidade | null>(null);
+
   const navigate = useNavigate();
 
   useEffect(() => {

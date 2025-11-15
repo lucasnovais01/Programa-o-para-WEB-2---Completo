@@ -12,6 +12,10 @@ import { ROTA } from "./url";
 
 export const routes: RouteObject[] = [
   {
+    path: "/",
+    element: <Layout />,
+  },
+  {
     path: "/sistema",
     element: <Layout />, // componente (pai)
     children: [

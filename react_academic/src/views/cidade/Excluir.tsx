@@ -1,18 +1,107 @@
 import { useEffect, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   apiDeleteCidade,
   apiGetCidade,
 } from "../../services/cidade/api/api.cidade";
-import type { Cidade } from "../../services/cidade/type/Cidade";
+import type { Cidade, ErrosCidade } from "../../services/cidade/type/Cidade";
+import { ROTA } from "../../services/router/url";
+import { CIDADE, fieldsCidade, mapaCampoParaMensagem } from "../../services/cidade/constants/cidade.constants";
+
+// TAREFA: REFATORAR a tela de EXCLUSÃO. O excluir não está pegando os dados de código e nome da CIDADE LISTAR
+
+/**
+ *  COPIA DO ALTERAR ABAIXO
+ */
+const setServerErrorsCidade = (
+  serverErros: Partial<Record<keyof Cidade, string[]>> | null,
+): ErrosCidade | null => {
+  if (!serverErros) {
+    return null;
+  }
+
+  const newErrors: ErrosCidade = {};
+
+  (Object.keys(serverErros) as (keyof Cidade)[]).forEach((field) => {
+    const mensagens = serverErros[field];
+
+    if (mensagens && mensagens.length > 0) {
+      newErrors[field] = true;
+
+      const msgKey = `${String(field)}Mensagem`;
+
+      (newErrors as any)[msgKey] = [mensagens];
+    }
+  });
+  return Object.keys(newErrors).length > 0 ? newErrors : null;
+};
+
+
+
+const validarCamposVaziosCidade = (
+  cidade: Cidade,
+): Partial<Record<keyof Cidade, string[]>> | null => {
+  const erros: Partial<Record<keyof Cidade, string[]>> = {};
+  fieldsCidade.forEach((field) => {
+    const valor = cidade[field];
+    const isEmpty =
+      valor === undefined ||
+      valor === null ||
+      (typeof valor === "string" && valor.trim() === "");
+
+    if (isEmpty) {
+      const keyMessage = mapaCampoParaMensagem[field];
+      const mensagemErro = CIDADE.INPUT_ERROR[keyMessage]?.BLANK;
+      const mensagem = mensagemErro ?? `O campo ${field} é obrigatório`;
+
+      erros[field] = [mensagem];
+    }
+  });
+  return Object.keys(erros).length > 0 ? erros : null;
+};
+
+interface BuscarCidadePorIdProps {
+  cidade: Cidade | null;
+  errosCidade: ErrosCidade | null | undefined;
+}
+
+const buscarCidadePorId = async (
+  idCidade: string,
+): Promise<BuscarCidadePorIdProps | null> => {
+  let cidade: Cidade | null = null;
+  let errosCidade: ErrosCidade | null = null;
+  try {
+    const response = await apiGetCidade(idCidade);
+    if (response.data.dados) {
+      cidade = response.data.dados;
+      if (cidade) {
+        const errosValidacao = validarCamposVaziosCidade(cidade);
+        if (errosValidacao) {
+          errosCidade = setServerErrorsCidade(errosValidacao);
+        }
+      }
+    }
+    return {
+      cidade,
+      errosCidade,
+    };
+  } catch (error: any) {
+    console.log(error);
+  }
+  return null;
+};
+
+
+
+////////////////////////////////////
 
 export default function ExcluirCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
 
-   
+  const navigate = useNavigate();
 
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
@@ -25,6 +114,9 @@ export default function ExcluirCidade() {
     try {
       const response = apiDeleteCidade(idCidade);
       console.log(response);
+
+      navigate(ROTA.CIDADE.LISTAR); //novo, vai voltar para o Listar
+
     } catch (error: any) {
       console.log(error);
     }
@@ -34,9 +126,18 @@ export default function ExcluirCidade() {
     return "form-control app-label mt-2";
   };
 
+  // NOVO E FUNCIONANDO
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROTA.CIDADE.LISTAR);
+  };
+
+// AQUI ONDE VAI A TELA:
+
   return (
     <div className="display">
       <div className="card animated fadeInDown">
+
         <h2>Excluir Cidade</h2>
         <form onSubmit={(e) => onSubmitForm(e)}>
           <div className="mb-2 mt-4">
@@ -84,6 +185,7 @@ export default function ExcluirCidade() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro da cidade"
+              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>
