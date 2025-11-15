@@ -12,22 +12,7 @@ export default function ExcluirCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
 
-  useEffect(() => {
-    async function getCidade() {
-      try {
-        if (idCidade) {
-          const response = await apiGetCidade(idCidade);
-          if (response.data.dados) {
-            setModel(response.data.dados);
-          }
-        }
-      } catch (error: any) {
-        console.log(error);
-      }
-    }
-
-    getCidade();
-  }, [idCidade]);
+   
 
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
