@@ -57,13 +57,13 @@ export const CIDADE = {
   OPERACAO: criarMensagemOperacao(ENTITY_NAME),
 };
 
-// Novo código abaixo:
+// Novo código abaixo (está com erro):
 
-export const fieldsCidade: (keyof Cidade)[] = {
+export const fieldsCidade: (keyof Cidade)[] = [
   CIDADE.FIELDS.ID,
   CIDADE.FIELDS.CODIGO,
   CIDADE.FIELDS.NOME,
-}
+];
 
 
 export const mapaCampoParaMensagem:Record<

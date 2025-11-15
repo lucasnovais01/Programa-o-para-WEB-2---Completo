@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   apiGetCidade,
   apiPutCidade,
 } from "../../services/cidade/api/api.cidade";
-import { CIDADE } from "../../services/cidade/constants/cidade.constants";
+import { CIDADE, mapaCampoParaMensagem, fieldsCidade } from "../../services/cidade/constants/cidade.constants";
 import type { Cidade } from "../../services/cidade/type/Cidade";
 
 import type { ErrosCidade } from "../../type/cidade";
+import { ROTA } from "../../services/router/url";
+
 /*
   Novo:
 */
@@ -25,7 +27,7 @@ const setServerErrorsCidade = (
   const newErrors: ErrosCidade = {};
 
   (Object.keys(serverErros) as 
-    (keyofCidade)[]).forEach((field) => {
+    (keyof Cidade)[]).forEach((field) => {
       const mensagens = serverErros[field];
 
       if (mensagens && mensagens.length > 0) {
@@ -78,7 +80,7 @@ const buscarCidadePorId = async (
 
 // LETS (variavel mutável)
 
-let cidade: Cidade;
+let cidade: Cidade | null = null;
 let errosCidade: ErrosCidade | null = null;
 
 try {
@@ -95,11 +97,10 @@ try {
     }
   }
 
-//  return response.data.dados;
-  return {
-    cidade,
-    errosCidade
-  };
+//  return response.data.dados; //como estava antiamento
+  return cidade ? { 
+    cidade, 
+    errosCidade} : null;
 }
 
 catch (error: any) {
@@ -121,18 +122,32 @@ return null;
 export default function AlterarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
+  const [errors, setErrors] = useState<ErrosCidade | null>(null); //correto
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getCidade() {
       try {
         if (idCidade) {
           const response = await apiGetCidade(idCidade);
-          console.log(response.data.dados);
+
+          //console.log(response.data.dados);
+
+          if (response?.cidade) {
+            setModel(response.cidade);
+            setError(response?.errosCidade ?? null);
+          }
+
+          /* ANTIGO:
+
           if (response.data.dados) {
             setModel(response.data.dados);
           }
+          */
         }
-      } catch (error: any) {
+      }
+      catch (error: any) {
         console.log(error);
       }
     }
@@ -145,7 +160,18 @@ export default function AlterarCidade() {
     console.log(model);
   };
 
-  const onSubmitForm = async (e: any) => {
+  const getInputClass = (name: keyof Cidade): string => {
+    if (errors) {
+      const hasErrors = erros[name];
+
+      if (hasErrors) {
+        return "form-control is-invalid app-label input-en"
+      }
+    }
+    return "form-control app-label mt-2";
+  };
+
+  const onSubmitForm = async (e: React.FormEvent) => {
     // não deixa executar o processo normal
     e.preventDefault();
 
@@ -153,17 +179,31 @@ export default function AlterarCidade() {
       return;
     }
 
+    if (!validarFormulario()){
+      console.log("erros nos dados do forumlário");
+      return;
+    }
+
     try {
       const response = apiPutCidade(idCidade, model);
       console.log(response);
-    } catch (error: any) {
+      navigate(ROTA.CIDADE.LISTAR)
+    }
+    catch (error: any) {
       console.log(error);
     }
   };
 
-  const getInputClass = () => {
-    return "form-control app-label mt-2";
+  // Evento tipo mouse disprado por um botão
+
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROTA.CIDADE.LISTAR);
+
+    // Quando o usuário clicar n ocancelar , ousuário volta pro
   };
+
+// tela:
 
   return (
     <div className="display">
@@ -223,6 +263,7 @@ export default function AlterarCidade() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro da cidade"
+              onClick={handleCancel} // vai dar uma utilidade pro botão. Ao clicar cancelar, vai voltar
             >
               <span className="btn-icon">
                 <i>
@@ -237,7 +278,12 @@ export default function AlterarCidade() {
     </div>
   );
 }
+/*
 function setServerErrorsCidade(errosValidacao: Partial<Record<keyof Cidade, string[]>>): ErrosCidade | null {
   throw new Error("Function not implemented.");
 }
 
+function setError() {
+  throw new Error("Function not implemented.");
+}
+*/
