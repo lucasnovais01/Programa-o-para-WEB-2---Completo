@@ -1,56 +1,44 @@
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import MensagemErro from "../../components/mensagem/MensagemErro";
+import { Input } from "../../components/input/Input";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import { useCriar } from "../../services/cidade/hook/useCriar";
 
 export default function CriarCidade() {
-
-  const {
-    model,
-    errors,
-    handleChangeField,
-    validateField,
-    onSubmitForm,
-    getInputClass,
-    handleCancel,
-
-   } = useCriar();
-
-// TELAS:
+  const { model, errors, handleChangeField, validateField, onSubmitForm } =
+    useCriar();
 
   return (
     <div className="display">
       <div className="card animated fadeInDown">
         <h2>Nova Cidade</h2>
         <form onSubmit={(e) => onSubmitForm(e)}>
+          <div className="mb-2 mt-4"></div>{" "}
+          <Input
+            label={CIDADE.LABEL.CODIGO}
+            id={CIDADE.FIELDS.CODIGO}
+            name={CIDADE.FIELDS.CODIGO}
+            value={model?.codCidade}
+            onChange={(e) =>
+              handleChangeField(CIDADE.FIELDS.CODIGO, e.target.value)
+            }
+            onBlur={(e) => validateField(CIDADE.FIELDS.CODIGO, e)}
+            error={errors.codCidade}
+            errorMensagem={errors.codCidadeMensagem}
+          />
           <div className="mb-2 mt-4">
-
-
-          </div>
-          <div className="mb-2 mt-4">
-            <label htmlFor="nomeCidade" className="app-label">
-              {CIDADE.LABEL.NOME}:
-            </label>
             <Input
+              label={CIDADE.LABEL.NOME}
               id={CIDADE.FIELDS.NOME}
               name={CIDADE.FIELDS.NOME}
               value={model?.nomeCidade}
-              className={getInputClass(CIDADE.FIELDS.NOME)}
-              readOnly={false}
-              disabled={false}
-              autoComplete="off"
               onChange={(e) =>
                 handleChangeField(CIDADE.FIELDS.NOME, e.target.value)
               }
               onBlur={(e) => validateField(CIDADE.FIELDS.NOME, e)}
+              error={errors.nomeCidade}
+              errorMensagem={errors.nomeCidadeMensagem}
             />
-            {errors.nomeCidade && (
-              <MensagemErro
-                error={errors.nomeCidade}
-                mensagem={errors.nomeCidadeMensagem}
-              />
-            )}
           </div>
           <div className="btn-content mt-4">
             <button
@@ -71,7 +59,6 @@ export default function CriarCidade() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro da cidade"
-              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>
