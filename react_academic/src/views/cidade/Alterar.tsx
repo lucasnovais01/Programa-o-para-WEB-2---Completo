@@ -1,25 +1,19 @@
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import MensagemErro from "../../components/mensagem/MensagemErro";
-import {
-  CIDADE,
-} from "../../services/cidade/constants/cidade.constants";
+import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import { useAlterar } from "../../services/cidade/hook/useAlterar";
 
-// Aqui foi implementado novas formas de validar os erros, e preciso colocar no Consultar.tsx e Excluir.tsx
-
-  export default function AlterarCidade() {
-    const {
-      model,
-      errors,
-      handleChangeField,
-      validateField,
-      onSubmitForm,
-      HandleCancel,
-      getInputClass
-    } = useAlterar();
-  }
-
+export default function AlterarCidade() {
+  const {
+    model,
+    errors,
+    handleChangeField,
+    validateField,
+    onSubmitForm,
+    handleCancel,
+    getInputClass,
+  } = useAlterar();
 
   return (
     <div className="display">
@@ -107,4 +101,4 @@ import { useAlterar } from "../../services/cidade/hook/useAlterar";
       </div>
     </div>
   );
-};
+}

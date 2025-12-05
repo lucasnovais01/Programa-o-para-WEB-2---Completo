@@ -1,18 +1,12 @@
 import { useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { apiGetCidade } from "../../services/cidade/api/api.cidade";
 import type { Cidade } from "../../services/cidade/type/Cidade";
-import { ROTA } from "../../services/router/url";
-
-// TAREFA: REFATORAR a tela de EXCLUSÃO
-
 
 export default function ConsultarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
   const [model, setModel] = useState<Cidade | null>(null);
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     async function getCidade() {
@@ -23,8 +17,7 @@ export default function ConsultarCidade() {
             setModel(response.data.dados);
           }
         }
-      }
-      catch (error: any) {
+      } catch (error: any) {
         console.log(error);
       }
     }
@@ -35,15 +28,6 @@ export default function ConsultarCidade() {
   const getInputClass = () => {
     return "form-control app-label mt-2";
   };
-
-  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    navigate(ROTA.CIDADE.LISTAR);
-  };
-
-
-
-
 
   return (
     <div className="display">
@@ -82,7 +66,6 @@ export default function ConsultarCidade() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro da cidade"
-              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>
