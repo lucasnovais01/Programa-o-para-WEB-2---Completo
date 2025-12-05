@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { apiPostCidade } from "../api/api.cidade";
 import { CIDADE } from "../constants/cidade.constants";
-import type { Cidade, ErrosCidade } from "../type/Cidade";
+import type { Cidade, ErrosCidade } from "../../../type/cidade";
 
 export const useCriar = () => {
   const [model, setModel] = useState<Cidade>(CIDADE.DADOS_INCIAIS);

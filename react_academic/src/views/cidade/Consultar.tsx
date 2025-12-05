@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
 import { useParams } from "react-router-dom";
 import { apiGetCidade } from "../../services/cidade/api/api.cidade";
-import type { Cidade } from "../../services/cidade/type/Cidade";
+import type { Cidade } from "../../type/cidade";
+
 
 export default function ConsultarCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();

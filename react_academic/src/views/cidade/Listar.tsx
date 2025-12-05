@@ -5,8 +5,9 @@ import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { apiGetCidades } from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
-import type { Cidade } from "../../services/cidade/type/Cidade";
+
 import { ROTA } from "../../services/router/url";
+import type { Cidade } from "../../type/cidade";
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
   try {

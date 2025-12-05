@@ -6,7 +6,7 @@ import {
   apiDeleteCidade,
   apiGetCidade,
 } from "../../services/cidade/api/api.cidade";
-import type { Cidade } from "../../services/cidade/type/Cidade";
+import type { Cidade } from "../../type/cidade";
 
 export default function ExcluirCidade() {
   const { idCidade } = useParams<{ idCidade: string }>();
