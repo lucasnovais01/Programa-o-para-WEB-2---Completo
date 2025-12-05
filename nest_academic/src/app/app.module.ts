@@ -1,24 +1,24 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import Joi from "joi";
-import { CidadeModule } from "src/cidade/cidade.module";
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import Joi from 'joi';
+import { CidadeModule } from 'src/cidade/cidade.module';
 //import { Cidade } from 'src/cidade/entity/cidade.entity';
 
-const oracledb = require("oracledb");
+import oracledb from 'oracledb';
 
 // oracledb.initOracleClient({ libDir: 'C:/oracle/instantclient_23_10' });
 
 // Importa e executa a configuração do Oracle Client
-import "../oracle-client.config";
+//const oracledb = require('oracledb');
+//import "../oracle-client.config";
 
 /*
 Correto na escola
-
+*/
 oracledb.initOracleClient({
   libDir: 'D:/.Lucas Novais/oracle/client',
 });
-*/
 
 // IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
 // E NÃO DEVEM SER FEITO UPLOAD DELES NO GITHUB
@@ -46,16 +46,16 @@ oracledb.initOracleClient({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        type: "oracle",
-        host: configService.get("DATABASE_HOST"),
-        port: configService.get("DATABASE_PORT"),
-        username: configService.get("DATABASE_USERNAME"),
-        sid: configService.get("DATABASE_DATABASE"),
+        type: 'oracle',
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get('DATABASE_PORT'),
+        username: configService.get('DATABASE_USERNAME'),
+        sid: configService.get('DATABASE_DATABASE'),
 
-        password: configService.get("DATABASE_PASSWORD"),
-        autoLoadEntities: configService.get("DATABASE_AUTOLOADENTITIES"),
-        synchronize: configService.get("DATABASE_SYNCHRONIZE"),
-        logging: ["query", "error"],
+        password: configService.get('DATABASE_PASSWORD'),
+        autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+        synchronize: configService.get('DATABASE_SYNCHRONIZE'),
+        logging: ['query', 'error'],
         //entities: [Cidade],
       }),
     }),
