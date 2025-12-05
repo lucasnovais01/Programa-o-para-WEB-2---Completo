@@ -15,10 +15,8 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const joi_1 = __importDefault(require("joi"));
 const cidade_module_1 = require("../cidade/cidade.module");
-const oracledb = require('oracledb');
-oracledb.initOracleClient({
-    libDir: 'D:/.Lucas Novais/oracle/client',
-});
+const oracledb = require("oracledb");
+require("../oracle-client.config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -44,15 +42,15 @@ exports.AppModule = AppModule = __decorate([
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
                 useFactory: (configService) => ({
-                    type: 'oracle',
-                    host: configService.get('DATABASE_HOST'),
-                    port: configService.get('DATABASE_PORT'),
-                    username: configService.get('DATABASE_USERNAME'),
-                    sid: configService.get('DATABASE_DATABASE'),
-                    password: configService.get('DATABASE_PASSWORD'),
-                    autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
-                    synchronize: configService.get('DATABASE_SYNCHRONIZE'),
-                    logging: ['query', 'error'],
+                    type: "oracle",
+                    host: configService.get("DATABASE_HOST"),
+                    port: configService.get("DATABASE_PORT"),
+                    username: configService.get("DATABASE_USERNAME"),
+                    sid: configService.get("DATABASE_DATABASE"),
+                    password: configService.get("DATABASE_PASSWORD"),
+                    autoLoadEntities: configService.get("DATABASE_AUTOLOADENTITIES"),
+                    synchronize: configService.get("DATABASE_SYNCHRONIZE"),
+                    logging: ["query", "error"],
                 }),
             }),
             cidade_module_1.CidadeModule,
