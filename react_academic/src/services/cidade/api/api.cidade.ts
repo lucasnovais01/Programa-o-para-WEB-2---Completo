@@ -1,6 +1,6 @@
 import { http } from "../../axios/config.axios";
 import { ROTA } from "../../router/url";
-import type { Cidade } from "../type/Cidade";
+import type { Cidade } from "../../../type/cidade";
 
 export const apiGetCidades = async () => {
   const response = await http.get(ROTA.CIDADE.LISTAR);
