@@ -17,7 +17,7 @@ import oracledb from 'oracledb';
 Correto na escola
 */
 oracledb.initOracleClient({
-  libDir: 'D:/.Lucas Novais/oracle/client',
+  libDir: 'E:/.Lucas Novais/oracle/client',
 });
 
 // IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
