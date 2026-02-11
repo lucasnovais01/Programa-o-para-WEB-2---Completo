@@ -55,6 +55,13 @@ npm i class-transformer --save
 --------------------------
 
 
+#### TODOS DO NEST
+npm install -D typescript npm install -D ts-node npm install -D tsconfig-paths npm install -D @types/node npm install -D eslint npm install -D @eslint/js npm install -D typescript-eslint npm install -D eslint-config-prettier npm install -D eslint-plugin-prettier npm install -D prettier npm install -D globals
+
+### TODOS DO REACT
+
+
+
 Os dados dentro do app.module.ts são Sensíveis, e Por tanto é importante utilizarmos o comando:
 
 git update-index --assume-unchanged src/app/app.module.ts
