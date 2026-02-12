@@ -5,7 +5,8 @@ import Joi from 'joi';
 import { CidadeModule } from 'src/cidade/cidade.module';
 //import { Cidade } from 'src/cidade/entity/cidade.entity';
 
-import oracledb from 'oracledb';
+// usando o mySQL
+// import oracledb from 'oracledb';
 
 // oracledb.initOracleClient({ libDir: 'C:/oracle/instantclient_23_10' });
 
@@ -15,10 +16,15 @@ import oracledb from 'oracledb';
 
 /*
 Correto na escola
-*/
+
 oracledb.initOracleClient({
   libDir: 'E:/.Lucas Novais/oracle/client',
 });
+*/
+
+/*
+AGORA NO MYSQL, o codigo de cima nao aplica
+*/
 
 // IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
 // E NÃO DEVEM SER FEITO UPLOAD DELES NO GITHUB
@@ -33,10 +39,12 @@ oracledb.initOracleClient({
         DATABASE_PORT: Joi.number().required(),
         DATABASE_USERNAME: Joi.string().required(),
         DATABASE_NAME: Joi.string().required(),
-        DATABASE_PASSWORD: Joi.string().required(),
+        // Agora que mudei pro MySQL, deixa comentado login e senha, vai que tenho que voltar pro Oracle
+
+        //DATABASE_PASSWORD: Joi.string().required(),
         DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
         DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
-        DATABASE_LOGGING: Joi.boolean().default(true),
+        //DATABASE_LOGGING: Joi.boolean().default(true),
 
         DATABASE_ROW_NUMBER: Joi.boolean().default(true),
       }),
@@ -46,13 +54,16 @@ oracledb.initOracleClient({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        type: 'oracle',
+        //type: 'oracle',
+        type: 'mysql',
         host: configService.get('DATABASE_HOST'),
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
-        sid: configService.get('DATABASE_DATABASE'),
+        //sid: configService.get('DATABASE_DATABASE'),
 
-        password: configService.get('DATABASE_PASSWORD'),
+        database: configService.get('DATABASE_NAME'),
+
+        //password: configService.get('DATABASE_PASSWORD'),
         autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
         synchronize: configService.get('DATABASE_SYNCHRONIZE'),
         logging: ['query', 'error'],

@@ -15,10 +15,6 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const joi_1 = __importDefault(require("joi"));
 const cidade_module_1 = require("../cidade/cidade.module");
-const oracledb_1 = __importDefault(require("oracledb"));
-oracledb_1.default.initOracleClient({
-    libDir: 'D:/.Lucas Novais/oracle/client',
-});
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -33,10 +29,8 @@ exports.AppModule = AppModule = __decorate([
                     DATABASE_PORT: joi_1.default.number().required(),
                     DATABASE_USERNAME: joi_1.default.string().required(),
                     DATABASE_NAME: joi_1.default.string().required(),
-                    DATABASE_PASSWORD: joi_1.default.string().required(),
                     DATABASE_AUTOLOADENTITIES: joi_1.default.boolean().default(true),
                     DATABASE_SYNCHRONIZE: joi_1.default.boolean().default(false),
-                    DATABASE_LOGGING: joi_1.default.boolean().default(true),
                     DATABASE_ROW_NUMBER: joi_1.default.boolean().default(true),
                 }),
             }),
@@ -44,12 +38,11 @@ exports.AppModule = AppModule = __decorate([
                 imports: [config_1.ConfigModule],
                 inject: [config_1.ConfigService],
                 useFactory: (configService) => ({
-                    type: 'oracle',
+                    type: 'mysql',
                     host: configService.get('DATABASE_HOST'),
                     port: configService.get('DATABASE_PORT'),
                     username: configService.get('DATABASE_USERNAME'),
-                    sid: configService.get('DATABASE_DATABASE'),
-                    password: configService.get('DATABASE_PASSWORD'),
+                    database: configService.get('DATABASE_NAME'),
                     autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
                     synchronize: configService.get('DATABASE_SYNCHRONIZE'),
                     logging: ['query', 'error'],

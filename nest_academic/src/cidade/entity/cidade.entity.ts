@@ -7,7 +7,7 @@ export class Cidade extends BaseEntity {
 
   @PrimaryGeneratedColumn('increment', {
     name: 'ID_CIDADE',
-    type: 'number',
+    //type: 'number',
   }) //Enquanto aqui, ao fazer um insert, um registro na tabela, estou dizendo ao banco "se virá a criar a Chave Primária"
   idCidade?: number = 0;
 
@@ -30,3 +30,37 @@ export class Cidade extends BaseEntity {
     Object.assign(this, data);
   }
 }
+
+/*
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+
+@Entity('CIDADE')
+export class Cidade extends BaseEntity {
+
+  @PrimaryGeneratedColumn('increment', {
+    name: 'ID_CIDADE',
+    // type: 'number', <-- REMOVIDO: No MySQL o TypeORM já entende que 'increment' é um INT
+  }) 
+  idCidade?: number;
+
+  @Column({
+    name: 'COD_CIDADE',
+    type: 'varchar', // ALTERADO: De 'varchar2' (Oracle) para 'varchar' (MySQL)
+    length: 10,
+  })
+  codCidade: string = '';
+
+  @Column({
+    name: 'NOME_CIDADE',
+    type: 'varchar', // ALTERADO: De 'varchar2' (Oracle) para 'varchar' (MySQL)
+    length: 20,
+  })
+  nomeCidade: string = '';
+
+  constructor(data: Partial<Cidade> = {}) {
+    super();
+    Object.assign(this, data);
+  }
+}
+
+*/
