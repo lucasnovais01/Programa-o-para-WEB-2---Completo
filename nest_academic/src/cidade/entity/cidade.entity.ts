@@ -13,14 +13,14 @@ export class Cidade extends BaseEntity {
 
   @Column({
     name: 'COD_CIDADE',
-    type: 'varchar2',
+    type: 'varchar',
     length: 10,
   })
   codCidade: string = '';
 
   @Column({
     name: 'NOME_CIDADE',
-    type: 'varchar2',
+    type: 'varchar',
     length: 20,
   })
   nomeCidade: string = '';
@@ -30,37 +30,3 @@ export class Cidade extends BaseEntity {
     Object.assign(this, data);
   }
 }
-
-/*
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
-@Entity('CIDADE')
-export class Cidade extends BaseEntity {
-
-  @PrimaryGeneratedColumn('increment', {
-    name: 'ID_CIDADE',
-    // type: 'number', <-- REMOVIDO: No MySQL o TypeORM já entende que 'increment' é um INT
-  }) 
-  idCidade?: number;
-
-  @Column({
-    name: 'COD_CIDADE',
-    type: 'varchar', // ALTERADO: De 'varchar2' (Oracle) para 'varchar' (MySQL)
-    length: 10,
-  })
-  codCidade: string = '';
-
-  @Column({
-    name: 'NOME_CIDADE',
-    type: 'varchar', // ALTERADO: De 'varchar2' (Oracle) para 'varchar' (MySQL)
-    length: 20,
-  })
-  nomeCidade: string = '';
-
-  constructor(data: Partial<Cidade> = {}) {
-    super();
-    Object.assign(this, data);
-  }
-}
-
-*/
