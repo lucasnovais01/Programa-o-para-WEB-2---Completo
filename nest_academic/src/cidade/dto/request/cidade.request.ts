@@ -1,18 +1,45 @@
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
 import { Type } from 'class-transformer';
-
+import { ApiProperty } from '@nestjs/swagger';
+//
+//
+//
+import { CIDADE } from 'src/cidade/constants/cidade.constants';
+//
+//
+//
 export class CidadeRequest {
   @Type(() => Number)
   @IsOptional()
-  idCidade?: number;
+  //
+  // Para o swagger (criar uma documentação oficial online, para o)
+  //
+  // NOVO SEMESTRE
+  @ApiProperty({ description: CIDADE.SWAGGER.ID_CIDADE, example: '1' })
 
+  // SEMESTRE PASSADO ABAIXO:
+  //
+  //
+  idCidade?: number;
+  //
+  //
+  //
   @IsNotEmpty({ message: 'Código da ciadade deve ser informado' })
   @IsString({ message: 'o valor tem que ser somente texto' })
   @MaxLength(10, {
     message: 'O tamanho máximo é de 10 caracteres para o campo',
   })
-  codCidade: string = '';
+  //
+  // NOVO SEMESTRE
+  @ApiProperty({ description: CIDADE.SWAGGER.ID_CIDADE, example: '1' })
 
+  // SEMESTRE PASSADO ABAIXO:
+  //
+  //
+  codCidade: string = '';
+  //
+  //
+  //
   @IsNotEmpty({ message: 'Nome da ciadade deve ser informado' })
   @IsString({ message: 'A informação só pode conter somente texto' })
   @MaxLength(50, {

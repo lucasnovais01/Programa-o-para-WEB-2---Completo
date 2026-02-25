@@ -1,15 +1,12 @@
 
 npm install swagger-ui-express
 
-
-
-
-
 npm install --save @nestjs/typeorm typeorm mysql2
-
 
 pra ver se funcionou, rodando o npm run start:dev
 
+###
+Documentação:
 ###
 http://localhost:8000/docs
 
