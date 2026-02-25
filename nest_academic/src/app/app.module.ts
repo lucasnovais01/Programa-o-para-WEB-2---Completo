@@ -1,8 +1,8 @@
-import { Module } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import Joi from 'joi';
-import { CidadeModule } from 'src/cidade/cidade.module';
+import { Module } from "@nestjs/common";
+import { ConfigModule, ConfigService } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import Joi from "joi";
+import { CidadeModule } from "src/cidade/cidade.module";
 //import { Cidade } from 'src/cidade/entity/cidade.entity';
 
 // usando o mySQL
@@ -55,18 +55,18 @@ AGORA NO MYSQL, o codigo de cima nao aplica
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         //type: 'oracle',
-        type: 'mysql',
-        host: configService.get('DATABASE_HOST'),
-        port: configService.get('DATABASE_PORT'),
-        username: configService.get('DATABASE_USERNAME'),
+        type: "mysql",
+        host: configService.get("DATABASE_HOST"),
+        port: configService.get("DATABASE_PORT"),
+        username: configService.get("DATABASE_USERNAME"),
         //sid: configService.get('DATABASE_DATABASE'),
 
-        database: configService.get('DATABASE_NAME'),
+        database: configService.get("DATABASE_NAME"),
 
         //password: configService.get('DATABASE_PASSWORD'),
-        autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
-        synchronize: configService.get('DATABASE_SYNCHRONIZE'),
-        logging: ['query', 'error'],
+        autoLoadEntities: configService.get("DATABASE_AUTOLOADENTITIES"),
+        synchronize: configService.get("DATABASE_SYNCHRONIZE"),
+        logging: ["query", "error"],
         //entities: [Cidade],
       }),
     }),
@@ -81,3 +81,10 @@ AGORA NO MYSQL, o codigo de cima nao aplica
   //  exports: [], //Exporting AppService allows it to be used in other modules
 })
 export class AppModule {}
+
+/*
+.env nest_academic
+
+DATABASE_TYPE
+
+*/
