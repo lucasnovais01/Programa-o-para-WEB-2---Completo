@@ -1,4 +1,6 @@
-const ENTITY_NAME = 'Aluno';
+import { criarMensagemOperacao } from "src/commons/constants/constants.entity";
+
+const ENTITY_NAME = "Aluno";
 
 const MAX_LEN_CODIGO = 20;
 const MIN_LEN_CODIGO = 5;
@@ -8,21 +10,21 @@ const MIN_LEN_STRING = 5;
 
 export const ALUNO = {
   ENTITY: ENTITY_NAME,
-  TABLE: 'ALUNO',
+  TABLE: "ALUNO",
   TABLE_FIELD: {
-    ID_ALUNO: 'ID_ALUNO',
-    CODIGO_ALUNO: 'COD_ALUNO',
-    NOME_ALUNO: 'NOME_ALUNO',
-    IDADE: 'IDADE',
+    ID_ALUNO: "ID_ALUNO",
+    CODIGO_ALUNO: "COD_ALUNO",
+    NOME_ALUNO: "NOME_ALUNO",
+    IDADE: "IDADE",
   },
 
-  ALIAS: 'Aluno',
+  ALIAS: "Aluno",
 
   FIELDS: {
-    ID_ALUNO: 'idAluno',
-    CODIGO_ALUNO: 'codAluno',
-    NOME_ALUNO: 'nomeAluno',
-    IDADE: 'idade',
+    ID_ALUNO: "idAluno",
+    CODIGO_ALUNO: "codAluno",
+    NOME_ALUNO: "nomeAluno",
+    IDADE: "idade",
   },
 
   SWAGGER: {
@@ -57,4 +59,6 @@ export const ALUNO = {
       INT: ``,
     },
   },
+
+  OPERACAO: criarMensagemOperacao(ENTITY_NAME),
 };
