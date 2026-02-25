@@ -13,6 +13,10 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
 import type { Request } from 'express';
 import { Result } from 'src/commons/mensagem/mensagem';
+import { ApiConsumes, ApiResponse } from '@nestjs/swagger';
+
+// Import novo do 5º SEMESTRE
+import { CIDADE } from '../constants/cidade.constants';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerCreate {
@@ -20,6 +24,16 @@ export class CidadeControllerCreate {
 
   @HttpCode(HttpStatus.CREATED) // 201
   @Post(ROTA.CIDADE.CREATE)
+  //
+  // novo semestre:
+  @ApiResponse({
+    status: HttpStatus.CREATED,
+    description: CIDADE.OPERACAO.CRIAR.SUCESSO,
+  })
+  @ApiConsumes()
+
+  // Semestre passado:
+  //
   async create(
     @Req() res: Request,
     @Body() cidadeRequest: CidadeRequest,
