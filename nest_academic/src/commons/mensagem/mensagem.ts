@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 // Interface Genérica -
 export interface Result<T> {
   status: number;

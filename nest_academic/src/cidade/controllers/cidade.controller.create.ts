@@ -13,7 +13,7 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
 import type { Request } from 'express';
 import { Result } from 'src/commons/mensagem/mensagem';
-import { ApiConsumes, ApiResponse } from '@nestjs/swagger';
+import { ApiConsumes, ApiProduces, ApiResponse } from '@nestjs/swagger';
 
 // Import novo do 5º SEMESTRE
 import { CIDADE } from '../constants/cidade.constants';
@@ -25,14 +25,19 @@ export class CidadeControllerCreate {
   @HttpCode(HttpStatus.CREATED) // 201
   @Post(ROTA.CIDADE.CREATE)
   //
+  //
   // novo semestre:
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: CIDADE.OPERACAO.CRIAR.SUCESSO,
   })
-  @ApiConsumes()
+  @ApiConsumes('application/json')
+  @ApiProduces('application/json')
+
+  // Explicação: Independente da linguagem, é o swagger.
 
   // Semestre passado:
+  //
   //
   async create(
     @Req() res: Request,

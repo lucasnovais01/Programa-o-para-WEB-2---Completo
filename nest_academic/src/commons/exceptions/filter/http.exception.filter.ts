@@ -25,7 +25,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message,
       null,
       req.path,
-      erro
+      erro,
     );
   }
 }
