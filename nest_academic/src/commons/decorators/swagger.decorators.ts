@@ -95,6 +95,7 @@ export function ApiGetDoc(
       description: config.SUCESSO,
       type: response,
     }),
+    // Não tem ApiResponse no ApiGetDoc
     /*
     ApiResponse({
       status: HttpStatus.BAD_REQUEST,
@@ -136,5 +137,24 @@ export function ApiDeleteDoc(
       description: config?.NAO_LOCALIZADO,
     }),
     // Delete não produz nada
+  );
+}
+
+export function ApiListDoc(
+  config: ApiOperacaoConfigProps,
+  response: Type<any>,
+) {
+  return applyDecorators(
+    ApiOperation({ summary: config.ACAO }),
+    ApiResponse({
+      status: HttpStatus.OK,
+      description: config.SUCESSO,
+      type: response,
+    }),
+    ApiResponse({
+      status: HttpStatus.INTERNAL_SERVER_ERROR,
+      description: ERRO_INTERNO,
+    }),
+    ApiProduces(JSON_APPLICATION),
   );
 }
