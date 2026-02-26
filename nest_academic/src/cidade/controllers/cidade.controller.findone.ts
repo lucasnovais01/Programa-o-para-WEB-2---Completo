@@ -13,6 +13,8 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { Result } from 'src/commons/mensagem/mensagem';
 import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
 import type { Request } from 'express';
+import { ApiGetDoc } from 'src/commons/decorators/swagger.decorators';
+import { CIDADE } from '../constants/cidade.constants';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindOne {
@@ -20,6 +22,11 @@ export class CidadeControllerFindOne {
 
   @HttpCode(HttpStatus.OK) // 200
   @Get(ROTA.CIDADE.BY_ID)
+  //
+  //
+  @ApiGetDoc(CIDADE.OPERACAO.POR_ID, CidadeResponse)
+  //
+  //
   async findOne(
     @Req() req: Request,
     @Param('id', ParseIntPipe) id: number,

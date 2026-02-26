@@ -10,7 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeResponse = void 0;
+const swagger_1 = require("@nestjs/swagger");
 const class_transformer_1 = require("class-transformer");
+const cidade_constants_1 = require("../../constants/cidade.constants");
 class CidadeResponse {
     idCidade;
     codCidade = '';
@@ -18,14 +20,17 @@ class CidadeResponse {
 }
 exports.CidadeResponse = CidadeResponse;
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.ID_CIDADE, example: '1' }),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", Number)
 ], CidadeResponse.prototype, "idCidade", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.COD_CIDADE, example: 'COD120' }),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], CidadeResponse.prototype, "codCidade", void 0);
 __decorate([
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.NOME_CIDADE, example: 'Birigui' }),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], CidadeResponse.prototype, "nomeCidade", void 0);

@@ -17,7 +17,9 @@ const common_1 = require("@nestjs/common");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_service_update_1 = require("../service/cidade.service.update");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
+const cidade_response_1 = require("../dto/response/cidade.response");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
+const cidade_constants_1 = require("../constants/cidade.constants");
 let CidadeControllerUpdate = class CidadeControllerUpdate {
     cidadeServiceUpdate;
     constructor(cidadeServiceUpdate) {
@@ -32,6 +34,7 @@ exports.CidadeControllerUpdate = CidadeControllerUpdate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Put)(url_sistema_1.ROTA.CIDADE.UPDATE),
+    ApiPutDoc(cidade_constants_1.CIDADE.OPERACAO.ATUALIZAR, cidade_request_1.CidadeRequest, cidade_response_1.CidadeResponse),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __param(2, (0, common_1.Body)()),
@@ -43,4 +46,7 @@ exports.CidadeControllerUpdate = CidadeControllerUpdate = __decorate([
     (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),
     __metadata("design:paramtypes", [cidade_service_update_1.CidadeServiceUpdate])
 ], CidadeControllerUpdate);
+ > {
+    throw: new Error('Function not implemented.'),
+};
 //# sourceMappingURL=cidade.controller.update.js.map

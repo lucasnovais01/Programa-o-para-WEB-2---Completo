@@ -16,7 +16,10 @@ exports.CidadeControllerFindOne = void 0;
 const common_1 = require("@nestjs/common");
 const cidade_service_findone_1 = require("../service/cidade.service.findone");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
+const cidade_response_1 = require("../dto/response/cidade.response");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
+const swagger_decorators_1 = require("../../commons/decorators/swagger.decorators");
+const cidade_constants_1 = require("../constants/cidade.constants");
 let CidadeControllerFindOne = class CidadeControllerFindOne {
     cidadeServiceFindOne;
     constructor(cidadeServiceFindOne) {
@@ -31,6 +34,7 @@ exports.CidadeControllerFindOne = CidadeControllerFindOne;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Get)(url_sistema_1.ROTA.CIDADE.BY_ID),
+    (0, swagger_decorators_1.ApiGetDoc)(cidade_constants_1.CIDADE.OPERACAO.POR_ID, cidade_response_1.CidadeResponse),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),

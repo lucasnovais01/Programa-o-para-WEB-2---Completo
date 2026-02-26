@@ -17,9 +17,11 @@ const common_1 = require("@nestjs/common");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_service_create_1 = require("../service/cidade.service.create");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
+const cidade_response_1 = require("../dto/response/cidade.response");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const swagger_1 = require("@nestjs/swagger");
 const cidade_constants_1 = require("../constants/cidade.constants");
+const swagger_decorators_1 = require("../../commons/decorators/swagger.decorators");
 let CidadeControllerCreate = class CidadeControllerCreate {
     cidadeServiceCreate;
     constructor(cidadeServiceCreate) {
@@ -34,9 +36,18 @@ exports.CidadeControllerCreate = CidadeControllerCreate;
 __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.CREATED),
     (0, common_1.Post)(url_sistema_1.ROTA.CIDADE.CREATE),
+    (0, swagger_decorators_1.ApiPostDoc)(cidade_constants_1.CIDADE.OPERACAO.CRIAR, cidade_request_1.CidadeRequest, cidade_response_1.CidadeResponse),
     (0, swagger_1.ApiResponse)({
         status: common_1.HttpStatus.CREATED,
         description: cidade_constants_1.CIDADE.OPERACAO.CRIAR.SUCESSO,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.BAD_REQUEST,
+        description: cidade_constants_1.CIDADE.OPERACAO.CRIAR.ERROR,
+    }),
+    (0, swagger_1.ApiResponse)({
+        status: common_1.HttpStatus.INTERNAL_SERVER_ERROR,
+        description: 'Erro interno no servidor',
     }),
     (0, swagger_1.ApiConsumes)('application/json'),
     (0, swagger_1.ApiProduces)('application/json'),
@@ -47,7 +58,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], CidadeControllerCreate.prototype, "create", null);
 exports.CidadeControllerCreate = CidadeControllerCreate = __decorate([
-    (0, swagger_1.ApiTags)(cidade_constants_1.CIDADE.ENTITY),
+    (0, swagger_1.ApiTags)('CIDADE'),
     (0, common_1.Controller)(url_sistema_1.ROTA.CIDADE.BASE),
     __metadata("design:paramtypes", [cidade_service_create_1.CidadeServiceCreate])
 ], CidadeControllerCreate);

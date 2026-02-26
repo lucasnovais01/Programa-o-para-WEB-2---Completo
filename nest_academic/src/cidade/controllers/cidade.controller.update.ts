@@ -15,6 +15,7 @@ import type { Request } from 'express';
 import { Result } from 'src/commons/mensagem/mensagem';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
+import { CIDADE } from '../constants/cidade.constants';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerUpdate {
@@ -22,6 +23,9 @@ export class CidadeControllerUpdate {
 
   @HttpCode(HttpStatus.OK)
   @Put(ROTA.CIDADE.UPDATE) // o método PUT envia o objeto a ser persistido, a ser modificado
+  @ApiPutDoc(CIDADE.OPERACAO.ATUALIZAR, CidadeRequest, CidadeResponse)
+  //
+  //
   async update(
     @Req() res: Request,
     @Param('id', ParseIntPipe) id: number,
@@ -51,3 +55,6 @@ export class CidadeControllerUpdate {
   
   */
 }
+function ApiPutDoc(ATUALIZAR: { ACAO: string; SUCESSO: string; ERROR: string; NAO_LOCALIZADO: string; }, CidadeRequest: typeof CidadeRequest, CidadeResponse: typeof CidadeResponse): (target: CidadeControllerUpdate, propertyKey: "update", descriptor: TypedPropertyDescriptor<(res: Request, id: number, cidadeRequest: CidadeRequest) => Promise<Result<CidadeResponse>>>) => void | TypedPropertyDescriptor<...> {
+  throw :new Error('Function not implemented.'),
+};

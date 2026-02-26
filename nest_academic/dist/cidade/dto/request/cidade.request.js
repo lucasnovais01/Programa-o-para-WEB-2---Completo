@@ -35,7 +35,7 @@ __decorate([
     (0, class_validator_1.MaxLength)(10, {
         message: 'O tamanho máximo é de 10 caracteres para o campo',
     }),
-    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.ID_CIDADE, example: '1' }),
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.COD_CIDADE, example: 'COD120' }),
     __metadata("design:type", String)
 ], CidadeRequest.prototype, "codCidade", void 0);
 __decorate([

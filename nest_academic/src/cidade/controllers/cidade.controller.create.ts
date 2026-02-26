@@ -14,6 +14,7 @@ import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
 import type { Request } from 'express';
 import { Result } from 'src/commons/mensagem/mensagem';
 import {
+  //ApiBody,
   ApiConsumes,
   ApiProduces,
   ApiResponse,
@@ -22,8 +23,9 @@ import {
 
 // Import novo do 5º SEMESTRE, assim comoo os @Api
 import { CIDADE } from '../constants/cidade.constants';
+import { ApiPostDoc } from 'src/commons/decorators/swagger.decorators';
 
-@ApiTags(CIDADE.ENTITY)
+@ApiTags('CIDADE')
 //
 //
 @Controller(ROTA.CIDADE.BASE)
@@ -35,10 +37,21 @@ export class CidadeControllerCreate {
   //
   //
   // novo semestre:
+  @ApiPostDoc(CIDADE.OPERACAO.CRIAR, CidadeRequest, CidadeResponse)
+
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: CIDADE.OPERACAO.CRIAR.SUCESSO,
   })
+  @ApiResponse({
+    status: HttpStatus.BAD_REQUEST,
+    description: CIDADE.OPERACAO.CRIAR.ERROR,
+  })
+  @ApiResponse({
+    status: HttpStatus.INTERNAL_SERVER_ERROR,
+    description: 'Erro interno no servidor',
+  })
+  //@ApiBody()
   @ApiConsumes('application/json')
   @ApiProduces('application/json')
 

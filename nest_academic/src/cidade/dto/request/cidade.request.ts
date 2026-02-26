@@ -34,10 +34,9 @@ export class CidadeRequest {
   })
   //
   // NOVO SEMESTRE
-  @ApiProperty({ description: CIDADE.SWAGGER.ID_CIDADE, example: '1' })
+  @ApiProperty({ description: CIDADE.SWAGGER.COD_CIDADE, example: 'COD120' })
 
   // SEMESTRE PASSADO ABAIXO:
-  //
   //
   codCidade: string = '';
   //
