@@ -24,8 +24,11 @@ export class CidadeRequest {
   //
   //
   //
-  @IsNotEmpty({ message: 'Código da ciadade deve ser informado' })
-  @IsString({ message: 'o valor tem que ser somente texto' })
+  // antigo: @IsNotEmpty({ message: 'Código da ciadade deve ser informado' })
+  // antigo: @IsString({ message: 'o valor tem que ser somente texto' })
+  @IsNotEmpty({ message: 'CIDADE.INPUT_ERROR.COD_CIDADE.BLANK' })
+  @IsString({ message: 'CIDADE.INPUT_ERROR.COD_CIDADE.STRING' })
+  //
   @MaxLength(10, {
     message: 'O tamanho máximo é de 10 caracteres para o campo',
   })
