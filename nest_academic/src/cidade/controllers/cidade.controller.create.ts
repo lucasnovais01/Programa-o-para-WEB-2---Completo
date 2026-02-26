@@ -13,11 +13,19 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
 import type { Request } from 'express';
 import { Result } from 'src/commons/mensagem/mensagem';
-import { ApiConsumes, ApiProduces, ApiResponse } from '@nestjs/swagger';
+import {
+  ApiConsumes,
+  ApiProduces,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 
-// Import novo do 5º SEMESTRE
+// Import novo do 5º SEMESTRE, assim comoo os @Api
 import { CIDADE } from '../constants/cidade.constants';
 
+@ApiTags(CIDADE.ENTITY)
+//
+//
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerCreate {
   constructor(private readonly cidadeServiceCreate: CidadeServiceCreate) {}

@@ -12,6 +12,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeRequest = void 0;
 const class_validator_1 = require("class-validator");
 const class_transformer_1 = require("class-transformer");
+const swagger_1 = require("@nestjs/swagger");
+const cidade_constants_1 = require("../../constants/cidade.constants");
 class CidadeRequest {
     idCidade;
     codCidade = '';
@@ -24,14 +26,16 @@ exports.CidadeRequest = CidadeRequest;
 __decorate([
     (0, class_transformer_1.Type)(() => Number),
     (0, class_validator_1.IsOptional)(),
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.ID_CIDADE, example: '1' }),
     __metadata("design:type", Number)
 ], CidadeRequest.prototype, "idCidade", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Código da ciadade deve ser informado' }),
-    (0, class_validator_1.IsString)({ message: 'o valor tem que ser somente texto' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'CIDADE.INPUT_ERROR.COD_CIDADE.BLANK' }),
+    (0, class_validator_1.IsString)({ message: 'CIDADE.INPUT_ERROR.COD_CIDADE.STRING' }),
     (0, class_validator_1.MaxLength)(10, {
         message: 'O tamanho máximo é de 10 caracteres para o campo',
     }),
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.ID_CIDADE, example: '1' }),
     __metadata("design:type", String)
 ], CidadeRequest.prototype, "codCidade", void 0);
 __decorate([
