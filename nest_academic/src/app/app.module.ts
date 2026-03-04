@@ -1,9 +1,16 @@
-import { Module } from "@nestjs/common";
-import { ConfigModule, ConfigService } from "@nestjs/config";
-import { TypeOrmModule } from "@nestjs/typeorm";
-import Joi from "joi";
-import { CidadeModule } from "src/cidade/cidade.module";
-//import { Cidade } from 'src/cidade/entity/cidade.entity';
+import { Module } from '@nestjs/common';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import * as Joi from 'joi';
+import { CidadeModule } from 'src/cidade/cidade.module';
+
+//const oracledb = require('oracledb') as typeof import('oracledb');
+
+//oracledb.initOracleClient({
+// libDir: 'E:/cocao/oracle/instantclient',
+//});
+
+
 
 // usando o mySQL
 // import oracledb from 'oracledb';
@@ -29,6 +36,7 @@ AGORA NO MYSQL, o codigo de cima nao aplica
 // IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
 // E NÃO DEVEM SER FEITO UPLOAD DELES NO GITHUB
 
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -36,42 +44,35 @@ AGORA NO MYSQL, o codigo de cima nao aplica
       validationSchema: Joi.object({
         DATABASE_TYPE: Joi.string().required(),
         DATABASE_HOST: Joi.string().required(),
-        DATABASE_PORT: Joi.number().required(),
+        DATABASE_PORT: Joi.number().default(1521),
         DATABASE_USERNAME: Joi.string().required(),
-        DATABASE_NAME: Joi.string().required(),
+        DATABASE_DATABASE: Joi.string().required(),
         // Agora que mudei pro MySQL, deixa comentado login e senha, vai que tenho que voltar pro Oracle
 
         //DATABASE_PASSWORD: Joi.string().required(),
         DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
         DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
         //DATABASE_LOGGING: Joi.boolean().default(true),
-
-        DATABASE_ROW_NUMBER: Joi.boolean().default(true),
       }),
     }),
-
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
-        //type: 'oracle',
-        type: "mysql",
-        host: configService.get("DATABASE_HOST"),
-        port: configService.get("DATABASE_PORT"),
-        username: configService.get("DATABASE_USERNAME"),
-        //sid: configService.get('DATABASE_DATABASE'),
-
-        database: configService.get("DATABASE_NAME"),
-
+        type: 'mysql',
+        host: configService.get('DATABASE_HOST'),
+        port: configService.get('DATABASE_PORT'),
+        username: configService.get('DATABASE_USERNAME'),
+        sid: configService.get('DATABASE_DATABASE'),
         //password: configService.get('DATABASE_PASSWORD'),
-        autoLoadEntities: configService.get("DATABASE_AUTOLOADENTITIES"),
-        synchronize: configService.get("DATABASE_SYNCHRONIZE"),
-        logging: ["query", "error"],
-        //entities: [Cidade],
+        autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+        synchronize: configService.get('DATABASE_SYNCHRONIZE'),
+        logging: ['query', 'error'],
       }),
     }),
     CidadeModule,
   ],
+
 
   // IMPORTANTE: OS DADOS ACIMA, são secretos
 
@@ -81,10 +82,3 @@ AGORA NO MYSQL, o codigo de cima nao aplica
   //  exports: [], //Exporting AppService allows it to be used in other modules
 })
 export class AppModule {}
-
-/*
-.env nest_academic
-
-DATABASE_TYPE
-
-*/

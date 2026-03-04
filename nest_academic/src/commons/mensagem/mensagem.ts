@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 // Interface Genérica -
 export interface Result<T> {
   status: number;
@@ -56,14 +55,3 @@ export class Mensagem<T> {
     return result;
   }
 }
-
-/*
-    if (this.mensagem != null && this.mensagem !== undefined && this.erro !== unknown) {
-      result.mensagem = this.mensagem;
-    }
-    */
-
-// Colocando o ? vc torna o dado opcional
-
-// O que é o construtor da classe? vulgo contructor() {}
-// ele inicializa a classe e É o primeiro a ser executado}

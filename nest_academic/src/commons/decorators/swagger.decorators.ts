@@ -11,14 +11,13 @@ import {
 export interface ApiOperacaoConfigProps {
   ACAO: string;
   SUCESSO: string;
-  ERRO: string;
-  NAO_LOCALIZADO: string;
-  EXISTE: string;
+  ERRO?: string;
+  NAO_LOCALIZADO?: string;
+  EXISTE?: string;
 }
 
 const JSON_APPLICATION = 'application/json';
 const ERRO_INTERNO = 'Erro interno no servidor';
-
 export function ApiPostDoc(
   config: ApiOperacaoConfigProps,
   request: Type<any>,
@@ -42,8 +41,8 @@ export function ApiPostDoc(
       description: ERRO_INTERNO,
     }),
     ApiResponse({
-      status: HttpStatus.NOT_FOUND,
-      description: config?.NAO_LOCALIZADO,
+      status: HttpStatus.CONFLICT,
+      description: config.EXISTE,
     }),
     ApiConsumes(JSON_APPLICATION),
     ApiProduces(JSON_APPLICATION),
@@ -60,7 +59,7 @@ export function ApiPutDoc(
     ApiParam({ name: 'id', description: 'ID único do recurso ' }),
     ApiBody({ type: request }),
     ApiResponse({
-      status: HttpStatus.CREATED,
+      status: HttpStatus.OK,
       description: config.SUCESSO,
       type: response,
     }),
@@ -82,11 +81,7 @@ export function ApiPutDoc(
   );
 }
 
-export function ApiGetDoc(
-  config: ApiOperacaoConfigProps,
-  request: Type<any>,
-  response: Type<any>,
-) {
+export function ApiGetDoc(config: ApiOperacaoConfigProps, response: Type<any>) {
   return applyDecorators(
     ApiOperation({ summary: config.ACAO }),
     ApiParam({ name: 'id', description: 'ID único do recurso ' }),
@@ -95,14 +90,6 @@ export function ApiGetDoc(
       description: config.SUCESSO,
       type: response,
     }),
-    // Não tem ApiResponse no ApiGetDoc
-    /*
-    ApiResponse({
-      status: HttpStatus.BAD_REQUEST,
-      description: config.ERRO,
-      type: response,
-    }),
-    */
     ApiResponse({
       status: HttpStatus.INTERNAL_SERVER_ERROR,
       description: ERRO_INTERNO,
@@ -115,11 +102,7 @@ export function ApiGetDoc(
   );
 }
 
-export function ApiDeleteDoc(
-  config: ApiOperacaoConfigProps,
-  request: Type<any>,
-  response: Type<any>,
-) {
+export function ApiDeleteDoc(config: ApiOperacaoConfigProps) {
   return applyDecorators(
     ApiOperation({ summary: config.ACAO }),
     ApiParam({ name: 'id', description: 'ID único do recurso ' }),
@@ -127,7 +110,6 @@ export function ApiDeleteDoc(
       status: HttpStatus.OK,
       description: config.SUCESSO,
     }),
-
     ApiResponse({
       status: HttpStatus.INTERNAL_SERVER_ERROR,
       description: ERRO_INTERNO,
@@ -136,7 +118,6 @@ export function ApiDeleteDoc(
       status: HttpStatus.NOT_FOUND,
       description: config?.NAO_LOCALIZADO,
     }),
-    // Delete não produz nada
   );
 }
 

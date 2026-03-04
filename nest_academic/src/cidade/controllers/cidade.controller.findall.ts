@@ -1,29 +1,25 @@
 import { Controller, Get, HttpCode, HttpStatus, Req } from '@nestjs/common';
-import { CidadeServiceFindAll } from '../service/cidade.service.findall';
-import { ROTA } from 'src/commons/constants/url.sistema';
+import { Request } from 'express';
+import { ROTA } from '../../commons/constants/url.sistema';
+import { Result } from '../../commons/mensagem/mensagem';
+import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CidadeResponse } from '../dto/response/cidade.response';
-import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
-import { Result } from 'src/commons/mensagem/mensagem';
-import type { Request } from 'express';
+import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 
 @Controller(ROTA.CIDADE.BASE)
-//PascalCamel
 export class CidadeControllerFindAll {
   constructor(private readonly cidadeServiceFindAll: CidadeServiceFindAll) {}
 
-  @HttpCode(HttpStatus.OK) // 200
+  @HttpCode(HttpStatus.OK)
   @Get(ROTA.CIDADE.LIST)
-  async findAll(@Req() res: Request): Promise<Result<CidadeResponse[]>> {
+  async findAll(@Req() req: Request): Promise<Result<CidadeResponse[]>> {
     const response = await this.cidadeServiceFindAll.findAll();
-
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Lista de cidade gerada com sucesso!',
       response,
-      res.path,
+      req.path,
       null,
     );
   }
 }
-
-// http://localhost:8000/cidade/listar

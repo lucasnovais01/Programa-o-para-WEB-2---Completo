@@ -1,27 +1,25 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity } from '../../commons/entity/base.entity';
 
-/* NOME FISICO DA TABELA NO BANCO DE DADOS  */
 @Entity('CIDADE')
 export class Cidade extends BaseEntity {
-  //@PrimaryColumn() //Aqui diz, "Banco deixa comigo, eu que gerencio a chave primária"
-
   @PrimaryGeneratedColumn('increment', {
     name: 'ID_CIDADE',
-    //type: 'number',
-  }) //Enquanto aqui, ao fazer um insert, um registro na tabela, estou dizendo ao banco "se virá a criar a Chave Primária"
-  idCidade?: number = 0;
+    type: 'number',
+  })
+  idCidade?: number;
 
   @Column({
     name: 'COD_CIDADE',
-    type: 'varchar',
+    type: 'varchar2',
     length: 10,
   })
   codCidade: string = '';
 
   @Column({
     name: 'NOME_CIDADE',
-    type: 'varchar',
-    length: 20,
+    type: 'varchar2',
+    length: 50,
   })
   nomeCidade: string = '';
 

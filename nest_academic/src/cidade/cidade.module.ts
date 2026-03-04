@@ -1,16 +1,16 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { CidadeControllerCreate } from './controllers/cidade.controller.create';
 import { CidadeControllerFindAll } from './controllers/cidade.controller.findall';
 import { CidadeControllerFindOne } from './controllers/cidade.controller.findone';
-import { CidadeControllerCreate } from './controllers/cidade.controller.create';
-import { CidadeControllerUpdate } from './controllers/cidade.controller.update';
 import { CidadeControllerRemove } from './controllers/cidade.controller.remove';
+import { CidadeControllerUpdate } from './controllers/cidade.controller.update';
+import { Cidade } from './entity/cidade.entity';
 import { CidadeServiceCreate } from './service/cidade.service.create';
-import { CidadeServiceUpdate } from './service/cidade.service.update';
-import { CidadeServiceRemove } from './service/cidade.service.remove';
 import { CidadeServiceFindAll } from './service/cidade.service.findall';
 import { CidadeServiceFindOne } from './service/cidade.service.findone';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cidade } from './entity/cidade.entity';
+import { CidadeServiceRemove } from './service/cidade.service.remove';
+import { CidadeServiceUpdate } from './service/cidade.service.update';
 
 const cidadeControllers = [
   CidadeControllerFindAll,
@@ -30,9 +30,7 @@ const cidadeServices = [
 
 @Module({
   imports: [TypeOrmModule.forFeature([Cidade])],
-  controllers: [
-    ...cidadeControllers, //Este é um floreio pra deixar o código mais bonito, pega o array acima
-  ],
+  controllers: [...cidadeControllers],
   providers: [...cidadeServices],
   exports: [TypeOrmModule, ...cidadeServices],
 })

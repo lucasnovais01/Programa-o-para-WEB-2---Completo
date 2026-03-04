@@ -8,24 +8,23 @@ import {
   Put,
   Req,
 } from '@nestjs/common';
-import { CidadeRequest } from '../dto/request/cidade.request';
-import { CidadeServiceUpdate } from '../service/cidade.service.update';
-import { ROTA } from 'src/commons/constants/url.sistema';
-import type { Request } from 'express';
-import { Result } from 'src/commons/mensagem/mensagem';
-import { CidadeResponse } from '../dto/response/cidade.response';
-import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
+import { Request } from 'express';
+import { ROTA } from '../../commons/constants/url.sistema';
+import { ApiPutDoc } from '../../commons/decorators/swagger.decorators';
+import { Result } from '../../commons/mensagem/mensagem';
+import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CIDADE } from '../constants/cidade.constants';
+import { CidadeRequest } from '../dto/request/cidade.request';
+import { CidadeResponse } from '../dto/response/cidade.response';
+import { CidadeServiceUpdate } from '../service/cidade.service.update';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerUpdate {
   constructor(private readonly cidadeServiceUpdate: CidadeServiceUpdate) {}
 
   @HttpCode(HttpStatus.OK)
-  @Put(ROTA.CIDADE.UPDATE) // o método PUT envia o objeto a ser persistido, a ser modificado
+  @Put(ROTA.CIDADE.UPDATE)
   @ApiPutDoc(CIDADE.OPERACAO.ATUALIZAR, CidadeRequest, CidadeResponse)
-  //
-  //
   async update(
     @Req() res: Request,
     @Param('id', ParseIntPipe) id: number,
@@ -34,27 +33,10 @@ export class CidadeControllerUpdate {
     const response = await this.cidadeServiceUpdate.update(id, cidadeRequest);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
-      'A cidade foi alterada com sucesso !',
+      'Cidade alterada com sucesso !',
       response,
       res.path,
       null,
     );
   }
-  /*
-    /rest/sistema/cidade/alterar/:id, PUT
-
-
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() cidadeRequest: CidadeRequest,
-  ) {
-    // console.log("recebendo o id " + id);
-    const response = this.cidadeServiceUpdate.update(id, cidadeRequest);
-    return response;
-  }
-  
-  */
 }
-function ApiPutDoc(ATUALIZAR: { ACAO: string; SUCESSO: string; ERROR: string; NAO_LOCALIZADO: string; }, CidadeRequest: typeof CidadeRequest, CidadeResponse: typeof CidadeResponse): (target: CidadeControllerUpdate, propertyKey: "update", descriptor: TypedPropertyDescriptor<(res: Request, id: number, cidadeRequest: CidadeRequest) => Promise<Result<CidadeResponse>>>) => void | TypedPropertyDescriptor<...> {
-  throw :new Error('Function not implemented.'),
-};

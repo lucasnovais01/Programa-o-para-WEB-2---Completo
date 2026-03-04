@@ -7,34 +7,26 @@ import {
   ParseIntPipe,
   Req,
 } from '@nestjs/common';
-import { CidadeServiceFindOne } from '../service/cidade.service.findone';
-import { ROTA } from 'src/commons/constants/url.sistema';
-import { CidadeResponse } from '../dto/response/cidade.response';
-import { Result } from 'src/commons/mensagem/mensagem';
-import { MensagemSistema } from 'src/commons/mensagem/mensagem.sistema';
-import type { Request } from 'express';
-//
-//
-import { ApiGetDoc } from 'src/commons/decorators/swagger.decorators';
+import { Request } from 'express';
+import { ROTA } from '../../commons/constants/url.sistema';
+import { ApiGetDoc } from '../../commons/decorators/swagger.decorators';
+import { Result } from '../../commons/mensagem/mensagem';
+import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CIDADE } from '../constants/cidade.constants';
-
+import { CidadeResponse } from '../dto/response/cidade.response';
+import { CidadeServiceFindOne } from '../service/cidade.service.findone';
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindOne {
   constructor(private readonly cidadeServiceFindOne: CidadeServiceFindOne) {}
 
-  @HttpCode(HttpStatus.OK) // 200
+  @HttpCode(HttpStatus.OK)
   @Get(ROTA.CIDADE.BY_ID)
-  //
-  //
   @ApiGetDoc(CIDADE.OPERACAO.POR_ID, CidadeResponse)
-  //
-  //
   async findOne(
     @Req() req: Request,
     @Param('id', ParseIntPipe) id: number,
-  ): Promise<Result<CidadeResponse | null>> {
-    const response = await this.cidadeServiceFindOne.findById(+id);
-
+  ): Promise<Result<CidadeResponse>> {
+    const response = await this.cidadeServiceFindOne.findOne(id);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Cidade localizada com sucesso!',
@@ -44,11 +36,3 @@ export class CidadeControllerFindOne {
     );
   }
 }
-/*
-findOne(@Param('id', ParseIntPipe) id: number) {
-  const cidade = this.cidadeServiceFindOne.findOne(+id);
-  return cidade;
-}
-*/
-
-// http://localhost:8000/cidade/listar/1
