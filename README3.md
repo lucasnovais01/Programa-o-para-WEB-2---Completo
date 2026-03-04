@@ -17,4 +17,11 @@ http://localhost:8000/api_academico não está funcionando
 
 LIGAR O XAMPP > START O MY SQL NA PORTA 3307
 
-ENTÃO ABRIR O DBEAVER
+ENTÃO ABRIR O DBEAVER > CLICAR NA NOVA CONEXÃO > ESCOLHE MYSQL
+
+##
+ENTÃO CLICA NO BANCO DE DADOS E ESCOLHE CRIAR > CRIAR BANCO DE DADOS OU VAI DIRETO PELO SCRIPT
+
+No nosso caso, iremos colocar o nome academico ou se for ir por scrip (create datebase academico;)
+
+Marca o academico como padrão e não pode esquecer de editar a conexão e colocar o nome academico no banco.
