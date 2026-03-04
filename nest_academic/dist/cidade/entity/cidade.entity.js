@@ -25,7 +25,7 @@ exports.Cidade = Cidade;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('increment', {
         name: 'ID_CIDADE',
-        type: 'number',
+        type: 'int',
     }),
     __metadata("design:type", Number)
 ], Cidade.prototype, "idCidade", void 0);

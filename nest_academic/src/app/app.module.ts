@@ -70,7 +70,7 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         // o autoload pode dar errado
         entities: [__dirname + '/../**/*.entity.{ts, js}'],
         //
-        autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+        //autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
         synchronize: configService.get('DATABASE_SYNCHRONIZE'),
         logging: ['query', 'error'],
       }),

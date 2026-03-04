@@ -5,10 +5,20 @@ import { BaseEntity } from '../../commons/entity/base.entity';
 export class Cidade extends BaseEntity {
   @PrimaryGeneratedColumn('increment', {
     name: 'ID_CIDADE',
-    type: 'number',
+    type: 'int', // ← MUDE AQUI para 'int' (ou 'bigint')
   })
   idCidade?: number;
 
+  // ← Continua number no TS, sem problema!
+  /*
+  // ANTIGO:
+
+  @PrimaryGeneratedColumn('increment', {
+    name: 'ID_CIDADE',
+    type: 'number',
+  })
+  idCidade?: number;
+*/
   @Column({
     name: 'COD_CIDADE',
     type: 'varchar2',
