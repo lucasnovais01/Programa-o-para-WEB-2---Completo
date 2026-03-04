@@ -10,8 +10,6 @@ import { CidadeModule } from 'src/cidade/cidade.module';
 // libDir: 'E:/cocao/oracle/instantclient',
 //});
 
-
-
 // usando o mySQL
 // import oracledb from 'oracledb';
 
@@ -35,7 +33,6 @@ AGORA NO MYSQL, o codigo de cima nao aplica
 
 // IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
 // E NÃO DEVEM SER FEITO UPLOAD DELES NO GITHUB
-
 
 @Module({
   imports: [
@@ -63,6 +60,7 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         host: configService.get('DATABASE_HOST'),
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         sid: configService.get('DATABASE_DATABASE'),
         //password: configService.get('DATABASE_PASSWORD'),
         autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
@@ -72,7 +70,6 @@ AGORA NO MYSQL, o codigo de cima nao aplica
     }),
     CidadeModule,
   ],
-
 
   // IMPORTANTE: OS DADOS ACIMA, são secretos
 

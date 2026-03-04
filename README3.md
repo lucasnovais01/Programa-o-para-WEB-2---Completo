@@ -11,3 +11,10 @@ Documentação:
 http://localhost:8000/docs
 
 http://localhost:8000/api_academico não está funcionando
+
+
+#####
+
+LIGAR O XAMPP > START O MY SQL NA PORTA 3307
+
+ENTÃO ABRIR O DBEAVER

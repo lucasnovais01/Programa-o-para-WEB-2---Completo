@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { Response } from 'express';
 import { MensagemSistema } from './mensagem.sistema';
 

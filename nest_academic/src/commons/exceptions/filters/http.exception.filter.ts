@@ -20,8 +20,5 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const erro = exception.cause;
 
     return sendHttpResponse(res, status, message, null, req.path, erro);
-    
-  
-  
   }
 }
