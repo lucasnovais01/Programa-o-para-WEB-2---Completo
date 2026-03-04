@@ -14,19 +14,19 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerFindOne = void 0;
 const common_1 = require("@nestjs/common");
-const cidade_service_findone_1 = require("../service/cidade.service.findone");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
-const cidade_response_1 = require("../dto/response/cidade.response");
-const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const swagger_decorators_1 = require("../../commons/decorators/swagger.decorators");
+const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const cidade_constants_1 = require("../constants/cidade.constants");
+const cidade_response_1 = require("../dto/response/cidade.response");
+const cidade_service_findone_1 = require("../service/cidade.service.findone");
 let CidadeControllerFindOne = class CidadeControllerFindOne {
     cidadeServiceFindOne;
     constructor(cidadeServiceFindOne) {
         this.cidadeServiceFindOne = cidadeServiceFindOne;
     }
     async findOne(req, id) {
-        const response = await this.cidadeServiceFindOne.findById(+id);
+        const response = await this.cidadeServiceFindOne.findOne(id);
         return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade localizada com sucesso!', response, req.path, null);
     }
 };

@@ -7,7 +7,7 @@ import {
   ParseIntPipe,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiGetDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';

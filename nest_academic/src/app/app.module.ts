@@ -43,6 +43,9 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         DATABASE_HOST: Joi.string().required(),
         DATABASE_PORT: Joi.number().default(1521),
         DATABASE_USERNAME: Joi.string().required(),
+
+        // Está dando erro a linha de baixo, não sei se é DATABASE_DATABASE ou DATABASE_NAME:
+
         DATABASE_DATABASE: Joi.string().required(),
         // Agora que mudei pro MySQL, deixa comentado login e senha, vai que tenho que voltar pro Oracle
 
@@ -63,6 +66,10 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         sid: configService.get('DATABASE_DATABASE'),
         //password: configService.get('DATABASE_PASSWORD'),
+        //
+        // o autoload pode dar errado
+        entities: [__dirname + '/../**/*.entity.{ts, js}'],
+        //
         autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
         synchronize: configService.get('DATABASE_SYNCHRONIZE'),
         logging: ['query', 'error'],

@@ -14,17 +14,17 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerFindAll = void 0;
 const common_1 = require("@nestjs/common");
-const cidade_service_findall_1 = require("../service/cidade.service.findall");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
+const cidade_service_findall_1 = require("../service/cidade.service.findall");
 let CidadeControllerFindAll = class CidadeControllerFindAll {
     cidadeServiceFindAll;
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
-    async findAll(res) {
+    async findAll(req) {
         const response = await this.cidadeServiceFindAll.findAll();
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, res.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null);
     }
 };
 exports.CidadeControllerFindAll = CidadeControllerFindAll;

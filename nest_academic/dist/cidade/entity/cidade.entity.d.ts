@@ -1,4 +1,4 @@
-import { BaseEntity } from 'typeorm';
+import { BaseEntity } from '../../commons/entity/base.entity';
 export declare class Cidade extends BaseEntity {
     idCidade?: number;
     codCidade: string;

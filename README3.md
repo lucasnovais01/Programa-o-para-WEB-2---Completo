@@ -25,3 +25,11 @@ ENTÃO CLICA NO BANCO DE DADOS E ESCOLHE CRIAR > CRIAR BANCO DE DADOS OU VAI DIR
 No nosso caso, iremos colocar o nome academico ou se for ir por scrip (create datebase academico;)
 
 Marca o academico como padrão e não pode esquecer de editar a conexão e colocar o nome academico no banco.
+
+
+
+
+### ACESSO AO SSQL
+digita cmd e depois
+
+cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"

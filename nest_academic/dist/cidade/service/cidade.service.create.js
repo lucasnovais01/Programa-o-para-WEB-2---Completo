@@ -14,10 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceCreate = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
-const typeorm_1 = require("typeorm");
 const cidade_entity_1 = require("../entity/cidade.entity");
-const typeorm_2 = require("@nestjs/typeorm");
 let CidadeServiceCreate = class CidadeServiceCreate {
     cidadeRepository;
     constructor(cidadeRepository) {
@@ -30,7 +30,7 @@ let CidadeServiceCreate = class CidadeServiceCreate {
             .where('cidade.nomeCidade =:nome', { nome: cidade.nomeCidade })
             .getOne();
         if (cidadeCadastrada) {
-            throw new common_1.HttpException('A cidade com o nome informado já está cadastrada', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('Cidade com nome informada já está cadastrada', common_1.HttpStatus.BAD_REQUEST);
         }
         cidade = await this.cidadeRepository.save(cidade);
         return cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
@@ -39,7 +39,7 @@ let CidadeServiceCreate = class CidadeServiceCreate {
 exports.CidadeServiceCreate = CidadeServiceCreate;
 exports.CidadeServiceCreate = CidadeServiceCreate = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(cidade_entity_1.Cidade)),
-    __metadata("design:paramtypes", [typeorm_1.Repository])
+    __param(0, (0, typeorm_1.InjectRepository)(cidade_entity_1.Cidade)),
+    __metadata("design:paramtypes", [typeorm_2.Repository])
 ], CidadeServiceCreate);
 //# sourceMappingURL=cidade.service.create.js.map

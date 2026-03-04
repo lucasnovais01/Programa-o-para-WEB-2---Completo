@@ -10,9 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeRequest = void 0;
-const class_validator_1 = require("class-validator");
-const class_transformer_1 = require("class-transformer");
 const swagger_1 = require("@nestjs/swagger");
+const class_transformer_1 = require("class-transformer");
+const class_validator_1 = require("class-validator");
 const cidade_constants_1 = require("../../constants/cidade.constants");
 class CidadeRequest {
     idCidade;
@@ -30,20 +30,21 @@ __decorate([
     __metadata("design:type", Number)
 ], CidadeRequest.prototype, "idCidade", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'CIDADE.INPUT_ERROR.COD_CIDADE.BLANK' }),
-    (0, class_validator_1.IsString)({ message: 'CIDADE.INPUT_ERROR.COD_CIDADE.STRING' }),
+    (0, class_validator_1.IsNotEmpty)({ message: cidade_constants_1.CIDADE.INPUT_ERROR.COD_CIDADE.BLANK }),
+    (0, class_validator_1.IsString)({ message: cidade_constants_1.CIDADE.INPUT_ERROR.COD_CIDADE.STRING }),
     (0, class_validator_1.MaxLength)(10, {
-        message: 'O tamanho máximo é de 10 caracteres para o campo',
+        message: 'O tamanho máximo é de 10 caracteres para o código da cidade',
     }),
     (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.COD_CIDADE, example: 'COD120' }),
     __metadata("design:type", String)
 ], CidadeRequest.prototype, "codCidade", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)({ message: 'Nome da ciadade deve ser informado' }),
-    (0, class_validator_1.IsString)({ message: 'A informação só pode conter somente texto' }),
+    (0, class_validator_1.IsNotEmpty)({ message: 'Nome da cidade deve ser informado' }),
+    (0, class_validator_1.IsString)({ message: 'A informação só pode conter texto' }),
     (0, class_validator_1.MaxLength)(50, {
-        message: 'O tamanho máximo é de 10 caracteres para o nome da cidade',
+        message: 'O tamanho máximo é de 50 caracteres para o nome da cidade',
     }),
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.NOME_CIDADE, example: 'Birigui' }),
     __metadata("design:type", String)
 ], CidadeRequest.prototype, "nomeCidade", void 0);
 //# sourceMappingURL=cidade.request.js.map

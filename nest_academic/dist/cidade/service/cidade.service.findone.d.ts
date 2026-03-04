@@ -1,9 +1,9 @@
 import { Repository } from 'typeorm';
-import { Cidade } from '../entity/cidade.entity';
 import { CidadeResponse } from '../dto/response/cidade.response';
+import { Cidade } from '../entity/cidade.entity';
 export declare class CidadeServiceFindOne {
     private cidadeRepository;
-    idCidade: any;
     constructor(cidadeRepository: Repository<Cidade>);
-    findById(idCidade: number): Promise<CidadeResponse>;
+    findOne(idCidade: number): Promise<CidadeResponse>;
+    findById(idCidade: number): Promise<Cidade | null>;
 }

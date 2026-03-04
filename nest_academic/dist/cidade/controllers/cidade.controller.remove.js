@@ -14,24 +14,22 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerRemove = void 0;
 const common_1 = require("@nestjs/common");
-const cidade_service_remove_1 = require("../service/cidade.service.remove");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
+const cidade_service_remove_1 = require("../service/cidade.service.remove");
 let CidadeControllerRemove = class CidadeControllerRemove {
     cidadeServiceRemove;
     constructor(cidadeServiceRemove) {
         this.cidadeServiceRemove = cidadeServiceRemove;
     }
-    async remove(req, id) {
+    async remove(res, id) {
         await this.cidadeServiceRemove.remove(id);
-        const rawPath = req.path ?? req.url ?? req.originalUrl;
-        const path = typeof rawPath === 'string' ? rawPath : null;
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.NO_CONTENT, 'Cidade excluída com sucesso!', null, path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade excluída com sucesso!', null, res.path, null);
     }
 };
 exports.CidadeControllerRemove = CidadeControllerRemove;
 __decorate([
-    (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Delete)(url_sistema_1.ROTA.CIDADE.DELETE),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),

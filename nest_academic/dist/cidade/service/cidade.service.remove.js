@@ -15,31 +15,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeServiceRemove = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const cidade_entity_1 = require("../entity/cidade.entity");
 const typeorm_2 = require("typeorm");
+const cidade_entity_1 = require("../entity/cidade.entity");
+const cidade_service_findone_1 = require("./cidade.service.findone");
 let CidadeServiceRemove = class CidadeServiceRemove {
     cidadeRepository;
-    constructor(cidadeRepository) {
+    service;
+    constructor(cidadeRepository, service) {
         this.cidadeRepository = cidadeRepository;
+        this.service = service;
     }
     async remove(idCidade) {
-        const cidadeCadastrada = await this.cidadeRepository.findOne({
-            where: { idCidade },
-        });
-        if (!cidadeCadastrada) {
-            throw new common_1.NotFoundException('Cidade não localizada');
+        const cidade = await this.service.findById(idCidade);
+        if (!cidade?.idCidade) {
+            throw new common_1.HttpException('Cidade não cadastrada', common_1.HttpStatus.NOT_FOUND);
         }
-        const result = await this.cidadeRepository.delete({ idCidade });
-        if (result.affected === 0) {
-            throw new common_1.NotFoundException('Cidade não localizada');
-        }
-        return;
+        await this.cidadeRepository
+            .createQueryBuilder('cidade')
+            .delete()
+            .from(cidade_entity_1.Cidade)
+            .where('cidade.ID_CIDADE =:idCidade ', {
+            idCidade: cidade?.idCidade,
+        })
+            .execute();
     }
 };
 exports.CidadeServiceRemove = CidadeServiceRemove;
 exports.CidadeServiceRemove = CidadeServiceRemove = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(cidade_entity_1.Cidade)),
-    __metadata("design:paramtypes", [typeorm_2.Repository])
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        cidade_service_findone_1.CidadeServiceFindOne])
 ], CidadeServiceRemove);
 //# sourceMappingURL=cidade.service.remove.js.map

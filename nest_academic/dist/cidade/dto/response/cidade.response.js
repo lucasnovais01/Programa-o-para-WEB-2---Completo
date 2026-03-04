@@ -30,7 +30,7 @@ __decorate([
     __metadata("design:type", String)
 ], CidadeResponse.prototype, "codCidade", void 0);
 __decorate([
-    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.NOME_CIDADE, example: 'Birigui' }),
+    (0, swagger_1.ApiProperty)({ description: cidade_constants_1.CIDADE.SWAGGER.NOME_CIDADE, example: 'Birigui ' }),
     (0, class_transformer_1.Expose)(),
     __metadata("design:type", String)
 ], CidadeResponse.prototype, "nomeCidade", void 0);

@@ -16,20 +16,26 @@ exports.CidadeServiceFindOne = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
-const cidade_entity_1 = require("../entity/cidade.entity");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
+const cidade_entity_1 = require("../entity/cidade.entity");
 let CidadeServiceFindOne = class CidadeServiceFindOne {
     cidadeRepository;
-    idCidade;
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    async findById(idCidade) {
-        const cidade = await this.cidadeRepository.findOne({ where: { idCidade } });
+    async findOne(idCidade) {
+        const cidade = await this.findById(idCidade);
         if (!cidade) {
             throw new common_1.HttpException('Cidade não cadastrada', common_1.HttpStatus.NOT_FOUND);
         }
         return cidade_converter_1.ConverterCidade.toCidadeResponse(cidade);
+    }
+    async findById(idCidade) {
+        const cidade = await this.cidadeRepository
+            .createQueryBuilder('cidade')
+            .where('cidade.ID_CIDADE = :idCidade', { idCidade: idCidade })
+            .getOne();
+        return cidade;
     }
 };
 exports.CidadeServiceFindOne = CidadeServiceFindOne;

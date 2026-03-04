@@ -1,5 +1,5 @@
 import { Controller, Get, HttpCode, HttpStatus, Req } from '@nestjs/common';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';

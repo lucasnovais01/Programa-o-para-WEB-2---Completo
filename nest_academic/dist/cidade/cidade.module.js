@@ -8,18 +8,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeModule = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
+const cidade_controller_create_1 = require("./controllers/cidade.controller.create");
 const cidade_controller_findall_1 = require("./controllers/cidade.controller.findall");
 const cidade_controller_findone_1 = require("./controllers/cidade.controller.findone");
-const cidade_controller_create_1 = require("./controllers/cidade.controller.create");
-const cidade_controller_update_1 = require("./controllers/cidade.controller.update");
 const cidade_controller_remove_1 = require("./controllers/cidade.controller.remove");
+const cidade_controller_update_1 = require("./controllers/cidade.controller.update");
+const cidade_entity_1 = require("./entity/cidade.entity");
 const cidade_service_create_1 = require("./service/cidade.service.create");
-const cidade_service_update_1 = require("./service/cidade.service.update");
-const cidade_service_remove_1 = require("./service/cidade.service.remove");
 const cidade_service_findall_1 = require("./service/cidade.service.findall");
 const cidade_service_findone_1 = require("./service/cidade.service.findone");
-const typeorm_1 = require("@nestjs/typeorm");
-const cidade_entity_1 = require("./entity/cidade.entity");
+const cidade_service_remove_1 = require("./service/cidade.service.remove");
+const cidade_service_update_1 = require("./service/cidade.service.update");
 const cidadeControllers = [
     cidade_controller_findall_1.CidadeControllerFindAll,
     cidade_controller_findone_1.CidadeControllerFindOne,
@@ -40,9 +40,7 @@ exports.CidadeModule = CidadeModule;
 exports.CidadeModule = CidadeModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([cidade_entity_1.Cidade])],
-        controllers: [
-            ...cidadeControllers,
-        ],
+        controllers: [...cidadeControllers],
         providers: [...cidadeServices],
         exports: [typeorm_1.TypeOrmModule, ...cidadeServices],
     })

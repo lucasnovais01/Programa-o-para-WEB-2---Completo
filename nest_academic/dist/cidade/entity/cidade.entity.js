@@ -11,8 +11,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Cidade = void 0;
 const typeorm_1 = require("typeorm");
-let Cidade = class Cidade extends typeorm_1.BaseEntity {
-    idCidade = 0;
+const base_entity_1 = require("../../commons/entity/base.entity");
+let Cidade = class Cidade extends base_entity_1.BaseEntity {
+    idCidade;
     codCidade = '';
     nomeCidade = '';
     constructor(data = {}) {
@@ -24,13 +25,14 @@ exports.Cidade = Cidade;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)('increment', {
         name: 'ID_CIDADE',
+        type: 'number',
     }),
     __metadata("design:type", Number)
 ], Cidade.prototype, "idCidade", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         name: 'COD_CIDADE',
-        type: 'varchar',
+        type: 'varchar2',
         length: 10,
     }),
     __metadata("design:type", String)
@@ -38,8 +40,8 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         name: 'NOME_CIDADE',
-        type: 'varchar',
-        length: 20,
+        type: 'varchar2',
+        length: 50,
     }),
     __metadata("design:type", String)
 ], Cidade.prototype, "nomeCidade", void 0);
