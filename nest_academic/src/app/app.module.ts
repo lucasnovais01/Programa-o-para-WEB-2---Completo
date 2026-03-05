@@ -50,7 +50,7 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         // Agora que mudei pro MySQL, deixa comentado login e senha, vai que tenho que voltar pro Oracle
 
         //DATABASE_PASSWORD: Joi.string().required(),
-        DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
+        //DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
         DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
         //DATABASE_LOGGING: Joi.boolean().default(true),
       }),
@@ -71,9 +71,9 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         //password: configService.get('DATABASE_PASSWORD'),
         //
         // o autoload pode dar errado
-        entities: [__dirname + '/../**/*.entity.{ts, js}'],
+        //entities: [__dirname + '/../**/*.entity.{ts, js}'],
         //
-        //autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+        autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
         synchronize: configService.get('DATABASE_SYNCHRONIZE'),
         logging: ['query', 'error'],
       }),

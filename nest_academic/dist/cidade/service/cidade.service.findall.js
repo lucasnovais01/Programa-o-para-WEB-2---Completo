@@ -23,11 +23,11 @@ let CidadeServiceFindAll = class CidadeServiceFindAll {
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    async findAll(page, pageSize, order) {
+    async findAll(page, pageSize, props, order) {
         const offset = (page - 1) * pageSize;
         const cidades = await this.cidadeRepository
             .createQueryBuilder('cidade')
-            .orderBy('idCidade', order)
+            .orderBy(props, order)
             .offset(offset)
             .limit(pageSize)
             .getMany();

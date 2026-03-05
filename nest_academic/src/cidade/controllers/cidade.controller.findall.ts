@@ -25,6 +25,7 @@ export class CidadeControllerFindAll {
 
     @Query('page') page?: string, //Pega o parametro da URL http://localhost:8000/rest/sistema/cidade/listar
     @Query('pageSize') pageSize?: string,
+    @Query('props') props?: string,
     @Query('order') order?: 'ASC' | 'DESC',
     //
   ): Promise<Result<CidadeResponse[]>> {
@@ -35,6 +36,7 @@ export class CidadeControllerFindAll {
       //Number(page), criamos o enum em commons pra facilitar
       //Number(pageSize),
       //
+      props ? props : 'ID_CIDADE',
       order ? order : PAGINATION.ASC,
     );
 

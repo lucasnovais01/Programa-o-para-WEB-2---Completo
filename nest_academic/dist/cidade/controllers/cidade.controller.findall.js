@@ -23,8 +23,8 @@ let CidadeControllerFindAll = class CidadeControllerFindAll {
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
-    async findAll(req, page, pageSize, order) {
-        const response = await this.cidadeServiceFindAll.findAll(page ? Number(page) : paginacao_enum_1.PAGINATION.PAGE, pageSize ? Number(pageSize) : paginacao_enum_1.PAGINATION.PAGESIZE, order ? order : paginacao_enum_1.PAGINATION.ASC);
+    async findAll(req, page, pageSize, props, order) {
+        const response = await this.cidadeServiceFindAll.findAll(page ? Number(page) : paginacao_enum_1.PAGINATION.PAGE, pageSize ? Number(pageSize) : paginacao_enum_1.PAGINATION.PAGESIZE, props ? props : 'ID_CIDADE', order ? order : paginacao_enum_1.PAGINATION.ASC);
         return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null);
     }
 };
@@ -35,9 +35,10 @@ __decorate([
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)('page')),
     __param(2, (0, common_1.Query)('pageSize')),
-    __param(3, (0, common_1.Query)('order')),
+    __param(3, (0, common_1.Query)('props')),
+    __param(4, (0, common_1.Query)('order')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, String, String]),
+    __metadata("design:paramtypes", [Object, String, String, String, String]),
     __metadata("design:returntype", Promise)
 ], CidadeControllerFindAll.prototype, "findAll", null);
 exports.CidadeControllerFindAll = CidadeControllerFindAll = __decorate([
