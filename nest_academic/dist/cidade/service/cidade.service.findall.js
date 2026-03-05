@@ -23,14 +23,22 @@ let CidadeServiceFindAll = class CidadeServiceFindAll {
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    async findAll(page, pageSize, props, order) {
+    async findAll(page, pageSize, props, order, search) {
         const offset = (page - 1) * pageSize;
-        const cidades = await this.cidadeRepository
+        const cidades = this.cidadeRepository
             .createQueryBuilder('cidade')
             .orderBy(props, order)
             .offset(offset)
-            .limit(pageSize)
-            .getMany();
+            .limit(pageSize);
+        if (search) {
+            query.where(`${props} LIKE :search_where`, {
+                search_where: `%${search}%`,
+            });
+        }
+        const cidades = await query.getMany();
+        const totalElements = await this.cidadeRepository.count();
+        const totalPages = Math.ceil(totalElements / pageSize);
+        const lastPages = totalPages;
         return cidade_converter_1.ConverterCidade.toListCidadeResponse(cidades);
     }
 };

@@ -17,17 +17,31 @@ export class CidadeServiceFindAll {
     pageSize: number,
     props: string,
     order: 'ASC' | 'DESC',
+    search?: string,
+    //
   ): Promise<CidadeResponse[]> {
     // cálculo do offset ou skip
     const offset = (page - 1) * pageSize;
-    const cidades = await this.cidadeRepository
+    const cidades = this.cidadeRepository
       .createQueryBuilder('cidade')
       .orderBy(props, order)
       //
       .offset(offset)
-      .limit(pageSize)
-      //
-      .getMany();
+      .limit(pageSize);
+
+    if (search) {
+      query.where(`${props} LIKE :search_where`, {
+        search_where: `%${search}%`,
+      });
+    }
+    //
+    const cidades = await query.getMany();
+
+    const totalElements = await this.cidadeRepository.count();
+
+    const totalPages = Math.ceil(totalElements / pageSize);
+
+    const lastPages = totalPages;
 
     /* OUTRA FORMA:
 

@@ -13,6 +13,7 @@ import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 import { PAGINATION } from 'src/commons/enum/paginacao.enum';
+import { CIDADE } from '../constants/cidade.constants';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindAll {
@@ -25,8 +26,10 @@ export class CidadeControllerFindAll {
 
     @Query('page') page?: string, //Pega o parametro da URL http://localhost:8000/rest/sistema/cidade/listar
     @Query('pageSize') pageSize?: string,
+    //@Query('props') props?: CIDADE.TABLE_FIELD.ID_CIDADE,
     @Query('props') props?: string,
     @Query('order') order?: 'ASC' | 'DESC',
+    @Query('search') search?: string,
     //
   ): Promise<Result<CidadeResponse[]>> {
     const response = await this.cidadeServiceFindAll.findAll(
@@ -36,8 +39,9 @@ export class CidadeControllerFindAll {
       //Number(page), criamos o enum em commons pra facilitar
       //Number(pageSize),
       //
-      props ? props : 'ID_CIDADE',
+      props ? props : CIDADE.TABLE_FIELD.ID_CIDADE,
       order ? order : PAGINATION.ASC,
+      search,
     );
 
     return MensagemSistema.showMensagem(

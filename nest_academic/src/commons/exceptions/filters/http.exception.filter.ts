@@ -3,7 +3,7 @@ import {
   Catch,
   ExceptionFilter,
   HttpException,
-  HttpStatus, // DIFERENTE DO MODELO DO PROFESSOR
+  //HttpStatus, // DIFERENTE DO MODELO DO PROFESSOR
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { sendHttpResponse } from '../../mensagem/send.response';
@@ -11,16 +11,19 @@ import { sendHttpResponse } from '../../mensagem/send.response';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
-  //catch(exception: HttpException, host: ArgumentsHost) {
-  catch(exception: unknown, host: ArgumentsHost) {
+  //
+  catch(exception: HttpException, host: ArgumentsHost) {
+    //
+    //catch(exception: unknown, host: ArgumentsHost) {
     const ctx = host.switchToHttp();
     const req = ctx.getRequest<Request>();
     const res = ctx.getResponse<Response>();
-    /*
+    //
     const status = exception.getStatus();
     const message = exception.message;
     const erro = exception.cause;
-*/
+
+    /*
     // Adicione esta verificação simples
     const status =
       exception instanceof HttpException
@@ -36,6 +39,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
 
     const erro =
       exception instanceof HttpException ? exception.cause : exception; // ou undefined
+    */
 
     return sendHttpResponse(res, status, message, null, req.path, erro);
   }
