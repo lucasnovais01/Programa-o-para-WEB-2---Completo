@@ -5,5 +5,5 @@ import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 export declare class CidadeControllerFindAll {
     private readonly cidadeServiceFindAll;
     constructor(cidadeServiceFindAll: CidadeServiceFindAll);
-    findAll(req: Request): Promise<Result<CidadeResponse[]>>;
+    findAll(req: Request, page?: string, pageSize?: string): Promise<Result<CidadeResponse[]>>;
 }

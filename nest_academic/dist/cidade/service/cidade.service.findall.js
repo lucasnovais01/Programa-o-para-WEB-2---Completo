@@ -23,9 +23,12 @@ let CidadeServiceFindAll = class CidadeServiceFindAll {
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
-    async findAll() {
+    async findAll(page, pageSize) {
+        const offset = (page - 1) * pageSize;
         const cidades = await this.cidadeRepository
             .createQueryBuilder('cidade')
+            .offset(offset)
+            .limit(pageSize)
             .getMany();
         return cidade_converter_1.ConverterCidade.toListCidadeResponse(cidades);
     }

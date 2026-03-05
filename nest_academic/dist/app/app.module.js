@@ -71,7 +71,7 @@ exports.AppModule = AppModule = __decorate([
                     host: configService.get('DATABASE_HOST'),
                     port: configService.get('DATABASE_PORT'),
                     username: configService.get('DATABASE_USERNAME'),
-                    sid: configService.get('DATABASE_DATABASE'),
+                    database: configService.get('DATABASE_DATABASE'),
                     entities: [__dirname + '/../**/*.entity.{ts, js}'],
                     synchronize: configService.get('DATABASE_SYNCHRONIZE'),
                     logging: ['query', 'error'],

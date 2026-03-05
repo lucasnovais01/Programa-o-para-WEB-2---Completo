@@ -4,5 +4,5 @@ import { Cidade } from '../entity/cidade.entity';
 export declare class CidadeServiceFindAll {
     private cidadeRepository;
     constructor(cidadeRepository: Repository<Cidade>);
-    findAll(): Promise<CidadeResponse[]>;
+    findAll(page: number, pageSize: number): Promise<CidadeResponse[]>;
 }

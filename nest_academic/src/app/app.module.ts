@@ -63,8 +63,11 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         host: configService.get('DATABASE_HOST'),
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        sid: configService.get('DATABASE_DATABASE'),
+
+        //No Oracle normalmente se usa sid e no MySQL se usa o database:
+        database: configService.get('DATABASE_DATABASE'),
+        //sid: configService.get('DATABASE_DATABASE'),
+
         //password: configService.get('DATABASE_PASSWORD'),
         //
         // o autoload pode dar errado

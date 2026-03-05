@@ -22,8 +22,8 @@ let CidadeControllerFindAll = class CidadeControllerFindAll {
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
-    async findAll(req) {
-        const response = await this.cidadeServiceFindAll.findAll();
+    async findAll(req, page, pageSize) {
+        const response = await this.cidadeServiceFindAll.findAll(Number(page), Number(pageSize));
         return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null);
     }
 };
@@ -32,8 +32,10 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     (0, common_1.Get)(url_sistema_1.ROTA.CIDADE.LIST),
     __param(0, (0, common_1.Req)()),
+    __param(1, (0, common_1.Query)('page')),
+    __param(2, (0, common_1.Query)('pageSize')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [Object, String, String]),
     __metadata("design:returntype", Promise)
 ], CidadeControllerFindAll.prototype, "findAll", null);
 exports.CidadeControllerFindAll = CidadeControllerFindAll = __decorate([
