@@ -17,13 +17,14 @@ const common_1 = require("@nestjs/common");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const cidade_service_findall_1 = require("../service/cidade.service.findall");
+const paginacao_enum_1 = require("../../commons/enum/paginacao.enum");
 let CidadeControllerFindAll = class CidadeControllerFindAll {
     cidadeServiceFindAll;
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
-    async findAll(req, page, pageSize) {
-        const response = await this.cidadeServiceFindAll.findAll(Number(page), Number(pageSize));
+    async findAll(req, page, pageSize, order) {
+        const response = await this.cidadeServiceFindAll.findAll(page ? Number(page) : paginacao_enum_1.PAGINATION.PAGE, pageSize ? Number(pageSize) : paginacao_enum_1.PAGINATION.PAGESIZE, order ? order : paginacao_enum_1.PAGINATION.ASC);
         return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null);
     }
 };
@@ -34,8 +35,9 @@ __decorate([
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Query)('page')),
     __param(2, (0, common_1.Query)('pageSize')),
+    __param(3, (0, common_1.Query)('order')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String, String]),
+    __metadata("design:paramtypes", [Object, String, String, String]),
     __metadata("design:returntype", Promise)
 ], CidadeControllerFindAll.prototype, "findAll", null);
 exports.CidadeControllerFindAll = CidadeControllerFindAll = __decorate([

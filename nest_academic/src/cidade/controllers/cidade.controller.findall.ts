@@ -12,6 +12,7 @@ import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
+import { PAGINATION } from 'src/commons/enum/paginacao.enum';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindAll {
@@ -24,12 +25,19 @@ export class CidadeControllerFindAll {
 
     @Query('page') page?: string, //Pega o parametro da URL http://localhost:8000/rest/sistema/cidade/listar
     @Query('pageSize') pageSize?: string,
+    @Query('order') order?: 'ASC' | 'DESC',
+    //
   ): Promise<Result<CidadeResponse[]>> {
     const response = await this.cidadeServiceFindAll.findAll(
-      Number(page),
-      Number(pageSize),
       //
+      page ? Number(page) : PAGINATION.PAGE,
+      pageSize ? Number(pageSize) : PAGINATION.PAGESIZE,
+      //Number(page), criamos o enum em commons pra facilitar
+      //Number(pageSize),
+      //
+      order ? order : PAGINATION.ASC,
     );
+
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Lista de cidade gerada com sucesso!',

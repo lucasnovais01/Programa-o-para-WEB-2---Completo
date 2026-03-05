@@ -12,12 +12,16 @@ export class CidadeServiceFindAll {
     private cidadeRepository: Repository<Cidade>,
   ) {}
 
-  async findAll(page: number, pageSize: number): Promise<CidadeResponse[]> {
+  async findAll(
+    page: number,
+    pageSize: number,
+    order: 'ASC' | 'DESC',
+  ): Promise<CidadeResponse[]> {
     // cálculo do offset ou skip
     const offset = (page - 1) * pageSize;
-
     const cidades = await this.cidadeRepository
       .createQueryBuilder('cidade')
+      .orderBy('idCidade', order)
       //
       .offset(offset)
       .limit(pageSize)
