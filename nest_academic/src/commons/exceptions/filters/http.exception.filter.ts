@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { sendHttpResponse } from '../../mensagem/send.response';
-import { MensagemSistema } from '../../mensagem/mensagem.sistema';
+// import { MensagemSistema } from '../../mensagem/mensagem.sistema';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {

@@ -15,6 +15,7 @@ export class CidadeServiceFindAll {
   async findAll(page: number, pageSize: number): Promise<CidadeResponse[]> {
     // cálculo do offset ou skip
     const offset = (page - 1) * pageSize;
+
     const cidades = await this.cidadeRepository
       .createQueryBuilder('cidade')
       //
@@ -22,6 +23,14 @@ export class CidadeServiceFindAll {
       .limit(pageSize)
       //
       .getMany();
+
+    /* OUTRA FORMA:
+
+    const cidades = await this.cidadeRepository.find({
+      skip: offset,
+      take: pageSize,
+    });
+    */
 
     return ConverterCidade.toListCidadeResponse(cidades);
   }
