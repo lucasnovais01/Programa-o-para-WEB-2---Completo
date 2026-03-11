@@ -49,18 +49,6 @@ export class CidadeServiceFindAll {
     const cidades = ConverterCidade.toListCidadeResponse(listaCidades);
 
     return Page.of(cidades, totalElements, pageable);
-
-    /*
-    const cidades = await query.getMany();
-
-    const totalElements = await this.cidadeRepository.count();
-
-    const totalPages = Math.ceil(totalElements / pageSize);
-
-    const lastPages = totalPages;  
-
-    return ConverterCidade.toListCidadeResponse(cidades);
-    */
   }
 }
 
@@ -70,4 +58,16 @@ const cidades = await this.cidadeRepository.find({
   skip: offset,
   take: pageSize,
 });
+*/
+
+/*
+const cidades = await query.getMany();
+
+const totalElements = await this.cidadeRepository.count();
+
+const totalPages = Math.ceil(totalElements / pageSize);
+
+const lastPages = totalPages;  
+
+return ConverterCidade.toListCidadeResponse(cidades);
 */
