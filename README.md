@@ -101,4 +101,4 @@ para o react
 
 npm instal react-icons --save
 
-aaaaaaaaaaEscola
+aaaaaaaaaaEscola1
