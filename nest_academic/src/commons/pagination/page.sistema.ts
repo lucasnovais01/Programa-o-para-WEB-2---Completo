@@ -29,7 +29,7 @@ export class Page<T> {
     content: T[],
     totalElements: number,
     pageable: Pageable,
-  ): Page<T> | null {
-    return null;
+  ): Page<T> {
+    return;
   }
 }
