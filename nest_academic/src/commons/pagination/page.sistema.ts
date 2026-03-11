@@ -1,3 +1,5 @@
+import { Pageable } from "./page.response";
+
 export class Page<T> {
   /* o <T> é classe genérico */
   content: T[];
@@ -21,5 +23,13 @@ export class Page<T> {
     this.pageSize = pageSize;
     this.page = page;
     this.lastPage = lastPage;
+  }
+
+  static of<T>(
+    content: T[],
+    totalElements: number,
+    pageable: Pageable,
+  ): Page<T> | null {
+    return null;
   }
 }
