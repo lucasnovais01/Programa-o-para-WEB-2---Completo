@@ -18,28 +18,30 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
 const cidade_entity_1 = require("../entity/cidade.entity");
+const page_response_1 = require("../../commons/pagination/page.response");
+const constants_sistema_1 = require("../../commons/constants/constants.sistema");
+const page_sistema_1 = require("../../commons/pagination/page.sistema");
+const cidade_constants_1 = require("../constants/cidade.constants");
 let CidadeServiceFindAll = class CidadeServiceFindAll {
     cidadeRepository;
     constructor(cidadeRepository) {
         this.cidadeRepository = cidadeRepository;
     }
     async findAll(page, pageSize, props, order, search) {
-        const offset = (page - 1) * pageSize;
-        const cidades = this.cidadeRepository
-            .createQueryBuilder('cidade')
+        const pageable = new page_response_1.Pageable(page, pageSize, props, order, cidade_constants_1.fieldsCidade);
+        const query = this.cidadeRepository
+            .createQueryBuilder(constants_sistema_1.CIDADE.ENTITY)
             .orderBy(props, order)
-            .offset(offset)
-            .limit(pageSize);
+            .offset(pageable.offset)
+            .limit(pageable.limit);
         if (search) {
             query.where(`${props} LIKE :search_where`, {
                 search_where: `%${search}%`,
             });
         }
-        const cidades = await query.getMany();
-        const totalElements = await this.cidadeRepository.count();
-        const totalPages = Math.ceil(totalElements / pageSize);
-        const lastPages = totalPages;
-        return cidade_converter_1.ConverterCidade.toListCidadeResponse(cidades);
+        const [listaCidades, totalElements] = await query.getManyAndCount();
+        const cidades = cidade_converter_1.ConverterCidade.toListCidadeResponse(listaCidades);
+        return page_sistema_1.Page.of(cidades, totalElements, pageable);
     }
 };
 exports.CidadeServiceFindAll = CidadeServiceFindAll;

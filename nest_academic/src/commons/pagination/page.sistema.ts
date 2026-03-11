@@ -1,4 +1,4 @@
-import { Pageable } from "./page.response";
+import { Pageable } from './page.response';
 
 export class Page<T> {
   /* o <T> é classe genérico */
@@ -15,14 +15,14 @@ export class Page<T> {
     totalElements: number,
     pageSize: number,
     page: number,
-    lastPage: number,
+    //lastPage: number,
   ) {
     this.content = content;
     this.totalPages = totalPages;
     this.totalElements = totalElements;
     this.pageSize = pageSize;
     this.page = page;
-    this.lastPage = lastPage;
+    this.lastPage = totalPages;
   }
 
   static of<T>(
@@ -30,6 +30,11 @@ export class Page<T> {
     totalElements: number,
     pageable: Pageable,
   ): Page<T> {
-    return;
+    const pageSize = pageable.pageSize;
+    const page = pageable.page;
+    const totalPages = Math.ceil(totalElements / pageSize);
+    //const lastPage = Math.ceil(totalElements / pageSize);
+
+    return new Page(content, totalPages, totalElements, pageSize, page);
   }
 }

@@ -14,6 +14,7 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
 import { PAGINATION } from 'src/commons/enum/paginacao.enum';
 import { CIDADE } from '../constants/cidade.constants';
+import { Page } from 'src/commons/pagination/page.sistema';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindAll {
@@ -31,7 +32,9 @@ export class CidadeControllerFindAll {
     @Query('order') order?: 'ASC' | 'DESC',
     @Query('search') search?: string,
     //
-  ): Promise<Result<CidadeResponse[]>> {
+    //O próprio Page já é um array, então não precisa mais do colchestes em CidadeResponse
+    //
+  ): Promise<Result<Page<CidadeResponse>>> {
     const response = await this.cidadeServiceFindAll.findAll(
       //
       page ? Number(page) : PAGINATION.PAGE,

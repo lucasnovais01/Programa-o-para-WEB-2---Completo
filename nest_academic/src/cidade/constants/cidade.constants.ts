@@ -57,3 +57,5 @@ export const CIDADE = {
 
   OPERACAO: criarMensagemOperacao(ENTITY_NAME),
 };
+
+export const fieldsCidade = Object.values(CIDADE.FIELDS);
