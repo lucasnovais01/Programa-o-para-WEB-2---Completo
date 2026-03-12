@@ -6,6 +6,7 @@
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "types": [], // ← array vazio impede que o TS carregue tipos implícitos automáticos como babel__*
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -21,7 +22,8 @@
     "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedSideEffectImports": true
+    "noUncheckedSideEffectImports": true,
+
   },
   "include": ["src"],
   "baseUrl":"./src",
