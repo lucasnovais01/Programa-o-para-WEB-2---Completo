@@ -10,7 +10,7 @@ const PaginationFooter = () => {
         <Pagination />
       </div>
     </>
-  )
-}
+  );
+};
 
 export default PaginationFooter;
