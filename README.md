@@ -59,6 +59,9 @@ npm install -D typescript npm install -D ts-node npm install -D tsconfig-paths n
 
 ### TODOS DO REACT
 
+npm install -D typescript @types/react @types/react-dom @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint @eslint/js eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh prettier eslint-config-prettier eslint-plugin-prettier globals
+
+
 Os dados dentro do app.module.ts são Sensíveis, e Por tanto é importante utilizarmos o comando:
 
 git update-index --assume-unchanged src/app/app.module.ts
