@@ -3,15 +3,25 @@ import { BsPencilSquare } from "react-icons/bs";
 import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link } from "react-router-dom";
-import { apiGetCidades } from "../../services/cidade/api/api.cidade";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 
 import { ROTA } from "../../services/router/url";
 import type { Cidade } from "../../type/cidade";
 
+import { apiGetCidades, type SearchParam } from "../../services/cidade/api/api.cidade";
+import PaginationFooter from "../../components/pagination/PaginationFooter";
+
+
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
+
+const params: SearchParam = {  // ← adicione isso (tipo que você já exportou)
+    page: 0,                     // ou 1, dependendo do seu backend
+    pageSize: 999,               // grande pra pegar tudo (ou o que fizer sentido)
+    // props, order, search: opcional, pode deixar undefined ou omitir
+  };
+
   try {
-    const response = await apiGetCidades();
+    const response = await apiGetCidades(params);
     return response.data.dados;
   } catch (error: any) {
     console.log(error);
@@ -24,11 +34,31 @@ export default function ListarCidade() {
   // reagir as alterações na variável
   // renderiza -
   const [models, setModels] = useState<Cidade[] | null>(null);
+  // estados da paginação:
+  // page = currentPage
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  // pageSize = recordPerPage
+  const [recordPerPage, setRecordPage] = useState<number>(5);
+  // props
+  const [props, setProps] = useState<String | null>(null);
+  const [order, setOrder] = useState<String | null>(null);
+  const [search, setSearch] = useState<String | null>(null);
+
+
 
   //hook - função - reagir, quando carregar a página
   //pela primeira vez, quando o array for vázio.
   useEffect(() => {
     async function getCidades() {
+
+      const params = {
+        currentPage,
+        recordPerPage,
+        props,
+        order,
+        search,
+      };
+
       const cidades = await buscarTodasCidades();
       if (cidades) {
         setModels(cidades);
@@ -112,6 +142,7 @@ export default function ListarCidade() {
             ))}
           </tbody>
         </table>
+        <PaginationFooter />
       </div>
     </div>
   );

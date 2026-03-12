@@ -2,8 +2,22 @@ import { http } from "../../axios/config.axios";
 import { ROTA } from "../../router/url";
 import type { Cidade } from "../../../type/cidade";
 
-export const apiGetCidades = async () => {
-  const response = await http.get(ROTA.CIDADE.LISTAR);
+// Para receber os dados do controller findall do @query isto é o order, search, etc..
+
+export type SearchParam = {
+  page?: number;
+  pageSize?: number;
+  props?: string;
+  order?: string;
+  search?: string;
+}
+
+export const apiGetCidades = async (
+  params : SearchParam
+) => {
+  const response = await http.get(ROTA.CIDADE.LISTAR, {
+    params
+  });
   return response;
 };
 

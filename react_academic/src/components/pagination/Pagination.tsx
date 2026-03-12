@@ -19,7 +19,7 @@ const Pagination = ({
 
   return (
     <>
-      <div>
+      <div className='pagination'>
         Paginação.
 
       </div>
