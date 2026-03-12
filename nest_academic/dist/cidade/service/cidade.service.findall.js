@@ -19,7 +19,6 @@ const typeorm_2 = require("typeorm");
 const cidade_converter_1 = require("../dto/converter/cidade.converter");
 const cidade_entity_1 = require("../entity/cidade.entity");
 const page_response_1 = require("../../commons/pagination/page.response");
-const constants_sistema_1 = require("../../commons/constants/constants.sistema");
 const page_sistema_1 = require("../../commons/pagination/page.sistema");
 const cidade_constants_1 = require("../constants/cidade.constants");
 let CidadeServiceFindAll = class CidadeServiceFindAll {
@@ -30,7 +29,7 @@ let CidadeServiceFindAll = class CidadeServiceFindAll {
     async findAll(page, pageSize, props, order, search) {
         const pageable = new page_response_1.Pageable(page, pageSize, props, order, cidade_constants_1.fieldsCidade);
         const query = this.cidadeRepository
-            .createQueryBuilder(constants_sistema_1.CIDADE.ENTITY)
+            .createQueryBuilder(cidade_constants_1.CIDADE.ENTITY)
             .orderBy(props, order)
             .offset(pageable.offset)
             .limit(pageable.limit);

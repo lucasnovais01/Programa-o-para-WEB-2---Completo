@@ -6,9 +6,9 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { Cidade } from '../entity/cidade.entity';
 
 import { Pageable } from 'src/commons/pagination/page.response';
-import { CIDADE } from 'src/commons/constants/constants.sistema';
+
 import { Page } from 'src/commons/pagination/page.sistema';
-import { fieldsCidade } from '../constants/cidade.constants';
+import { CIDADE, fieldsCidade } from '../constants/cidade.constants';
 
 @Injectable()
 export class CidadeServiceFindAll {
@@ -33,7 +33,6 @@ export class CidadeServiceFindAll {
     const query = this.cidadeRepository
       .createQueryBuilder(CIDADE.ENTITY)
       .orderBy(props, order)
-      //
       .offset(pageable.offset)
       .limit(pageable.limit);
 

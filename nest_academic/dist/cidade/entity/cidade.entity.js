@@ -32,7 +32,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         name: 'COD_CIDADE',
-        type: 'varchar2',
+        type: 'varchar',
         length: 10,
     }),
     __metadata("design:type", String)
@@ -40,7 +40,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         name: 'NOME_CIDADE',
-        type: 'varchar2',
+        type: 'varchar',
         length: 50,
     }),
     __metadata("design:type", String)
