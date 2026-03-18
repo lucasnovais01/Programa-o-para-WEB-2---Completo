@@ -19,6 +19,13 @@ async function bootstrap() {
 
   SwaggerModule.setup('api_academico', app, document);
 
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    methods: 'GET, PUT, PATCH, POST, DELETE',
+    allowedheaders: 'Content-Type, Accept',
+    credentials: false,
+  });
+
   /*
   app.enableCors({
     // libera o cors
@@ -28,6 +35,13 @@ async function bootstrap() {
     allowedheaders: 'Content-Type, Accept',
     credentials: false,
   });
+*/
+  /*
+  O que é Cors?
+
+  Preciso dizer ao servidor que o endereço é de confiança.
+
+  CORS (CROSS ORIGIN RESOURE SHARING) é um mecanismo de segurança dos navegadores que controla se scripts
 */
 
   await app.listen(process.env.PORT ?? 5000); // Default to port 8000, pq no react é 3000

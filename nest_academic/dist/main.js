@@ -15,6 +15,12 @@ async function bootstrap() {
         .build();
     const document = swagger_1.SwaggerModule.createDocument(app, configSwagger);
     swagger_1.SwaggerModule.setup('api_academico', app, document);
+    app.enableCors({
+        origin: ['http://localhost:3000'],
+        methods: 'GET, PUT, PATCH, POST, DELETE',
+        allowedheaders: 'Content-Type, Accept',
+        credentials: false,
+    });
     await app.listen(process.env.PORT ?? 5000);
 }
 void bootstrap();

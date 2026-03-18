@@ -9,7 +9,7 @@ type PaginationFooterProps = {
   onPageChange: (value: number) => void;
 }
 
-const PaginationFooter = () => ({
+const PaginationFooter = ({
   currentPage,
   pageSize,
   totalElements,
@@ -27,8 +27,7 @@ const PaginationFooter = () => ({
         />
       </div>
       <div>
-        <Pagination
-        />
+        <Pagination/>
       </div>
     </>
   );

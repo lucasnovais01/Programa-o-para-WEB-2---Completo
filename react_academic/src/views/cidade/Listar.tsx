@@ -8,15 +8,17 @@ import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import { ROTA } from "../../services/router/url";
 import type { Cidade } from "../../type/cidade";
 
-import { apiGetCidades, type SearchParam } from "../../services/cidade/api/api.cidade";
 import PaginationFooter from "../../components/pagination/PaginationFooter";
-
+import {
+  apiGetCidades,
+  type SearchParam,
+} from "../../services/cidade/api/api.cidade";
 
 const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
-
-const params: SearchParam = {  // ← adicione isso (tipo que você já exportou)
-    page: 0,                     // ou 1, dependendo do seu backend
-    pageSize: 999,               // grande pra pegar tudo (ou o que fizer sentido)
+  const params: SearchParam = {
+    // ← adicione isso (tipo que você já exportou)
+    page: 0, // ou 1, dependendo do seu backend
+    pageSize: 999, // grande pra pegar tudo (ou o que fizer sentido)
     // props, order, search: opcional, pode deixar undefined ou omitir
   };
 
@@ -39,18 +41,21 @@ export default function ListarCidade() {
   const [currentPage, setCurrentPage] = useState<number>(1);
   // pageSize = recordPerPage
   const [recordPerPage, setRecordPage] = useState<number>(5);
+  //
+  const [pageSize, setPageSize] = useState<number>(5);
+  const [totalPages, setTotalPages] = useState(100);
+
+  //
+
   // props
   const [props, setProps] = useState<String | null>(null);
   const [order, setOrder] = useState<String | null>(null);
   const [search, setSearch] = useState<String | null>(null);
 
-
-
   //hook - função - reagir, quando carregar a página
   //pela primeira vez, quando o array for vázio.
   useEffect(() => {
     async function getCidades() {
-
       const params = {
         currentPage,
         recordPerPage,
@@ -67,6 +72,13 @@ export default function ListarCidade() {
     getCidades();
   }, []);
 
+  //
+  //
+
+  const handlePageChange = () => {};
+
+  //
+  //
   return (
     <div className="display">
       <div className="card animated fadeInDown">
@@ -142,13 +154,16 @@ export default function ListarCidade() {
             ))}
           </tbody>
         </table>
-        <PaginationFooter
-          currentPage={currentPage}
-          pageSize={pageSize}
-          totalElements={filteredData.length}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
+
+        {models && (
+          <PaginationFooter
+            currentPage={currentPage}
+            pageSize={pageSize}
+            totalElements={models.length}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        )}
       </div>
     </div>
   );
