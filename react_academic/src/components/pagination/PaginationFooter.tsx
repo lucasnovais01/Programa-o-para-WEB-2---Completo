@@ -21,16 +21,24 @@ const PaginationFooter = ({
 
   return (
     <>
-      <div>
-        <PaginationInfo
-          page = {currentPage}
-          pageSize={pageSize}
-          totalElements={totalElements}
-          totalPages={totalPages}
-        />
-      </div>
-      <div>
-        <Pagination/>
+      <div className="pagination-container">
+
+        <div>
+          <PaginationInfo
+            page = {currentPage}
+            pageSize={pageSize}
+            totalElements={totalElements}
+            totalPages={totalPages}
+          />
+        </div>
+        <div>
+          <Pagination
+
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
+          />
+        </div>
       </div>
     </>
   );
