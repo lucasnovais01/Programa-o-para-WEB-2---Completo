@@ -142,7 +142,13 @@ export default function ListarCidade() {
             ))}
           </tbody>
         </table>
-        <PaginationFooter />
+        <PaginationFooter
+          currentPage={currentPage}
+          pageSize={pageSize}
+          totalElements={filteredData.length}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );

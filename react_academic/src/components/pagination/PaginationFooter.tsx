@@ -1,13 +1,34 @@
+import Pagination from "./Pagination";
 import PaginationInfo from "./PaginationInfo";
 
-const PaginationFooter = () => {
+type PaginationFooterProps = {
+  currentPage: number;
+  pageSize: number;
+  totalElements: number;
+  totalPages: number;
+  onPageChange: (value: number) => void;
+}
+
+const PaginationFooter = () => ({
+  currentPage,
+  pageSize,
+  totalElements,
+  totalPages,
+  onPageChange, // está verde pq e uma funcao
+}: PaginationFooterProps) => {
   return (
     <>
       <div>
-        <PaginationInfo />
+        <PaginationInfo
+          page = {currentPage}
+          pageSize={pageSize}
+          totalElements={totalElements}
+          totalPages={totalPages}
+        />
       </div>
       <div>
-        <Pagination />
+        <Pagination
+        />
       </div>
     </>
   );
