@@ -16,6 +16,9 @@ const PaginationFooter = ({
   totalPages,
   onPageChange, // está verde pq e uma funcao
 }: PaginationFooterProps) => {
+
+  console.log(totalElements);
+
   return (
     <>
       <div>

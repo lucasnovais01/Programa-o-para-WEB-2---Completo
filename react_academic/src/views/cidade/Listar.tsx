@@ -14,7 +14,9 @@ import {
   type SearchParam,
 } from "../../services/cidade/api/api.cidade";
 
-const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
+// const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
+
+const buscarTodasCidades = async (): Promise<Cidade[]> => {
   const params: SearchParam = {
     // ← adicione isso (tipo que você já exportou)
     page: 0, // ou 1, dependendo do seu backend
@@ -66,7 +68,7 @@ export default function ListarCidade() {
 
       const cidades = await buscarTodasCidades();
       if (cidades) {
-        setModels(cidades);
+        setModels(cidades.content);
       }
     }
     getCidades();
