@@ -45,7 +45,7 @@ export default function ListarCidade() {
   const [recordPerPage, setRecordPage] = useState<number>(5);
   //
   const [pageSize, setPageSize] = useState<number>(5);
-  const [totalPages, setTotalPages] = useState(100);
+  const [totalPages, setTotalPages] = useState(5);
 
   //
 
@@ -77,7 +77,10 @@ export default function ListarCidade() {
   //
   //
 
-  const handlePageChange = () => {};
+  const handlePageChange = (pageNumber: number) => {
+
+    setCurrentPage(pageNumber);
+  };
 
   //
   //

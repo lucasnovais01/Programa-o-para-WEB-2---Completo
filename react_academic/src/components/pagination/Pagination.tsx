@@ -1,4 +1,4 @@
-import { FaArrowAltCircleLeft, FaFastBackward } from 'react-icons/fa';
+import { FaArrowAltCircleLeft, FaArrowAltCircleRight, FaFastBackward, FaFastForward } from 'react-icons/fa';
 import './pagination.css';
 
 type PaginationProps = {
@@ -30,10 +30,11 @@ const Pagination = ({
 
           <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
 
-            <button onClick={() => onPageChange(currentPage)} className='page-link'>
+            <button onClick={() => onPageChange(currentPage - 1)} className='page-link'>
               <FaArrowAltCircleLeft />
             </button>
           </li>
+
 
           {
             Array.from({ length: totalPages }, (_,index) => (
@@ -46,6 +47,19 @@ const Pagination = ({
               </li>
             ))
           }
+
+          <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+
+            <button onClick={() => onPageChange(currentPage + 1)} className='page-link'>
+              <FaArrowAltCircleRight />
+            </button>
+          </li>
+
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button onClick={() => onPageChange(1)} className="page-link">
+              <FaFastForward />
+            </button>
+          </li>
 
 
         </ul>
