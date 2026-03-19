@@ -16,7 +16,7 @@ import {
 
 // const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
-const buscarTodasCidades = useCallback (
+const buscarTodasCidades =
   async (params: SearchParam): Promise<Cidade[] | null> => {
 
   try {
@@ -35,14 +35,18 @@ const buscarTodasCidades = useCallback (
     // props, order, search: opcional, pode deixar undefined ou omitir
   };
   */
-
-});
+};
 
 export default function ListarCidade() {
   // useState = hook - gancho - função
   // reagir as alterações na variável
   // renderiza -
   const [models, setModels] = useState<Cidade[] | null>(null);
+
+  /*
+  const [models, setModels] = useState<Cidade[] | null>(null);
+  */
+
   // estados da paginação:
   // page = currentPage
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -101,6 +105,13 @@ export default function ListarCidade() {
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
   };
+
+
+  const Pagination = ({
+    currentPage,
+    totalPages,
+
+  });
 
   //
   //
