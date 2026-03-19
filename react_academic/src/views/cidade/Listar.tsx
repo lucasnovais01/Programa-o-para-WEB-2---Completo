@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -16,22 +16,27 @@ import {
 
 // const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
-const buscarTodasCidades = async (): Promise<Cidade[]> => {
+const buscarTodasCidades = useCallback (
+  async (params: SearchParam): Promise<Cidade[] | null> => {
+
+  try {
+    const response = await apiGetCidades(params);
+    return response.data;
+  } catch (error: any) {
+    console.log(error);
+  }
+  return [];
+  
+  /*
   const params: SearchParam = {
     // ← adicione isso (tipo que você já exportou)
     page: 0, // ou 1, dependendo do seu backend
     pageSize: 999, // grande pra pegar tudo (ou o que fizer sentido)
     // props, order, search: opcional, pode deixar undefined ou omitir
   };
+  */
 
-  try {
-    const response = await apiGetCidades(params);
-    return response.data.dados;
-  } catch (error: any) {
-    console.log(error);
-  }
-  return null;
-};
+});
 
 export default function ListarCidade() {
   // useState = hook - gancho - função
@@ -45,7 +50,8 @@ export default function ListarCidade() {
   const [recordPerPage, setRecordPage] = useState<number>(5);
   //
   const [pageSize, setPageSize] = useState<number>(5);
-  const [totalPages, setTotalPages] = useState(5);
+  const [totalPages, setTotalPages] = useState(0);
+  const [totalElements, setTotalElements] = useState(0);
 
   //
 
@@ -53,7 +59,11 @@ export default function ListarCidade() {
   const [props, setProps] = useState<String | null>(null);
   const [order, setOrder] = useState<String | null>(null);
   const [search, setSearch] = useState<String | null>(null);
-
+  /*
+  const [props, setProps] = useState<String | null>(null);
+  const [order, setOrder] = useState<String | null>(null);
+  const [search, setSearch] = useState<String | null>(null);
+  */
   //hook - função - reagir, quando carregar a página
   //pela primeira vez, quando o array for vázio.
   useEffect(() => {
@@ -66,19 +76,29 @@ export default function ListarCidade() {
         search,
       };
 
-      const cidades = await buscarTodasCidades();
-      if (cidades) {
-        setModels(cidades.content);
+      const data = await buscarTodasCidades(); // no modelo do professor tem params dentro do parenteses
+
+      console.log(data);
+
+
+      if (data) {
+        const { content, page, pageSize, totalElements, totalPages} =
+          data.dados;
+        
+        setModels(content);
+        setCurrentPage(page);
+        setPageSize(pageSize);
+        setTotalElements(totalElements);
+        setTotalPages(totalPages);
       }
     }
     getCidades();
-  }, []);
+  }, [currentPage, pageSize]);
 
   //
   //
 
   const handlePageChange = (pageNumber: number) => {
-
     setCurrentPage(pageNumber);
   };
 
