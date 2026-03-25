@@ -12,20 +12,13 @@
     pww2.code-workspace
 */
 {
-	"folders": [
-		{
-			"path": "."
-		},
-/*
-		{
-			"path": "ppw2/nest_academic"
-		},
-		{
-			"path": "ppw2/react_academic"
-		}
-*/
-	],
-	"settings": {
+  "folders": [
+    {
+      "name": "Programa-o-para-WEB-2---Completo",
+      "path": "."
+    }
+  ],
+  "settings": {
     "window.zoomLevel": 0,
     "editor.fontSize": 20,
     "terminal.integrated.fontSize": 18,
