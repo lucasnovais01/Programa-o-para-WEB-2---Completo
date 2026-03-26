@@ -4,7 +4,7 @@ import './search.css';
 interface SearchBarProps {
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  recordsPerPage: number;
+  setRecordPerPage: number;
   handleRecordsPerPageChange: (event: ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -12,7 +12,7 @@ interface SearchBarProps {
 const SearchBar = ({
   searchTerm,
   setSearchTerm,
-  recordsPerPage,
+  setRecordPerPage,
   handleRecordsPerPageChange,
 }: SearchBarProps) => {
   return (
@@ -36,7 +36,7 @@ const SearchBar = ({
 
         <select 
           id="recordsPerPage"
-          value={recordsPerPage}
+          value={setRecordPerPage}
           onChange={handleRecordsPerPageChange}        
         >
           <option value={5}>5</option>

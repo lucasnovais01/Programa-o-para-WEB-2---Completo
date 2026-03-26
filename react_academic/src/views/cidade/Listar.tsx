@@ -4,15 +4,18 @@ import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
-
 import { ROTA } from "../../services/router/url";
 import type { Cidade } from "../../type/cidade";
 
 import PaginationFooter from "../../components/pagination/PaginationFooter";
 import {
-  apiGetCidades,
-  type SearchParam,
+  apiGetCidades
 } from "../../services/cidade/api/api.cidade";
+
+
+import type { SearchParam } from '../../services/cidade/api/api.cidade';
+
+import SearchBar from '../../components/search/SearchBar';
 
 // const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
@@ -67,15 +70,6 @@ export default function ListarCidade() {
       console.log(error);
     }
     return [];
-    
-    /*
-    const params: SearchParam = {
-      // ← adicione isso (tipo que você já exportou)
-      page: 0, // ou 1, dependendo do seu backend
-      pageSize: 999, // grande pra pegar tudo (ou o que fizer sentido)
-      // props, order, search: opcional, pode deixar undefined ou omitir
-    };
-    */
   };
 
 ///////////////////
@@ -83,20 +77,20 @@ export default function ListarCidade() {
   useEffect(() => {
     async function getCidades() {
       const params = {
-        currentPage,
-        recordPerPage,
-        props,
-        order,
-        searchTerm,
+        page: currentPage,
+        pageSize: recordPerPage,
+        props: props,
+        order: order,
+        searchTerm: searchTerm === '' ? null: searchTerm,
       };
 
       const data = await buscarTodasCidades(params); // no modelo do professor tem params dentro do parenteses
 
-      console.log(data);
-
       if (data) {
         const { content, page, pageSize, totalElements, totalPages} =
           data.dados;
+
+        // tirado o data.dados; e deixado só data;
 
         setModels(content);
         setCurrentPage(page);
@@ -114,6 +108,7 @@ export default function ListarCidade() {
   };
 
   const handleRecordsPerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setPageSize(Number(e.target.value));
     setRecordPerPage(Number(e.target.value));
     setCurrentPage(1);
   };
@@ -151,7 +146,7 @@ export default function ListarCidade() {
         <SearchBar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
-          setRecordPerPage={recordPerPages}
+          setRecordPerPage={recordPerPage}
           handleRecordsPerPageChange={handleRecordsPerPageChange}
         />
         <br />
