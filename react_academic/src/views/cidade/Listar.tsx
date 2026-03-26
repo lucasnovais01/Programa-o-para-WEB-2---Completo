@@ -16,26 +16,6 @@ import {
 
 // const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
 
-const buscarTodasCidades =
-  async (params: SearchParam): Promise<Cidade[] | null> => {
-
-  try {
-    const response = await apiGetCidades(params);
-    return response.data;
-  } catch (error: any) {
-    console.log(error);
-  }
-  return [];
-  
-  /*
-  const params: SearchParam = {
-    // ← adicione isso (tipo que você já exportou)
-    page: 0, // ou 1, dependendo do seu backend
-    pageSize: 999, // grande pra pegar tudo (ou o que fizer sentido)
-    // props, order, search: opcional, pode deixar undefined ou omitir
-  };
-  */
-};
 
 export default function ListarCidade() {
   // useState = hook - gancho - função
@@ -70,6 +50,32 @@ export default function ListarCidade() {
   */
   //hook - função - reagir, quando carregar a página
   //pela primeira vez, quando o array for vázio.
+
+  // algum argumento - ele monitora
+
+  const buscarTodasCidades =
+    async (params: SearchParam): Promise<Cidade[] | null> => {
+
+    try {
+      const response = await apiGetCidades(params);
+      return response.data;
+    } catch (error: any) {
+      console.log(error);
+    }
+    return [];
+    
+    /*
+    const params: SearchParam = {
+      // ← adicione isso (tipo que você já exportou)
+      page: 0, // ou 1, dependendo do seu backend
+      pageSize: 999, // grande pra pegar tudo (ou o que fizer sentido)
+      // props, order, search: opcional, pode deixar undefined ou omitir
+    };
+    */
+  };
+
+///////////////////
+
   useEffect(() => {
     async function getCidades() {
       const params = {
@@ -80,10 +86,9 @@ export default function ListarCidade() {
         search,
       };
 
-      const data = await buscarTodasCidades(); // no modelo do professor tem params dentro do parenteses
+      const data = await buscarTodasCidades(params); // no modelo do professor tem params dentro do parenteses
 
       console.log(data);
-
 
       if (data) {
         const { content, page, pageSize, totalElements, totalPages} =
@@ -97,10 +102,9 @@ export default function ListarCidade() {
       }
     }
     getCidades();
-  }, [currentPage, pageSize]);
+  }, [currentPage]);
 
-  //
-  //
+
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(pageNumber);
