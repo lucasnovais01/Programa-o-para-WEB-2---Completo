@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, type ChangeEvent } from "react";
 import { BsPencilSquare } from "react-icons/bs";
 import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
 import { FaMagnifyingGlass } from "react-icons/fa6";
@@ -31,19 +31,23 @@ export default function ListarCidade() {
   // page = currentPage
   const [currentPage, setCurrentPage] = useState<number>(1);
   // pageSize = recordPerPage
-  const [recordPerPage, setRecordPage] = useState<number>(5);
+  const [recordPerPage, setRecordPerPage] = useState<number>(5);
   //
   const [pageSize, setPageSize] = useState<number>(5);
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
 
   //
-
   // props
-  const [props, setProps] = useState<String | null>(null);
-  const [order, setOrder] = useState<String | null>(null);
-  const [search, setSearch] = useState<String | null>(null);
+  const [props, setProps] = useState<string>('');
+  const [order, setOrder] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
   /*
+  const [props, setProps] = useState<string | undefined>(undefined);
+  const [order, setOrder] = useState<string | undefined>(undefined);
+  const [search, setSearch] = useState<string | undefined>(undefined);
+
   const [props, setProps] = useState<String | null>(null);
   const [order, setOrder] = useState<String | null>(null);
   const [search, setSearch] = useState<String | null>(null);
@@ -83,7 +87,7 @@ export default function ListarCidade() {
         recordPerPage,
         props,
         order,
-        search,
+        searchTerm,
       };
 
       const data = await buscarTodasCidades(params); // no modelo do professor tem params dentro do parenteses
@@ -93,7 +97,7 @@ export default function ListarCidade() {
       if (data) {
         const { content, page, pageSize, totalElements, totalPages} =
           data.dados;
-        
+
         setModels(content);
         setCurrentPage(page);
         setPageSize(pageSize);
@@ -102,20 +106,25 @@ export default function ListarCidade() {
       }
     }
     getCidades();
-  }, [currentPage]);
-
+  }, [currentPage, recordPerPage, searchTerm]);
 
 
   const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
+    setCurrentPage(Number(pageNumber));
   };
+
+  const handleRecordsPerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRecordPerPage(Number(e.target.value));
+    setCurrentPage(1);
+  };
+
 
 
   const Pagination = ({
     currentPage,
     totalPages,
-
   });
+
 
   //
   //
@@ -139,6 +148,12 @@ export default function ListarCidade() {
             Novo
           </Link>
         </div>
+        <SearchBar
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          setRecordPerPage={recordPerPages}
+          handleRecordsPerPageChange={handleRecordsPerPageChange}
+        />
         <br />
         <table>
           <thead>
