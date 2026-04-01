@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Mensagem, Result } from './mensagem';
+import { Link, Mensagem, Result } from './mensagem';
 
 @Injectable()
 export class MensagemSistema {
@@ -9,8 +9,10 @@ export class MensagemSistema {
     dados: T | null,
     path: string | null,
     erro: string | null,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    _link: Record<string, Link>,
   ): Result<T> {
-    const resposta = new Mensagem(status, mensagem, dados, path, erro);
+    const resposta = new Mensagem(status, mensagem, dados, path, erro, _link);
     return resposta.toJSON();
   }
 }
