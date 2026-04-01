@@ -9,7 +9,6 @@ export class MensagemSistema {
     dados: T | null,
     path: string | null,
     erro: string | null,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     _link: Record<string, Link>,
   ): Result<T> {
     const resposta = new Mensagem(status, mensagem, dados, path, erro, _link);
