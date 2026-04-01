@@ -1,4 +1,4 @@
-.pagination-container {
+pagination-container {
   display: flex; /* Ativa o Flexbox */
   justify-content: space-between; /* Joga os itens para as extremidades */
   align-items: center; /* Alinha verticalmente no centro */

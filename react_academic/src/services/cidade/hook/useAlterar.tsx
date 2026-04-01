@@ -7,8 +7,7 @@ import {
   fieldsCidade,
   mapaCampoParaMensagem,
 } from "../constants/cidade.constants";
-import type { Cidade, ErrosCidade } from "../../../type/cidade";
-
+import type { Cidade, ErrosCidade } from "../type/Cidade";
 
 interface BuscarCidadePorIdProps {
   cidade: Cidade | null;

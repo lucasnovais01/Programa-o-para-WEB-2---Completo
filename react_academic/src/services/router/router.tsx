@@ -1,9 +1,6 @@
 import type { RouteObject } from "react-router-dom";
-import { Navigate } from "react-router-dom";
-
 import Layout from "../../components/layout/Layout";
 import Dashboard from "../../views/Dashboard";
-
 import AlterarCidade from "../../views/cidade/Alterar";
 import ConsultarCidade from "../../views/cidade/Consultar";
 import CriarCidade from "../../views/cidade/Criar";
@@ -14,10 +11,6 @@ import { ROTA } from "./url";
 //localhost:3000/sistema/cidade/listar
 
 export const routes: RouteObject[] = [
-  {
-    path: "/",
-    element: <Navigate to="/sistema/dashboard" replace />,
-  },
   {
     path: "/sistema",
     element: <Layout />, // componente (pai)

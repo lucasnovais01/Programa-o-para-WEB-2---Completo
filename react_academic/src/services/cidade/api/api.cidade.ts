@@ -1,10 +1,8 @@
-import { http } from "../../axios/config.axios";
-import { ROTA } from "../../router/url";
-import type { Cidade } from "../../../type/cidade";
+import { http } from '../../axios/config.axios';
+import { ROTA } from '../../router/url';
+import type { Cidade } from '../type/Cidade';
 
-// Para receber os dados do controller findall do @query isto é o order, search, etc..
-
-export type SearchParam = {
+export interface SearchParams {
   page?: number;
   pageSize?: number;
   props?: string;
@@ -12,11 +10,9 @@ export type SearchParam = {
   search?: string;
 }
 
-export const apiGetCidades = async (
-  params : SearchParam
-) => {
+export const apiGetCidades = async (params: SearchParams) => {
   const response = await http.get(ROTA.CIDADE.LISTAR, {
-    params
+    params,
   });
   return response;
 };

@@ -1,6 +1,5 @@
-import type { Cidade } from "../../../type/cidade";
 import { criarMensagemOperacao } from "../../constant/mensagem.operacao";
-
+import type { Cidade } from "../type/Cidade";
 
 const ENTITY_NAME = "Cidade";
 

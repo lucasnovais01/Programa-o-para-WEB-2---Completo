@@ -1,5 +1,5 @@
-import Pagination from "./Pagination";
-import PaginationInfo from "./PaginationInfo";
+import Pagination from './Pagination';
+import PaginationInfo from './PaginationInfo';
 
 type PaginationFooterProps = {
   currentPage: number;
@@ -7,25 +7,21 @@ type PaginationFooterProps = {
   totalElements: number;
   totalPages: number;
   onPageChange: (value: number) => void;
-}
+};
 
 const PaginationFooter = ({
   currentPage,
   pageSize,
   totalElements,
   totalPages,
-  onPageChange, // está verde pq e uma funcao
+  onPageChange,
 }: PaginationFooterProps) => {
-
-  console.log(totalElements);
-
   return (
     <>
       <div className="pagination-container">
-
         <div>
           <PaginationInfo
-            page = {currentPage}
+            page={currentPage}
             pageSize={pageSize}
             totalElements={totalElements}
             totalPages={totalPages}
@@ -33,7 +29,6 @@ const PaginationFooter = ({
         </div>
         <div>
           <Pagination
-
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={onPageChange}

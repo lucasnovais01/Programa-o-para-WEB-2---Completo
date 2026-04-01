@@ -1,97 +1,65 @@
-import { useCallback, useEffect, useState, type ChangeEvent } from "react";
-import { BsPencilSquare } from "react-icons/bs";
-import { FaPlus, FaRegTrashAlt } from "react-icons/fa";
-import { FaMagnifyingGlass } from "react-icons/fa6";
-import { Link } from "react-router-dom";
-import { CIDADE } from "../../services/cidade/constants/cidade.constants";
-import { ROTA } from "../../services/router/url";
-import type { Cidade } from "../../type/cidade";
-
-import PaginationFooter from "../../components/pagination/PaginationFooter";
-import {
-  apiGetCidades
-} from "../../services/cidade/api/api.cidade";
-
-
-import type { SearchParam } from '../../services/cidade/api/api.cidade';
-
+import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import { BsPencilSquare } from 'react-icons/bs';
+import { FaPlus, FaRegTrashAlt } from 'react-icons/fa';
+import { FaMagnifyingGlass } from 'react-icons/fa6';
+import { Link } from 'react-router-dom';
+import PaginationFooter from '../../components/pagination/PaginationFooter';
 import SearchBar from '../../components/search/SearchBar';
-
-// const buscarTodasCidades = async (): Promise<Cidade[] | null> => {
-
+import type { SearchParams } from '../../services/cidade/api/api.cidade';
+import { apiGetCidades } from '../../services/cidade/api/api.cidade';
+import { CIDADE } from '../../services/cidade/constants/cidade.constants';
+import type { Cidade } from '../../services/cidade/type/Cidade';
+import { ROTA } from '../../services/router/url';
 
 export default function ListarCidade() {
   // useState = hook - gancho - função
   // reagir as alterações na variável
   // renderiza -
-  const [models, setModels] = useState<Cidade[] | null>(null);
-
-  /*
-  const [models, setModels] = useState<Cidade[] | null>(null);
-  */
-
-  // estados da paginação:
+  const [models, setModels] = useState([]);
+  // estados da paginação;
   // page = currentPage
   const [currentPage, setCurrentPage] = useState<number>(1);
-  // pageSize = recordPerPage
-  const [recordPerPage, setRecordPerPage] = useState<number>(5);
-  //
+  // pageSize = recordPerPages
+  const [recordPerPages, setRecordPerPages] = useState<number>(5);
   const [pageSize, setPageSize] = useState<number>(5);
   const [totalPages, setTotalPages] = useState(0);
   const [totalElements, setTotalElements] = useState(0);
 
-  //
   // props
   const [props, setProps] = useState<string>('');
   const [order, setOrder] = useState<string>('');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  /*
-  const [props, setProps] = useState<string | undefined>(undefined);
-  const [order, setOrder] = useState<string | undefined>(undefined);
-  const [search, setSearch] = useState<string | undefined>(undefined);
+  const buscarTodasCidades = useCallback(
+    async (params: SearchParams): Promise<Cidade[] | null> => {
+      try {
+        const response = await apiGetCidades(params);
+        return response.data;
+      } catch (error: any) {
+        console.log(error);
+      }
+      return null;
+    },
+    [],
+  );
 
-  const [props, setProps] = useState<String | null>(null);
-  const [order, setOrder] = useState<String | null>(null);
-  const [search, setSearch] = useState<String | null>(null);
-  */
   //hook - função - reagir, quando carregar a página
   //pela primeira vez, quando o array for vázio.
-
   // algum argumento - ele monitora
-
-  const buscarTodasCidades =
-    async (params: SearchParam): Promise<Cidade[] | null> => {
-
-    try {
-      const response = await apiGetCidades(params);
-      return response.data;
-    } catch (error: any) {
-      console.log(error);
-    }
-    return [];
-  };
-
-///////////////////
-
   useEffect(() => {
     async function getCidades() {
       const params = {
         page: currentPage,
-        pageSize: recordPerPage,
+        pageSize: pageSize,
         props: props,
         order: order,
-        searchTerm: searchTerm === '' ? null: searchTerm,
+        searchTerm: searchTerm === '' ? null : searchTerm,
       };
-
-      const data = await buscarTodasCidades(params); // no modelo do professor tem params dentro do parenteses
+      const data = await buscarTodasCidades(params);
 
       if (data) {
-        const { content, page, pageSize, totalElements, totalPages} =
+        const { content, page, pageSize, totalElements, totalPages } =
           data.dados;
-
-        // tirado o data.dados; e deixado só data;
-
         setModels(content);
         setCurrentPage(page);
         setPageSize(pageSize);
@@ -100,8 +68,7 @@ export default function ListarCidade() {
       }
     }
     getCidades();
-  }, [currentPage, recordPerPage, searchTerm]);
-
+  }, [currentPage, pageSize, searchTerm]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(Number(pageNumber));
@@ -109,28 +76,18 @@ export default function ListarCidade() {
 
   const handleRecordsPerPageChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setPageSize(Number(e.target.value));
-    setRecordPerPage(Number(e.target.value));
+    setRecordPerPages(Number(e.target.value));
     setCurrentPage(1);
   };
 
-
-
-  const Pagination = ({
-    currentPage,
-    totalPages,
-  });
-
-
-  //
-  //
   return (
     <div className="display">
       <div className="card animated fadeInDown">
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
           }}
         >
           <h2>{CIDADE.TITULO.LISTA}</h2>
@@ -146,7 +103,7 @@ export default function ListarCidade() {
         <SearchBar
           searchTerm={searchTerm}
           setSearchTerm={setSearchTerm}
-          setRecordPerPage={recordPerPage}
+          recordsPerPage={recordPerPages}
           handleRecordsPerPageChange={handleRecordsPerPageChange}
         />
         <br />
@@ -175,7 +132,6 @@ export default function ListarCidade() {
                         <BsPencilSquare />
                       </i>
                     </span>
-                    Atualizar
                   </Link>
                   <Link
                     to={`${ROTA.CIDADE.EXCLUIR}/${model.idCidade}`}
@@ -186,7 +142,6 @@ export default function ListarCidade() {
                         <FaRegTrashAlt />
                       </i>
                     </span>
-                    Excluir
                   </Link>
                   <Link
                     to={`${ROTA.CIDADE.POR_ID}/${model.idCidade}`}
@@ -197,7 +152,6 @@ export default function ListarCidade() {
                         <FaMagnifyingGlass />
                       </i>
                     </span>
-                    Consulta
                   </Link>
                 </td>
               </tr>
@@ -205,15 +159,13 @@ export default function ListarCidade() {
           </tbody>
         </table>
 
-        {models && (
-          <PaginationFooter
-            currentPage={currentPage}
-            pageSize={pageSize}
-            totalElements={models.length}
-            totalPages={totalPages}
-            onPageChange={handlePageChange}
-          />
-        )}
+        <PaginationFooter
+          currentPage={currentPage}
+          pageSize={pageSize}
+          totalElements={totalElements}
+          totalPages={totalPages}
+          onPageChange={handlePageChange}
+        />
       </div>
     </div>
   );
