@@ -53,6 +53,7 @@ export class CidadeControllerFindAll {
       response,
       req.path,
       null,
+      null,
     );
   }
 }

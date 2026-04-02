@@ -9,7 +9,7 @@ export class MensagemSistema {
     dados: T | null,
     path: string | null,
     erro: string | null,
-    _link: Record<string, Link>,
+    _link: Record<string, Link> | null,
   ): Result<T> {
     const resposta = new Mensagem(status, mensagem, dados, path, erro, _link);
     return resposta.toJSON();

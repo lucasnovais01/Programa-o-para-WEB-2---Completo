@@ -15,6 +15,7 @@ import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CIDADE } from '../constants/cidade.constants';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindOne } from '../service/cidade.service.findone';
+import { gerarLinks } from 'src/commons/utils/hateoas.utils';
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindOne {
   constructor(private readonly cidadeServiceFindOne: CidadeServiceFindOne) {}
@@ -26,6 +27,7 @@ export class CidadeControllerFindOne {
     @Req() req: Request,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<CidadeResponse>> {
+    const _link = gerarLinks(req, CIDADE.ENTITY, id);
     const response = await this.cidadeServiceFindOne.findOne(id);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
@@ -33,6 +35,7 @@ export class CidadeControllerFindOne {
       response,
       req.path,
       null,
+      _link,
     );
   }
 }

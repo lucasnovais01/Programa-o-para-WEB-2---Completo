@@ -20,14 +20,16 @@ const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const cidade_constants_1 = require("../constants/cidade.constants");
 const cidade_response_1 = require("../dto/response/cidade.response");
 const cidade_service_findone_1 = require("../service/cidade.service.findone");
+const hateoas_utils_1 = require("../../commons/utils/hateoas.utils");
 let CidadeControllerFindOne = class CidadeControllerFindOne {
     cidadeServiceFindOne;
     constructor(cidadeServiceFindOne) {
         this.cidadeServiceFindOne = cidadeServiceFindOne;
     }
     async findOne(req, id) {
+        const _link = (0, hateoas_utils_1.gerarLinks)(req, cidade_constants_1.CIDADE.ENTITY, id);
         const response = await this.cidadeServiceFindOne.findOne(id);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade localizada com sucesso!', response, req.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade localizada com sucesso!', response, req.path, null, _link);
     }
 };
 exports.CidadeControllerFindOne = CidadeControllerFindOne;

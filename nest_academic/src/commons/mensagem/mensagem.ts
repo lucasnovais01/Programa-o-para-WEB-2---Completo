@@ -26,7 +26,7 @@ export class Mensagem<T> {
   erro: string | unknown | null = null;
   dados: T | null = null;
   path: string | null = null;
-  _link: Record<string, Link>;
+  _link: Record<string, Link> | null;
 
   constructor(
     status: number,
@@ -35,7 +35,7 @@ export class Mensagem<T> {
     path: string | null = null,
     // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
     erro: string | unknown | null = null,
-    _link: Record<string, Link>,
+    _link: Record<string, Link> | null = null,
   ) {
     this.status = status;
     this.mensagem = mensagem;
@@ -50,7 +50,6 @@ export class Mensagem<T> {
       status: this.status,
       timestamp: new Date().toISOString().split('T')[0],
       path: this.path,
-      _link: this._link,
     };
 
     if (this.mensagem !== null && this.mensagem !== undefined) {
@@ -63,6 +62,10 @@ export class Mensagem<T> {
 
     if (this.erro !== null && this.erro !== undefined) {
       result.erro = this.erro;
+    }
+
+    if (this._link !== null && this._link !== undefined) {
+      result._link = this._link;
     }
 
     return result;

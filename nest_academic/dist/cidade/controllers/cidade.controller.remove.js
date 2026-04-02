@@ -24,7 +24,7 @@ let CidadeControllerRemove = class CidadeControllerRemove {
     }
     async remove(res, id) {
         await this.cidadeServiceRemove.remove(id);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade excluída com sucesso!', null, res.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade excluída com sucesso!', null, res.path, null, null);
     }
 };
 exports.CidadeControllerRemove = CidadeControllerRemove;

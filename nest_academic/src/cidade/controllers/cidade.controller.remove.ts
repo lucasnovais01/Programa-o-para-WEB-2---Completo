@@ -30,6 +30,7 @@ export class CidadeControllerRemove {
       null,
       res.path,
       null,
+      null,
     );
   }
 }

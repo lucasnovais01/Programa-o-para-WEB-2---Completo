@@ -26,7 +26,7 @@ let CidadeControllerFindAll = class CidadeControllerFindAll {
     }
     async findAll(req, page, pageSize, props, order, search) {
         const response = await this.cidadeServiceFindAll.findAll(page ? Number(page) : paginacao_enum_1.PAGINATION.PAGE, pageSize ? Number(pageSize) : paginacao_enum_1.PAGINATION.PAGESIZE, props ? props : cidade_constants_1.CIDADE.TABLE_FIELD.ID_CIDADE, order ? order : paginacao_enum_1.PAGINATION.ASC, search);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null, null);
     }
 };
 exports.CidadeControllerFindAll = CidadeControllerFindAll;

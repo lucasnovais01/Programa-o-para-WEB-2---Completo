@@ -3,7 +3,7 @@ import { ALUNO, CIDADE, PROFESSOR, USUARIO } from './constants.sistema';
 export const SERVIDOR = 'http://localhost:8000';
 export const CLINTE = 'http://localhost:3000';
 
-const ROTA_SISTEMA = 'rest/sistema';
+export const ROTA_SISTEMA = 'rest/sistema';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ROTA_AUTH = 'rest/auth';
 

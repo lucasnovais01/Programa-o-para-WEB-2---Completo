@@ -29,7 +29,7 @@ let CidadeControllerCreate = class CidadeControllerCreate {
     }
     async create(res, cidadeRequest) {
         const response = await this.cidadeServiceCreate.create(cidadeRequest);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.CREATED, 'Cidade cadastrada com sucesso!', response, res.path, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.CREATED, 'Cidade cadastrada com sucesso!', response, res.path, null, null);
     }
 };
 exports.CidadeControllerCreate = CidadeControllerCreate;

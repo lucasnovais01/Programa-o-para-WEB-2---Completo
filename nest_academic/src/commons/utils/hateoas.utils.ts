@@ -1,15 +1,17 @@
 import { Request } from 'express';
 import { Link } from '../mensagem/mensagem';
+import { ROTA_SISTEMA } from '../constants/url.sistema';
 
-function gerarLinks(
+export function gerarLinks(
   req: Request,
-  id?: number,
   entity: string,
+  id?: number,
 ): Record<string, Link> {
   const protocol = req.protocol;
   const host = req.get('host');
+  const entidade = entity.toLowerCase();
   //http://localhost:8000/rest/sistema/cidade/
-  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entity}`;
+  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entidade}`;
 
   const link: Record<string, Link> = {
     listar: {
@@ -21,6 +23,21 @@ function gerarLinks(
       method: 'POST',
     },
   };
+
+  if (id) {
+    link.self = {
+      href: `${baseUrl}/buscar/${id}`,
+      method: 'GET',
+    };
+    link.alterar = {
+      href: `${baseUrl}/alterar/${id}`,
+      method: 'PUT',
+    };
+    link.excluir = {
+      href: `${baseUrl}/alterar/${id}`,
+      method: 'DELETE',
+    };
+  }
 
   return link;
 }

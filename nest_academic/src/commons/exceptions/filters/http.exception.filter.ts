@@ -41,7 +41,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
       exception instanceof HttpException ? exception.cause : exception; // ou undefined
     */
 
-    return sendHttpResponse(res, status, message, null, req.path, erro);
+    return sendHttpResponse(res, status, message, null, req.path, erro, null);
   }
 }
 

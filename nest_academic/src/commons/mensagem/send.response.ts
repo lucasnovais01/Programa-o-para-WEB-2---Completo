@@ -3,12 +3,7 @@ import { Response } from 'express';
 import { MensagemSistema } from './mensagem.sistema';
 
 export function sendHttpResponse<T>(
-  res: Response,
-  status: number,
-  mensagem: string | null,
-  dados: T | null,
-  path: string | null,
-  erro: string | any | null,
+res: Response, status: number, mensagem: string | null, dados: T | null, path: string | null, erro: string | any | null, p0: null,
 ) {
   return res
     .status(status)
