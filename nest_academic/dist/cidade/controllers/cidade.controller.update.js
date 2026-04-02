@@ -21,14 +21,16 @@ const cidade_constants_1 = require("../constants/cidade.constants");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_response_1 = require("../dto/response/cidade.response");
 const cidade_service_update_1 = require("../service/cidade.service.update");
+const hateoas_utils_1 = require("../../commons/utils/hateoas.utils");
 let CidadeControllerUpdate = class CidadeControllerUpdate {
     cidadeServiceUpdate;
     constructor(cidadeServiceUpdate) {
         this.cidadeServiceUpdate = cidadeServiceUpdate;
     }
     async update(res, id, cidadeRequest) {
+        const _link = (0, hateoas_utils_1.gerarLinks)(res, cidade_constants_1.CIDADE.ENTITY, id);
         const response = await this.cidadeServiceUpdate.update(id, cidadeRequest);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade alterada com sucesso !', response, res.path, null, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade alterada com sucesso !', response, res.path, null, _link);
     }
 };
 exports.CidadeControllerUpdate = CidadeControllerUpdate;

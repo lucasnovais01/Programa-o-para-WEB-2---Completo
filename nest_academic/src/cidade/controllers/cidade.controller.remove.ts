@@ -12,6 +12,8 @@ import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { CidadeServiceRemove } from '../service/cidade.service.remove';
+import { gerarLinks } from 'src/commons/utils/hateoas.utils';
+import { CIDADE } from '../constants/cidade.constants';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerRemove {
@@ -23,6 +25,8 @@ export class CidadeControllerRemove {
     @Req() res: Request,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
+    const _link = gerarLinks(res, CIDADE.ENTITY);
+
     await this.cidadeServiceRemove.remove(id);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
@@ -30,7 +34,7 @@ export class CidadeControllerRemove {
       null,
       res.path,
       null,
-      null,
+      _link,
     );
   }
 }

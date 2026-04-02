@@ -17,6 +17,7 @@ import { CIDADE } from '../constants/cidade.constants';
 import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceUpdate } from '../service/cidade.service.update';
+import { gerarLinks } from 'src/commons/utils/hateoas.utils';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerUpdate {
@@ -30,6 +31,7 @@ export class CidadeControllerUpdate {
     @Param('id', ParseIntPipe) id: number,
     @Body() cidadeRequest: CidadeRequest,
   ): Promise<Result<CidadeResponse>> {
+    const _link = gerarLinks(res, CIDADE.ENTITY, id);
     const response = await this.cidadeServiceUpdate.update(id, cidadeRequest);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
@@ -37,7 +39,7 @@ export class CidadeControllerUpdate {
       response,
       res.path,
       null,
-      null,
+      _link,
     );
   }
 }

@@ -16,6 +16,8 @@ import { CIDADE } from '../constants/cidade.constants';
 import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceCreate } from '../service/cidade.service.create';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { gerarLinks } from 'src/commons/utils/hateoas.utils';
 
 @ApiTags('Cidade')
 @Controller(ROTA.CIDADE.BASE)
@@ -29,6 +31,8 @@ export class CidadeControllerCreate {
     @Req() res: Request,
     @Body() cidadeRequest: CidadeRequest,
   ): Promise<Result<CidadeResponse>> {
+    //const _link = gerarLinks(req, CIDADE.ENTITY, id);
+
     const response = await this.cidadeServiceCreate.create(cidadeRequest);
     return MensagemSistema.showMensagem(
       HttpStatus.CREATED,

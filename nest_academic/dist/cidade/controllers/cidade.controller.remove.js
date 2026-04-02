@@ -17,14 +17,17 @@ const common_1 = require("@nestjs/common");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const cidade_service_remove_1 = require("../service/cidade.service.remove");
+const hateoas_utils_1 = require("../../commons/utils/hateoas.utils");
+const cidade_constants_1 = require("../constants/cidade.constants");
 let CidadeControllerRemove = class CidadeControllerRemove {
     cidadeServiceRemove;
     constructor(cidadeServiceRemove) {
         this.cidadeServiceRemove = cidadeServiceRemove;
     }
     async remove(res, id) {
+        const _link = (0, hateoas_utils_1.gerarLinks)(res, cidade_constants_1.CIDADE.ENTITY);
         await this.cidadeServiceRemove.remove(id);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade excluída com sucesso!', null, res.path, null, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Cidade excluída com sucesso!', null, res.path, null, _link);
     }
 };
 exports.CidadeControllerRemove = CidadeControllerRemove;
