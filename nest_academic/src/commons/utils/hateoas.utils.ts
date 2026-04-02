@@ -34,8 +34,16 @@ export function gerarLinks(
       method: 'PUT',
     };
     link.excluir = {
-      href: `${baseUrl}/alterar/${id}`,
-      method: 'DELETE',
+      href: `${baseUrl}/excluir/${id}`,
+      method: 'PUT',
+    };
+    link.criar = {
+      href: `${baseUrl}/criar/${id}`,
+      method: 'POST',
+    };
+    link.listar = {
+      href: `${baseUrl}/buscar`,
+      method: 'GET',
     };
   }
 
