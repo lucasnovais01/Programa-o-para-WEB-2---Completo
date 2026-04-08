@@ -3,6 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { CidadeModule } from 'src/cidade/cidade.module';
+import { ResourceModule } from 'src/resources/resources.module';
 
 //const oracledb = require('oracledb') as typeof import('oracledb');
 
@@ -79,6 +80,7 @@ AGORA NO MYSQL, o codigo de cima nao aplica
       }),
     }),
     CidadeModule,
+    ResourceModule,
   ],
 
   // IMPORTANTE: OS DADOS ACIMA, são secretos
