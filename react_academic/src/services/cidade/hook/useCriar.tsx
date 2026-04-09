@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { apiPostCidade } from "../api/api.cidade";
-import { CIDADE } from "../constants/cidade.constants";
-import type { Cidade, ErrosCidade } from "../type/Cidade";
+import { useState } from 'react';
+import { apiPostCidade } from '../api/api.cidade';
+import { CIDADE } from '../constants/cidade.constants';
+import type { Cidade, ErrosCidade } from '../type/Cidade';
 
 export const useCriar = () => {
   const [model, setModel] = useState<Cidade>(CIDADE.DADOS_INCIAIS);
@@ -28,7 +28,7 @@ export const useCriar = () => {
     switch (name) {
       case CIDADE.FIELDS.CODIGO:
         if (!value) messages.push(CIDADE.INPUT_ERROR.CODIGO.BLANK);
-        if (value && typeof value !== "string")
+        if (value && typeof value !== 'string')
           messages.push(CIDADE.INPUT_ERROR.CODIGO.STRING);
         break;
       case CIDADE.FIELDS.NOME:
@@ -59,7 +59,7 @@ export const useCriar = () => {
     if (!model.codCidade) {
       codCidadeMessages.push(CIDADE.INPUT_ERROR.CODIGO.VALID);
     }
-    if (model.codCidade && typeof model.codCidade !== "string") {
+    if (model.codCidade && typeof model.codCidade !== 'string') {
       codCidadeMessages.push(CIDADE.INPUT_ERROR.CODIGO.STRING);
     }
     if (codCidadeMessages.length > 0) {
@@ -91,14 +91,12 @@ export const useCriar = () => {
     return isFormValid;
   };
 
-
-
   const onSubmitForm = async (e: any) => {
     // não deixa executar o processo normal
     e.preventDefault();
 
     if (!validarFormulario()) {
-      console.log("Erro na digitaçãod os dados ");
+      console.log('Erro na digitaçãod os dados ');
       return;
     }
 
