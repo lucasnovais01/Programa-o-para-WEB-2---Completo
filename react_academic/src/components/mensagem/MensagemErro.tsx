@@ -5,7 +5,7 @@ interface MensagemProps {
 
 const MensagemErro = ({ error, mensagem }: MensagemProps) => {
   const unique = Array.from(
-    new Set(typeof mensagem === 'string' ? [mensagem] : mensagem || []),
+    new Set(typeof mensagem === "string" ? [mensagem] : mensagem || []),
   );
 
   return (
@@ -13,7 +13,7 @@ const MensagemErro = ({ error, mensagem }: MensagemProps) => {
       {error && unique.length > 0 && (
         <div className="invalid-feedback">
           {unique.map((item, index) => (
-            <p key={index} style={{ margin: '0', color: 'red' }}>
+            <p key={index} style={{ margin: "0", color: "red" }}>
               <span>{item}</span>
             </p>
           ))}

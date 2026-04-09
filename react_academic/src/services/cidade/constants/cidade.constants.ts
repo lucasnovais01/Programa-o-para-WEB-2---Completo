@@ -1,28 +1,28 @@
-import { criarMensagemOperacao } from '../../constant/mensagem.operacao';
-import type { Cidade } from '../type/Cidade';
+import { criarMensagemOperacao } from "../../constant/mensagem.operacao";
+import type { Cidade } from "../type/Cidade";
 
-const ENTITY_NAME = 'Cidade';
+const ENTITY_NAME = "Cidade";
 
 export const CIDADE = {
   ENTITY: ENTITY_NAME,
 
-  ALIAS: 'cidade',
+  ALIAS: "cidade",
 
   DADOS_INCIAIS: {
-    idCodigo: '',
-    codCidade: '',
-    nomeCidade: '',
+    idCodigo: "",
+    codCidade: "",
+    nomeCidade: "",
   },
 
   FIELDS: {
-    ID: 'idCidade',
-    CODIGO: 'codCidade',
-    NOME: 'nomeCidade',
+    ID: "idCidade",
+    CODIGO: "codCidade",
+    NOME: "nomeCidade",
   } as const,
 
   LABEL: {
-    CODIGO: 'Código',
-    NOME: 'Nome',
+    CODIGO: "Código",
+    NOME: "Nome",
   },
 
   TITULO: {
@@ -67,7 +67,7 @@ export const mapaCampoParaMensagem: Record<
   keyof Cidade,
   keyof typeof CIDADE.INPUT_ERROR
 > = {
-  idCidade: 'ID',
-  codCidade: 'CODIGO',
-  nomeCidade: 'NOME',
+  idCidade: "ID",
+  codCidade: "CODIGO",
+  nomeCidade: "NOME",
 };

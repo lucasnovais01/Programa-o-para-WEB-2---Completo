@@ -1,22 +1,22 @@
-import type { RouteObject } from 'react-router-dom';
-import Layout from '../../components/layout/Layout';
-import Dashboard from '../../views/Dashboard';
-import AlterarCidade from '../../views/cidade/Alterar';
-import ConsultarCidade from '../../views/cidade/Consultar';
-import CriarCidade from '../../views/cidade/Criar';
-import ExcluirCidade from '../../views/cidade/Excluir';
-import ListarCidade from '../../views/cidade/Listar';
-import { ROTA } from './url';
+import type { RouteObject } from "react-router-dom";
+import Layout from "../../components/layout/Layout";
+import Dashboard from "../../views/Dashboard";
+import AlterarCidade from "../../views/cidade/Alterar";
+import ConsultarCidade from "../../views/cidade/Consultar";
+import CriarCidade from "../../views/cidade/Criar";
+import ExcluirCidade from "../../views/cidade/Excluir";
+import ListarCidade from "../../views/cidade/Listar";
+import { ROTA } from "./url";
 
 //localhost:3000/sistema/cidade/listar
 
 export const routes: RouteObject[] = [
   {
-    path: '/sistema',
+    path: "/sistema",
     element: <Layout />, // componente (pai)
     children: [
       {
-        path: '/sistema/dashboard', //url
+        path: "/sistema/dashboard", //url
         element: <Dashboard />, //componente a ser carregado (filho)
       },
       {

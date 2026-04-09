@@ -1,8 +1,8 @@
-import { FaSave } from 'react-icons/fa';
-import { MdCancel } from 'react-icons/md';
-import { Input } from '../../components/input/Input';
-import { CIDADE } from '../../services/cidade/constants/cidade.constants';
-import { useCriar } from '../../services/cidade/hook/useCriar';
+import { FaSave } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import { Input } from "../../components/input/Input";
+import { CIDADE } from "../../services/cidade/constants/cidade.constants";
+import { useCriar } from "../../services/cidade/hook/useCriar";
 
 export default function CriarCidade() {
   const { model, errors, handleChangeField, validateField, onSubmitForm } =
@@ -13,7 +13,7 @@ export default function CriarCidade() {
       <div className="card animated fadeInDown">
         <h2>Nova Cidade</h2>
         <form onSubmit={(e) => onSubmitForm(e)}>
-          <div className="mb-2 mt-4"></div>{' '}
+          <div className="mb-2 mt-4"></div>{" "}
           <Input
             label={CIDADE.LABEL.CODIGO}
             id={CIDADE.FIELDS.CODIGO}

@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { ROTA } from '../../router/url';
-import { apiGetCidade, apiPutCidade } from '../api/api.cidade';
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROTA } from "../../router/url";
+import { apiGetCidade, apiPutCidade } from "../api/api.cidade";
 import {
   CIDADE,
   fieldsCidade,
   mapaCampoParaMensagem,
-} from '../constants/cidade.constants';
-import type { Cidade, ErrosCidade } from '../type/Cidade';
+} from "../constants/cidade.constants";
+import type { Cidade, ErrosCidade } from "../type/Cidade";
 
 interface BuscarCidadePorIdProps {
   cidade: Cidade | null;
@@ -52,7 +52,7 @@ export const useAlterar = () => {
       const isEmpty =
         valor === undefined ||
         valor === null ||
-        (typeof valor === 'string' && valor.trim() === '');
+        (typeof valor === "string" && valor.trim() === "");
 
       if (isEmpty) {
         const keyMessage = mapaCampoParaMensagem[field];
@@ -99,7 +99,7 @@ export const useAlterar = () => {
             setModel(response.cidade);
             setErrors(response?.errosCidade ?? null);
             if (response?.errosCidade) {
-              console.log('Erros existentes no registro da cidade');
+              console.log("Erros existentes no registro da cidade");
             }
           }
         }
@@ -126,7 +126,7 @@ export const useAlterar = () => {
     switch (name) {
       case CIDADE.FIELDS.CODIGO:
         if (!value) messages.push(CIDADE.INPUT_ERROR.CODIGO.BLANK);
-        if (value && typeof value !== 'string')
+        if (value && typeof value !== "string")
           messages.push(CIDADE.INPUT_ERROR.CODIGO.STRING);
         break;
       case CIDADE.FIELDS.NOME:
@@ -157,7 +157,7 @@ export const useAlterar = () => {
     if (!model.codCidade) {
       codCidadeMessages.push(CIDADE.INPUT_ERROR.CODIGO.VALID);
     }
-    if (model.codCidade && typeof model.codCidade !== 'string') {
+    if (model.codCidade && typeof model.codCidade !== "string") {
       codCidadeMessages.push(CIDADE.INPUT_ERROR.CODIGO.STRING);
     }
     if (codCidadeMessages.length > 0) {
@@ -192,10 +192,10 @@ export const useAlterar = () => {
   const getInputClass = (name: keyof Cidade): string => {
     if (errors) {
       if (errors[name]) {
-        return 'form-control is-invalid app-label input-error mt-2 ';
+        return "form-control is-invalid app-label input-error mt-2 ";
       }
     }
-    return 'form-control app-label mt-2';
+    return "form-control app-label mt-2";
   };
 
   const onSubmitForm = async (e: React.FormEvent) => {
@@ -207,7 +207,7 @@ export const useAlterar = () => {
     }
 
     if (!validarFormulario()) {
-      console.log('erros nos dados do formulário');
+      console.log("erros nos dados do formulário");
       return;
     }
 

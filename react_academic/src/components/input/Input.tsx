@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   memo,
   useCallback,
@@ -8,7 +7,7 @@ import {
   type ComponentPropsWithoutRef,
   type ElementType,
   type FocusEvent,
-} from 'react';
+} from "react";
 
 type CustomInputProps = {
   id?: string;
@@ -29,8 +28,8 @@ type ValidationProps = {
 type InputProps = CustomInputProps &
   ValidationProps &
   Omit<
-    ComponentPropsWithoutRef<'input'>,
-    'id' | 'name' | 'readonly' | 'disabled'
+    ComponentPropsWithoutRef<"input">,
+    "id" | "name" | "readonly" | "disabled"
   >;
 
 export const Input = memo(
@@ -39,11 +38,11 @@ export const Input = memo(
     name,
     label,
     Icon,
-    type = 'text',
+    type = "text",
     required = false,
     readOnly = false,
     disable = false,
-    autoComplete = 'off',
+    autoComplete = "off",
     error,
     errorMensagem = [],
     touched,
@@ -70,14 +69,14 @@ export const Input = memo(
 
     const getInputClass = useMemo(() => {
       return [
-        'form-control',
-        'app-input',
-        hasErrors ? 'is-invalid' : '',
-        isValid ? 'is-valid' : '',
+        "form-control",
+        "app-input",
+        hasErrors ? "is-invalid" : "",
+        isValid ? "is-valid" : "",
         className, // classe passada na props.
       ]
         .filter(Boolean) // remove as classes vázias
-        .join('');
+        .join("");
     }, [hasErrors, isValid, className]);
 
     const handleBlur = useCallback(
@@ -115,7 +114,7 @@ export const Input = memo(
         <ul
           id={errorId}
           className={`invalid-feedback d-block error-container
-            ${showErrors ? 'has-error' : ''}
+            ${showErrors ? "has-error" : ""}
           `}
         >
           {showErrors ? (
