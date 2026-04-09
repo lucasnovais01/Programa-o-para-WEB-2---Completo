@@ -1,6 +1,6 @@
 // aqui é onde vou programar minha lógica
 
-import { identity } from 'rxjs';
+// import { identity } from 'rxjs';
 import { ROTA_SISTEMA } from 'src/commons/constants/url.sistema';
 
 // SE FOSSE USAR import { CIDADE } from "src/cidade/constants/cidade.constants"; E ENTÃO entidade = [CIDADE]
@@ -9,6 +9,8 @@ import { ROTA_SISTEMA } from 'src/commons/constants/url.sistema';
 
 // O que é um endpoint > é a rota da API, a url
 // ou seja, vamos formar uma estrutura de formação que vai guardar a URL
+
+// Vamos ter que configurar o AXIOS, pra mandar ler a array, com a chave cidade, ver quais link vieram. Se faltar algum, está função nao está disponível
 
 type VERBO_HTTP = 'PUT' | 'POST' | 'GET' | 'DELETE';
 

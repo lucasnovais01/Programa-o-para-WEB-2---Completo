@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useState, type ChangeEvent } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  type ChangeEvent,
+  type MouseEvent,
+} from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaPlus, FaRegTrashAlt } from 'react-icons/fa';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
@@ -26,8 +32,8 @@ export default function ListarCidade() {
   const [totalElements, setTotalElements] = useState(0);
 
   // props
-  const [props, setProps] = useState<string>('');
-  const [order, setOrder] = useState<string>('');
+  const [props, setProps] = useState<string>('ID_CIDADE');
+  const [order, setOrder] = useState<string>('ASC');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const buscarTodasCidades = useCallback(
@@ -56,7 +62,7 @@ export default function ListarCidade() {
         searchTerm: searchTerm === '' ? null : searchTerm,
       };
       const data = await buscarTodasCidades(params);
-
+      console.log(data);
       if (data) {
         const { content, page, pageSize, totalElements, totalPages } =
           data.dados;
@@ -68,7 +74,7 @@ export default function ListarCidade() {
       }
     }
     getCidades();
-  }, [currentPage, pageSize, searchTerm]);
+  }, [currentPage, pageSize, searchTerm, order, props]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(Number(pageNumber));
@@ -78,6 +84,13 @@ export default function ListarCidade() {
     setPageSize(Number(e.target.value));
     setRecordPerPages(Number(e.target.value));
     setCurrentPage(1);
+  };
+
+  const onSortProps = (e: MouseEvent<HTMLButtonElement>, props: string) => {
+    e.preventDefault();
+    const dir = order && order === 'ASC' ? 'DESC' : 'ASC';
+    setProps(props);
+    setOrder(dir);
   };
 
   return (
@@ -110,8 +123,18 @@ export default function ListarCidade() {
         <table>
           <thead>
             <tr>
-              <th>{CIDADE.LABEL.CODIGO}</th>
-              <th>{CIDADE.LABEL.NOME}</th>
+              <th>
+                <button onClick={(e) => onSortProps(e, 'COD_CIDADE')}>
+                  {CIDADE.LABEL.CODIGO}
+                </button>
+              </th>
+
+              <th>
+                <button onClick={(e) => onSortProps(e, 'NOME_CIDADE')}>
+                  {CIDADE.LABEL.NOME}
+                </button>
+              </th>
+
               <th className="center actions" colSpan={3}>
                 Ação
               </th>
