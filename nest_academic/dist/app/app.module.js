@@ -45,6 +45,7 @@ const config_1 = require("@nestjs/config");
 const typeorm_1 = require("@nestjs/typeorm");
 const Joi = __importStar(require("joi"));
 const cidade_module_1 = require("../cidade/cidade.module");
+const resources_module_1 = require("../resources/resources.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -77,6 +78,7 @@ exports.AppModule = AppModule = __decorate([
                 }),
             }),
             cidade_module_1.CidadeModule,
+            resources_module_1.ResourceModule,
         ],
     })
 ], AppModule);

@@ -1,10 +1,10 @@
-import { CIDADE } from "../cidade/constants/cidade.constants";
+import { CIDADE } from '../cidade/constants/cidade.constants';
 
-const ROTA_SISTEMA = "sistema";
+const ROTA_SISTEMA = 'sistema';
 export const DASHBOARD = `/${ROTA_SISTEMA}/dashboard`;
 
 const LISTAR = `listar`;
-const CRIAR = "criar";
+const CRIAR = 'criar';
 const POR_ID = `buscar`;
 const ATUALIZAR = `alterar`;
 const EXCLUIR = `excluir`;
