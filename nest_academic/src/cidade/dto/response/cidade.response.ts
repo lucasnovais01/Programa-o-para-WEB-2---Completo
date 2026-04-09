@@ -3,10 +3,6 @@ import { Expose } from 'class-transformer';
 import { CIDADE } from '../../constants/cidade.constants';
 
 export class CidadeResponse {
-  // Todo campo que é permitido ao cliente ver
-  //
-  //
-  // Novo Semestre
   @ApiProperty({ description: CIDADE.SWAGGER.ID_CIDADE, example: '1' })
   @Expose()
   idCidade?: number;

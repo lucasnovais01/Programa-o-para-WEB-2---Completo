@@ -18,6 +18,7 @@ const swagger_1 = require("@nestjs/swagger");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
 const swagger_decorators_1 = require("../../commons/decorators/swagger.decorators");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
+const hateoas_utils_1 = require("../../commons/utils/hateoas.utils");
 const cidade_constants_1 = require("../constants/cidade.constants");
 const cidade_request_1 = require("../dto/request/cidade.request");
 const cidade_response_1 = require("../dto/response/cidade.response");
@@ -27,9 +28,10 @@ let CidadeControllerCreate = class CidadeControllerCreate {
     constructor(cidadeServiceCreate) {
         this.cidadeServiceCreate = cidadeServiceCreate;
     }
-    async create(res, cidadeRequest) {
+    async create(req, cidadeRequest) {
+        const _link = (0, hateoas_utils_1.gerarLinks)(req, cidade_constants_1.CIDADE.ENTITY);
         const response = await this.cidadeServiceCreate.create(cidadeRequest);
-        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.CREATED, 'Cidade cadastrada com sucesso!', response, res.path, null, null);
+        return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.CREATED, 'Cidade cadastrada com sucesso!', response, req.path, null, _link);
     }
 };
 exports.CidadeControllerCreate = CidadeControllerCreate;

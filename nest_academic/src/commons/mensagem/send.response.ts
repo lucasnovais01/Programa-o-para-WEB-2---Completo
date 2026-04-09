@@ -1,8 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
-/* eslint-disable @typescript-eslint/no-redundant-type-constituents */
 import { Response } from 'express';
-import { MensagemSistema } from './mensagem.sistema';
 import { Link } from './mensagem';
+import { MensagemSistema } from './mensagem.sistema';
 
 export function sendHttpResponse<T>(
   res: Response,

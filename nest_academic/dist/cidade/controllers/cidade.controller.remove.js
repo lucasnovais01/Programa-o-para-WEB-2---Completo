@@ -16,9 +16,9 @@ exports.CidadeControllerRemove = void 0;
 const common_1 = require("@nestjs/common");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
 const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
-const cidade_service_remove_1 = require("../service/cidade.service.remove");
 const hateoas_utils_1 = require("../../commons/utils/hateoas.utils");
 const cidade_constants_1 = require("../constants/cidade.constants");
+const cidade_service_remove_1 = require("../service/cidade.service.remove");
 let CidadeControllerRemove = class CidadeControllerRemove {
     cidadeServiceRemove;
     constructor(cidadeServiceRemove) {
@@ -32,7 +32,8 @@ let CidadeControllerRemove = class CidadeControllerRemove {
 };
 exports.CidadeControllerRemove = CidadeControllerRemove;
 __decorate([
-    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK) //NO_CONTENT
+    ,
     (0, common_1.Delete)(url_sistema_1.ROTA.CIDADE.DELETE),
     __param(0, (0, common_1.Req)()),
     __param(1, (0, common_1.Param)('id', common_1.ParseIntPipe)),

@@ -1,6 +1,9 @@
 import { Request } from 'express';
-import { Link } from '../mensagem/mensagem';
 import { ROTA_SISTEMA } from '../constants/url.sistema';
+import { Link } from '../mensagem/mensagem';
+import { Page } from '../pagination/page.sistema';
+
+//localhost
 
 export function gerarLinks(
   req: Request,
@@ -9,9 +12,9 @@ export function gerarLinks(
 ): Record<string, Link> {
   const protocol = req.protocol;
   const host = req.get('host');
-  const entidade = entity.toLowerCase();
+
   //http://localhost:8000/rest/sistema/cidade/
-  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entidade}`;
+  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entity.toLowerCase()}`;
 
   const link: Record<string, Link> = {
     listar: {
@@ -25,7 +28,7 @@ export function gerarLinks(
   };
 
   if (id) {
-    link.self = {
+    link.buscar = {
       href: `${baseUrl}/buscar/${id}`,
       method: 'GET',
     };
@@ -40,4 +43,16 @@ export function gerarLinks(
   }
 
   return link;
+}
+
+export function geraPageLinks(
+  req: Request,
+  page: Page<any>,
+  entity: string,
+): Record<string, Link> | null {
+  const protocol = req.protocol;
+  const host = req.get('host');
+  const baseUrl = `${protocol}://${host}/${ROTA_SISTEMA}/${entity.toLowerCase()}`;
+
+  return null;
 }

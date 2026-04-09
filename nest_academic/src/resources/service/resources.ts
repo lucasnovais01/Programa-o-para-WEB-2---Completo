@@ -1,24 +1,11 @@
-// aqui é onde vou programar minha lógica
-
-// import { identity } from 'rxjs';
-import { ROTA_SISTEMA } from 'src/commons/constants/url.sistema';
-
-// SE FOSSE USAR import { CIDADE } from "src/cidade/constants/cidade.constants"; E ENTÃO entidade = [CIDADE]
-
-// Conforme vamos progredir no projeto, vamos alimentando este camadarada pro HATEOAS funcionar
-
-// O que é um endpoint > é a rota da API, a url
-// ou seja, vamos formar uma estrutura de formação que vai guardar a URL
-
-// Vamos ter que configurar o AXIOS, pra mandar ler a array, com a chave cidade, ver quais link vieram. Se faltar algum, está função nao está disponível
+import { ROTA_SISTEMA } from '../../commons/constants/url.sistema';
 
 type VERBO_HTTP = 'PUT' | 'POST' | 'GET' | 'DELETE';
 
 export interface Resource {
-  // sempre que for tipar, ou é interface ou type, então Resource é explicito que é um tipo
   link: string;
-  name: string; //'cidade'
-  endpoint: string; //'/cidade/listar'
+  name: string;
+  endpoint: string;
   method: VERBO_HTTP[];
 }
 
@@ -38,20 +25,18 @@ export const Resources: Resource[] = ENTIDADES.flatMap((entity) =>
 
 export function buildResource(entityName: string): Resource[] {
   const entityPath = entityName.toLowerCase();
-
   const base = `/${ROTA_SISTEMA}/${entityPath}`;
-
   return [
     {
       link: 'listar',
       name: entityPath,
-      endpoint: `${base}/listar`, //PRIMEIRO CHAMA A BASE E DEPOIS O TIPO
+      endpoint: `${base}/listar`,
       method: ['GET'],
     },
     {
       link: 'criar',
       name: entityPath,
-      endpoint: `${base}/criar`, //PRIMEIRO CHAMA A BASE E DEPOIS O TIPO
+      endpoint: `${base}/criar`,
       method: ['POST'],
     },
     {
@@ -74,12 +59,3 @@ export function buildResource(entityName: string): Resource[] {
     },
   ];
 }
-/*
-function methodoBase(): VERBO_HTTP[] {
-  return ['GET', 'POST'];
-}
-
-function methodoId(): VERBO_HTTP[] {
-  return ['PUT', 'DELETE', 'GET'];
-}
-*/

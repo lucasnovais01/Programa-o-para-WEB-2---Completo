@@ -7,17 +7,16 @@ import {
   Req,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import type { Request } from 'express';
+import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiPostDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { CIDADE } from '../constants/cidade.constants';
 import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceCreate } from '../service/cidade.service.create';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { gerarLinks } from 'src/commons/utils/hateoas.utils';
 
 @ApiTags('Cidade')
 @Controller(ROTA.CIDADE.BASE)
@@ -28,19 +27,18 @@ export class CidadeControllerCreate {
   @Post(ROTA.CIDADE.CREATE)
   @ApiPostDoc(CIDADE.OPERACAO.CRIAR, CidadeRequest, CidadeResponse)
   async create(
-    @Req() res: Request,
+    @Req() req: Request,
     @Body() cidadeRequest: CidadeRequest,
   ): Promise<Result<CidadeResponse>> {
-    //const _link = gerarLinks(req, CIDADE.ENTITY, id);
-
+    const _link = gerarLinks(req, CIDADE.ENTITY);
     const response = await this.cidadeServiceCreate.create(cidadeRequest);
     return MensagemSistema.showMensagem(
       HttpStatus.CREATED,
       'Cidade cadastrada com sucesso!',
       response,
-      res.path,
+      req.path,
       null,
-      null,
+      _link,
     );
   }
 }

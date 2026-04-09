@@ -7,13 +7,13 @@ import {
   ParseIntPipe,
   Req,
 } from '@nestjs/common';
-import type { Request } from 'express';
+import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
-import { CidadeServiceRemove } from '../service/cidade.service.remove';
-import { gerarLinks } from 'src/commons/utils/hateoas.utils';
+import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { CIDADE } from '../constants/cidade.constants';
+import { CidadeServiceRemove } from '../service/cidade.service.remove';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerRemove {
@@ -26,7 +26,6 @@ export class CidadeControllerRemove {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
     const _link = gerarLinks(res, CIDADE.ENTITY);
-
     await this.cidadeServiceRemove.remove(id);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,

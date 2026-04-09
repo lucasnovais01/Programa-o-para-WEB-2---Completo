@@ -3,37 +3,13 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
 import { CidadeModule } from 'src/cidade/cidade.module';
-import { ResourceModule } from 'src/resources/resources.module';
+import { ResourceModule } from '../resources/resources.module';
 
 //const oracledb = require('oracledb') as typeof import('oracledb');
 
 //oracledb.initOracleClient({
 // libDir: 'E:/cocao/oracle/instantclient',
 //});
-
-// usando o mySQL
-// import oracledb from 'oracledb';
-
-// oracledb.initOracleClient({ libDir: 'C:/oracle/instantclient_23_10' });
-
-// Importa e executa a configuração do Oracle Client
-//const oracledb = require('oracledb');
-//import "../oracle-client.config";
-
-/*
-Correto na escola
-
-oracledb.initOracleClient({
-  libDir: 'E:/.Lucas Novais/oracle/client',
-});
-*/
-
-/*
-AGORA NO MYSQL, o codigo de cima nao aplica
-*/
-
-// IMPORTANTE: OS DADOS DE @Module SÃO SENSÍVEIS !!!
-// E NÃO DEVEM SER FEITO UPLOAD DELES NO GITHUB
 
 @Module({
   imports: [
@@ -44,14 +20,9 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         DATABASE_HOST: Joi.string().required(),
         DATABASE_PORT: Joi.number().default(1521),
         DATABASE_USERNAME: Joi.string().required(),
-
-        // Está dando erro a linha de baixo, não sei se é DATABASE_DATABASE ou DATABASE_NAME:
-
         DATABASE_DATABASE: Joi.string().required(),
-        // Agora que mudei pro MySQL, deixa comentado login e senha, vai que tenho que voltar pro Oracle
-
         //DATABASE_PASSWORD: Joi.string().required(),
-        //DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
+        DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
         DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
         //DATABASE_LOGGING: Joi.boolean().default(true),
       }),
@@ -64,17 +35,11 @@ AGORA NO MYSQL, o codigo de cima nao aplica
         host: configService.get('DATABASE_HOST'),
         port: configService.get('DATABASE_PORT'),
         username: configService.get('DATABASE_USERNAME'),
-
-        //No Oracle normalmente se usa sid e no MySQL se usa o database:
+        //sid: configService.get('DATABASE_DATABASE'), - acesso ao banco de dados oracle
         database: configService.get('DATABASE_DATABASE'),
-        //sid: configService.get('DATABASE_DATABASE'),
-
         //password: configService.get('DATABASE_PASSWORD'),
-        //
-        // o autoload pode dar errado
-        //entities: [__dirname + '/../**/*.entity.{ts, js}'],
-        //
-        autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+        //autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+        entities: [__dirname + '/../**/*.entity.{ts,js}'],
         synchronize: configService.get('DATABASE_SYNCHRONIZE'),
         logging: ['query', 'error'],
       }),
@@ -82,12 +47,5 @@ AGORA NO MYSQL, o codigo de cima nao aplica
     CidadeModule,
     ResourceModule,
   ],
-
-  // IMPORTANTE: OS DADOS ACIMA, são secretos
-
-  //  controllers: [], // Controllers handle incoming requests, é como se fosse o ponto de entrada da aplicação
-  //  providers: [], //Providers are used to encapsulate business logic and can be injected into controllers or other providers,
-  //  //é como se fosse o serviço que contém a lógica de negócio
-  //  exports: [], //Exporting AppService allows it to be used in other modules
 })
 export class AppModule {}

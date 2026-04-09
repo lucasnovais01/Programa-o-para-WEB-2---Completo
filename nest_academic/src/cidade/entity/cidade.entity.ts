@@ -1,24 +1,14 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../../commons/entity/base.entity';
 
-@Entity('CIDADE')
+@Entity('Cidade')
 export class Cidade extends BaseEntity {
   @PrimaryGeneratedColumn('increment', {
     name: 'ID_CIDADE',
-    type: 'int', // ← MUDE AQUI para 'int' (ou 'bigint')
+    type: 'int',
   })
   idCidade?: number;
 
-  // ← Continua number no TS, sem problema!
-  /*
-  // ANTIGO:
-
-  @PrimaryGeneratedColumn('increment', {
-    name: 'ID_CIDADE',
-    type: 'number',
-  })
-  idCidade?: number;
-*/
   @Column({
     name: 'COD_CIDADE',
     type: 'varchar',

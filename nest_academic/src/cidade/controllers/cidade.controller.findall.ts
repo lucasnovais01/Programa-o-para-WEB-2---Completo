@@ -6,15 +6,15 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import type { Request } from 'express';
+import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
+import { PAGINATION } from '../../commons/enum/paginacao.enum';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
+import { Page } from '../../commons/pagination/page.sistema';
+import { CIDADE } from '../constants/cidade.constants';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
-import { PAGINATION } from 'src/commons/enum/paginacao.enum';
-import { CIDADE } from '../constants/cidade.constants';
-import { Page } from 'src/commons/pagination/page.sistema';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindAll {
@@ -24,29 +24,20 @@ export class CidadeControllerFindAll {
   @Get(ROTA.CIDADE.LIST)
   async findAll(
     @Req() req: Request,
-
-    @Query('page') page?: string, //Pega o parametro da URL http://localhost:8000/rest/sistema/cidade/listar
+    //pega o parâmetro da url htt´p://localhost:8000/rest/sistema/cidade/listar?page=1&pageSize=5
+    @Query('page') page?: string,
     @Query('pageSize') pageSize?: string,
-    //@Query('props') props?: CIDADE.TABLE_FIELD.ID_CIDADE,
     @Query('props') props?: string,
     @Query('order') order?: 'ASC' | 'DESC',
-    @Query('search') search?: string,
-    //
-    //O próprio Page já é um array, então não precisa mais do colchestes em CidadeResponse
-    //
+    @Query('searchTerm') search?: string,
   ): Promise<Result<Page<CidadeResponse>>> {
     const response = await this.cidadeServiceFindAll.findAll(
-      //
       page ? Number(page) : PAGINATION.PAGE,
       pageSize ? Number(pageSize) : PAGINATION.PAGESIZE,
-      //Number(page), criamos o enum em commons pra facilitar
-      //Number(pageSize),
-      //
-      props ? props : CIDADE.TABLE_FIELD.ID_CIDADE,
+      props ? props : CIDADE.TABLE_FIELD.NOME_CIDADE,
       order ? order : PAGINATION.ASC,
       search,
     );
-
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Lista de cidade gerada com sucesso!',

@@ -46,7 +46,7 @@ __decorate([
     __metadata("design:type", String)
 ], Cidade.prototype, "nomeCidade", void 0);
 exports.Cidade = Cidade = __decorate([
-    (0, typeorm_1.Entity)('CIDADE'),
+    (0, typeorm_1.Entity)('Cidade'),
     __metadata("design:paramtypes", [Object])
 ], Cidade);
 //# sourceMappingURL=cidade.entity.js.map

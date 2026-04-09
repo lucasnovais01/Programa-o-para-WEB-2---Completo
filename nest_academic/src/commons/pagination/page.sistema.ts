@@ -1,7 +1,6 @@
 import { Pageable } from './page.response';
 
 export class Page<T> {
-  /* o <T> é classe genérico */
   content: T[];
   totalPages: number;
   totalElements: number;
@@ -15,7 +14,6 @@ export class Page<T> {
     totalElements: number,
     pageSize: number,
     page: number,
-    //lastPage: number,
   ) {
     this.content = content;
     this.totalPages = totalPages;
@@ -33,8 +31,6 @@ export class Page<T> {
     const pageSize = pageable.pageSize;
     const page = pageable.page;
     const totalPages = Math.ceil(totalElements / pageSize);
-    //const lastPage = Math.ceil(totalElements / pageSize);
-
     return new Page(content, totalPages, totalElements, pageSize, page);
   }
 }

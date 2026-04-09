@@ -15,17 +15,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CidadeControllerFindAll = void 0;
 const common_1 = require("@nestjs/common");
 const url_sistema_1 = require("../../commons/constants/url.sistema");
-const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
-const cidade_service_findall_1 = require("../service/cidade.service.findall");
 const paginacao_enum_1 = require("../../commons/enum/paginacao.enum");
+const mensagem_sistema_1 = require("../../commons/mensagem/mensagem.sistema");
 const cidade_constants_1 = require("../constants/cidade.constants");
+const cidade_service_findall_1 = require("../service/cidade.service.findall");
 let CidadeControllerFindAll = class CidadeControllerFindAll {
     cidadeServiceFindAll;
     constructor(cidadeServiceFindAll) {
         this.cidadeServiceFindAll = cidadeServiceFindAll;
     }
     async findAll(req, page, pageSize, props, order, search) {
-        const response = await this.cidadeServiceFindAll.findAll(page ? Number(page) : paginacao_enum_1.PAGINATION.PAGE, pageSize ? Number(pageSize) : paginacao_enum_1.PAGINATION.PAGESIZE, props ? props : cidade_constants_1.CIDADE.TABLE_FIELD.ID_CIDADE, order ? order : paginacao_enum_1.PAGINATION.ASC, search);
+        const response = await this.cidadeServiceFindAll.findAll(page ? Number(page) : paginacao_enum_1.PAGINATION.PAGE, pageSize ? Number(pageSize) : paginacao_enum_1.PAGINATION.PAGESIZE, props ? props : cidade_constants_1.CIDADE.TABLE_FIELD.NOME_CIDADE, order ? order : paginacao_enum_1.PAGINATION.ASC, search);
         return mensagem_sistema_1.MensagemSistema.showMensagem(common_1.HttpStatus.OK, 'Lista de cidade gerada com sucesso!', response, req.path, null, null);
     }
 };
@@ -38,7 +38,7 @@ __decorate([
     __param(2, (0, common_1.Query)('pageSize')),
     __param(3, (0, common_1.Query)('props')),
     __param(4, (0, common_1.Query)('order')),
-    __param(5, (0, common_1.Query)('search')),
+    __param(5, (0, common_1.Query)('searchTerm')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object, String, String, String, String, String]),
     __metadata("design:returntype", Promise)

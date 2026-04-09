@@ -46,6 +46,10 @@ const typeorm_1 = require("@nestjs/typeorm");
 const Joi = __importStar(require("joi"));
 const cidade_module_1 = require("../cidade/cidade.module");
 const resources_module_1 = require("../resources/resources.module");
+//const oracledb = require('oracledb') as typeof import('oracledb');
+//oracledb.initOracleClient({
+// libDir: 'E:/cocao/oracle/instantclient',
+//});
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -60,7 +64,10 @@ exports.AppModule = AppModule = __decorate([
                     DATABASE_PORT: Joi.number().default(1521),
                     DATABASE_USERNAME: Joi.string().required(),
                     DATABASE_DATABASE: Joi.string().required(),
+                    //DATABASE_PASSWORD: Joi.string().required(),
+                    DATABASE_AUTOLOADENTITIES: Joi.boolean().default(true),
                     DATABASE_SYNCHRONIZE: Joi.boolean().default(false),
+                    //DATABASE_LOGGING: Joi.boolean().default(true),
                 }),
             }),
             typeorm_1.TypeOrmModule.forRootAsync({
@@ -71,8 +78,11 @@ exports.AppModule = AppModule = __decorate([
                     host: configService.get('DATABASE_HOST'),
                     port: configService.get('DATABASE_PORT'),
                     username: configService.get('DATABASE_USERNAME'),
+                    //sid: configService.get('DATABASE_DATABASE'), - acesso ao banco de dados oracle
                     database: configService.get('DATABASE_DATABASE'),
-                    autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+                    //password: configService.get('DATABASE_PASSWORD'),
+                    //autoLoadEntities: configService.get('DATABASE_AUTOLOADENTITIES'),
+                    entities: [__dirname + '/../**/*.entity.{ts,js}'],
                     synchronize: configService.get('DATABASE_SYNCHRONIZE'),
                     logging: ['query', 'error'],
                 }),

@@ -1,4 +1,5 @@
 "use strict";
+// Não serve mais, pode apagar este arquivo
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.tabelaCidade = void 0;
 exports.tabelaCidade = [

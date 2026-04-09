@@ -8,8 +8,7 @@ export interface Result<T> {
   status: number;
   timestamp: string;
   mensagem?: string | null;
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  erro?: string | null | unknown;
+  erro?: string | null;
   dados?: T | null;
   path: string | null;
   _link?: Record<string, Link>;
@@ -22,8 +21,7 @@ export interface Result<T> {
 export class Mensagem<T> {
   status: number = 0;
   mensagem: string | null = null;
-  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-  erro: string | unknown | null = null;
+  erro: string | null = null;
   dados: T | null = null;
   path: string | null = null;
   _link: Record<string, Link> | null;
@@ -33,8 +31,7 @@ export class Mensagem<T> {
     mensagem: string | null = null,
     dados: T | null = null,
     path: string | null = null,
-    // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
-    erro: string | unknown | null = null,
+    erro: string | null = null,
     _link: Record<string, Link> | null = null,
   ) {
     this.status = status;
