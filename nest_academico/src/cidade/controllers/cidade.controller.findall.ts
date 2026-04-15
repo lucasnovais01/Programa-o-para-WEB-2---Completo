@@ -6,7 +6,7 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { PAGINATION } from '../../commons/enum/paginacao.enum';
 import { Result } from '../../commons/mensagem/mensagem';

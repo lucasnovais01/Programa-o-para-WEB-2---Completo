@@ -7,7 +7,7 @@ import {
   Req,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
+import type { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiPostDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';
