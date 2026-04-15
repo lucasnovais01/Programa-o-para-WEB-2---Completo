@@ -1,8 +1,8 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../commons/entity/base.entity';
 
-@Entity('RegistroUsuario')
-export class Registro extends BaseEntity {
+@Entity('Usuario')
+export class Usuario extends BaseEntity {
   @PrimaryGeneratedColumn('increment', {
     name: 'ID_USUARIO',
     type: 'int',
@@ -10,7 +10,7 @@ export class Registro extends BaseEntity {
   idUsuario?: number;
 
   @Column({
-    name: 'NOME_CIDADE',
+    name: 'NOME_USUARIO',
     type: 'varchar',
     length: 50,
   })
@@ -36,7 +36,7 @@ export class Registro extends BaseEntity {
   /*
   Poderia ser o campo de confirmar a senha do usuario
 */
-  constructor(data: Partial<Registro> = {}) {
+  constructor(data: Partial<Usuario> = {}) {
     super();
     Object.assign(this, data);
   }
