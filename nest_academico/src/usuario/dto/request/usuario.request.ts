@@ -16,12 +16,23 @@ export class UsuarioRequest {
   })
   @ApiProperty({
     description: USUARIO.SWAGGER.NOME_USUARIO,
-    example: 'João Silva',
+    example: 'João',
   })
   nomeUsuario: string = '';
 
-  @IsNotEmpty({ message: 'Email do usuário deve ser informado' })
-  @IsString({ message: 'A informação só pode conter texto' })
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.SOBRENOME_USUARIO.BLANK })
+  @IsString({ message: USUARIO.INPUT_ERROR.SOBRENOME_USUARIO.STRING })
+  @MaxLength(100, {
+    message: 'O tamanho máximo é de 100 caracteres para o sobrenome do usuário',
+  })
+  @ApiProperty({
+    description: USUARIO.SWAGGER.SOBRENOME_USUARIO,
+    example: 'Silva',
+  })
+  sobrenomeUsuario: string = '';
+
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.EMAIL_USUARIO.BLANK })
+  @IsString({ message: USUARIO.INPUT_ERROR.EMAIL_USUARIO.STRING })
   @MaxLength(100, {
     message: 'O tamanho máximo é de 100 caracteres para o email do usuário',
   })
@@ -30,6 +41,17 @@ export class UsuarioRequest {
     example: 'joao.silva@example.com',
   })
   emailUsuario: string = '';
+
+  @IsNotEmpty({ message: USUARIO.INPUT_ERROR.SENHA_USUARIO.BLANK })
+  @IsString({ message: USUARIO.INPUT_ERROR.SENHA_USUARIO.STRING })
+  @MaxLength(100, {
+    message: 'O tamanho máximo é de 100 caracteres para a senha do usuário',
+  })
+  @ApiProperty({
+    description: USUARIO.SWAGGER.SENHA_USUARIO,
+    example: 'senha123',
+  })
+  senha: string = '';
 
   constructor(data: Partial<UsuarioRequest> = {}) {
     Object.assign(this, data);

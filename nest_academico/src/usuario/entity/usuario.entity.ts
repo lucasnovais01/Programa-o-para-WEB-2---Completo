@@ -33,6 +33,7 @@ export class Usuario extends BaseEntity {
     length: 100,
   })
   senha: string = '';
+  sobrenomeUsuario: any;
 
   /*
   Poderia ser o campo de confirmar a senha do usuario

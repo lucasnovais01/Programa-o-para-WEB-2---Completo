@@ -24,7 +24,7 @@ export class CidadeControllerFindAll {
   @Get(ROTA.CIDADE.LIST)
   async findAll(
     @Req() req: Request,
-    //pega o parâmetro da url htt´p://localhost:8000/rest/sistema/cidade/listar?page=1&pageSize=5
+    //pega o parâmetro da url http://localhost:8000/rest/sistema/cidade/listar?page=1&pageSize=5
     @Query('page') page?: string,
     @Query('pageSize') pageSize?: string,
     @Query('props') props?: string,

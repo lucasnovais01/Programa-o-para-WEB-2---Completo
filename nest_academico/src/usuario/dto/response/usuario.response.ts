@@ -9,8 +9,29 @@ export class UsuarioResponse {
 
   @ApiProperty({
     description: USUARIO.SWAGGER.NOME_USUARIO,
-    example: 'João Silva',
+    example: 'João',
   })
   @Expose()
   nomeUsuario: string = '';
+
+  @ApiProperty({
+    description: USUARIO.SWAGGER.SOBRENOME_USUARIO,
+    example: 'Silva',
+  })
+  @Expose()
+  sobrenomeUsuario: string = '';
+
+  @ApiProperty({
+    description: USUARIO.SWAGGER.EMAIL_USUARIO,
+    example: 'joao.silva@uni.com',
+  })
+  @Expose()
+  emailUsuario: string = '';
+
+  @ApiProperty({
+    description: USUARIO.SWAGGER.SENHA_USUARIO,
+    example: 'senha123',
+  })
+  @Expose()
+  senha: string = '';
 }
