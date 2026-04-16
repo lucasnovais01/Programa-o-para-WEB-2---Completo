@@ -16,6 +16,7 @@ export const USUARIO = {
   TABLE_FIELD: {
     ID_USUARIO: 'ID_USUARIO',
     NOME_USUARIO: 'NOME_USUARIO',
+    SOBRENOME_USUARIO: 'SOBRENOME_USUARIO',
     EMAIL_USUARIO: 'EMAIL_USUARIO',
     SENHA_USUARIO: 'SENHA_USUARIO',
   },
@@ -25,6 +26,7 @@ export const USUARIO = {
   FIELDS: {
     ID_USUARIO: 'idUsuario',
     NOME_USUARIO: 'nomeUsuario',
+    SOBRENOME_USUARIO: 'sobrenomeUsuario',
     EMAIL_USUARIO: 'emailUsuario',
     SENHA_USUARIO: 'senhaUsuario',
   },
@@ -32,6 +34,7 @@ export const USUARIO = {
   SWAGGER: {
     ID_USUARIO: `Código do ${ENTITY_NAME} de identificador único`,
     NOME_USUARIO: `Nome de ${ENTITY_NAME} cadastrado`,
+    SOBRENOME_USUARIO: `Sobrenome de ${ENTITY_NAME} cadastrado`,
     EMAIL_USUARIO: `Email de ${ENTITY_NAME} cadastrado`,
     SENHA_USUARIO: `Senha de ${ENTITY_NAME} cadastrada`,
   },
@@ -47,6 +50,13 @@ export const USUARIO = {
       MAX_LEN: `Nome de ${ENTITY_NAME} deve ter no máximo ${MAX_LEN_CODIGO}`,
       MIN_LEN: `Nome de ${ENTITY_NAME} deve ter no mínimo ${MIN_LEN_CODIGO}`,
       STRING: `Nome de ${ENTITY_NAME} deve ser do tipo texto`,
+    },
+    SOBRENOME_USUARIO: {
+      BLANK: `Sobrenome de ${ENTITY_NAME} deve ser informado`,
+      VALID: `Sobrenome de ${ENTITY_NAME} deve ser informado`,
+      MAX_LEN: `Sobrenome de ${ENTITY_NAME} deve ter no máximo ${MAX_LEN_CODIGO}`,
+      MIN_LEN: `Sobrenome de ${ENTITY_NAME} deve ter no mínimo ${MIN_LEN_CODIGO}`,
+      STRING: `Sobrenome de ${ENTITY_NAME} deve ser do tipo texto`,
     },
     EMAIL_USUARIO: {
       BLANK: `Email de ${ENTITY_NAME} deve ser informado`,
