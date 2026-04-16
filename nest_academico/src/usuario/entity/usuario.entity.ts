@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BaseEntity } from '../commons/entity/base.entity';
+import { BaseEntity } from '../../commons/entity/base.entity';
 
 @Entity('Usuario')
 export class Usuario extends BaseEntity {
@@ -25,7 +25,7 @@ export class Usuario extends BaseEntity {
     type: 'varchar',
     length: 100,
   })
-  email: string = '';
+  emailUsuario: string = '';
 
   @Column({
     name: 'SENHA',
@@ -33,6 +33,7 @@ export class Usuario extends BaseEntity {
     length: 100,
   })
   senha: string = '';
+
   /*
   Poderia ser o campo de confirmar a senha do usuario
 */

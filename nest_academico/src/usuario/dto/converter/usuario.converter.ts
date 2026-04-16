@@ -1,10 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 
-//import { Cidade } from 'src/cidade/entity/cidade.entity';
-//import { CidadeRequest } from '../request/cidade.request';
-//import { CidadeResponse } from '../response/cidade.response';
-
 import { Usuario } from 'src/usuario/entity/usuario.entity';
+
+import { UsuarioRequest } from '../request/usuario.request';
+import { UsuarioResponse } from '../response/usuario.response';
 
 export class ConverterUsuario {
   static toUsuario(usuarioRequest: UsuarioRequest) {

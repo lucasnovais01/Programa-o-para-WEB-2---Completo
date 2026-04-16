@@ -5,6 +5,9 @@ import * as Joi from 'joi';
 import { CidadeModule } from 'src/cidade/cidade.module';
 import { ResourceModule } from '../resources/resources.module';
 
+// Atividade Do dia 15/04/2026 Criar Registro de Usuário
+import { UsuarioModule } from 'src/usuario/usuario.module';
+
 //const oracledb = require('oracledb') as typeof import('oracledb');
 
 //oracledb.initOracleClient({
@@ -46,6 +49,8 @@ import { ResourceModule } from '../resources/resources.module';
     }),
     CidadeModule,
     ResourceModule,
+
+    UsuarioModule,
   ],
 })
 export class AppModule {}
