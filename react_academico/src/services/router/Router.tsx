@@ -6,6 +6,13 @@ import ConsultarCidade from "../../views/cidade/Consultar";
 import CriarCidade from "../../views/cidade/Criar";
 import ExcluirCidade from "../../views/cidade/Excluir";
 import ListarCidade from "../../views/cidade/Listar";
+//
+import AlterarUsuario from "../../views/usuario/Alterar";
+import ConsultarUsuario from "../../views/usuario/Consultar";
+import CriarUsuario from "../../views/usuario/Criar";
+import ExcluirUsuario from "../../views/usuario/Excluir";
+import ListarUsuario from "../../views/usuario/Listar";
+//
 import { ROTA } from "./url";
 
 //localhost:3000/sistema/cidade/listar
@@ -42,6 +49,28 @@ export const routes: RouteObject[] = [
       {
         path: `${ROTA.CIDADE.POR_ID}/:idCidade`,
         element: <ConsultarCidade />,
+      },
+
+      // Aqui começa as rotas de usuário
+      {
+        path: ROTA.USUARIO.LISTAR,
+        element: <ListarUsuario />,
+      },
+      {
+        path: ROTA.USUARIO.CRIAR,
+        element: <CriarUsuario />,
+      },
+      {
+        path: `${ROTA.USUARIO.ATUALIZAR}/:idUsuario`,
+        element: <AlterarUsuario />,
+      },
+      {
+        path: `${ROTA.USUARIO.EXCLUIR}/:idUsuario`,
+        element: <ExcluirUsuario />,
+      },
+      {
+        path: `${ROTA.USUARIO.POR_ID}/:idUsuario`,
+        element: <ConsultarUsuario />,
       },
     ],
   },

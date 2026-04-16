@@ -1,0 +1,119 @@
+import { useEffect, useState } from "react";
+import { FaSave } from "react-icons/fa";
+import { MdCancel } from "react-icons/md";
+import { useParams } from "react-router-dom";
+
+import {
+  apiDeleteUsuario,
+  apiGetUsuario,
+} from "../../services/usuario/api/api.usuario";
+import type { Usuario } from "../../services/usuario/type/Usuario";
+
+export default function ExcluirUsuario() {
+  const { idUsuario } = useParams<{ idUsuario: string }>();
+  const [model, setModel] = useState<Usuario | null>(null);
+
+  useEffect(() => {
+    async function getUsuario() {
+      try {
+        if (idUsuario) {
+          const response = await apiGetUsuario(idUsuario);
+          if (response.data.dados) {
+            setModel(response.data.dados);
+          }
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    }
+
+    getUsuario();
+  }, [idUsuario]);
+
+  const onSubmitForm = async (e: any) => {
+    // não deixa executar o processo normal
+    e.preventDefault();
+
+    if (!idUsuario || !model) {
+      return;
+    }
+
+    try {
+      const response = apiDeleteUsuario(idUsuario);
+      console.log(response);
+    } catch (error: any) {
+      console.log(error);
+    }
+  };
+
+  const getInputClass = () => {
+    return "form-control app-label mt-2";
+  };
+
+  return (
+    <div className="display">
+      <div className="card animated fadeInDown">
+        <h2>Excluir Usuario</h2>
+        <form onSubmit={(e) => onSubmitForm(e)}>
+          <div className="mb-2 mt-4">
+            <label htmlFor="idUsuario" className="app-label">
+              ID:
+            </label>
+            <input
+              id="idUsuario"
+              name="idUsuario"
+              defaultValue={model?.idUsuario}
+              className={getInputClass()}
+              readOnly={false}
+              disabled={false}
+            />
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="nomeUsuario" className="app-label">
+              Nome:
+            </label>
+
+            {/* Falta os campos Sobrenome, Email e Senha */}
+
+            <input
+              id="nomeUsuario"
+              name="nomeUsuario"
+              defaultValue={model?.nomeUsuario}
+              className={getInputClass()}
+              readOnly={false}
+              disabled={false}
+            />
+          </div>
+          <div className="btn-content mt-4">
+            <button
+              id="submit"
+              type="submit"
+              className="btn btn-success"
+              title="Cadastrar uma nova usuario"
+            >
+              <span className="btn-icon">
+                <i>
+                  <FaSave />
+                </i>
+              </span>
+              Salvar
+            </button>
+            <button
+              id="cancel"
+              type="button"
+              className="btn btn-cancel"
+              title="Cancelar o Cadastro do usuário"
+            >
+              <span className="btn-icon">
+                <i>
+                  <MdCancel />
+                </i>
+              </span>
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
