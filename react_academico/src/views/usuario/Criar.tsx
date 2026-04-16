@@ -15,6 +15,10 @@ export default function CriarUsuario() {
         <h2>Novo Usuário</h2>
         <form onSubmit={(e) => onSubmitForm(e)}>
           <div className="mb-2 mt-4"></div>{" "}
+
+          {/* O campo ID é gerado automaticamente, então não é necessário exibi-lo no formulário de criação */}
+
+          {/*  
           <Input
             label={USUARIO.LABEL.ID}
             id={USUARIO.FIELDS.ID}
@@ -27,6 +31,7 @@ export default function CriarUsuario() {
             error={errors.idUsuario}
             errorMensagem={errors.idUsuarioMensagem}
           />
+          */}
           <div className="mb-2 mt-4">
             <Input
               label={USUARIO.LABEL.NOME}
@@ -43,6 +48,46 @@ export default function CriarUsuario() {
               error={errors.nomeUsuario}
               errorMensagem={errors.nomeUsuarioMensagem}
             />
+
+            <Input
+              label={USUARIO.LABEL.SOBRENOME}
+              id={USUARIO.FIELDS.SOBRENOME}
+              name={USUARIO.FIELDS.SOBRENOME}
+              value={model?.sobrenomeUsuario}
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.SOBRENOME, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.SOBRENOME, e)}
+              error={errors.sobrenomeUsuario}
+              errorMensagem={errors.sobrenomeUsuarioMensagem}
+            />
+
+            <Input
+              label={USUARIO.LABEL.EMAIL}
+              id={USUARIO.FIELDS.EMAIL}
+              name={USUARIO.FIELDS.EMAIL}
+              value={model?.emailUsuario}
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.EMAIL, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.EMAIL, e)}
+              error={errors.emailUsuario}
+              errorMensagem={errors.emailUsuarioMensagem}
+            />
+
+            <Input
+              label={USUARIO.LABEL.SENHA}
+              id={USUARIO.FIELDS.SENHA}
+              name={USUARIO.FIELDS.SENHA}
+              value={model?.senhaUsuario}
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.SENHA, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.SENHA, e)}
+              error={errors.senhaUsuario}
+              errorMensagem={errors.senhaUsuarioMensagem}
+            />
+
           </div>
           <div className="btn-content mt-4">
             <button

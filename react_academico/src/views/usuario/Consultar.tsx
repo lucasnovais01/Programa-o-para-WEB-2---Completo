@@ -60,6 +60,9 @@ export default function ConsultarUsuario() {
               readOnly={false}
               disabled={false}
             />
+
+              {/* Falta os campos Sobrenome, Email */}
+
           </div>
           <div className="btn-content mt-4">
             <button

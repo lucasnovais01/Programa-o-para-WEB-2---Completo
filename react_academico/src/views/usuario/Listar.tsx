@@ -22,7 +22,7 @@ export default function ListarUsuario() {
   // useState = hook - gancho - função
   // reagir as alterações na variável
   // renderiza -
-  const [models, setModels] = useState([]);
+  const [models, setModels] = useState<Usuario[]>([]);
   // estados da paginação;
   // page = currentPage
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -144,7 +144,7 @@ export default function ListarUsuario() {
           <tbody>
             {models?.map((model) => (
               <tr key={model.idUsuario}>
-                <td>{model.codUsuario}</td>
+                <td>{model.idUsuario}</td>
                 <td>{model.nomeUsuario}</td>
                 <td className="center actions">
                   <Link
