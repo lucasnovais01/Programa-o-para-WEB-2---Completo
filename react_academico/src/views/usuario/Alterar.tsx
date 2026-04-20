@@ -107,6 +107,8 @@ export default function AlterarUsuario() {
               />
             )}
           </div>
+          {/* Vou deixar comentado a parte de alteração de senha pelo botão Alterar */}
+          {/* 
           <div className="mb-2 mt-4">
             <label htmlFor="senhaUsuario" className="app-label">
               {USUARIO.LABEL.SENHA}:
@@ -131,6 +133,8 @@ export default function AlterarUsuario() {
               />
             )}
           </div>
+          */}
+
           <div className="btn-content mt-4">
             <button
               id="submit"

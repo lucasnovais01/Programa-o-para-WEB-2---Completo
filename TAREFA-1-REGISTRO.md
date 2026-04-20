@@ -190,10 +190,10 @@ Existem algumas diferenças importantes entre o módulo de Usuário e o módulo 
 
 | Aspecto | Cidade | Usuário |
 |---------|--------|---------|
-| **Campo ID**  | Possui `codCidade` (código manual) e `idCidade` (ID automático) | Possui apenas `idUsuario` (ID automático) |
-| **Quantidade de Campos** | 2 campos (codigo, nome) | 5 campos (id, nome, sobrenome, email, senha) |
-| **Validação de Email**   | Não possui | Verifica se o e-mail já está cadastrado |
-| **Validação de Senha**   | Não possui | Valida tamanho mínimo de 6 caracteres |
+| **Campo ID**  | Possui `codCidade` (código manual) e `idCidade` (ID automático)            | Enquanto Usuario possui apenas `idUsuario` (ID automático) |
+| **Quantidade de Campos** | 2 campos (codigo, nome)   | 5 campos (id, nome, sobrenome, email, senha) |
+| **Validação de Email**   | Não possui                | Verifica se o e-mail já está cadastrado |
+| **Validação de Senha**   | Não possui                | Valida tamanho mínimo de 6 caracteres |
 
 #### 4.2. Diferenças no Frontend
 
@@ -209,3 +209,194 @@ Existem algumas diferenças importantes entre o módulo de Usuário e o módulo 
 ### Conclusão
 
 O módulo de Registro de Usuário foi desenvolvido com sucesso, seguindo todas as boas práticas de desenvolvimento utilizadas no módulo de Cidade. O sistema agora permite cadastrar, listar, consultar, alterar e excluir usuários de forma completa, com validações tanto no frontend quanto no backend.
+
+
+### Pós-modificações:
+
+Após a conclusão inicial do módulo de Registro de Usuário, foram identificadas e corrigidas algumas inconsistências e melhorias necessárias:
+
+#### 1. Correção do Campo de Senha no Backend
+
+**Problema identificado**: O campo de senha no backend estava com o nome `senha` enquanto no frontend era `senhaUsuario`, causando inconsistência na comunicação entre as camadas.
+
+**Solução**: O campo foi renomeado de `senha` para `senhaUsuario` em todos os arquivos do backend:
+- `entity/usuario.entity.ts`
+- `dto/converter/usuario.converter.ts`
+- `dto/request/usuario.request.ts`
+- `dto/response/usuario.response.ts`
+
+**Justificativa**: Manter a consistência de nomenclatura entre frontend e backend, seguindo o padrão do projeto (nomeUsuario, sobrenomeUsuario, emailUsuario, senhaUsuario).
+
+#### 2. Correção da Entity - Campo sobrenomeUsuario
+
+**Problema identificado**: O campo `sobrenomeUsuario` estava declarado na entity sem a anotação `@Column`, o que causava erro de compilação TypeScript.
+
+**Solução**: Adicionada a anotação `@Column` com as devidas configurações:
+
+```typescript
+@Column({
+  name: 'SOBRENOME_USUARIO',
+  type: 'varchar',
+  length: 50,
+})
+sobrenomeUsuario: string = '';
+```
+
+#### 3. Correção dos Hooks do Frontend
+
+**Problema identificado**: Os hooks `useCriar` e `useAlterar` estavam com validações do campo ID que não existem no formulário de criação.
+
+**Solução**: Removida a validação do campo ID nos hooks, pois o ID é gerado automaticamente pelo banco de dados.
+
+#### 4. Correção dos Botões de Navegação
+
+**Problema identificado**: 
+- O botão "Salvar" na tela de Criar não redirecionava para a lista após criar com sucesso
+- O botão "Cancelar" não funcionava nas telas de Criar, Consultar e Excluir
+
+**Solução**: 
+- Adicionado `navigate(ROTA.USUARIO.LISTAR)` no `onSubmitForm` do hook useCriar
+- Adicionada função `handleCancel` em todas as views (Criar, Consultar, Excluir) com redirecionamento para a lista
+
+#### 5. Comentário do Campo Senha na Tela de Alterar
+
+**Problema identificado**: O campo de senha estava aparecendo na tela de Alterar, mas a alteração de senha deve ser feita em um módulo separado (Tarefa 2 - Alterar Senha).
+
+**Solução**: O campo de senha foi comentado no arquivo `Alterar.tsx`:
+
+```tsx
+{/* Vou deixar comentado a parte de alteração de senha pelo botão Alterar */}
+{/* 
+<div className="mb-2 mt-4">
+  <label htmlFor="senhaUsuario" className="app-label">
+    {USUARIO.LABEL.SENHA}:
+  </label>
+  <input
+    id={USUARIO.FIELDS.SENHA}
+    name={USUARIO.FIELDS.SENHA}
+    value={model?.senhaUsuario}
+    className={getInputClass(USUARIO.FIELDS.SENHA)}
+    readOnly={false}
+    disabled={false}
+    autoComplete="off"
+    onChange={(e) =>
+      handleChangeField(USUARIO.FIELDS.SENHA, e.target.value)
+    }
+    onBlur={(e) => validateField(USUARIO.FIELDS.SENHA, e)}
+  />
+  {errors?.senhaUsuario && (
+    <MensagemErro
+      error={errors.senhaUsuario}
+      mensagem={errors.senhaUsuarioMensagem}
+    />
+  )}
+</div>
+*/}
+```
+
+**Justificativa**: A alteração de senha é uma funcionalidade de segurança que requer validações específicas (como verificação de senha atual). Por isso, será implementada em um módulo separado (Tarefa 2 - Alterar Senha), seguindo as melhores práticas de segurança.
+
+---
+
+### Conclusão das Pós-modificações
+
+Todas as correções foram realizadas mantendo o padrão do código do professor e seguindo as boas práticas de desenvolvimento. O módulo de Registro de Usuário está funcionando corretamente e pronto para as próximas tarefas (Alterar Senha, Recuperar Senha, Login, 2FA, Validar Email).
+
+---
+
+### Novas Alterações - Campos Confirmar Senha e Segurança
+
+Após a conclusão das correções anteriores, foram implementadas mais duas funcionalidades importantes solicitadas na atividade:
+
+#### 6. Adição do Campo Confirmar Senha no Frontend
+
+**Problema identificado**: A atividade solicitava que houvesse um campo de "confirmar senha" no formulário de cadastro, para verificar se o usuário digitou a senha corretamente.
+
+**Solução**: 
+- Adicionado o campo `confirmarSenhaUsuario` no arquivo `type/Usuario.ts`
+- Adicionadas as configurações do campo no arquivo `constants/usuario.constants.ts` (FIELDS, LABEL, INPUT_ERROR)
+- Adicionado o campo no formulário `Criar.tsx` com validação
+- Adicionada validação no hook `useCriar.tsx` para verificar se a senha e a confirmação são iguais
+
+**Justificativa**: O campo de confirmar senha é uma validação de segurança do frontend que verifica se a senha digitada foi escrita corretamente, evitando erros de digitação. O backend não armazena este campo, pois a verificação é feita apenas no momento do cadastro.
+
+**Código adicionado no Criar.tsx**:
+```tsx
+{/* 
+  O campo confirmarSenha é uma validação de segurança do frontend.
+  Ele verifica se a senha digitada foi escrita corretamente, 
+  evitando erros de digitação. O backend não armazena este campo,
+  pois a verificação é feita apenas no momento do cadastro.
+*/}
+<Input
+  label={USUARIO.LABEL.CONFIRMAR_SENHA}
+  id={USUARIO.FIELDS.CONFIRMAR_SENHA}
+  name={USUARIO.FIELDS.CONFIRMAR_SENHA}
+  type="password"
+  value={model?.confirmarSenhaUsuario}
+  onChange={(e) =>
+    handleChangeField(USUARIO.FIELDS.CONFIRMAR_SENHA, e.target.value)
+  }
+  onBlur={(e) => validateField(USUARIO.FIELDS.CONFIRMAR_SENHA, e)}
+  error={errors.confirmarSenhaUsuario}
+  errorMensagem={errors.confirmarSenhaUsuarioMensagem}
+/>
+```
+
+#### 7. Ocultação da Senha no Formulário (type="password")
+
+**Problema identificado**: A atividade solicitava que a senha fosse armazenada de forma segura, e a primeira etapa disso é não exibir a senha em texto plano no formulário.
+
+**Solução**: Adicionado `type="password"` nos campos de senha e confirmar senha no arquivo `Criar.tsx`.
+
+**Justificativa**: O uso de `type="password"` faz com que os caracteres da senha sejam substituídos por asteriscos ou pontos, ocultando a senha enquanto o usuário digita. Isso é uma prática de segurança básica que impede que pessoas próximas vejam a senha digitada.
+
+**Código adicionado**:
+```tsx
+<Input
+  label={USUARIO.LABEL.SENHA}
+  id={USUARIO.FIELDS.SENHA}
+  name={USUARIO.FIELDS.SENHA}
+  type="password"  {/* Adicionado para ocultar a senha */}
+  value={model?.senhaUsuario}
+  // ...
+/>
+```
+
+#### 8. Comentário sobre Funcionalidade de Mostrar/Ocultar Senha
+
+**Problema identificado**: Seria interessante ter um botão para mostrar/ocultar a senha, mas isso ainda não foi implementado.
+
+**Solução**: Adicionado um comentário no código indicando que esta funcionalidade pode ser implementada no futuro:
+
+```tsx
+{/* 
+  Funcionalidade de mostrar/ocultar senha (ícone de olho) ainda não implementada.
+  Esta funcionalidade permitiria ao usuário visualizar a senha digitada
+  ao clicar no ícone de olho, melhorando a experiência do usuário.
+  Implementação futura: adicionar um botão com ícone de olho ao lado do campo de senha.
+*/}
+```
+
+#### 9. Ajuste nas Validações de Tamanho Mínimo
+
+**Problema identificado**: As validações de tamanho mínimo para nome e sobrenome estavam muito longas (6 caracteres), dificultando o cadastro de nomes curtos.
+
+**Solução**: Ajuste realizado nos arquivos de constants:
+- Backend (`nest_academico/src/usuario/constants/usuario.constants.ts`): Adicionadas constantes específicas para senha (`MIN_LEN_SENHA = 6`, `MAX_LEN_SENHA = 20`)
+- Frontend (`react_academico/src/services/usuario/constants/usuario.constants.ts`): Alterado o `MIN_LEN` de 6 para 3 nos campos de nome e sobrenome
+
+**Justificativa**: Nomes e sobrenomes podem ser curtos (como "Ana" ou "Jo"), então o mínimo de 3 caracteres é mais adequado. Para senhas, o mínimo de 6 caracteres é uma prática de segurança recomendada.
+
+---
+
+### Conclusão Final
+
+O módulo de Registro de Usuário está completo com todas as funcionalidades solicitadas:
+- ✅ Cadastro de usuários com validação completa
+- ✅ Campos: nome, sobrenome, email, senha, confirmar senha
+- ✅ Validações no frontend e backend
+- ✅ Senha oculta no formulário (type="password")
+- ✅ Confirmação de senha para evitar erros
+- ✅ Navegação correta entre telas
+- ✅ Documentação completa para as próximas tarefas

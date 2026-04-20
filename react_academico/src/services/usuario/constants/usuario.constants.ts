@@ -14,6 +14,7 @@ export const USUARIO = {
     sobrenomeUsuario: "",
     emailUsuario: "",
     senhaUsuario: "",
+    confirmarSenhaUsuario: "",
   },
 
   FIELDS: {
@@ -22,6 +23,7 @@ export const USUARIO = {
     SOBRENOME: "sobrenomeUsuario",
     EMAIL: "emailUsuario",
     SENHA: "senhaUsuario",
+    CONFIRMAR_SENHA: "confirmarSenhaUsuario",
   } as const,
 
   LABEL: {
@@ -30,6 +32,7 @@ export const USUARIO = {
     SOBRENOME: "Sobrenome",
     EMAIL: "E-mail",
     SENHA: "Senha",
+    CONFIRMAR_SENHA: "Confirmar Senha",
   },
 
   TITULO: {
@@ -49,14 +52,14 @@ export const USUARIO = {
       BLANK: `O nome de ${ENTITY_NAME} deve ser informado`,
       VALID: `Informe um nome válido para ${ENTITY_NAME}`,
       MAX_LEN: `O nome de ${ENTITY_NAME} deve ter no máximo 20 caracteres`,
-      MIN_LEN: `O nome de ${ENTITY_NAME} deve ter no mínimo 6 caracteres `,
+      MIN_LEN: `O nome de ${ENTITY_NAME} deve ter no mínimo 3 caracteres `,
       STRING: `O nome de ${ENTITY_NAME} deve ser um texto`,
     },
     SOBRENOME: {
       BLANK: `O sobrenome de ${ENTITY_NAME} deve ser informado`,
       VALID: `Informe um sobrenome válido para ${ENTITY_NAME}`,
       MAX_LEN: `O sobrenome de ${ENTITY_NAME} deve ter no máximo 20 caracteres`,
-      MIN_LEN: `O sobrenome de ${ENTITY_NAME} deve ter no mínimo 6 caracteres `,
+      MIN_LEN: `O sobrenome de ${ENTITY_NAME} deve ter no mínimo 3 caracteres `,
       STRING: `O sobrenome de ${ENTITY_NAME} deve ser um texto`,
     },
     EMAIL: {
@@ -71,6 +74,11 @@ export const USUARIO = {
       MIN_LEN: `A senha de ${ENTITY_NAME} deve ter no mínimo 6 caracteres `,
       STRING: `A senha de ${ENTITY_NAME} deve ser um texto`,
     },
+    CONFIRMAR_SENHA: {
+      BLANK: `A confirmação de senha de ${ENTITY_NAME} deve ser informada`,
+      NOT_MATCH: `A confirmação de senha não confere com a senha`,
+      STRING: `A confirmação de senha de ${ENTITY_NAME} deve ser um texto`,
+    },
   },
 
   OPERACAO: criarMensagemOperacao(ENTITY_NAME),
@@ -82,6 +90,7 @@ export const fieldsUsuario: (keyof Usuario)[] = [
   USUARIO.FIELDS.SOBRENOME,
   USUARIO.FIELDS.EMAIL,
   USUARIO.FIELDS.SENHA,
+  USUARIO.FIELDS.CONFIRMAR_SENHA,
 ];
 
 // Aqui onde usamos o Record para criar um mapeamento entre os campos da entidade Usuario e as mensagens de erro correspondentes.
@@ -96,4 +105,5 @@ export const mapaCampoParaMensagem: Record<
   sobrenomeUsuario: "SOBRENOME",
   emailUsuario: "EMAIL",
   senhaUsuario: "SENHA",
+  confirmarSenhaUsuario: "CONFIRMAR_SENHA",
 };

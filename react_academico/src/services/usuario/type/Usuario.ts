@@ -4,6 +4,7 @@ export interface Usuario {
   sobrenomeUsuario?: string;
   emailUsuario?: string;
   senhaUsuario?: string;
+  confirmarSenhaUsuario?: string;
 }
 
 export interface ErrosUsuario {
@@ -12,10 +13,12 @@ export interface ErrosUsuario {
   sobrenomeUsuario?: boolean;
   emailUsuario?: boolean;
   senhaUsuario?: boolean;
+  confirmarSenhaUsuario?: boolean;
 
   idUsuarioMensagem?: string[];
   nomeUsuarioMensagem?: string[];
   sobrenomeUsuarioMensagem?: string[];
   emailUsuarioMensagem?: string[];
   senhaUsuarioMensagem?: string[];
+  confirmarSenhaUsuarioMensagem?: string[];
 }

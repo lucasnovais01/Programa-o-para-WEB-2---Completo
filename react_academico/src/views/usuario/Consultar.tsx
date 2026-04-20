@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MdCancel } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROTA } from "../../services/router/url";
 
 import { apiGetUsuario } from "../../services/usuario/api/api.usuario";
 import type { Usuario } from "../../services/usuario/type/Usuario";
@@ -8,6 +9,7 @@ import type { Usuario } from "../../services/usuario/type/Usuario";
 export default function ConsultarUsuario() {
   const { idUsuario } = useParams<{ idUsuario: string }>();
   const [model, setModel] = useState<Usuario | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getUsuario() {
@@ -28,6 +30,12 @@ export default function ConsultarUsuario() {
 
   const getInputClass = () => {
     return "form-control app-label mt-2";
+  };
+
+  // Função para o botão Cancelar - redireciona para a lista de usuários
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROTA.USUARIO.LISTAR);
   };
 
   return (
@@ -93,6 +101,7 @@ export default function ConsultarUsuario() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro do usuário"
+              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>

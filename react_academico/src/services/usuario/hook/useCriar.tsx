@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ROTA } from "../../router/url";
 import { apiPostUsuario } from "../api/api.usuario";
 import { USUARIO } from "../constants/usuario.constants";
 import type { ErrosUsuario, Usuario } from "../type/Usuario";
 
 export const useCriar = () => {
   const [model, setModel] = useState<Usuario>(USUARIO.DADOS_INCIAIS);
-
   const [errors, setErrors] = useState<ErrosUsuario>({});
+  const navigate = useNavigate();
 
   const handleChangeField = (name: keyof Usuario, value: string) => {
     setModel((prev) => ({ ...prev, [name]: value }));
@@ -64,6 +66,12 @@ export const useCriar = () => {
           }
           if (String(value).length < 6) {
             messages.push(USUARIO.INPUT_ERROR.SENHA.MIN_LEN);
+          }
+          break;
+
+        case USUARIO.FIELDS.CONFIRMAR_SENHA:
+          if (!value || String(value).trim().length === 0) {
+            messages.push(USUARIO.INPUT_ERROR.CONFIRMAR_SENHA.BLANK);
           }
           break;
     }
@@ -146,6 +154,20 @@ export const useCriar = () => {
       isFormValid = false;
     }
 
+    // Validação do campo Confirmar Senha
+    const confirmarSenhaUsuarioMessages = [];
+    if (!model.confirmarSenhaUsuario || model.confirmarSenhaUsuario.trim().length === 0) {
+      confirmarSenhaUsuarioMessages.push(USUARIO.INPUT_ERROR.CONFIRMAR_SENHA.BLANK);
+    }
+    if (model.confirmarSenhaUsuario && model.senhaUsuario !== model.confirmarSenhaUsuario) {
+      confirmarSenhaUsuarioMessages.push(USUARIO.INPUT_ERROR.CONFIRMAR_SENHA.NOT_MATCH);
+    }
+    if (confirmarSenhaUsuarioMessages.length > 0) {
+      newErrors.confirmarSenhaUsuario = true;
+      newErrors.confirmarSenhaUsuarioMensagem = confirmarSenhaUsuarioMessages;
+      isFormValid = false;
+    }
+
     setErrors(newErrors);
     return isFormValid;
   };
@@ -166,9 +188,17 @@ export const useCriar = () => {
     try {
       const response = apiPostUsuario(model);
       console.log(response);
+      // Redireciona para a lista de usuários após criar com sucesso
+      navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {
       console.log(error);
     }
+  };
+
+  // Função para o botão Cancelar - redireciona para a lista de usuários
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROTA.USUARIO.LISTAR);
   };
 
   return {
@@ -178,5 +208,6 @@ export const useCriar = () => {
     validateField,
     validarFormulario,
     onSubmitForm,
+    handleCancel,
   };
 };

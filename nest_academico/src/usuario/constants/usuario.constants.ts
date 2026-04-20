@@ -3,10 +3,13 @@ import { criarMensagemOperacao } from '../../commons/constants/constants.entity'
 const ENTITY_NAME = 'Usuario';
 
 const MAX_LEN_CODIGO = 20;
-const MIN_LEN_CODIGO = 5;
+const MIN_LEN_CODIGO = 3;
 
 const MAX_LEN_STRING = 100;
-const MIN_LEN_STRING = 5;
+const MIN_LEN_STRING = 3;
+
+const MAX_LEN_SENHA = 20;
+const MIN_LEN_SENHA = 6;
 
 export const USUARIO = {
   ENTITY: ENTITY_NAME,
@@ -68,8 +71,8 @@ export const USUARIO = {
     SENHA_USUARIO: {
       BLANK: `Senha do ${ENTITY_NAME} deve ser informado`,
       VALID: `Senha do ${ENTITY_NAME} deve ser informado`,
-      MAX_LEN: `Senha do ${ENTITY_NAME} deve ter no máximo ${MAX_LEN_STRING}`,
-      MIN_LEN: `Senha do ${ENTITY_NAME} deve ter no mínimo ${MIN_LEN_STRING}`,
+      MAX_LEN: `Senha do ${ENTITY_NAME} deve ter no máximo ${MAX_LEN_SENHA}`,
+      MIN_LEN: `Senha do ${ENTITY_NAME} deve ter no mínimo ${MIN_LEN_SENHA}`,
 
       // Senha deve ser do tipo texto, mas pode conter caracteres especiais, números e letras, então a mensagem de validação é mais genérica
       STRING: `Senha do ${ENTITY_NAME} deve ser do tipo texto`,

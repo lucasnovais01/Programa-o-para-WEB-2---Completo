@@ -53,6 +53,12 @@ export default function ExcluirUsuario() {
     return "form-control app-label mt-2";
   };
 
+  // Função para o botão Cancelar - redireciona para a lista de usuários
+  const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    navigate(ROTA.USUARIO.LISTAR);
+  };
+
   return (
     <div className="display">
       <div className="card animated fadeInDown">
@@ -128,7 +134,8 @@ export default function ExcluirUsuario() {
               id="cancel"
               type="button"
               className="btn btn-cancel"
-              title="Cancelar o Cadastro do usuário"
+              title="Cancelar a exclusão do usuário"
+              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>

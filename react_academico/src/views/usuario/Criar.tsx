@@ -6,7 +6,7 @@ import { USUARIO } from "../../services/usuario/constants/usuario.constants";
 import { useCriar } from "../../services/usuario/hook/useCriar";
 
 export default function CriarUsuario() {
-  const { model, errors, handleChangeField, validateField, onSubmitForm } =
+  const { model, errors, handleChangeField, validateField, onSubmitForm, handleCancel } =
     useCriar();
 
   return (
@@ -77,6 +77,7 @@ export default function CriarUsuario() {
               label={USUARIO.LABEL.SENHA}
               id={USUARIO.FIELDS.SENHA}
               name={USUARIO.FIELDS.SENHA}
+              type="password"
               value={model?.senhaUsuario}
               onChange={(e) =>
                 handleChangeField(USUARIO.FIELDS.SENHA, e.target.value)
@@ -85,6 +86,31 @@ export default function CriarUsuario() {
               error={errors.senhaUsuario}
               errorMensagem={errors.senhaUsuarioMensagem}
             />
+            {/* 
+              O campo confirmarSenha é uma validação de segurança do frontend.
+              Ele verifica se a senha digitada foi escrita corretamente, 
+              evitando erros de digitação. O backend não armazena este campo,
+              pois a verificação é feita apenas no momento do cadastro.
+            */}
+            <Input
+              label={USUARIO.LABEL.CONFIRMAR_SENHA}
+              id={USUARIO.FIELDS.CONFIRMAR_SENHA}
+              name={USUARIO.FIELDS.CONFIRMAR_SENHA}
+              type="password"
+              value={model?.confirmarSenhaUsuario}
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.CONFIRMAR_SENHA, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.CONFIRMAR_SENHA, e)}
+              error={errors.confirmarSenhaUsuario}
+              errorMensagem={errors.confirmarSenhaUsuarioMensagem}
+            />
+            {/* 
+              Funcionalidade de mostrar/ocultar senha (ícone de olho) ainda não implementada.
+              Esta funcionalidade permitiria ao usuário visualizar a senha digitada
+              ao clicar no ícone de olho, melhorando a experiência do usuário.
+              Implementação futura: adicionar um botão com ícone de olho ao lado do campo de senha.
+            */}
 
           </div>
           <div className="btn-content mt-4">
@@ -106,6 +132,7 @@ export default function CriarUsuario() {
               type="button"
               className="btn btn-cancel"
               title="Cancelar o Cadastro do usuário"
+              onClick={handleCancel}
             >
               <span className="btn-icon">
                 <i>
