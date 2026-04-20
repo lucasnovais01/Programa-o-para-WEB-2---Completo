@@ -7,6 +7,7 @@
     "module": "ESNext",
     "skipLibCheck": true,
     "types": [], // ← array vazio impede que o TS carregue tipos implícitos automáticos como babel__*
+    "ignoreDeprecations": "6.0", // Silencia o aviso de que baseUrl será removido no TypeScript 7.0
 
     /* Bundler mode */
     "moduleResolution": "bundler",

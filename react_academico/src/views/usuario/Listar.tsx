@@ -16,7 +16,7 @@ import { ROTA } from '../../services/router/url';
 import type { SearchParams } from '../../services/usuario/api/api.usuario';
 import { apiGetUsuarios } from '../../services/usuario/api/api.usuario';
 import { USUARIO } from '../../services/usuario/constants/usuario.constants';
-import type { Usuario } from '../../services/usuario/type/Usuario';
+import type { PaginatedResponse, Usuario } from '../../services/usuario/type/Usuario';
 
 export default function ListarUsuario() {
   // useState = hook - gancho - função
@@ -38,10 +38,11 @@ export default function ListarUsuario() {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
   const buscarTodosUsuarios = useCallback(
-    async (params: SearchParams): Promise<Usuario[] | null> => {
+    async (params: SearchParams): Promise<PaginatedResponse<Usuario> | null> => {
       try {
         const response = await apiGetUsuarios(params);
-        return response.data;
+        // response é do tipo PaginatedResponse<Usuario>, contém dados.dados
+        return response;
       } catch (error: any) {
         console.log(error);
       }
@@ -62,9 +63,10 @@ export default function ListarUsuario() {
         order: order,
         searchTerm: searchTerm === '' ? null : searchTerm,
       };
-      const data = await buscarTodosUsuarios(params);
+const data = await buscarTodosUsuarios(params);
       console.log(data);
       if (data) {
+        // data.dados contém: content, page, pageSize, totalElements, totalPages
         const { content, page, pageSize, totalElements, totalPages } =
           data.dados;
         setModels(content);
