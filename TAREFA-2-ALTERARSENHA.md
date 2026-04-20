@@ -43,6 +43,13 @@ Para a alteração de senha, não será necessário criar uma nova tabela no ban
 
 #### 1.3. Criação dos DTOs (Data Transfer Objects)
 
+**Nota importante sobre DTOs**: O padrão do projeto usa 3 tipos de DTOs:
+- **Request**: Define os dados que vêm do frontend (entrada)
+- **Response**: Define os dados que vão para o frontend (saída)
+- **Converter**: Converte entre diferentes formatos (opcional, para módulos mais complexos)
+
+Para este módulo de Alterar Senha, como os dados são simples, não precisamos de um Converter separado. A conversão será feita diretamente no Service.
+
 **AlterarSenhaRequest**: Define os dados que são recebidos na requisição de alteração de senha. Os campos necessários serão:
 
 - **senhaAtual**: A senha atual do usuário (para verificação)
@@ -55,7 +62,11 @@ Exemplo de implementação:
 // filepath: nest_academico/src/alterar-senha/dto/request/alterar-senha.request.ts
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
-import { IsPasswordStrong } from '../../decorators/password-validator.decorator';
+
+// import { IsPasswordStrong } from '../../decorators/password-validator.decorator';
+// O decorator IsPasswordStrong seria usado se você quisesse validar
+// força de senha com regex (ex: pelo menos 1 letra maiúscula, 1 número, 1 caractere especial)
+// Para este projeto simples, não usaremos regex de validação de senha
 
 export class AlterarSenhaRequest {
   @IsNotEmpty({ message: 'A senha atual deve ser informada' })
