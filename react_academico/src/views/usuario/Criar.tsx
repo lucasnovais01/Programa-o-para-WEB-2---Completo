@@ -37,8 +37,6 @@ export default function CriarUsuario() {
               label={USUARIO.LABEL.NOME}
               id={USUARIO.FIELDS.NOME}
               name={USUARIO.FIELDS.NOME}
-
-              // Falta os campos Sobrenome, Email e Senha
               
               value={model?.nomeUsuario}
               onChange={(e) =>

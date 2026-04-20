@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { ROTA } from "../../services/router/url";
 
 import {
   apiDeleteUsuario,
@@ -12,6 +13,7 @@ import type { Usuario } from "../../services/usuario/type/Usuario";
 export default function ExcluirUsuario() {
   const { idUsuario } = useParams<{ idUsuario: string }>();
   const [model, setModel] = useState<Usuario | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getUsuario() {
@@ -41,6 +43,7 @@ export default function ExcluirUsuario() {
     try {
       const response = apiDeleteUsuario(idUsuario);
       console.log(response);
+      navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {
       console.log(error);
     }
@@ -53,7 +56,7 @@ export default function ExcluirUsuario() {
   return (
     <div className="display">
       <div className="card animated fadeInDown">
-        <h2>Excluir Usuario</h2>
+        <h2>Excluir Usuário</h2>
         <form onSubmit={(e) => onSubmitForm(e)}>
           <div className="mb-2 mt-4">
             <label htmlFor="idUsuario" className="app-label">
@@ -64,24 +67,47 @@ export default function ExcluirUsuario() {
               name="idUsuario"
               defaultValue={model?.idUsuario}
               className={getInputClass()}
-              readOnly={false}
-              disabled={false}
+              readOnly={true}
+              disabled={true}
             />
           </div>
           <div className="mb-2 mt-4">
             <label htmlFor="nomeUsuario" className="app-label">
               Nome:
             </label>
-
-            {/* Falta os campos Sobrenome, Email e Senha */}
-
             <input
               id="nomeUsuario"
               name="nomeUsuario"
               defaultValue={model?.nomeUsuario}
               className={getInputClass()}
-              readOnly={false}
-              disabled={false}
+              readOnly={true}
+              disabled={true}
+            />
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="sobrenomeUsuario" className="app-label">
+              Sobrenome:
+            </label>
+            <input
+              id="sobrenomeUsuario"
+              name="sobrenomeUsuario"
+              defaultValue={model?.sobrenomeUsuario}
+              className={getInputClass()}
+              readOnly={true}
+              disabled={true}
+            />
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="emailUsuario" className="app-label">
+              E-mail:
+            </label>
+            <input
+              id="emailUsuario"
+              name="emailUsuario"
+              defaultValue={model?.emailUsuario}
+              className={getInputClass()}
+              readOnly={true}
+              disabled={true}
             />
           </div>
           <div className="btn-content mt-4">
@@ -89,7 +115,7 @@ export default function ExcluirUsuario() {
               id="submit"
               type="submit"
               className="btn btn-success"
-              title="Cadastrar uma nova usuario"
+              title="Excluir o usuário"
             >
               <span className="btn-icon">
                 <i>

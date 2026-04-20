@@ -33,7 +33,7 @@ export default function ConsultarUsuario() {
   return (
     <div className="display">
       <div className="card animated fadeInDown">
-        <h2>Excluir Usuário</h2>
+        <h2>Consultar Usuário</h2>
         <form>
           <div className="mb-2 mt-4">
             <label htmlFor="idUsuario" className="app-label">
@@ -44,8 +44,8 @@ export default function ConsultarUsuario() {
               name="idUsuario"
               defaultValue={model?.idUsuario}
               className={getInputClass()}
-              readOnly={false}
-              disabled={false}
+              readOnly={true}
+              disabled={true}
             />
           </div>
           <div className="mb-2 mt-4">
@@ -57,12 +57,35 @@ export default function ConsultarUsuario() {
               name="nomeUsuario"
               defaultValue={model?.nomeUsuario}
               className={getInputClass()}
-              readOnly={false}
-              disabled={false}
+              readOnly={true}
+              disabled={true}
             />
-
-              {/* Falta os campos Sobrenome, Email */}
-
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="sobrenomeUsuario" className="app-label">
+              Sobrenome:
+            </label>
+            <input
+              id="sobrenomeUsuario"
+              name="sobrenomeUsuario"
+              defaultValue={model?.sobrenomeUsuario}
+              className={getInputClass()}
+              readOnly={true}
+              disabled={true}
+            />
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="emailUsuario" className="app-label">
+              E-mail:
+            </label>
+            <input
+              id="emailUsuario"
+              name="emailUsuario"
+              defaultValue={model?.emailUsuario}
+              className={getInputClass()}
+              readOnly={true}
+              disabled={true}
+            />
           </div>
           <div className="btn-content mt-4">
             <button

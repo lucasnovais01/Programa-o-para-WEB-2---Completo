@@ -12,11 +12,11 @@ import { Link } from 'react-router-dom';
 import PaginationFooter from '../../components/pagination/PaginationFooter';
 import SearchBar from '../../components/search/SearchBar';
 
+import { ROTA } from '../../services/router/url';
 import type { SearchParams } from '../../services/usuario/api/api.usuario';
 import { apiGetUsuarios } from '../../services/usuario/api/api.usuario';
 import { USUARIO } from '../../services/usuario/constants/usuario.constants';
 import type { Usuario } from '../../services/usuario/type/Usuario';
-import { ROTA } from '../../services/router/url';
 
 export default function ListarUsuario() {
   // useState = hook - gancho - função
@@ -136,6 +136,18 @@ export default function ListarUsuario() {
                 </button>
               </th>
 
+              <th>
+                <button onClick={(e) => onSortProps(e, 'SOBRENOME_USUARIO')}>
+                  {USUARIO.LABEL.SOBRENOME}
+                </button>
+              </th>
+
+              <th>
+                <button onClick={(e) => onSortProps(e, 'EMAIL_USUARIO')}>
+                  {USUARIO.LABEL.EMAIL}
+                </button>
+              </th>
+
               <th className="center actions" colSpan={3}>
                 Ação
               </th>
@@ -146,6 +158,8 @@ export default function ListarUsuario() {
               <tr key={model.idUsuario}>
                 <td>{model.idUsuario}</td>
                 <td>{model.nomeUsuario}</td>
+                <td>{model.sobrenomeUsuario}</td>
+                <td>{model.emailUsuario}</td>
                 <td className="center actions">
                   <Link
                     to={`${ROTA.USUARIO.ATUALIZAR}/${model.idUsuario}`}

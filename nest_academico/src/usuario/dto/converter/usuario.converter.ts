@@ -15,7 +15,7 @@ export class ConverterUsuario {
     usuario.nomeUsuario = usuarioRequest.nomeUsuario;
     usuario.sobrenomeUsuario = usuarioRequest.sobrenomeUsuario;
     usuario.emailUsuario = usuarioRequest.emailUsuario;
-    usuario.senha = usuarioRequest.senha;
+    usuario.senhaUsuario = usuarioRequest.senhaUsuario;
 
     return usuario;
   }

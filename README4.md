@@ -24,3 +24,7 @@ npm install axios --save
 
 
 DOIS HOOK IMPORTANTE, o useState (mostrar na tela) e o outro HOOK importante é o UseEffect, ele aplica/altera a situação de cidade (somente pela primeira vez). Da pra saber, pq ele tem sempre um array vazio.
+
+## O que pode cair na prova
+
+Como pode iniciar uma variavel

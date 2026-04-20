@@ -16,9 +16,12 @@ export class Usuario extends BaseEntity {
   })
   nomeUsuario: string = '';
 
-  /*
-  Poderia ser o campo de sobrenome do usuario
-*/
+  @Column({
+    name: 'SOBRENOME_USUARIO',
+    type: 'varchar',
+    length: 50,
+  })
+  sobrenomeUsuario: string = '';
 
   @Column({
     name: 'EMAIL',
@@ -32,12 +35,8 @@ export class Usuario extends BaseEntity {
     type: 'varchar',
     length: 100,
   })
-  senha: string = '';
-  sobrenomeUsuario: any;
+  senhaUsuario: string = '';
 
-  /*
-  Poderia ser o campo de confirmar a senha do usuario
-*/
   constructor(data: Partial<Usuario> = {}) {
     super();
     Object.assign(this, data);

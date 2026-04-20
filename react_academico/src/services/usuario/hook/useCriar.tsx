@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { apiPostUsuario } from "../api/api.usuario";
 import { USUARIO } from "../constants/usuario.constants";
-import type { Usuario, ErrosUsuario } from "../type/Usuario";
+import type { ErrosUsuario, Usuario } from "../type/Usuario";
 
 export const useCriar = () => {
   const [model, setModel] = useState<Usuario>(USUARIO.DADOS_INCIAIS);
@@ -26,12 +26,6 @@ export const useCriar = () => {
     const value = model[name];
 
     switch (name) {
-      case USUARIO.FIELDS.ID:
-        if (!value) messages.push(USUARIO.INPUT_ERROR.ID.BLANK);
-        if (value && typeof value !== "string")
-          messages.push(USUARIO.INPUT_ERROR.ID.STRING);
-        break;
-
       case USUARIO.FIELDS.NOME:
         if (!value || String(value).trim().length === 0) {
           messages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
@@ -84,22 +78,8 @@ export const useCriar = () => {
     const newErrors: ErrosUsuario = {};
     let isFormValid = true;
 
-    const idUsuarioMessages = [];
-
-    if (!model.idUsuario) {
-      idUsuarioMessages.push(USUARIO.INPUT_ERROR.ID.VALID);
-    }
-    if (model.idUsuario && typeof model.idUsuario !== "string") {
-      idUsuarioMessages.push(USUARIO.INPUT_ERROR.ID.STRING);
-    }
-    if (idUsuarioMessages.length > 0) {
-      newErrors.idUsuario = true;
-      newErrors.idUsuarioMensagem = idUsuarioMessages;
-      isFormValid = false;
-    }
-
+    // Validação do campo Nome
     const nomeUsuarioMessages = [];
-
     if (!model.nomeUsuario || model.nomeUsuario.trim().length === 0) {
       nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
     }
@@ -117,6 +97,55 @@ export const useCriar = () => {
       isFormValid = false;
     }
 
+    // Validação do campo Sobrenome
+    const sobrenomeUsuarioMessages = [];
+    if (!model.sobrenomeUsuario || model.sobrenomeUsuario.trim().length === 0) {
+      sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
+    }
+    if (model.sobrenomeUsuario) {
+      if (model.sobrenomeUsuario.length > 0 && model.sobrenomeUsuario.length < 6) {
+        sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.MIN_LEN);
+      }
+      if (model.sobrenomeUsuario.length > 100) {
+        sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.MAX_LEN);
+      }
+    }
+    if (sobrenomeUsuarioMessages.length > 0) {
+      newErrors.sobrenomeUsuario = true;
+      newErrors.sobrenomeUsuarioMensagem = sobrenomeUsuarioMessages;
+      isFormValid = false;
+    }
+
+    // Validação do campo Email
+    const emailUsuarioMessages = [];
+    if (!model.emailUsuario || model.emailUsuario.trim().length === 0) {
+      emailUsuarioMessages.push(USUARIO.INPUT_ERROR.EMAIL.BLANK);
+    }
+    if (emailUsuarioMessages.length > 0) {
+      newErrors.emailUsuario = true;
+      newErrors.emailUsuarioMensagem = emailUsuarioMessages;
+      isFormValid = false;
+    }
+
+    // Validação do campo Senha
+    const senhaUsuarioMessages = [];
+    if (!model.senhaUsuario || model.senhaUsuario.trim().length === 0) {
+      senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.BLANK);
+    }
+    if (model.senhaUsuario) {
+      if (model.senhaUsuario.length < 6) {
+        senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.MIN_LEN);
+      }
+      if (model.senhaUsuario.length > 100) {
+        senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.MAX_LEN);
+      }
+    }
+    if (senhaUsuarioMessages.length > 0) {
+      newErrors.senhaUsuario = true;
+      newErrors.senhaUsuarioMensagem = senhaUsuarioMessages;
+      isFormValid = false;
+    }
+
     setErrors(newErrors);
     return isFormValid;
   };
@@ -126,7 +155,7 @@ export const useCriar = () => {
     e.preventDefault();
 
     if (!validarFormulario()) {
-      console.log("Erro na digitaçãod os dados ");
+      console.log("Erro na digitação dos dados ");
       return;
     }
 

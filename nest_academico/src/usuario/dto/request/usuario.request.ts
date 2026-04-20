@@ -51,7 +51,7 @@ export class UsuarioRequest {
     description: USUARIO.SWAGGER.SENHA_USUARIO,
     example: 'senha123',
   })
-  senha: string = '';
+  senhaUsuario: string = '';
 
   constructor(data: Partial<UsuarioRequest> = {}) {
     Object.assign(this, data);

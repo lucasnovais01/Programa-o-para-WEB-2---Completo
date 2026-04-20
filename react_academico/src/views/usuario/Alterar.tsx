@@ -28,25 +28,12 @@ export default function AlterarUsuario() {
             <input
               id={USUARIO.FIELDS.ID}
               name={USUARIO.FIELDS.ID}
-
-              // Falta os campos Sobrenome, Email e Senha
-
               value={model?.idUsuario}
               className={getInputClass(USUARIO.FIELDS.ID)}
-              readOnly={false}
-              disabled={false}
+              readOnly={true}
+              disabled={true}
               autoComplete="off"
-              onChange={(e) =>
-                handleChangeField(USUARIO.FIELDS.ID, e.target.value)
-              }
-              onBlur={(e) => validateField(USUARIO.FIELDS.ID, e)}
             />
-            {errors?.idUsuario && (
-              <MensagemErro
-                error={errors.idUsuario}
-                mensagem={errors.idUsuarioMensagem}
-              />
-            )}
           </div>
           <div className="mb-2 mt-4">
             <label htmlFor="nomeUsuario" className="app-label">
@@ -69,6 +56,78 @@ export default function AlterarUsuario() {
               <MensagemErro
                 error={errors.nomeUsuario}
                 mensagem={errors.nomeUsuarioMensagem}
+              />
+            )}
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="sobrenomeUsuario" className="app-label">
+              {USUARIO.LABEL.SOBRENOME}:
+            </label>
+            <input
+              id={USUARIO.FIELDS.SOBRENOME}
+              name={USUARIO.FIELDS.SOBRENOME}
+              value={model?.sobrenomeUsuario}
+              className={getInputClass(USUARIO.FIELDS.SOBRENOME)}
+              readOnly={false}
+              disabled={false}
+              autoComplete="off"
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.SOBRENOME, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.SOBRENOME, e)}
+            />
+            {errors?.sobrenomeUsuario && (
+              <MensagemErro
+                error={errors.sobrenomeUsuario}
+                mensagem={errors.sobrenomeUsuarioMensagem}
+              />
+            )}
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="emailUsuario" className="app-label">
+              {USUARIO.LABEL.EMAIL}:
+            </label>
+            <input
+              id={USUARIO.FIELDS.EMAIL}
+              name={USUARIO.FIELDS.EMAIL}
+              value={model?.emailUsuario}
+              className={getInputClass(USUARIO.FIELDS.EMAIL)}
+              readOnly={false}
+              disabled={false}
+              autoComplete="off"
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.EMAIL, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.EMAIL, e)}
+            />
+            {errors?.emailUsuario && (
+              <MensagemErro
+                error={errors.emailUsuario}
+                mensagem={errors.emailUsuarioMensagem}
+              />
+            )}
+          </div>
+          <div className="mb-2 mt-4">
+            <label htmlFor="senhaUsuario" className="app-label">
+              {USUARIO.LABEL.SENHA}:
+            </label>
+            <input
+              id={USUARIO.FIELDS.SENHA}
+              name={USUARIO.FIELDS.SENHA}
+              value={model?.senhaUsuario}
+              className={getInputClass(USUARIO.FIELDS.SENHA)}
+              readOnly={false}
+              disabled={false}
+              autoComplete="off"
+              onChange={(e) =>
+                handleChangeField(USUARIO.FIELDS.SENHA, e.target.value)
+              }
+              onBlur={(e) => validateField(USUARIO.FIELDS.SENHA, e)}
+            />
+            {errors?.senhaUsuario && (
+              <MensagemErro
+                error={errors.senhaUsuario}
+                mensagem={errors.senhaUsuarioMensagem}
               />
             )}
           </div>

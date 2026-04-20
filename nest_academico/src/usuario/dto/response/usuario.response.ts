@@ -33,5 +33,5 @@ export class UsuarioResponse {
     example: 'senha123',
   })
   @Expose()
-  senha: string = '';
+  senhaUsuario: string = '';
 }
