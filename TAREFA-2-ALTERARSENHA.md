@@ -48,7 +48,18 @@ Para a alteração de senha, não será necessário criar uma nova tabela no ban
 - **Response**: Define os dados que vão para o frontend (saída)
 - **Converter**: Converte entre diferentes formatos (opcional, para módulos mais complexos)
 
-Para este módulo de Alterar Senha, como os dados são simples, não precisamos de um Converter separado. A conversão será feita diretamente no Service.
+Para este módulo de Alterar Senha, vamos criar um Converter para manter o padrão do projeto, mesmo sendo simples. Isso ajuda a entender como o sistema funciona.
+
+**Estrutura de pastas a criar**:
+```
+nest_academico/src/alterar-senha/dto/
+├── request/
+│   └── alterar-senha.request.ts
+├── response/
+│   └── alterar-senha.response.ts
+└── converter/
+    └── alterar-senha.converter.ts  ← Novo arquivo
+```
 
 **AlterarSenhaRequest**: Define os dados que são recebidos na requisição de alteração de senha. Os campos necessários serão:
 
@@ -103,6 +114,23 @@ export class AlterarSenhaResponse {
 }
 ```
 
+**ConverterAlterarSenha**: Converte os dados de entrada para o formato esperado pelo service. Embora simples, vamos criar para manter o padrão do projeto.
+
+```typescript
+// filepath: nest_academico/src/alterar-senha/dto/converter/alterar-senha.converter.ts
+import { plainToInstance } from 'class-transformer';
+import { AlterarSenhaRequest } from '../request/alterar-senha.request';
+import { AlterarSenhaResponse } from '../response/alterar-senha.response';
+
+export class ConverterAlterarSenha {
+  static toAlterarSenhaResponse(data: any): AlterarSenhaResponse {
+    return plainToInstance(AlterarSenhaResponse, data, {
+      excludeExtraneousValues: true,
+    });
+  }
+}
+```
+
 #### 1.4. Criação do Service (Lógica de Negócio)
 
 O service será responsável por toda a lógica de alteração de senha:
@@ -116,14 +144,15 @@ O service será responsável por toda a lógica de alteração de senha:
 6. Atualizar a senha no banco de dados
 7. Retornar sucesso ou erro
 
-Exemplo de implementação:
+Exemplo de implementação (versão com código comentado para bcrypt):
 
 ```typescript
 // filepath: nest_academico/src/alterar-senha/service/alterar-senha.service.ts
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { compare, hash } from 'bcrypt'; // Biblioteca para hash de senhas
+// import { compare, hash } from 'bcrypt'; // npm install bcrypt + npm install -D @types/bcrypt
+
 import { Usuario } from '../../usuario/entity/usuario.entity';
 import { AlterarSenhaRequest } from '../dto/request/alterar-senha.request';
 
@@ -144,10 +173,17 @@ export class AlterarSenhaService {
       throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND);
     }
 
-    // 2. Verificar se a senha atual está correta
+    /*
+    // 2. Verificar se a senha atual está correta (com bcrypt)
     const senhaCorreta = await compare(alterarSenhaRequest.senhaAtual, usuario.senhaUsuario);
     
     if (!senhaCorreta) {
+      throw new HttpException('Senha atual incorreta', HttpStatus.UNAUTHORIZED);
+    }
+    */
+
+    // 2. Verificar se a senha atual está correta (sem bcrypt - temporário)
+    if (alterarSenhaRequest.senhaAtual !== usuario.senhaUsuario) {
       throw new HttpException('Senha atual incorreta', HttpStatus.UNAUTHORIZED);
     }
 
@@ -157,16 +193,20 @@ export class AlterarSenhaService {
     }
 
     // 4. Validar requisitos de segurança da nova senha
-    // (pode adicionar validações como: pelo menos uma letra maiúscula, um número, etc.)
     if (alterarSenhaRequest.novaSenha.length < 6) {
       throw new HttpException('A nova senha deve ter no mínimo 6 caracteres', HttpStatus.BAD_REQUEST);
     }
 
-    // 5. Gerar o hash da nova senha
+    /*
+    // 5. Gerar o hash da nova senha (com bcrypt)
     const novaSenhaHash = await hash(alterarSenhaRequest.novaSenha, 10);
+    usuario.senhaUsuario = novaSenhaHash;
+    */
+
+    // 5. Salvar a nova senha (sem bcrypt - temporário)
+    usuario.senhaUsuario = alterarSenhaRequest.novaSenha;
 
     // 6. Atualizar a senha no banco de dados
-    usuario.senhaUsuario = novaSenhaHash;
     await this.usuarioRepository.save(usuario);
 
     return {
@@ -184,6 +224,12 @@ Para instalar o bcrypt no NestJS:
 npm install bcrypt
 npm install -D @types/bcrypt
 ```
+
+**Para ativar o bcrypt depois de instalado**:
+1. Descomentar a linha de import: `import { compare, hash } from 'bcrypt';`
+2. Descomentar o bloco de verificação de senha atual (versão com bcrypt)
+3. Descomentar o bloco de geração de hash da nova senha
+4. Comentar as linhas da versão sem bcrypt
 
 #### 1.5. Criação do Controller
 

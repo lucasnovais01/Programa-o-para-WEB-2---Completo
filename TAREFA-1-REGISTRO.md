@@ -298,6 +298,104 @@ sobrenomeUsuario: string = '';
 
 ---
 
+### 6. Segurança - Criptografia de Senha com bcrypt
+
+#### O que é bcrypt?
+
+**bcrypt** é uma biblioteca de segurança que transforma senhas em "hash" (uma string codificada que não pode ser revertida). 
+
+**Por que usar?** Se alguém roubar o banco de dados, não vai conseguir ver as senhas dos usuários. As senhas ficam protegidas.
+
+#### Como funciona o bcrypt?
+
+1. **Criptografar (hash)**: Transforma "senha123" em algo como "$2b$10$Xy9..."
+2. **Comparar**: Para verificar se a senha está correta, compara o hash armazenado com o hash da senha informada
+
+#### Instalação do bcrypt
+
+No terminal, dentro da pasta `nest_academico`:
+
+```bash
+npm install bcrypt
+npm install -D @types/bcrypt
+```
+
+#### Implementação no Código
+
+**Passo 1**: No arquivo `usuario.converter.ts`, descomentar as linhas do bcrypt:
+
+```typescript
+// filepath: nest_academico/src/usuario/dto/converter/usuario.converter.ts
+import { plainToInstance } from 'class-transformer';
+import { hash } from 'bcrypt'; // ← Descomentar esta linha
+
+import { Usuario } from 'src/usuario/entity/usuario.entity';
+import { UsuarioRequest } from '../request/usuario.request';
+import { UsuarioResponse } from '../response/usuario.response';
+
+export class ConverterUsuario {
+  // Versão com bcrypt (descomentar)
+  static async toUsuario(usuarioRequest: UsuarioRequest) {
+    const usuario = new Usuario();
+
+    if (usuarioRequest.idUsuario != null) {
+      usuario.idUsuario = usuarioRequest.idUsuario;
+    }
+    usuario.nomeUsuario = usuarioRequest.nomeUsuario;
+    usuario.sobrenomeUsuario = usuarioRequest.sobrenomeUsuario;
+    usuario.emailUsuario = usuarioRequest.emailUsuario;
+
+    // Criptografar a senha antes de salvar
+    const saltRounds = 10;
+    usuario.senhaUsuario = await hash(usuarioRequest.senhaUsuario, saltRounds);
+
+    return usuario;
+  }
+
+  // Versão sem bcrypt (comentar)
+  /*
+  static toUsuario(usuarioRequest: UsuarioRequest) {
+    const usuario = new Usuario();
+    // ... código existente ...
+    usuario.senhaUsuario = usuarioRequest.senhaUsuario;
+    return usuario;
+  }
+  */
+}
+```
+
+**Passo 2**: No arquivo `usuario.service.create.ts`, mudar para async:
+
+```typescript
+// filepath: nest_academico/src/usuario/service/usuario.service.create.ts
+async create(usuarioRequest: UsuarioRequest): Promise<UsuarioResponse> {
+  // Usar a versão async do toUsuario
+  let usuario = await ConverterUsuario.toUsuario(usuarioRequest);
+  // ... resto do código ...
+}
+```
+
+**Passo 3**: No arquivo `usuario.service.update.ts`, mudar para async:
+
+```typescript
+// filepath: nest_academico/src/usuario/service/usuario.service.update.ts
+async update(idUsuario: number, usuarioRequest: UsuarioRequest): Promise<UsuarioResponse> {
+  // Usar a versão async do toUsuario
+  let usuario = await ConverterUsuario.toUsuario(usuarioRequest);
+  // ... resto do código ...
+}
+```
+
+#### Observações Importantes
+
+1. **Salt Rounds**: O número `10` em `hash(senha, 10)` é o "salt rounds". Quanto maior, mais seguro, mas mais lento. O padrão é 10.
+
+2. **Senhas no Banco**: Depois de implementar o bcrypt, as senhas no banco vão parecer "$2b$10$Xy9..." - isso é normal e significa que estão protegidas.
+
+3. **Testes**: Após implementar o bcrypt, você precisará criar um novo usuário para testar, pois as senhas antigas não vão funcionar (não estão em hash).
+
+---
+
 ### Conclusão das Pós-modificações
 
 Todas as correções foram realizadas mantendo o padrão do código do professor e seguindo as boas práticas de desenvolvimento. O módulo de Registro de Usuário está funcionando corretamente e pronto para as próximas tarefas (Alterar Senha, Recuperar Senha, Login, 2FA, Validar Email).

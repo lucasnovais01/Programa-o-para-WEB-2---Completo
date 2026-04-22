@@ -20,6 +20,10 @@ export class UsuarioServiceUpdate {
     idUsuario: number,
     usuarioRequest: UsuarioRequest,
   ): Promise<UsuarioResponse> {
+    /*
+    // O método toUsuario agora é async por causa do bcrypt
+    let usuario = await ConverterUsuario.toUsuario(usuarioRequest);
+    */
     let usuario = ConverterUsuario.toUsuario(usuarioRequest);
 
     const usuarioCadastrado =

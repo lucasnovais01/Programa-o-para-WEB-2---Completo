@@ -8,6 +8,9 @@ import { ResourceModule } from '../resources/resources.module';
 // Atividade Do dia 15/04/2026 Criar Registro de Usuário
 import { UsuarioModule } from 'src/usuario/usuario.module';
 
+// Tarefa 2 - Alterar Senha
+import { AlterarSenhaModule } from 'src/alterar-senha/alterar-senha.module';
+
 //const oracledb = require('oracledb') as typeof import('oracledb');
 
 //oracledb.initOracleClient({
@@ -51,6 +54,8 @@ import { UsuarioModule } from 'src/usuario/usuario.module';
     ResourceModule,
 
     UsuarioModule,
+    // Tarefa 2 - Alterar Senha
+    AlterarSenhaModule,
   ],
 })
 export class AppModule {}
