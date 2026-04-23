@@ -26,12 +26,23 @@ export const apiPostCidade = async (cidade: Cidade) => {
   const response = await http.post(ROTA.CIDADE.CRIAR, cidade);
 };
 
+// MODIFICADO:
+
+export const apiPutCidade = async (idCidade: string, cidade: Cidade, url: any) => {
+  const response = await http.put(
+    `${url}/${idCidade}`,
+    cidade,
+  );
+};
+
+/*
 export const apiPutCidade = async (idCidade: string, cidade: Cidade) => {
   const response = await http.put(
     `${ROTA.CIDADE.ATUALIZAR}/${idCidade}`,
     cidade,
   );
 };
+*/
 
 export const apiDeleteCidade = async (idCidade: string) => {
   const response = await http.delete(`${ROTA.CIDADE.EXCLUIR}/${idCidade}`);

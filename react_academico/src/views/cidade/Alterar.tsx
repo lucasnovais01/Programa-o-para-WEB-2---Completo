@@ -3,6 +3,8 @@ import { MdCancel } from "react-icons/md";
 import MensagemErro from "../../components/mensagem/MensagemErro";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import { useAlterar } from "../../services/cidade/hook/useAlterar";
+import React from "react";
+import { useResources } from "../../services/providers/ResourcesProviders";
 
 export default function AlterarCidade() {
   const {
@@ -14,6 +16,27 @@ export default function AlterarCidade() {
     handleCancel,
     getInputClass,
   } = useAlterar();
+
+
+  const id = 1;
+
+  // vamos copiar o que fizemos no Listar.tsx :
+
+  const { getEndpoint } = useResources();
+  // hook Memo() => mantém na memória
+  // o valor || função carregada, evitando
+  // repetição.
+  let url = React.useMemo(()=>{
+    const urlCidade = getEndpoint('cidade', id);
+    return urlCidade;
+  }, []);
+
+  if (!url) {
+    console.error('recurso inexistente');
+    return;
+  }
+
+
 
   return (
     <div className="display">

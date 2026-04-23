@@ -1,4 +1,4 @@
-import {
+import React, {
   useCallback,
   useEffect,
   useState,
@@ -16,12 +16,13 @@ import { apiGetCidades } from '../../services/cidade/api/api.cidade';
 import { CIDADE } from '../../services/cidade/constants/cidade.constants';
 import type { Cidade } from '../../services/cidade/type/Cidade';
 import { ROTA } from '../../services/router/url';
+import { useResources } from '../../services/providers/ResourcesProviders';
 
 export default function ListarCidade() {
   // useState = hook - gancho - função
   // reagir as alterações na variável
   // renderiza -
-  const [models, setModels] = useState([]);
+  const [models, setModels] = useState<Cidade[]>([]);
   // estados da paginação;
   // page = currentPage
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -35,6 +36,23 @@ export default function ListarCidade() {
   const [props, setProps] = useState<string>('ID_CIDADE');
   const [order, setOrder] = useState<string>('ASC');
   const [searchTerm, setSearchTerm] = useState<string>('');
+
+
+  const { getEndpoint } = useResources();
+  // hook Memo() => mantém na memória
+  // o valor || função carregada, evitando
+  // repetição.
+  let url = React.useMemo(()=>{
+    const urlCidade = getEndpoint('cidade');
+    return urlCidade;
+  }, []);
+
+  if (!url) {
+    console.error('recurso inexistente');
+    return;
+  }
+
+
 
   const buscarTodasCidades = useCallback(
     async (params: SearchParams): Promise<Cidade[] | null> => {

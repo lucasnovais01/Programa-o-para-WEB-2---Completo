@@ -40,19 +40,34 @@ export function ResourcesProviders ({
   children: React.ReactNode;
 }) {
 
-  const [resources, setResources] = React.useState<Resource[]>();
+  const [resources, setResources] = React.useState<Resource[]>([]);
   const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
 
     async function getResources(){
-      setLoading(true);
-      try {
-        const response = apiGetResources();
-        console.log(response);
+        setLoading(true);
 
+      const academico_resource = sessionStorage.getItem('academico_resource');
+
+      if (academico_resource){
+        setResources(JSON.parse(academico_resource))
+        setLoading(false)
+        return;
+      }
+
+
+
+      try {
+        const response = await apiGetResources();
+        //console.log(response);
         if (response.data) {
+          // assíncrono
+          // Então forçamos o sessionStorage, para atualizar o estado
+
           setResources(response.data);
+          sessionStorage.setItem('academico_resources', JSON.stringify(response.data),
+          );
         }
       }
       catch(error: any){
@@ -65,30 +80,37 @@ export function ResourcesProviders ({
     getResources();
   }, []);
 
-  const getEndpoint = (
+  // O Callback é um hook que faz um cópia da função na memória
+  // Ex: Foi e executou uma vez, e guarda na memória
+  // Monitora o recurso [resources], havendo modificação
+  // do conteúdo - faz novo processamento.
+  // E com isto vai diminuir o acesso a banco de dados, otimiza
+  const getEndpoint = React.useCallback ((
     name: string, 
     id?: string | number,
   ): string | undefined => {
 
     const resource = resources.find((r) => {
 
-      const hasId = r.endpoint.includes(':id')
-
+      const hasId = r.endpoint.includes(':id');
       return r.name === name && (id ? hasId : !hasId);
     });
 
+
     if(resource){
-      return id ? resource.endpoint.replace('/:id','') : resource.endpoint
+      return id ? resource.endpoint.replace('/:id', '') : resource.endpoint
     }
 
     return undefined;
-  }
+  },
+  [resources],
+  );
 
   return(
-    <ResourcesContext.Provider value = {
+    <ResourceContext.Provider value = {
       {resources, getEndpoint, loading}}
     > {children}
 
-    </ResourcesContext.Provider>
+    </ResourceContext.Provider>
   );
 }
