@@ -202,7 +202,7 @@ export const useAlterar = () => {
     // não deixa executar o processo normal
     e.preventDefault();
 
-    if (!idCidade || !model) {
+    if (!idCidade || !model || !url) {
       return;
     }
 
@@ -212,7 +212,7 @@ export const useAlterar = () => {
     }
 
     try {
-      const response = apiPutCidade(idCidade, model);
+      const response = apiPutCidade(idCidade, model, url);
       console.log(response);
       navigate(ROTA.CIDADE.LISTAR);
     } catch (error: any) {
