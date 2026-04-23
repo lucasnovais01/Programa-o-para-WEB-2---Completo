@@ -70,10 +70,15 @@ export function ResourcesProviders ({
     id?: string | number,
   ): string | undefined => {
 
-    const resource = resources.find(r) => {
+    const resource = resources.find((r) => {
 
       const hasId = r.endpoint.includes(':id')
 
+      return r.name === name && (id ? hasId : !hasId);
+    });
+
+    if(resource){
+      return id ? resource.endpoint.replace('/:id','') : resource.endpoint
     }
 
     return undefined;
