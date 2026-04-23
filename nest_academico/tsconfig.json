@@ -9,7 +9,13 @@
     "target": "ES2022",
     "sourceMap": true,
     "outDir": "./dist",
-    "ignoreDeprecations": "6.0",
+    /* bash no cmd: npx tsc --version 
+    
+    Dependendo da versão, vc coloca o número, mas lembra que tem que mudar em
+    E:\.Lucas Novais\Programa-o-para-WEB-2---Completo\react_academico\tsconfig.app.json
+
+    */
+    "ignoreDeprecations": "5.0",
     "baseUrl": "./",
     "paths": {
       "@/*": ["src/*"]

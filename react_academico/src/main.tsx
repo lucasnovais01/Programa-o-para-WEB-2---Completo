@@ -9,3 +9,6 @@ createRoot(document.getElementById("root")!).render(
     <App />
   </StrictMode>,
 );
+
+
+// main.tsx é sempre o primeiro compoente a ser acessado

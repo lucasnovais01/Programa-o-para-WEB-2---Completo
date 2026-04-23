@@ -9,7 +9,7 @@ import { ResourceModule } from '../resources/resources.module';
 import { UsuarioModule } from 'src/usuario/usuario.module';
 
 // Tarefa 2 - Alterar Senha
-import { AlterarSenhaModule } from 'src/alterar-senha/alterar-senha.module';
+// import { AlterarSenhaModule } from 'src/alterar-senha/alterar-senha.module';
 
 //const oracledb = require('oracledb') as typeof import('oracledb');
 
@@ -55,7 +55,7 @@ import { AlterarSenhaModule } from 'src/alterar-senha/alterar-senha.module';
 
     UsuarioModule,
     // Tarefa 2 - Alterar Senha
-    AlterarSenhaModule,
+    // AlterarSenhaModule,
   ],
 })
 export class AppModule {}
