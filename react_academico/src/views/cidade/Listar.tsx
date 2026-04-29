@@ -15,8 +15,8 @@ import type { SearchParams } from '../../services/cidade/api/api.cidade';
 import { apiGetCidades } from '../../services/cidade/api/api.cidade';
 import { CIDADE } from '../../services/cidade/constants/cidade.constants';
 import type { Cidade } from '../../services/cidade/type/Cidade';
-import { ROTA } from '../../services/router/url';
 import { useResources } from '../../services/providers/ResourcesProviders';
+import { ROTA } from '../../services/router/url';
 
 export default function ListarCidade() {
   // useState = hook - gancho - função
@@ -38,21 +38,32 @@ export default function ListarCidade() {
   const [searchTerm, setSearchTerm] = useState<string>('');
 
 
+
+
   const { getEndpoint } = useResources();
-  // hook Memo() => mantém na memória
-  // o valor || função carregada, evitando
-  // repetição.
-  let url = React.useMemo(()=>{
-    const urlCidade = getEndpoint('cidade');
-    return urlCidade;
-  }, []);
+
+/*
+// hook Memo() => mantém na memória o valor carregado e evita repetição.
+// Dependemos de getEndpoint para que a URL seja recalculada quando os recursos mudarem.
+  const url = React.useMemo(() => getEndpoint('cidade'), [getEndpoint]);
+
+// o valor || função carregada na memória, evitando a repetição, e só é recalculada quando o recurso 'cidade' for atualizado.
+
+let url = React.useMemo(() => {
+  const urlCidade = getEndpoint('cidade');
+  return urlCidade;
+}, []);
+*/
+
+  // hook Memo() => mantém na memória o valor carregado e evita repetição.
+  // Dependemos de getEndpoint para que a URL seja recalculada quando os recursos mudarem.
+  const url = React.useMemo(() => getEndpoint('cidade'), [getEndpoint]);
 
   if (!url) {
-    console.error('recurso inexistente');
-    return;
+    // Não bloqueamos a renderização da lista enquanto o recurso ainda não foi carregado.
+    // O endpoint de listagem de cidades é obtido por ROTA fixa em apiGetCidades().
+    console.warn('recurso inexistente: getEndpoint ainda não retornou URL');
   }
-
-
 
   const buscarTodasCidades = useCallback(
     async (params: SearchParams): Promise<Cidade[] | null> => {
@@ -77,7 +88,12 @@ export default function ListarCidade() {
         pageSize: pageSize,
         props: props,
         order: order,
-        searchTerm: searchTerm === '' ? null : searchTerm,
+        searchTerm: searchTerm.trim() === '' ? undefined : searchTerm.trim(),
+        // o motivo da mudança é que a API espera um parâmetro de busca opcional, 
+        // e enviar uma string vazia pode causar resultados inesperados ou 
+        // sobrecarregar o servidor com consultas desnecessárias. Ao enviar undefined, 
+        // indicamos claramente que não há termo de busca, permitindo que a API retorne 
+        // todos os registros ou aplique a lógica de busca corretamente.
       };
       const data = await buscarTodasCidades(params);
       console.log(data);

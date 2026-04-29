@@ -31,8 +31,15 @@ export const useResources = () => {
   return context;
 };
 
+// Removido daqui o:
 
-const ResourcesContext = React.createContext(null);
+// const ResourcesContext = React.createContext(null);
+
+// Foi retirado pq o valor do contexto é carregado de forma assíncrona, e 
+// o valor inicial null pode causar erros de renderização. 
+// Agora, o valor inicial é undefined, e o hook useResources verifica se 
+// o contexto está disponível antes de usá-lo, lançando um erro claro se não estiver.
+
 
 export function ResourcesProviders ({
   children,
@@ -48,26 +55,33 @@ export function ResourcesProviders ({
     async function getResources(){
         setLoading(true);
 
-      const academico_resource = sessionStorage.getItem('academico_resource');
+      // A chave de sessionStorage deve ser a mesma para leitura e escrita.
+      // Se o cache estiver corrompido ou vazio, removemos para refazer o fetch.
+      const academicoResources = sessionStorage.getItem('academico_resources');
 
-      if (academico_resource){
-        setResources(JSON.parse(academico_resource))
-        setLoading(false)
-        return;
+      if (academicoResources){
+        try {
+          const parsed = JSON.parse(academicoResources);
+          if (Array.isArray(parsed)) {
+            setResources(parsed);
+            setLoading(false);
+            return;
+          }
+          sessionStorage.removeItem('academico_resources');
+        } catch {
+          sessionStorage.removeItem('academico_resources');
+        }
       }
-
-
 
       try {
         const response = await apiGetResources();
         //console.log(response);
-        if (response.data) {
+        if (Array.isArray(response.data)) {
           // assíncrono
           // Então forçamos o sessionStorage, para atualizar o estado
 
           setResources(response.data);
-          sessionStorage.setItem('academico_resources', JSON.stringify(response.data),
-          );
+          sessionStorage.setItem('academico_resources', JSON.stringify(response.data));
         }
       }
       catch(error: any){
