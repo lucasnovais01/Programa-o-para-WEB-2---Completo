@@ -13,7 +13,6 @@ PARA O REACTJS
 npm run dev
 
 para testar no postman
-
 {
 "idCidade": 1,
 "nomeCidade": "Araçatuba",
@@ -29,6 +28,43 @@ Entidade = é uma representação orientada a objeto da tabela
 Converter = Serve para converter para entidade, para ela poder trabalhar
 
 Quandos se coloca ? na variável em typescript, diz que ela não é obrigatória
+
+
+## testar depois no POSTMAN
+http://localhost:8000/rest/sistema/cidade/buscar/10
+
+
+###
+
+cd C:\Users\lucas\Programa-o-para-WEB-2---Completo\nest_academico
+
+
+### NEST
+
+npm install @nestjs/common @nestjs/core @nestjs/platform-express @nestjs/config @nestjs/typeorm @nestjs/swagger typeorm mysql2 class-validator class-transformer reflect-metadata rxjs axios joi && npm install -D @nestjs/cli typescript ts-node tsconfig-paths @types/node @types/express eslint prettier eslint-config-prettier eslint-plugin-prettier globals @nestjs/testing supertest @types/supertest ts-jest source-map-support
+
+###
+
+cd C:\Users\lucas\Programa-o-para-WEB-2---Completo\react_academico
+
+### REACT
+
+npm install react react-dom react-router-dom axios react-hook-form @hookform/resolvers zod date-fns react-icons @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/free-brands-svg-icons && npm install -D vite @vitejs/plugin-react typescript @types/react @types/react-dom tailwindcss postcss autoprefixer eslint globals @eslint/js typescript-eslint eslint-plugin-react-hooks eslint-plugin-react-refresh prettier
+
+
+
+
+
+
+
+## No controller, TODA resposta dele é uma JSON
+
+## Filter
+Na classe de tratamento de erro (HttpExceptionFilter por exemplo), filtro de erros do sistema,
+ele NÃO CONVERTE para um JSON,
+O que requer colocar algo como status(status) para converter para um JSON
+
+### INFORMAÇÕES ANTIGAS / DESATUALIZADAS:
 
 O que foi instalado recentemente com o CMD, após o ATUALIZADO commons, foi digitado:
 npm i @nestjs/typeorm --save
@@ -60,71 +96,3 @@ npm install -D typescript npm install -D ts-node npm install -D tsconfig-paths n
 ### TODOS DO REACT
 
 npm install -D typescript @types/react @types/react-dom @typescript-eslint/eslint-plugin @typescript-eslint/parser eslint @eslint/js eslint-plugin-react eslint-plugin-react-hooks eslint-plugin-react-refresh prettier eslint-config-prettier eslint-plugin-prettier globals
-
-
-Os dados dentro do app.module.ts são Sensíveis, e Por tanto é importante utilizarmos o comando:
-
-git update-index --assume-unchanged src/app/app.module.ts
-
-e pra reverter:
-
-git update-index --no-assume-unchanged src/app/app.module.ts
-
-Observação sobre este comando: Ele é SOMENTE LOCAL, tomar cuidado com isto e não fica visível que nem o .gitignore
-
-12-09-2025 - atualizado tamanho total, agora a unica pasta grande é o pack de objects dentro da pasta git
-
-O all-files.txt foi criado usando o:
-
-git rev-list --objects --all | sort -k 2 > all-files.txt
-
-git verify-pack -v .git/objects/pack/\*.idx | sort -k 3 -n | tail -10
-
-testar depois no POSTMAN
-http://localhost:8000/rest/sistema/cidade/buscar/10
-
-26-09-2025 - decorar abaixo:
-
-Ler e decorar do MoodleE
-
-O que vai cair na prova: O que é um controller, o que é um service
-
-decorar o que é o PUT, GET, post, do HTML
-
-Todo dado numa função/tipagem, todo, sempre, primeiro os dados reais, e depois, os dados que podem ser opcionais
-Na função, nunca vai conseguir inverter a ordem
-
-No controller, TODA resposta dele é uma JSON
-
-Na classe de tratamento de erro (HttpExceptionFilter por exemplo), filtro de erros do sistema,
-ele NÃO CONVERTE para um JSON,
-O que requer colocar algo como status(status) para converter para um JSON
-
-para o react
-
-npm instal react-icons --save
-
-aaaaaaaaaaEscola11122222
-
-
-
-
-
-
-
-###
-
-cd C:\Users\lucas\Programa-o-para-WEB-2---Completo\nest_academico
-
-
-### NEST
-
-npm install @nestjs/common @nestjs/core @nestjs/platform-express @nestjs/config @nestjs/typeorm @nestjs/swagger typeorm mysql2 class-validator class-transformer reflect-metadata rxjs axios joi && npm install -D @nestjs/cli typescript ts-node tsconfig-paths @types/node @types/express eslint prettier eslint-config-prettier eslint-plugin-prettier globals @nestjs/testing supertest @types/supertest ts-jest source-map-support
-
-###
-
-cd C:\Users\lucas\Programa-o-para-WEB-2---Completo\react_academico
-
-### REACT
-
-npm install react react-dom react-router-dom axios react-hook-form @hookform/resolvers zod date-fns react-icons @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/free-brands-svg-icons && npm install -D vite @vitejs/plugin-react typescript @types/react @types/react-dom tailwindcss postcss autoprefixer eslint globals @eslint/js typescript-eslint eslint-plugin-react-hooks eslint-plugin-react-refresh prettier

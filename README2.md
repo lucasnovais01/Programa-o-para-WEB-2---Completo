@@ -27,9 +27,7 @@ No nosso caso, iremos colocar o nome academico ou se for ir por scrip (create da
 Marca o academico como padrão e não pode esquecer de editar a conexão e colocar o nome academico no banco.
 
 
-
-
-### ACESSO AO SSQL
+### ACESSO AO SQL
 digita cmd e depois
 
 cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"
