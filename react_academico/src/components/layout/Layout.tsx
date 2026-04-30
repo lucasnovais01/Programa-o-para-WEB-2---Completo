@@ -18,6 +18,12 @@ export default function Layout() {
             <span className="username">
               <b>Lucas Novais de Oliveira - BI303268X</b>
             </span>
+
+            {/* LINK da tela do LOGIN */}
+            <a href="/sistema/login" className="btn btn-logout">
+              Login
+            </a>
+
             <a href="#" className="btn btn-logout">
               Logout
             </a>

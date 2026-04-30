@@ -13,7 +13,13 @@ import CriarUsuario from "../../views/usuario/Criar";
 import ExcluirUsuario from "../../views/usuario/Excluir";
 import ListarUsuario from "../../views/usuario/Listar";
 //
+// Não implementado ainda
+import ProtectedRoute from "../../components/auth/ProtectedRoute";
+
+// ERRADO: import Auth from "../../views/auth/Login";
+//
 import { ROTA } from "./url";
+import Login from "../../views/auth/Login";
 
 //localhost:3000/sistema/cidade/listar
 
@@ -72,6 +78,26 @@ export const routes: RouteObject[] = [
         path: `${ROTA.USUARIO.POR_ID}/:idUsuario`,
         element: <ConsultarUsuario />,
       },
+
+      // Login só tem a pagina de login, Coloquei CRIAR, mas não é o ideal
+      {
+        path: ROTA.AUTH.LOGIN,
+        element: <Login />,
+      },
     ],
   },
 ];
+
+/*
+// Usando o componente: react_academico\src\components\auth\ProtectedRoute.tsx
+
+<Route
+  path={ROTA.USUARIO.LISTAR}
+  element={
+    <ProtectedRoute>
+      <ListarUsuario />
+    </ProtectedRoute>
+  }
+/>
+
+*/

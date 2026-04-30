@@ -813,6 +813,8 @@ export const useAuth = () => {
 ```
 
 ---
+### ainda não implementado
+
 
 ### 4. Protegendo Rotas no Frontend
 
