@@ -1,5 +1,5 @@
 import { USUARIO } from '@/usuario/constants/usuario.constants';
-import { LOGIN } from '@/login/constants/login.constants';
+import { LOGIN } from '@/auth/constants/auth.constants';
 
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';

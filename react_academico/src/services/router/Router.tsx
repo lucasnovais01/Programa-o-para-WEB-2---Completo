@@ -79,7 +79,7 @@ export const routes: RouteObject[] = [
         element: <ConsultarUsuario />,
       },
 
-      // Login só tem a pagina de login, Coloquei CRIAR, mas não é o ideal
+      // Login só tem a pagina de login
       {
         path: ROTA.AUTH.LOGIN,
         element: <Login />,
