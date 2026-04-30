@@ -2,13 +2,14 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as Joi from 'joi';
-import { CidadeModule } from 'src/cidade/cidade.module';
+
+import { CidadeModule } from '../cidade/cidade.module';
 import { ResourceModule } from '../resources/resources.module';
 
 // Atividade Do dia 15/04/2026 Criar Registro de Usuário
-import { UsuarioModule } from 'src/usuario/usuario.module';
-
-import { AuthModule } from 'src/auth/auth.module';
+import { UsuarioModule } from '../usuario/usuario.module';
+//
+import { AuthModule } from '../auth/auth.module';
 
 // Tarefa 2 - Alterar Senha
 // import { AlterarSenhaModule } from 'src/alterar-senha/alterar-senha.module';

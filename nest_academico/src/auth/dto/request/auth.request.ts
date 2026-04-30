@@ -1,7 +1,6 @@
-import { AUTH } from '@/auth/constants/auth.constants';
-
 import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
+import { AUTH } from '../../constants/auth.constants';
 
 export class AuthRequest {
   @IsEmail({}, { message: AUTH.INPUT_ERROR.EMAIL_USUARIO.VALID })

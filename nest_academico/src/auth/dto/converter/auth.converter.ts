@@ -1,10 +1,9 @@
 import { plainToInstance } from 'class-transformer';
 // import { hash } from 'bcrypt'; // npm install bcrypt + npm install -D @types/bcrypt
 
-import { Auth } from 'src/auth/entity/auth.entity';
-
 import { AuthRequest } from '../request/auth.request';
 import { AuthResponse } from '../response/auth.response';
+import { Auth } from '../../entity/auth.entity';
 
 export class ConverterAuth {
   static toAuth(authRequest: AuthRequest) {
@@ -16,7 +15,7 @@ export class ConverterAuth {
     auth.emailUsuario = authRequest.emailUsuario;
     auth.senhaUsuario = authRequest.senhaUsuario;
 
-    return auth;
+    return Auth;
   }
 
   static toAuthResponse(auth: Auth): AuthResponse {

@@ -1,7 +1,8 @@
 import { plainToInstance } from 'class-transformer';
-import { Cidade } from 'src/cidade/entity/cidade.entity';
+
 import { CidadeRequest } from '../request/cidade.request';
 import { CidadeResponse } from '../response/cidade.response';
+import { Cidade } from '../../entity/cidade.entity';
 
 export class ConverterCidade {
   static toCidade(cidadeRequest: CidadeRequest) {
@@ -13,7 +14,7 @@ export class ConverterCidade {
     cidade.nomeCidade = cidadeRequest.nomeCidade;
     cidade.codCidade = cidadeRequest.codCidade;
 
-    return cidade;
+    return Cidade;
   }
 
   static toCidadeResponse(cidade: Cidade): CidadeResponse {
