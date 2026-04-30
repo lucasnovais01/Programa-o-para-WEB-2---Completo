@@ -9,43 +9,39 @@ export interface SearchParams {
   order?: string;
   search?: string;
 }
-// ESTAVA DANDO ERRO DE TIPO, POR ISSO ADICIONEI O RETORNO DA FUNÇÃO COMO PROMISE<PaginatedResponse<Usuario>>
-/*
-export const apiGetUsuarios = async (params: SearchParams) => {
-  const response = await http.get(ROTA.USUARIO.LISTAR, {
-    params,
-  });
-  return response.data;
-};
-*/
+
+// ✅ GET listar — url vem do getEndpoint('usuario') sem id
 export const apiGetUsuarios = async (
+  url: string,
   params: SearchParams,
 ): Promise<PaginatedResponse<Usuario>> => {
-  const response = await http.get<PaginatedResponse<Usuario>>(
-    ROTA.USUARIO.LISTAR,
-    {
-      params,
-    },
-  );
+  const response = await http.get<PaginatedResponse<Usuario>>(url, { params });
   return response.data;
 };
 
-export const apiGetUsuario = async (idUsuario: string) => {
-  const response = await http.get(`${ROTA.USUARIO.POR_ID}/${idUsuario}`);
+// ✅ GET buscar um — url do frontend ainda funciona pois vai para o backend via baseURL
+// ROTA.USUARIO.POR_ID = /sistema/usuario/buscar — ERRADO igual ao listar
+// Corrigido: url vem do getEndpoint('usuario', id)
+export const apiGetUsuario = async (url: string, idUsuario: string) => {
+  const response = await http.get(`${url}/${idUsuario}`);
   return response;
 };
 
-export const apiPostUsuario = async (usuario: Usuario) => {
-  const response = await http.post(ROTA.USUARIO.CRIAR, usuario);
+// ✅ POST criar — url vem do getEndpoint('usuario') sem id
+// Motivo: ROTA.USUARIO.CRIAR = /sistema/usuario/criar (URL do frontend, não do backend)
+export const apiPostUsuario = async (url: string, usuario: Usuario) => {
+  const response = await http.post(url, usuario);
+  return response; // ✅ retorna response para o hook saber se deu certo
 };
 
-export const apiPutUsuario = async (idUsuario: string, usuario: Usuario) => {
-  const response = await http.put(
-    `${ROTA.USUARIO.ATUALIZAR}/${idUsuario}`,
-    usuario,
-  );
+// ✅ PUT alterar — url vem do getEndpoint('usuario', id)
+export const apiPutUsuario = async (url: string, idUsuario: string, usuario: Usuario) => {
+  const response = await http.put(`${url}/${idUsuario}`, usuario);
+  return response;
 };
 
-export const apiDeleteUsuario = async (idUsuario: string) => {
-  const response = await http.delete(`${ROTA.USUARIO.EXCLUIR}/${idUsuario}`);
+// ✅ DELETE excluir — url vem do getEndpoint('usuario', id)
+export const apiDeleteUsuario = async (url: string, idUsuario: string) => {
+  const response = await http.delete(`${url}/${idUsuario}`);
+  return response;
 };
