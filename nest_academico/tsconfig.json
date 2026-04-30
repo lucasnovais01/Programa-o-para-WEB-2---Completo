@@ -15,16 +15,13 @@
     E:\.Lucas Novais\Programa-o-para-WEB-2---Completo\react_academico\tsconfig.app.json
 
     */
+    "ignoreDeprecations": "6.0",
 
-    "ignoreDeprecations": "5.0",
-  
     "baseUrl": "./",
     
     "paths": {
       "@/*": ["src/*"]
     },
-    /*
-    */
 
     "incremental": true,
     "skipLibCheck": true,
