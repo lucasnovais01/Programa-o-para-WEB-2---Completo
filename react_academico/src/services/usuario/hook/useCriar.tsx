@@ -152,28 +152,42 @@ export const useCriar = () => {
   const onSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    console.log('1. Submit disparado');
+
     if (!validarFormulario()) {
-      console.log("Erro na digitação dos dados");
+      console.log('2. Formulário inválido — erros:', errors);
       return;
     }
 
-    // ✅ pega a URL do backend — sem id = endpoint de criar (POST)
+    console.log('3. Formulário válido — model:', model);
+
     const url = getEndpoint('usuario');
+    console.log('4. URL do endpoint:', url);
+
     if (!url) {
-      console.warn('URL do backend não disponível');
+      console.log('5. URL não encontrada');
       return;
     }
 
+  try {
+    const { confirmarSenhaUsuario, ...dadosParaEnviar } = model;
+    console.log('6. Dados enviados ao backend:', dadosParaEnviar);
+    await apiPostUsuario(url, dadosParaEnviar as Usuario);
+    console.log('7. Cadastro realizado com sucesso');
+    navigate(ROTA.USUARIO.LISTAR);
+  } catch (error: any) {
+    console.log('8. Erro ao cadastrar:', error.response?.data ?? error.message);
+  }
+};
     try {
-      // ✅ await corrigido — antes navegava antes da resposta chegar
-      // ✅ confirmarSenhaUsuario não é enviado ao backend
       const { confirmarSenhaUsuario, ...dadosParaEnviar } = model;
+      console.log('6. Dados enviados ao backend:', dadosParaEnviar);
       await apiPostUsuario(url, dadosParaEnviar as Usuario);
+      console.log('7. Cadastro realizado com sucesso');
       navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {
-      console.log(error);
+      console.log('8. Erro ao cadastrar:', error.response?.data ?? error.message);
     }
-  };
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

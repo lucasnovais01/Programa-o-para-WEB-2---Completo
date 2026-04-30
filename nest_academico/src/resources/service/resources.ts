@@ -25,7 +25,7 @@ export const Resources: Resource[] = ENTIDADES.flatMap((entity) =>
 
 export function buildResource(entityName: string): Resource[] {
   const entityPath = entityName.toLowerCase();
-  const base = `/${ROTA_SISTEMA}/${entityPath}`;
+  const base = `/${ROTA_SISTEMA}/${entityPath}`; // ✅ usa o ROTA_SISTEMA = 'rest/sistema'
   return [
     {
       link: 'listar',
