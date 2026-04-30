@@ -1,38 +1,54 @@
-/*
-
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
-import { ConverterUsuario } from '../dto/converter/usuario.converter';
-import { UsuarioResponse } from '../dto/response/usuario.response';
-import { Usuario } from '../entity/usuario.entity';
+import { Auth } from '../entity/auth.entity';
+import { AuthRequest } from '../dto/request/auth.request';
+import { AuthResponse } from '../dto/response/auth.response';
+import { ConverterAuth } from '../dto/converter/auth.converter';
 
 @Injectable()
-export class UsuarioServiceFindOne {
+export class AuthService {
   constructor(
-    @InjectRepository(Usuario)
-    private usuarioRepository: Repository<Usuario>,
+    @InjectRepository(Auth)
+    private authRepository: Repository<Auth>,
   ) {}
 
-  async findOne(idUsuario: number): Promise<UsuarioResponse> {
-    const usuario = await this.findById(idUsuario);
+  async login(authRequest: AuthRequest): Promise<AuthResponse> {
+    // 1Busca o usuário pelo email
+    const auth = await this.findByEmail(authRequest.emailUsuario);
 
-    if (!usuario) {
-      throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);
+    if (!auth) {
+      // Mensagem genérica, não revela se o email existe ou não
+      throw new HttpException(
+        'E-mail ou senha inválidos',
+        HttpStatus.UNAUTHORIZED,
+      );
     }
 
-    return ConverterUsuario.toUsuarioResponse(usuario);
+    // 2Compara a senha digitada com o hash salvo no banco
+    const senhaCorreta = await bcrypt.compare(
+      authRequest.senhaUsuario, // senha que o usuário digitou (texto puro)
+      auth.senhaUsuario, // hash que está no banco
+    );
+
+    if (!senhaCorreta) {
+      throw new HttpException(
+        'E-mail ou senha inválidos',
+        HttpStatus.UNAUTHORIZED,
+      );
+    }
+
+    // 3️⃣ Converte para response (sem expor a senha)
+    return ConverterAuth.toAuthResponse(auth);
   }
 
-  async findById(idUsuario: number): Promise<Usuario | null> {
-    const usuario = await this.usuarioRepository
-      .createQueryBuilder('usuario')
-      .where('usuario.ID_USUARIO = :idUsuario', { idUsuario: idUsuario })
+  // Busca por email, não por ID
+  private async findByEmail(emailUsuario: string): Promise<Auth | null> {
+    return this.authRepository
+      .createQueryBuilder('auth')
+      .where('auth.EMAIL = :emailUsuario', { emailUsuario })
       .getOne();
-
-    return usuario;
   }
 }
-
-*/

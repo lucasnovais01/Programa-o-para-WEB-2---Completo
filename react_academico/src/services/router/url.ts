@@ -3,8 +3,6 @@ import { USUARIO } from "../usuario/constants/usuario.constants";
 
 import { AUTH } from "../auth/constants/auth.constants";
 
-import Login from "../../views/auth/Login";
-
 //
 const ROTA_SISTEMA = "sistema";
 export const DASHBOARD = `/${ROTA_SISTEMA}/dashboard`;
@@ -28,12 +26,20 @@ function gerarRotaSistema(entity: string) {
 
     // Tentando de tudo para funcionar
 
-    LOGIN: `/${base}/${Login}}`
+    LOGIN: `/${base}/${LOGIN}}` // TEM QUE ESTAR COM LETRA MAIUSCULA
+  };
+}
+// AUTH tem estrutura própria, só tem LOGIN, POR ISTO ESTAVA DANDO ERRO, POIS TENTAVA GERAR ROTAS QUE NÃO EXISTEM PARA AUTH
+function gerarRotaAuth(entity: string) {
+  const base = `${ROTA_SISTEMA}/${entity}`;
+  return {
+    LOGIN: `/${base}/login`,
   };
 }
 
 export const ROTA = {
-  CIDADE: gerarRotaSistema(CIDADE.ALIAS),
+  CIDADE:  gerarRotaSistema(CIDADE.ALIAS),
   USUARIO: gerarRotaSistema(USUARIO.ALIAS),
-  AUTH: gerarRotaSistema(AUTH.ALIAS),
+
+  AUTH:    gerarRotaAuth(AUTH.ALIAS),  // AUTH tem estrutura própria — só tem LOGIN
 };

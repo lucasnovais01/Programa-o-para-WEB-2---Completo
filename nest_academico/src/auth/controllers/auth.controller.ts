@@ -1,50 +1,41 @@
-
-
-
-/*
-
 import {
+  Body,
   Controller,
-  Get,
   HttpCode,
   HttpStatus,
-  Param,
-  ParseIntPipe,
+  Post,
   Req,
 } from '@nestjs/common';
 import type { Request } from 'express';
-import { ROTA } from '../../commons/constants/url.sistema';
-import { ApiGetDoc } from '../../commons/decorators/swagger.decorators';
+
+import { AUTH } from '../constants/auth.constants';
+
+import { AuthRequest } from '../dto/request/auth.request';
+import { AuthResponse } from '../dto/response/auth.response';
+import { AuthService } from '../service/auth.service';
+
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
-import { gerarLinks } from '../../commons/utils/hateoas.utils';
 
-import { USUARIO } from '../constants/usuario.constants';
+@Controller('auth') // rota base: /auth
+export class AuthController {
+  constructor(private readonly authService: AuthService) {}
 
-import { UsuarioServiceFindOne } from '../service/usuario.service.findone';
-import { UsuarioResponse } from '../dto/response/usuario.response';
-@Controller(ROTA.USUARIO.BASE)
-export class UsuarioControllerFindOne {
-  constructor(private readonly usuarioServiceFindOne: UsuarioServiceFindOne) {}
-
-  @HttpCode(HttpStatus.OK)
-  @Get(ROTA.USUARIO.BY_ID)
-  @ApiGetDoc(USUARIO.OPERACAO.POR_ID, UsuarioResponse)
-  async findOne(
+  @HttpCode(HttpStatus.OK) // Login retorna 200, não 201
+  @Post('login') // POST porque envia credenciais no body
+  async login(
     @Req() req: Request,
-    @Param('id', ParseIntPipe) id: number,
-  ): Promise<Result<UsuarioResponse>> {
-    const _link = gerarLinks(req, USUARIO.ENTITY, id);
-    const response = await this.usuarioServiceFindOne.findOne(id);
+    @Body() authRequest: AuthRequest, // @Body, não @Param
+  ): Promise<Result<AuthResponse>> {
+    const response = await this.authService.login(authRequest);
+
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
-      'Usuário localizado com sucesso!',
+      'Login realizado com sucesso!',
       response,
       req.path,
       null,
-      _link,
+      null, // sem HATEOAS no login
     );
   }
 }
-
-*/

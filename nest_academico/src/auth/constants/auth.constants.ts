@@ -2,7 +2,7 @@ import { criarMensagemOperacao } from '../../commons/constants/constants.entity'
 
 const ENTITY_NAME = 'LOGIN';
 
-export const USUARIO = {
+export const AUTH = {
   ENTITY: ENTITY_NAME,
 
   TABLE: 'LOGIN',
@@ -22,6 +22,8 @@ export const USUARIO = {
   SWAGGER: {
     EMAIL_USUARIO: `Email de ${ENTITY_NAME} correto`,
     SENHA_USUARIO: `Senha de ${ENTITY_NAME} correta`,
+
+    ACCESS_TOKEN: `Token JWT gerado após login`, // importante para o response do login
   },
 
   INPUT_ERROR: {
@@ -41,4 +43,4 @@ export const USUARIO = {
   OPERACAO: criarMensagemOperacao(ENTITY_NAME),
 };
 
-export const fieldsLogin = Object.values(LOGIN.FIELDS);
+export const fieldsLogin = Object.values(AUTH.FIELDS);
