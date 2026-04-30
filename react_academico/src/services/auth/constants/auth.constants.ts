@@ -1,15 +1,17 @@
 import { criarMensagemOperacao } from "../../constant/mensagem.operacao";
+import type { Auth } from "../type/Auth";
 
-import type { Usuario } from "../type/Auth";
-
-const ENTITY_NAME = "Usuario";
+// ENTITY_NAME reflete o módulo de autenticação, não o usuário
+const ENTITY_NAME = "Login";
 
 export const AUTH = {
   ENTITY: ENTITY_NAME,
 
-  ALIAS: "usuario",
+  // ALIAS usado para gerar a URL: /sistema/auth/login
+  ALIAS: "auth",
 
-  DADOS_INCIAIS: {
+  // Valores iniciais do formulário de login
+  DADOS_INICIAIS: {
     emailUsuario: "",
     senhaUsuario: "",
   },
@@ -24,41 +26,38 @@ export const AUTH = {
     SENHA: "Senha",
   },
 
+  // Login só tem uma tela, então removi LISTA/CRIAR/ATUALIZAR/EXCLUIR
   TITULO: {
-    LISTA: `Lista de ${ENTITY_NAME}`,
-    CRIAR: `Nova ${ENTITY_NAME}`,
-    ATUALIZAR: `Atualizar ${ENTITY_NAME}`,
-    EXCLUIR: `Excluir ${ENTITY_NAME}`,
-    CONSULTAR: `Consultar ${ENTITY_NAME}`,
+    LOGIN: `${ENTITY_NAME}`,
   },
 
   INPUT_ERROR: {
     EMAIL: {
-      BLANK: `O e-mail de ${ENTITY_NAME} deve ser informado`,
-      VALID: `Informe um e-mail válido para ${ENTITY_NAME}`,
-      STRING: `O e-mail de ${ENTITY_NAME} deve ser um texto`,
+      BLANK: `O e-mail deve ser informado`,
+      VALID: `Informe um e-mail válido`,
+      STRING: `O e-mail deve ser um texto`,
     },
     SENHA: {
-      BLANK: `A senha de ${ENTITY_NAME} deve ser informada`,
-      VALID: `Informe uma senha válida para ${ENTITY_NAME}`,
-      MAX_LEN: `A senha de ${ENTITY_NAME} deve ter no máximo 20 caracteres`,
-      MIN_LEN: `A senha de ${ENTITY_NAME} deve ter no mínimo 6 caracteres `,
-      STRING: `A senha de ${ENTITY_NAME} deve ser um texto`,
+      BLANK: `A senha deve ser informada`,
+      VALID: `Informe uma senha válida`,
+      MAX_LEN: `A senha deve ter no máximo 20 caracteres`,
+      MIN_LEN: `A senha deve ter no mínimo 6 caracteres`,
+      STRING: `A senha deve ser um texto`,
     },
   },
+
   OPERACAO: criarMensagemOperacao(ENTITY_NAME),
 };
 
-export const fieldsUsuario: (keyof Usuario)[] = [
+// Renomeado para fieldsAuth, não é campos de Usuario, é campos do form de login
+export const fieldsAuth: (keyof Auth)[] = [
   AUTH.FIELDS.EMAIL,
   AUTH.FIELDS.SENHA,
 ];
 
-// Aqui onde usamos o Record para criar um mapeamento entre os campos da entidade Usuario e as mensagens de erro correspondentes.
-// O Record é um tipo utilitário do TypeScript que permite criar um objeto cujas chaves são de um tipo específico (neste caso, as chaves de Usuario) e os valores são de outro tipo específico (neste caso, as chaves do objeto USUARIO.INPUT_ERROR). Isso facilita a associação direta entre cada campo da entidade e a mensagem de erro correspondente, garantindo que as mensagens de erro sejam consistentes e facilmente acessíveis em todo o código.
-
+// Mapeamento dos campos do formulário para as mensagens de erro
 export const mapaCampoParaMensagem: Record<
-  keyof Usuario,
+  keyof Auth,
   keyof typeof AUTH.INPUT_ERROR
 > = {
   emailUsuario: "EMAIL",

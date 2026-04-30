@@ -1,12 +1,6 @@
-export interface Usuario {
-  emailUsuario?: string;
-  senhaUsuario?: string;
-}
+// Representa os campos do formulário de login
 
-export interface ErrosUsuario {
-  emailUsuario?: boolean;
-  senhaUsuario?: boolean;
-
-  emailUsuarioMensagem?: string[];
-  senhaUsuarioMensagem?: string[];
-}
+export type Auth = {
+  emailUsuario: string;
+  senhaUsuario: string;
+};

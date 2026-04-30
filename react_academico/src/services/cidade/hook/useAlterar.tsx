@@ -198,11 +198,11 @@ export const useAlterar = () => {
     return "form-control app-label mt-2";
   };
 
-  const onSubmitForm = async (e: React.FormEvent) => {
+  const onSubmitForm = async (e: React.FormEvent, url: string) => {
     // não deixa executar o processo normal
     e.preventDefault();
 
-    if (!idCidade || !model || !url) {
+    if (!idCidade || !model) {
       return;
     }
 
@@ -219,8 +219,6 @@ export const useAlterar = () => {
       console.log(error);
     }
   };
-
-
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

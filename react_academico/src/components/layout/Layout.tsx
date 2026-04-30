@@ -1,5 +1,6 @@
 import { Link, Outlet } from "react-router-dom";
 import "./layout.css";
+import { ROTA } from "../../services/router/url";
 
 export default function Layout() {
   return (
@@ -19,14 +20,16 @@ export default function Layout() {
               <b>Lucas Novais de Oliveira - BI303268X</b>
             </span>
 
-            {/* LINK da tela do LOGIN */}
-            <a href="/sistema/login" className="btn btn-logout">
+            {/* Link em vez de <a href> para evitar reload da página */}
+            <Link to={ROTA.AUTH.LOGIN} className="btn btn-logout">
               Login
-            </a>
+            </Link>
 
+            {/* Logout só aparece depois do AuthContext, deixa para depois */}
             <a href="#" className="btn btn-logout">
               Logout
             </a>
+
           </div>
         </header>
         <main>

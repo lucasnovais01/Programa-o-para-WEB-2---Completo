@@ -1,12 +1,10 @@
-// providers ou context, são uma forma do componente pai e filho conversarem
-
-import React from "react";
-import { apiGetResources } from "../resources/api/api.resources";
+import React from 'react';
+import { apiGetResources } from '../resources/api/api.resources';
 
 type VERBO_HTTP = 'PUT' | 'POST' | 'GET' | 'DELETE';
 
 export interface Resource {
-  name: string,
+  name: string;
   endpoint: string;
   method: VERBO_HTTP[];
 }
@@ -21,110 +19,75 @@ const ResourceContext = React.createContext<ResourcesContextType | undefined>(
   undefined,
 );
 
-
-export const useResources = () => {
-  const context = React.useContext(ResourceContext);
-
-  if (context === undefined) {
-    throw new Error('useResources deve ser usado dentro do ResourcesProviders')
-  }
-  return context;
-};
-
-// Removido daqui o:
-
-// const ResourcesContext = React.createContext(null);
-
-// Foi retirado pq o valor do contexto é carregado de forma assíncrona, e 
-// o valor inicial null pode causar erros de renderização. 
-// Agora, o valor inicial é undefined, e o hook useResources verifica se 
-// o contexto está disponível antes de usá-lo, lançando um erro claro se não estiver.
-
-
-export function ResourcesProviders ({
+export function ResourcesProviders({
   children,
 }: {
   children: React.ReactNode;
 }) {
-
   const [resources, setResources] = React.useState<Resource[]>([]);
-  const [loading, setLoading] = React.useState(false)
-
+  const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
+    async function getResources() {
+      setLoading(true);
+      const academico_resource = sessionStorage.getItem('academico_resource');
 
-    async function getResources(){
-        setLoading(true);
-
-      // A chave de sessionStorage deve ser a mesma para leitura e escrita.
-      // Se o cache estiver corrompido ou vazio, removemos para refazer o fetch.
-      const academicoResources = sessionStorage.getItem('academico_resources');
-
-      if (academicoResources){
-        try {
-          const parsed = JSON.parse(academicoResources);
-          if (Array.isArray(parsed)) {
-            setResources(parsed);
-            setLoading(false);
-            return;
-          }
-          sessionStorage.removeItem('academico_resources');
-        } catch {
-          sessionStorage.removeItem('academico_resources');
-        }
+      if (academico_resource) {
+        setResources(JSON.parse(academico_resource));
+        setLoading(false);
+        return;
       }
 
       try {
         const response = await apiGetResources();
-        //console.log(response);
-        if (Array.isArray(response.data)) {
+        //console.log(response.data);
+        if (response.data) {
           // assíncrono
-          // Então forçamos o sessionStorage, para atualizar o estado
-
           setResources(response.data);
-          sessionStorage.setItem('academico_resources', JSON.stringify(response.data));
+          sessionStorage.setItem(
+            'academico_resources',
+            JSON.stringify(response.data),
+          );
         }
-      }
-      catch(error: any){
+      } catch (error: any) {
         console.error(error);
-      }
-      finally {
+      } finally {
         setLoading(false);
       }
     }
     getResources();
   }, []);
 
-  // O Callback é um hook que faz um cópia da função na memória
-  // Ex: Foi e executou uma vez, e guarda na memória
-  // Monitora o recurso [resources], havendo modificação
+  // hook useCallback => faz uma cópia da função na memória.
+  // monitora o recurso [resources], havendo modificação
   // do conteúdo - faz novo processamento.
-  // E com isto vai diminuir o acesso a banco de dados, otimiza
-  const getEndpoint = React.useCallback ((
-    name: string, 
-    id?: string | number,
-  ): string | undefined => {
+  const getEndpoint = React.useCallback(
+    (name: string, id?: string | number): string | undefined => {
+      const resource = resources.find((r) => {
+        const hasId = r.endpoint.includes(':id');
+        return r.name === name && (id ? hasId : !hasId);
+      });
 
-    const resource = resources.find((r) => {
+      if (resource) {
+        return id ? resource.endpoint.replace('/:id', '') : resource.endpoint;
+      }
 
-      const hasId = r.endpoint.includes(':id');
-      return r.name === name && (id ? hasId : !hasId);
-    });
-
-
-    if(resource){
-      return id ? resource.endpoint.replace('/:id', '') : resource.endpoint
-    }
-
-    return undefined;
-  },
-  [resources],
+      return undefined;
+    },
+    [resources],
   );
 
-  return(
-    <ResourceContext.Provider value = {
-      {resources, getEndpoint, loading}}
-    > {children}
-
+  return (
+    <ResourceContext.Provider value={{ resources, getEndpoint, loading }}>
+      {children}
     </ResourceContext.Provider>
   );
 }
+
+export const useResources = () => {
+  const context = React.useContext(ResourceContext);
+  if (context === undefined) {
+    throw new Error('useResources deve ser usado dentro do ResourcesProviders');
+    //chamou a função fora do contexto.
+  }
+  return context;
+};

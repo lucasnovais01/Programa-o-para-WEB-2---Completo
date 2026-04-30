@@ -10,8 +10,8 @@ export interface SearchParams {
   search?: string;
 }
 
-export const apiGetCidades = async (params: SearchParams) => {
-  const response = await http.get(ROTA.CIDADE.LISTAR, {
+export const apiGetCidades = async (url: string, params: SearchParams) => {
+  const response = await http.get(url, {
     params,
   });
   return response;
@@ -26,23 +26,12 @@ export const apiPostCidade = async (cidade: Cidade) => {
   const response = await http.post(ROTA.CIDADE.CRIAR, cidade);
 };
 
-// MODIFICADO:
-
-export const apiPutCidade = async (idCidade: string, cidade: Cidade, url: any) => {
+export const apiPutCidade = async (idCidade: string, cidade: Cidade, url: string) => {
   const response = await http.put(
     `${url}/${idCidade}`,
     cidade,
   );
 };
-
-/*
-export const apiPutCidade = async (idCidade: string, cidade: Cidade) => {
-  const response = await http.put(
-    `${ROTA.CIDADE.ATUALIZAR}/${idCidade}`,
-    cidade,
-  );
-};
-*/
 
 export const apiDeleteCidade = async (idCidade: string) => {
   const response = await http.delete(`${ROTA.CIDADE.EXCLUIR}/${idCidade}`);
