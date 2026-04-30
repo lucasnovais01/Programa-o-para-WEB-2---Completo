@@ -41,7 +41,7 @@ cd C:\Users\lucas\Programa-o-para-WEB-2---Completo\nest_academico
 
 ### NEST
 
-npm install @nestjs/common @nestjs/core @nestjs/platform-express @nestjs/config @nestjs/typeorm @nestjs/swagger typeorm mysql2 class-validator class-transformer reflect-metadata rxjs axios joi && npm install -D @nestjs/cli typescript ts-node tsconfig-paths @types/node @types/express eslint prettier eslint-config-prettier eslint-plugin-prettier globals @nestjs/testing supertest @types/supertest ts-jest source-map-support
+npm install @nestjs/common @nestjs/core @nestjs/platform-express @nestjs/config @nestjs/typeorm @nestjs/swagger typeorm mysql2 class-validator class-transformer reflect-metadata rxjs axios joi bcrypt && npm install -D @nestjs/cli typescript ts-node tsconfig-paths @types/node @types/express eslint prettier eslint-config-prettier eslint-plugin-prettier globals @nestjs/testing supertest @types/supertest ts-jest source-map-support @types/bcrypt
 
 ###
 
@@ -50,6 +50,14 @@ cd C:\Users\lucas\Programa-o-para-WEB-2---Completo\react_academico
 ### REACT
 
 npm install react react-dom react-router-dom axios react-hook-form @hookform/resolvers zod date-fns react-icons @fortawesome/react-fontawesome @fortawesome/free-solid-svg-icons @fortawesome/free-regular-svg-icons @fortawesome/free-brands-svg-icons && npm install -D vite @vitejs/plugin-react typescript @types/react @types/react-dom tailwindcss postcss autoprefixer eslint globals @eslint/js typescript-eslint eslint-plugin-react-hooks eslint-plugin-react-refresh prettier
+
+
+
+
+
+
+
+
 
 
 

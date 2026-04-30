@@ -20,7 +20,7 @@ export class AuthResponse {
   // campo senhaUsuario daqui. Removido para garantir a segurança dos dados do usuário.
 
   @ApiProperty({
-    description: AUTH.SWAGGER.TOKEN_JWT,
+    description: AUTH.SWAGGER.ACCESS_TOKEN, // nome que está na atividade TOKEN_JWT
     example:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6Ikpvw6NvIFNpbHZhIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
   })

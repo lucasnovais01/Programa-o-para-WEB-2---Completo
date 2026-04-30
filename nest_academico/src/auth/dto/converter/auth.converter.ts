@@ -1,31 +1,22 @@
 import { plainToInstance } from 'class-transformer';
-// import { hash } from 'bcrypt'; // npm install bcrypt + npm install -D @types/bcrypt
 
-import { AuthRequest } from '../request/auth.request';
+// MUDANÇA: importamos Usuario no lugar de Auth
+// Motivo: o converter recebe um Usuario vindo do banco e transforma
+// em AuthResponse. O método toAuth() foi removido pois login não
+// cria registro — só lê. Não precisamos converter Request → Entidade.
+
 import { AuthResponse } from '../response/auth.response';
-import { Auth } from '../../entity/auth.entity';
+import { Usuario } from '@/usuario/entity/usuario.entity';
 
 export class ConverterAuth {
-  static toAuth(authRequest: AuthRequest) {
-    const auth = new Auth();
+  // MUDANÇA 2: toAuth() removido
+  // Motivo: no fluxo de login não criamos nem salvamos nada no banco.
+  // O converter de auth só precisa transformar o Usuario encontrado
+  // em um AuthResponse para devolver ao front-end.
 
-    // O login devo usar somente o email e senha
-
-    // Login devo usar os dados do usuario?
-    auth.emailUsuario = authRequest.emailUsuario;
-    auth.senhaUsuario = authRequest.senhaUsuario;
-
-    return Auth;
-  }
-
-  static toAuthResponse(auth: Auth): AuthResponse {
-    return plainToInstance(AuthResponse, auth, {
-      excludeExtraneousValues: true,
-    });
-  }
-
-  static toListAuthResponse(auths: Auth[] = []): AuthResponse[] {
-    return plainToInstance(AuthResponse, auths, {
+  // MUDANÇA 3: parâmetro é Usuario, não Auth
+  static toAuthResponse(usuario: Usuario): AuthResponse {
+    return plainToInstance(AuthResponse, usuario, {
       excludeExtraneousValues: true,
     });
   }

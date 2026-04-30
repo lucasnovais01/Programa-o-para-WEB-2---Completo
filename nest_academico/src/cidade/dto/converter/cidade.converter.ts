@@ -5,8 +5,8 @@ import { CidadeResponse } from '../response/cidade.response';
 import { Cidade } from '../../entity/cidade.entity';
 
 export class ConverterCidade {
-  static toCidade(cidadeRequest: CidadeRequest) {
-    const cidade = new Cidade();
+  static toCidade(cidadeRequest: CidadeRequest): Cidade {
+    const cidade = new Cidade(); // cria instância
 
     if (cidadeRequest.idCidade != null) {
       cidade.idCidade = cidadeRequest.idCidade;
@@ -14,7 +14,7 @@ export class ConverterCidade {
     cidade.nomeCidade = cidadeRequest.nomeCidade;
     cidade.codCidade = cidadeRequest.codCidade;
 
-    return Cidade;
+    return cidade; // letra minúscula para retorna o objeto
   }
 
   static toCidadeResponse(cidade: Cidade): CidadeResponse {
