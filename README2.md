@@ -31,3 +31,12 @@ Marca o academico como padrão e não pode esquecer de editar a conexão e coloc
 digita cmd e depois
 
 cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"
+
+
+
+
+## AULA 06-05-2026 - Aula sobre o JWT, e geradorbrasil, e do passport
+
+npm install @nest/passport passport
+
+a
