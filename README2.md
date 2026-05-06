@@ -37,6 +37,19 @@ cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"
 
 ## AULA 06-05-2026 - Aula sobre o JWT, e geradorbrasil, e do passport
 
-npm install @nest/passport passport
+npm install @nestjs/passport passport
 
-a
+npm install @nest passport-jwt
+
+npm install @nest passport-local
+
+#
+@nest/passport
+passport
+@nest/jwt
+passport-jwt
+passport-local
+#
+npm install -D @types/passport-jwt
+
+npm install -D @types/passport-local
