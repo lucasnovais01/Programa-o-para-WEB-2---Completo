@@ -22,7 +22,7 @@ export default function ListarCidade() {
   // useState = hook - gancho - função
   // reagir as alterações na variável
   // renderiza -
-  const [models, setModels] = useState<Cidade[]>([]);
+  const [models, setModels] = useState([]);
   // estados da paginação;
   // page = currentPage
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -37,38 +37,24 @@ export default function ListarCidade() {
   const [order, setOrder] = useState<string>('ASC');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-
-
-
   const { getEndpoint } = useResources();
-
-/*
-// hook Memo() => mantém na memória o valor carregado e evita repetição.
-// Dependemos de getEndpoint para que a URL seja recalculada quando os recursos mudarem.
-  const url = React.useMemo(() => getEndpoint('cidade'), [getEndpoint]);
-
-// o valor || função carregada na memória, evitando a repetição, e só é recalculada quando o recurso 'cidade' for atualizado.
-
-let url = React.useMemo(() => {
-  const urlCidade = getEndpoint('cidade');
-  return urlCidade;
-}, []);
-*/
-
-  // hook Memo() => mantém na memória o valor carregado e evita repetição.
-  // Dependemos de getEndpoint para que a URL seja recalculada quando os recursos mudarem.
-  const url = React.useMemo(() => getEndpoint('cidade'), [getEndpoint]);
+  // hook Memo() => mantém na memória 
+  // o valor || função carregada, evitando 
+  // repetição.  
+  let url = React.useMemo(() => {
+    const urlCidade = getEndpoint('cidade');
+    return urlCidade;
+  }, []);
 
   if (!url) {
-    // Não bloqueamos a renderização da lista enquanto o recurso ainda não foi carregado.
-    // O endpoint de listagem de cidades é obtido por ROTA fixa em apiGetCidades().
-    console.warn('recurso inexistente: getEndpoint ainda não retornou URL');
+    console.error('recurso inexistente');
+    return;
   }
 
   const buscarTodasCidades = useCallback(
     async (params: SearchParams): Promise<Cidade[] | null> => {
       try {
-        const response = await apiGetCidades(params);
+        const response = await apiGetCidades(url, params);
         return response.data;
       } catch (error: any) {
         console.log(error);
@@ -88,12 +74,7 @@ let url = React.useMemo(() => {
         pageSize: pageSize,
         props: props,
         order: order,
-        searchTerm: searchTerm.trim() === '' ? undefined : searchTerm.trim(),
-        // o motivo da mudança é que a API espera um parâmetro de busca opcional, 
-        // e enviar uma string vazia pode causar resultados inesperados ou 
-        // sobrecarregar o servidor com consultas desnecessárias. Ao enviar undefined, 
-        // indicamos claramente que não há termo de busca, permitindo que a API retorne 
-        // todos os registros ou aplique a lógica de busca corretamente.
+        searchTerm: searchTerm === '' ? null : searchTerm,
       };
       const data = await buscarTodasCidades(params);
       console.log(data);
