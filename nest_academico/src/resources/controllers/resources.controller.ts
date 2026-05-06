@@ -1,11 +1,11 @@
 import { Controller, Get } from '@nestjs/common';
 import { ResourcesService } from '../service/resources.service';
 
-@Controller('resources')
+@Controller('/rest')
 export class ResourcesController {
   constructor(private readonly resourceService: ResourcesService) {}
 
-  @Get()
+  @Get('/resources')
   findAll() {
     return this.resourceService.findAll();
   }

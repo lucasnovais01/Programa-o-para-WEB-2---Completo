@@ -3,4 +3,3 @@ export const PROFESSOR = 'professor';
 export const CIDADE = 'cidade';
 export const ALUNO = 'aluno';
 export const AUTH = 'auth';
-// export const ALTERAR_SENHA = 'alterar-senha';

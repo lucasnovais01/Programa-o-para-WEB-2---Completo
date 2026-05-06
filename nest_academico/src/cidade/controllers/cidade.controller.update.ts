@@ -8,7 +8,7 @@ import {
   Put,
   Req,
 } from '@nestjs/common';
-import type { Request } from 'express';
+import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiPutDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';

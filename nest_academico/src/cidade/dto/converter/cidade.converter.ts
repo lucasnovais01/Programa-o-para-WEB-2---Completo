@@ -1,12 +1,11 @@
 import { plainToInstance } from 'class-transformer';
-
+import { Cidade } from 'src/cidade/entity/cidade.entity';
 import { CidadeRequest } from '../request/cidade.request';
 import { CidadeResponse } from '../response/cidade.response';
-import { Cidade } from '../../entity/cidade.entity';
 
 export class ConverterCidade {
-  static toCidade(cidadeRequest: CidadeRequest): Cidade {
-    const cidade = new Cidade(); // cria instância
+  static toCidade(cidadeRequest: CidadeRequest) {
+    const cidade = new Cidade();
 
     if (cidadeRequest.idCidade != null) {
       cidade.idCidade = cidadeRequest.idCidade;
@@ -14,7 +13,7 @@ export class ConverterCidade {
     cidade.nomeCidade = cidadeRequest.nomeCidade;
     cidade.codCidade = cidadeRequest.codCidade;
 
-    return cidade; // letra minúscula para retorna o objeto
+    return cidade;
   }
 
   static toCidadeResponse(cidade: Cidade): CidadeResponse {
