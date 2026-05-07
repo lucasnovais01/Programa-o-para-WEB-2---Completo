@@ -27,3 +27,22 @@ Salva no banco
 ## VERIFICAR SE O BCRYPT está instaldo no projeto (verificar dependencia)
 
 npm list bcrypt 2>&1
+
+bcrypt online generator
+
+gera o hash e depois no banco, troca a senha pelo hash
+
+INSERT INTO USUARIO (COD_USUARIO, NOME_USUARIO, EMAIL, SENHA, FOTO, TIPO, ID_CIDADE) VALUES 
+('U006', 'João Aluno', 'joao.aluno@example.com', '1234', NULL, 2, 6),
+
+exemplo para
+('U006', 'João Aluno', 'joao.aluno@example.com', '$2a$12$4BmPBTs4FcyCGCr5uWtbkeHTtg5okVZWrsXFwLVq/fiBiM0WhLgMG', NULL, 2, 6),
+
+
+testar com o JSON com o POSTMAN
+http://localhost:8000/auth/session/login
+
+{
+  email: joao.aluno@example.com
+  senha: 1234
+}

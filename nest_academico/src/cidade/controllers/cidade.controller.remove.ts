@@ -7,13 +7,14 @@ import {
   ParseIntPipe,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { CIDADE } from '../constants/cidade.constants';
 import { CidadeServiceRemove } from '../service/cidade.service.remove';
+
+import type { Request } from 'express';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerRemove {

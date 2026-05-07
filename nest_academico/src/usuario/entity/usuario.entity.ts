@@ -25,7 +25,12 @@ export class Usuario extends BaseEntity {
 
   @Column({ name: 'ATIVO', default: false })
   ativo!: boolean;
-
+  /*
+  senhaUsuario: string;
+  sobrenomeUsuario: string;
+  emailUsuario: string;
+  nomeUsuario: string;
+*/
   constructor(data: Partial<Usuario> = {}) {
     Object.assign(this.data);
   }

@@ -7,7 +7,6 @@ import {
   ParseIntPipe,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiGetDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';
@@ -16,6 +15,9 @@ import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { CIDADE } from '../constants/cidade.constants';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindOne } from '../service/cidade.service.findone';
+
+import type { Request } from 'express';
+
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindOne {
   constructor(private readonly cidadeServiceFindOne: CidadeServiceFindOne) {}

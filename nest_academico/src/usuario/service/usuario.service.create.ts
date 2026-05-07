@@ -23,7 +23,7 @@ export class UsuarioServiceCreate {
 
     const usuarioCadastrado = await this.usuarioRepository
       .createQueryBuilder('usuario')
-      .where('usuario.emailUsuario =:email', { email: usuario.emailUsuario })
+      .where('usuario.emailUsuario =:email', { email: usuario.email_usuario })
       .getOne();
 
     if (usuarioCadastrado) {

@@ -32,7 +32,7 @@ digita cmd e depois
 
 cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"
 
-
+npm install bcrypt
 npm i --save-dev @types/bcrypt
 
 

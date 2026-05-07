@@ -6,7 +6,6 @@ import {
   Query,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { PAGINATION } from '../../commons/enum/paginacao.enum';
 import { Result } from '../../commons/mensagem/mensagem';
@@ -15,6 +14,8 @@ import { Page } from '../../commons/pagination/page.sistema';
 import { CIDADE } from '../constants/cidade.constants';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceFindAll } from '../service/cidade.service.findall';
+
+import type { Request } from 'express';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerFindAll {
