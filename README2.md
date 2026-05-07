@@ -33,6 +33,7 @@ digita cmd e depois
 cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"
 
 
+npm i --save-dev @types/bcrypt
 
 
 ## AULA 06-05-2026 - Aula sobre o JWT, e geradorbrasil, e do passport

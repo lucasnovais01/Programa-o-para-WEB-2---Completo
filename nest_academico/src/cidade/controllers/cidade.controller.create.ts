@@ -7,7 +7,6 @@ import {
   Req,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiPostDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';
@@ -17,6 +16,8 @@ import { CIDADE } from '../constants/cidade.constants';
 import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceCreate } from '../service/cidade.service.create';
+
+import type { Request } from 'express';
 
 @ApiTags('Cidade')
 @Controller(ROTA.CIDADE.BASE)

@@ -5,7 +5,7 @@ import { apiPostUsuario } from "../api/api.usuario";
 import { USUARIO } from "../constants/usuario.constants";
 import type { ErrosUsuario, Usuario } from "../type/Usuario";
 
-// ✅ importa o hook do ResourcesProviders para pegar a URL do backend
+// importa o hook do ResourcesProviders para pegar a URL do backend
 import { useResources } from "../../providers/ResourcesProviders";
 
 export const useCriar = () => {
@@ -13,7 +13,7 @@ export const useCriar = () => {
   const [errors, setErrors] = useState<ErrosUsuario>({});
   const navigate = useNavigate();
 
-  // ✅ pega getEndpoint do contexto — fornece URL real do backend
+  // pega getEndpoint do contexto — fornece URL real do backend
   const { getEndpoint } = useResources();
 
   const handleChangeField = (name: keyof Usuario, value: string) => {

@@ -1,8 +1,52 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../../commons/entity/base.entity';
 
+@Entity('Usuario')
 export class Usuario extends BaseEntity {
-  @PrimaryGeneratedColumn({ name: ID_USUARIO })
+  @PrimaryGeneratedColumn('increment', {
+    name: 'ID_USUARIO',
+    type: 'int',
+  })
+  idUsuario?: number;
+
+  @Column({
+    name: 'NOME_USUARIO',
+    type: 'varchar',
+    length: 50,
+  })
+  nomeUsuario: string = '';
+
+  @Column({
+    name: 'SOBRENOME_USUARIO',
+    type: 'varchar',
+    length: 50,
+  })
+  sobrenomeUsuario: string = '';
+
+  @Column({
+    name: 'EMAIL',
+    type: 'varchar',
+    length: 100,
+  })
+  emailUsuario: string = '';
+
+  @Column({
+    name: 'SENHA',
+    type: 'varchar',
+    length: 100,
+  })
+  senhaUsuario: string = '';
+
+  constructor(data: Partial<Usuario> = {}) {
+    super();
+    Object.assign(this, data);
+  }
+}
+// Versão do professor de usuario
+
+/*
+export class Usuario extends Base {
+  @PrimaryGeneratedColumn ({ name: ID_USUARIO })
   idUsuario!: number;
 
   @Column({ name: 'COD_USUARIO' })
@@ -18,7 +62,7 @@ export class Usuario extends BaseEntity {
   senha!: string;
 
   @Column({ name: 'FOTO' })
-  foto!: string;
+  foto!: strin;
 
   @Column({ name: 'ID_CIDADE' })
   id_cidade!: number;
@@ -26,12 +70,13 @@ export class Usuario extends BaseEntity {
   @Column({ name: 'ATIVO', default: false })
   ativo!: boolean;
 
-  constructor(data: Partial<Usuario> = {}) {
+  constructor (data: Partial<Usuario> = {}) {
     Object.assign(this.data);
   }
 }
 
-// No banco de dados está:
+*/
+
 /*
 export class Usuario
 CREATE TABLE USUARIO (
@@ -49,5 +94,4 @@ CREATE TABLE USUARIO (
     CONSTRAINT PK_USUARIO PRIMARY KEY (ID_USUARIO),
     CONSTRAINT FK_USUARIO_CIDADE FOREIGN KEY (ID_CIDADE) REFERENCES CIDADE(ID_CIDADE)
 );
-
 */
