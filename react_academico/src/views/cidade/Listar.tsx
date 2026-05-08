@@ -37,22 +37,48 @@ export default function ListarCidade() {
   const [order, setOrder] = useState<string>('ASC');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
-  const { getEndpoint } = useResources();
+  // Foi colocado o loading para evitar que a aplicação tente acessar o recurso antes 
+  // de carregar as URLs do backend
+  // Pq não estava mostrando o formulario
+  const { getEndpoint, loading } = useResources();
+
+
   // hook Memo() => mantém na memória 
   // o valor || função carregada, evitando 
   // repetição.  
+
+  /*
+  // No código do professor está:
+
   let url = React.useMemo(() => {
     const urlCidade = getEndpoint('cidade');
     return urlCidade;
   }, []);
 
-  if (!url) {
+  // mudei pra const url pq não tem necessidade de ser let, já que o valor não vai mudar
+  // ou seja, só tireo o let
+  */
+  const url = React.useMemo(() => getEndpoint('cidade'), [getEndpoint]);
+
+  // antes era só if (!url) { ... }, mudei para && !loading pq getEndpoint demora um pouco para carregar 
+  // as URLs do backend, e sem o loading, a aplicação tentava acessar o recurso antes de carregar, 
+  // o que causava erro e não mostrava o formulário
+  if (!url && !loading) {
     console.error('recurso inexistente');
-    return;
+
+    // tirei o 'return;' pq se o loading for true, ou seja, se ainda estiver carregando as URLs do backend,
+    // ele não vai entrar nesse if, e consequentemente não vai retornar nada, o que é o 
+    // comportamento esperado, já que enquanto estiver carregando, a aplicação não deve tentar 
+    // acessar o recurso
   }
 
   const buscarTodasCidades = useCallback(
     async (params: SearchParams): Promise<any | null> => {
+      // o if abaixo é novo e não tem no codigo do professor
+      if (!url) {
+        return null;
+      }
+      // o if acima é novo e não tem no codigo do professor
       try {
         const response = await apiGetCidades(url, params);
         return response.data;
@@ -61,7 +87,9 @@ export default function ListarCidade() {
       }
       return null;
     },
-    [],
+    [url],
+    // Adicionado url dentro do colchetes vazio para garantir que a função seja atualizada 
+    // quando a URL do backend estiver disponível
   );
 
   //hook - função - reagir, quando carregar a página
@@ -69,6 +97,11 @@ export default function ListarCidade() {
   // algum argumento - ele monitora
   useEffect(() => {
     async function getCidades() {
+      // o if abaixo é novo e não tem no codigo do professor
+      if (!url) {
+        return;
+      }
+      // o if acima é novo e não tem no codigo do professor
       const params = {
         page: currentPage,
         pageSize: pageSize,
@@ -89,7 +122,9 @@ export default function ListarCidade() {
       }
     }
     getCidades();
-  }, [currentPage, pageSize, searchTerm, order, props]);
+  // Adicionado url no array de dependências para garantir que o useEffect seja executado novamente 
+  // quando a URL do backend estiver disponível, permitindo que a aplicação busque os dados corretamente.
+  }, [url, currentPage, pageSize, searchTerm, order, props]);
 
   const handlePageChange = (pageNumber: number) => {
     setCurrentPage(Number(pageNumber));
