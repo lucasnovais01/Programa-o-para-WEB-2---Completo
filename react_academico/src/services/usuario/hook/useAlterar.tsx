@@ -7,7 +7,6 @@ import {
   fieldsUsuario,
   mapaCampoParaMensagem,
 } from "../constants/usuario.constants";
-
 import type { ErrosUsuario, Usuario } from "../type/Usuario";
 
 interface BuscarUsuarioPorIdProps {
@@ -22,7 +21,7 @@ export const useAlterar = () => {
   const navigate = useNavigate();
 
   const setServerErrorsUsuario = (
-    serverErros: Partial<Record<keyof Usuario, string[]>> | null
+    serverErros: Partial<Record<keyof Usuario, string[]>> | null,
   ): ErrosUsuario | null => {
     if (!serverErros) {
       return null;
@@ -45,7 +44,7 @@ export const useAlterar = () => {
   };
 
   const validarCamposVaziosUsuario = (
-    usuario: Usuario
+    usuario: Usuario,
   ): Partial<Record<keyof Usuario, string[]>> | null => {
     const erros: Partial<Record<keyof Usuario, string[]>> = {};
     fieldsUsuario.forEach((field) => {
@@ -67,7 +66,7 @@ export const useAlterar = () => {
   };
 
   const buscarUsuarioPorId = async (
-    idUsuario: string
+    idUsuario: string,
   ): Promise<BuscarUsuarioPorIdProps | null> => {
     let usuario: Usuario | null = null;
     let errosUsuario: ErrosUsuario | null = null;
@@ -91,6 +90,7 @@ export const useAlterar = () => {
     }
     return null;
   };
+
   useEffect(() => {
     async function getUsuario() {
       try {
@@ -119,7 +119,7 @@ export const useAlterar = () => {
 
   const validateField = (
     name: keyof Usuario,
-    e: React.FocusEvent<HTMLInputElement>
+    e: React.FocusEvent<HTMLInputElement>,
   ) => {
     let messages: string[] = [];
     const value = model[name];
@@ -175,8 +175,8 @@ export const useAlterar = () => {
     const newErrors: ErrosUsuario = {};
     let isFormValid = true;
 
-    // Validação do campo Nome
     const nomeUsuarioMessages = [];
+
     if (!model.nomeUsuario || model.nomeUsuario.trim().length === 0) {
       nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
     }
@@ -194,8 +194,8 @@ export const useAlterar = () => {
       isFormValid = false;
     }
 
-    // Validação do campo Sobrenome
     const sobrenomeUsuarioMessages = [];
+
     if (!model.sobrenomeUsuario || model.sobrenomeUsuario.trim().length === 0) {
       sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
     }
@@ -213,8 +213,8 @@ export const useAlterar = () => {
       isFormValid = false;
     }
 
-    // Validação do campo Email
     const emailUsuarioMessages = [];
+
     if (!model.emailUsuario || model.emailUsuario.trim().length === 0) {
       emailUsuarioMessages.push(USUARIO.INPUT_ERROR.EMAIL.BLANK);
     }
@@ -224,13 +224,13 @@ export const useAlterar = () => {
       isFormValid = false;
     }
 
-    // Validação do campo Senha
     const senhaUsuarioMessages = [];
+
     if (!model.senhaUsuario || model.senhaUsuario.trim().length === 0) {
       senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.BLANK);
     }
     if (model.senhaUsuario) {
-      if (model.senhaUsuario.length < 6) {
+      if (model.senhaUsuario.length > 0 && model.senhaUsuario.length < 6) {
         senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.MIN_LEN);
       }
       if (model.senhaUsuario.length > 100) {
@@ -256,8 +256,7 @@ export const useAlterar = () => {
     return "form-control app-label mt-2";
   };
 
-  const onSubmitForm = async (e: React.FormEvent) => {
-    // não deixa executar o processo normal
+  const onSubmitForm = async (e: React.FormEvent, url: string) => {
     e.preventDefault();
 
     if (!idUsuario || !model) {
@@ -270,7 +269,7 @@ export const useAlterar = () => {
     }
 
     try {
-      const response = apiPutUsuario(idUsuario, model);
+      const response = apiPutUsuario(idUsuario, model, url);
       console.log(response);
       navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {

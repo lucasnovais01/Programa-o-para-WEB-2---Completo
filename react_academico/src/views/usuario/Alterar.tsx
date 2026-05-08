@@ -2,6 +2,9 @@ import { FaSave } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";
 import MensagemErro from "../../components/mensagem/MensagemErro";
 
+import React from "react";
+import { useResources } from "../../services/providers/ResourcesProviders";
+import { ROTA } from "../../services/router/url";
 import { USUARIO } from "../../services/usuario/constants/usuario.constants";
 import { useAlterar } from "../../services/usuario/hook/useAlterar";
 
@@ -15,12 +18,27 @@ export default function AlterarUsuario() {
     handleCancel,
     getInputClass,
   } = useAlterar();
+  
+  const id=1;
+  const { getEndpoint } = useResources();
+    // hook Memo() => mantém na memória 
+    // o valor || função carregada, evitando 
+    // repetição.  
+    let url = React.useMemo(() => {
+      const urlUsuario = getEndpoint('usuario', id);
+      return urlUsuario;
+    }, []);
+  
+    if (!url) {
+      console.error('recurso inexistente');
+      return;
+    }
 
   return (
     <div className="display">
       <div className="card animated fadeInDown">
         <h2>Alterar Usuário</h2>
-        <form onSubmit={(e) => onSubmitForm(e)}>
+        <form onSubmit={(e) => onSubmitForm(e, ROTA.USUARIO.ATUALIZAR)}>
           <div className="mb-2 mt-4">
             <label htmlFor="idUsuario" className="app-label">
               {USUARIO.LABEL.ID}:

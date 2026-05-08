@@ -3,8 +3,10 @@ import { MdCancel } from "react-icons/md";
 import MensagemErro from "../../components/mensagem/MensagemErro";
 import { CIDADE } from "../../services/cidade/constants/cidade.constants";
 import { useAlterar } from "../../services/cidade/hook/useAlterar";
-import React from "react";
 import { useResources } from "../../services/providers/ResourcesProviders";
+
+import React from "react";
+import { ROTA } from "../../services/router/url";
 
 export default function AlterarCidade() {
   const {
@@ -16,33 +18,28 @@ export default function AlterarCidade() {
     handleCancel,
     getInputClass,
   } = useAlterar();
-
-
-  const id = 1;
-
-  // vamos copiar o que fizemos no Listar.tsx :
-
+  
+  const id=1;
   const { getEndpoint } = useResources();
-  // hook Memo() => mantém na memória
-  // o valor || função carregada, evitando
-  // repetição.
-  let url = React.useMemo(()=>{
-    const urlCidade = getEndpoint('cidade', id);
-    return urlCidade;
-  }, []);
-
-  if (!url) {
-    console.error('recurso inexistente');
-    return;
-  }
-
+    // hook Memo() => mantém na memória 
+    // o valor || função carregada, evitando 
+    // repetição.  
+    let url = React.useMemo(() => {
+      const urlCidade = getEndpoint('cidade', id);
+      return urlCidade;
+    }, []);
+  
+    if (!url) {
+      console.error('recurso inexistente');
+      return;
+    }
 
 
   return (
     <div className="display">
       <div className="card animated fadeInDown">
         <h2>Alterar Cidade</h2>
-        <form onSubmit={(e) => onSubmitForm(e)}>
+        <form onSubmit={(e) => onSubmitForm(e, ROTA.CIDADE.ATUALIZAR)}>
           <div className="mb-2 mt-4">
             <label htmlFor="codCidade" className="app-label">
               {CIDADE.LABEL.CODIGO}:

@@ -5,19 +5,14 @@ import { apiPostUsuario } from "../api/api.usuario";
 import { USUARIO } from "../constants/usuario.constants";
 import type { ErrosUsuario, Usuario } from "../type/Usuario";
 
-// ✅ importa o hook do ResourcesProviders para pegar a URL do backend
-import { useResources } from "../../providers/ResourcesProviders";
-
 export const useCriar = () => {
   const [model, setModel] = useState<Usuario>(USUARIO.DADOS_INCIAIS);
   const [errors, setErrors] = useState<ErrosUsuario>({});
   const navigate = useNavigate();
 
-  // ✅ pega getEndpoint do contexto — fornece URL real do backend
-  const { getEndpoint } = useResources();
-
   const handleChangeField = (name: keyof Usuario, value: string) => {
     setModel((prev) => ({ ...prev, [name]: value }));
+
     setErrors((prev) => ({
       ...prev,
       [name]: undefined,
@@ -27,7 +22,7 @@ export const useCriar = () => {
 
   const validateField = (
     name: keyof Usuario,
-    e: React.FocusEvent<HTMLInputElement>
+    e: React.FocusEvent<HTMLInputElement>,
   ) => {
     let messages: string[] = [];
     const value = model[name];
@@ -59,8 +54,10 @@ export const useCriar = () => {
       case USUARIO.FIELDS.SENHA:
         if (!value || String(value).trim().length === 0)
           messages.push(USUARIO.INPUT_ERROR.SENHA.BLANK);
-        if (String(value).length < 6)
+        if (String(value).length > 0 && String(value).length < 6)
           messages.push(USUARIO.INPUT_ERROR.SENHA.MIN_LEN);
+        if (String(value).length > 100)
+          messages.push(USUARIO.INPUT_ERROR.SENHA.MAX_LEN);
         break;
 
       case USUARIO.FIELDS.CONFIRMAR_SENHA:
@@ -81,6 +78,7 @@ export const useCriar = () => {
     let isFormValid = true;
 
     const nomeUsuarioMessages = [];
+
     if (!model.nomeUsuario || model.nomeUsuario.trim().length === 0)
       nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
     if (model.nomeUsuario) {
@@ -96,6 +94,7 @@ export const useCriar = () => {
     }
 
     const sobrenomeUsuarioMessages = [];
+
     if (!model.sobrenomeUsuario || model.sobrenomeUsuario.trim().length === 0)
       sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
     if (model.sobrenomeUsuario) {
@@ -111,6 +110,7 @@ export const useCriar = () => {
     }
 
     const emailUsuarioMessages = [];
+
     if (!model.emailUsuario || model.emailUsuario.trim().length === 0)
       emailUsuarioMessages.push(USUARIO.INPUT_ERROR.EMAIL.BLANK);
     if (emailUsuarioMessages.length > 0) {
@@ -120,10 +120,11 @@ export const useCriar = () => {
     }
 
     const senhaUsuarioMessages = [];
+
     if (!model.senhaUsuario || model.senhaUsuario.trim().length === 0)
       senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.BLANK);
     if (model.senhaUsuario) {
-      if (model.senhaUsuario.length < 6)
+      if (model.senhaUsuario.length > 0 && model.senhaUsuario.length < 6)
         senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.MIN_LEN);
       if (model.senhaUsuario.length > 100)
         senhaUsuarioMessages.push(USUARIO.INPUT_ERROR.SENHA.MAX_LEN);
@@ -135,6 +136,7 @@ export const useCriar = () => {
     }
 
     const confirmarSenhaUsuarioMessages = [];
+
     if (!model.confirmarSenhaUsuario || model.confirmarSenhaUsuario.trim().length === 0)
       confirmarSenhaUsuarioMessages.push(USUARIO.INPUT_ERROR.CONFIRMAR_SENHA.BLANK);
     if (model.confirmarSenhaUsuario && model.senhaUsuario !== model.confirmarSenhaUsuario)
@@ -149,45 +151,28 @@ export const useCriar = () => {
     return isFormValid;
   };
 
-  const onSubmitForm = async (e: React.FormEvent) => {
+  const onSubmitForm = async (e: any) => {
+    // não deixa executar o processo normal
     e.preventDefault();
 
-    console.log('1. Submit disparado');
-
     if (!validarFormulario()) {
-      console.log('2. Formulário inválido — erros:', errors);
+      console.log("Erro na digitação dos dados ");
       return;
     }
 
-    console.log('3. Formulário válido — model:', model);
-
-    const url = getEndpoint('usuario');
-    console.log('4. URL do endpoint:', url);
-
-    if (!url) {
-      console.log('5. URL não encontrada');
+    if (!model) {
       return;
     }
 
-  try {
-    const { confirmarSenhaUsuario, ...dadosParaEnviar } = model;
-    console.log('6. Dados enviados ao backend:', dadosParaEnviar);
-    await apiPostUsuario(url, dadosParaEnviar as Usuario);
-    console.log('7. Cadastro realizado com sucesso');
-    navigate(ROTA.USUARIO.LISTAR);
-  } catch (error: any) {
-    console.log('8. Erro ao cadastrar:', error.response?.data ?? error.message);
-  }
-};
     try {
       const { confirmarSenhaUsuario, ...dadosParaEnviar } = model;
-      console.log('6. Dados enviados ao backend:', dadosParaEnviar);
-      await apiPostUsuario(url, dadosParaEnviar as Usuario);
-      console.log('7. Cadastro realizado com sucesso');
+      const response = apiPostUsuario(dadosParaEnviar as Usuario);
+      console.log(response);
       navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {
-      console.log('8. Erro ao cadastrar:', error.response?.data ?? error.message);
+      console.log(error);
     }
+  };
 
   const handleCancel = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();

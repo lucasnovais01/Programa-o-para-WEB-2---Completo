@@ -10,7 +10,7 @@ export interface SearchParams {
   search?: string;
 }
 
-// ✅ GET listar — url vem do getEndpoint('usuario') sem id
+// GET listar — url vem do getEndpoint('usuario') sem id
 export const apiGetUsuarios = async (
   url: string,
   params: SearchParams,
@@ -19,29 +19,26 @@ export const apiGetUsuarios = async (
   return response.data;
 };
 
-// ✅ GET buscar um — url do frontend ainda funciona pois vai para o backend via baseURL
-// ROTA.USUARIO.POR_ID = /sistema/usuario/buscar — ERRADO igual ao listar
-// Corrigido: url vem do getEndpoint('usuario', id)
-export const apiGetUsuario = async (url: string, idUsuario: string) => {
-  const response = await http.get(`${url}/${idUsuario}`);
+// GET buscar um — url vem do ROTA.USUARIO.POR_ID
+export const apiGetUsuario = async (idUsuario: string) => {
+  const response = await http.get(`${ROTA.USUARIO.POR_ID}/${idUsuario}`);
   return response;
 };
 
-// ✅ POST criar — url vem do getEndpoint('usuario') sem id
-// Motivo: ROTA.USUARIO.CRIAR = /sistema/usuario/criar (URL do frontend, não do backend)
-export const apiPostUsuario = async (url: string, usuario: Usuario) => {
-  const response = await http.post(url, usuario);
+// POST criar — url vem do ROTA.USUARIO.CRIAR
+export const apiPostUsuario = async (usuario: Usuario) => {
+  const response = await http.post(ROTA.USUARIO.CRIAR, usuario);
   return response; // ✅ retorna response para o hook saber se deu certo
 };
 
-// ✅ PUT alterar — url vem do getEndpoint('usuario', id)
-export const apiPutUsuario = async (url: string, idUsuario: string, usuario: Usuario) => {
+// PUT alterar — url vem do getEndpoint('usuario', id)
+export const apiPutUsuario = async (idUsuario: string, usuario: Usuario, url: string) => {
   const response = await http.put(`${url}/${idUsuario}`, usuario);
   return response;
 };
 
-// ✅ DELETE excluir — url vem do getEndpoint('usuario', id)
-export const apiDeleteUsuario = async (url: string, idUsuario: string) => {
-  const response = await http.delete(`${url}/${idUsuario}`);
+// DELETE excluir — url vem do ROTA.USUARIO.EXCLUIR
+export const apiDeleteUsuario = async (idUsuario: string) => {
+  const response = await http.delete(`${ROTA.USUARIO.EXCLUIR}/${idUsuario}`);
   return response;
 };
