@@ -8,7 +8,6 @@ import {
   Put,
   Req,
 } from '@nestjs/common';
-import { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { ApiPutDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';
@@ -18,6 +17,8 @@ import { CIDADE } from '../constants/cidade.constants';
 import { CidadeRequest } from '../dto/request/cidade.request';
 import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceUpdate } from '../service/cidade.service.update';
+
+import type { Request } from 'express';
 
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerUpdate {

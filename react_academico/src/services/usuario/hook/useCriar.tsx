@@ -10,6 +10,9 @@ export const useCriar = () => {
   const [errors, setErrors] = useState<ErrosUsuario>({});
   const navigate = useNavigate();
 
+  // ✅ pega getEndpoint do contexto — fornece URL real do backend
+  const { getEndpoint } = useResources();
+
   const handleChangeField = (name: keyof Usuario, value: string) => {
     setModel((prev) => ({ ...prev, [name]: value }));
 

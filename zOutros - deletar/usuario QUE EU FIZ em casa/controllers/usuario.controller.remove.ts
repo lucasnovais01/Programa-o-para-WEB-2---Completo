@@ -7,30 +7,30 @@ import {
   ParseIntPipe,
   Req,
 } from '@nestjs/common';
+import type { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { gerarLinks } from '../../commons/utils/hateoas.utils';
-import { CIDADE } from '../constants/cidade.constants';
-import { CidadeServiceRemove } from '../service/cidade.service.remove';
 
-import type { Request } from 'express';
+import { USUARIO } from '../constants/usuario.constants';
+import { UsuarioServiceRemove } from '../service/usuario.service.remove';
 
-@Controller(ROTA.CIDADE.BASE)
-export class CidadeControllerRemove {
-  constructor(private readonly cidadeServiceRemove: CidadeServiceRemove) {}
+@Controller(ROTA.USUARIO.BASE)
+export class UsuarioControllerRemove {
+  constructor(private readonly usuarioServiceRemove: UsuarioServiceRemove) {}
 
   @HttpCode(HttpStatus.OK) //NO_CONTENT
-  @Delete(ROTA.CIDADE.DELETE)
+  @Delete(ROTA.USUARIO.DELETE)
   async remove(
     @Req() res: Request,
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
-    const _link = gerarLinks(res, CIDADE.ENTITY);
-    await this.cidadeServiceRemove.remove(id);
+    const _link = gerarLinks(res, USUARIO.ENTITY);
+    await this.usuarioServiceRemove.remove(id);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
-      'Cidade excluída com sucesso!',
+      'Usuário excluído com sucesso!',
       null,
       res.path,
       null,

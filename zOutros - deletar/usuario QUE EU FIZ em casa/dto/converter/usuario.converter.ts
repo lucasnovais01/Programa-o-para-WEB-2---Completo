@@ -31,10 +31,10 @@ export class ConverterUsuario {
     if (usuarioRequest.idUsuario != null) {
       usuario.idUsuario = usuarioRequest.idUsuario;
     }
-    usuario.nome_usuario = usuarioRequest.nomeUsuario;
-    //usuario.sobrenomeUsuario = usuarioRequest.sobrenomeUsuario;
-    usuario.email_usuario = usuarioRequest.emailUsuario;
-    usuario.senha = usuarioRequest.senhaUsuario;
+    usuario.nomeUsuario = usuarioRequest.nomeUsuario;
+    usuario.sobrenomeUsuario = usuarioRequest.sobrenomeUsuario;
+    usuario.emailUsuario = usuarioRequest.emailUsuario;
+    usuario.senhaUsuario = usuarioRequest.senhaUsuario;
 
     return usuario;
   }

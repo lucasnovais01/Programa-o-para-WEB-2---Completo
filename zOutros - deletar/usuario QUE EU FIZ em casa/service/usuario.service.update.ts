@@ -6,34 +6,36 @@ import { ConverterUsuario } from '../dto/converter/usuario.converter';
 import { UsuarioRequest } from '../dto/request/usuario.request';
 import { UsuarioResponse } from '../dto/response/usuario.response';
 import { Usuario } from '../entity/usuario.entity';
+import { UsuarioServiceFindOne } from './usuario.service.findone';
 
 @Injectable()
-export class UsuarioServiceCreate {
+export class UsuarioServiceUpdate {
   constructor(
     @InjectRepository(Usuario)
     private usuarioRepository: Repository<Usuario>,
+    private usuarioServiceFindOne: UsuarioServiceFindOne,
   ) {}
 
-  async create(usuarioRequest: UsuarioRequest): Promise<UsuarioResponse> {
+  async update(
+    idUsuario: number,
+    usuarioRequest: UsuarioRequest,
+  ): Promise<UsuarioResponse> {
     /*
     // O método toUsuario agora é async por causa do bcrypt
     let usuario = await ConverterUsuario.toUsuario(usuarioRequest);
     */
     let usuario = ConverterUsuario.toUsuario(usuarioRequest);
 
-    const usuarioCadastrado = await this.usuarioRepository
-      .createQueryBuilder('usuario')
-      .where('usuario.emailUsuario =:email', { email: usuario.email_usuario })
-      .getOne();
+    const usuarioCadastrado =
+      await this.usuarioServiceFindOne.findById(idUsuario);
 
-    if (usuarioCadastrado) {
-      throw new HttpException(
-        'Usuário com email informado já está cadastrado',
-        HttpStatus.BAD_REQUEST,
-      );
+    if (!usuarioCadastrado) {
+      throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);
     }
 
-    usuario = await this.usuarioRepository.save(usuario);
+    const usuarioAtualizado = Object.assign(usuarioCadastrado, usuario);
+
+    usuario = await this.usuarioRepository.save(usuarioAtualizado);
 
     return ConverterUsuario.toUsuarioResponse(usuario);
   }

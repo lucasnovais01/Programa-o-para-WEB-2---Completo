@@ -31,3 +31,26 @@ Marca o academico como padrão e não pode esquecer de editar a conexão e coloc
 digita cmd e depois
 
 cd /d "E:\.Lucas Novais\Programa-o-para-WEB-2---Completo"
+
+npm install bcrypt
+npm i --save-dev @types/bcrypt
+
+
+## AULA 06-05-2026 - Aula sobre o JWT, e geradorbrasil, e do passport
+
+npm install @nestjs/passport passport
+
+npm install @nest passport-jwt
+
+npm install @nest passport-local
+
+#
+@nest/passport
+passport
+@nest/jwt
+passport-jwt
+passport-local
+#
+npm install -D @types/passport-jwt
+
+npm install -D @types/passport-local
