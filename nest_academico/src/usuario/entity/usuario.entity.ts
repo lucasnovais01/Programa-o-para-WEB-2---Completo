@@ -1,6 +1,9 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { BaseEntity } from '../../commons/entity/base.entity';
 
+const ID_USUARIO = 'ID_USUARIO';
+
+@Entity('USUARIO')
 export class Usuario extends BaseEntity {
   @PrimaryGeneratedColumn({ name: ID_USUARIO })
   idUsuario!: number;
@@ -32,7 +35,8 @@ export class Usuario extends BaseEntity {
   nomeUsuario: string;
 */
   constructor(data: Partial<Usuario> = {}) {
-    Object.assign(this.data);
+    super();
+    Object.assign(this, data);
   }
 }
 

@@ -2,6 +2,8 @@ import { Usuario } from '@/usuario/entity/usuario.entity';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 
+import * as bcrypt from 'bcrypt';
+
 // O injectable serve para ..
 @Injectable()
 export class AuthService {
@@ -9,7 +11,9 @@ export class AuthService {
 
   async getAuthenticatedUser(email: string, senha: string): Promise<Usuario> {
     const usuario = await this.usuarioRepository.findByEmail();
-    await this.virificarSenha(senha, usuario.senha);
+    await this.verificarSenha(senha, usuario.senha);
+
+    return usuario;
   }
 
   async findByEmail(email: string): Promise<Usuario | null> {
@@ -28,7 +32,7 @@ export class AuthService {
   async verificarSenha(senha: string, hashedSenha: string): Promise<boolean> {
     const isSenhaMatching = await bcrypt.compare(senha, hashedSenha);
 
-    if (!IsSenhaMatching) {
+    if (!isSenhaMatching) {
       throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST);
     }
     return true;
