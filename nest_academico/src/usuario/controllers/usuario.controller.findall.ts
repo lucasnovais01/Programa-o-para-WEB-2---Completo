@@ -1,5 +1,7 @@
 // POSTMAN: (GET) http://localhost:8000/rest/sistema/usuario/listar
 
+/*
+
 import {
   Controller,
   Get,
@@ -52,3 +54,5 @@ export class UsuarioControllerFindAll {
     );
   }
 }
+
+*/

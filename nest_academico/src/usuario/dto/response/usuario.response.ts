@@ -1,3 +1,5 @@
+/*
+
 import { ApiProperty } from '@nestjs/swagger';
 import { Expose } from 'class-transformer';
 import { USUARIO } from '../../constants/usuario.constants';
@@ -35,3 +37,5 @@ export class UsuarioResponse {
   @Expose()
   senhaUsuario: string = '';
 }
+
+*/

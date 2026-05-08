@@ -1,3 +1,4 @@
+/*
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString, MaxLength } from 'class-validator';
@@ -57,3 +58,5 @@ export class UsuarioRequest {
     Object.assign(this, data);
   }
 }
+
+*/

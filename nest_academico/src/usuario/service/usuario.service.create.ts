@@ -1,3 +1,4 @@
+/*
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -15,10 +16,10 @@ export class UsuarioServiceCreate {
   ) {}
 
   async create(usuarioRequest: UsuarioRequest): Promise<UsuarioResponse> {
-    /*
+
     // O método toUsuario agora é async por causa do bcrypt
-    let usuario = await ConverterUsuario.toUsuario(usuarioRequest);
-    */
+    // let usuario = await ConverterUsuario.toUsuario(usuarioRequest);
+
     let usuario = ConverterUsuario.toUsuario(usuarioRequest);
 
     const usuarioCadastrado = await this.usuarioRepository
@@ -38,3 +39,4 @@ export class UsuarioServiceCreate {
     return ConverterUsuario.toUsuarioResponse(usuario);
   }
 }
+*/

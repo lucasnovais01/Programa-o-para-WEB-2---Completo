@@ -1,3 +1,5 @@
+/*
+
 import {
   Controller,
   Get,
@@ -41,3 +43,5 @@ export class UsuarioControllerFindOne {
     );
   }
 }
+
+*/

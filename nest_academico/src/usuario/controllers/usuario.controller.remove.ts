@@ -1,3 +1,5 @@
+/*
+
 import {
   Controller,
   Delete,
@@ -38,3 +40,5 @@ export class UsuarioControllerRemove {
     );
   }
 }
+
+*/

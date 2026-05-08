@@ -1,3 +1,4 @@
+/*
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -44,3 +45,4 @@ export class UsuarioServiceFindAll {
     return Page.of(usuarios, totalElements, pageable);
   }
 }
+*/
