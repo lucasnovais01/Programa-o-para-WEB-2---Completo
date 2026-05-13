@@ -22,6 +22,22 @@ O módulo de Login é fundamental para a segurança do sistema:
 2. Gerar tokens JWT para manter a sessão do usuário
 3. Controlar o acesso às rotas e recursos do sistema
 
+### Tecnologias principais e responsabilidades
+
+- **bcrypt**: usado para proteger senhas. A senha nunca deve ser salva em texto puro no banco.
+  - No cadastro: gere um hash com `bcrypt.hash(senha, saltRounds)`.
+  - No login: compare o texto enviado com o hash gravado usando `bcrypt.compare(senhaDigitada, hashDoBanco)`.
+- **JWT**: permite criar um token assinado que carrega informações do usuário.
+  - O backend assina o token com uma chave secreta.
+  - O frontend envia o token no cabeçalho `Authorization: Bearer <token>`.
+  - O token deve ter expiração (`expiresIn`) para reduzir riscos de uso indevido.
+- **Passport**: adaptador que integra estratégias de autenticação ao NestJS.
+  - `passport-jwt` valida o token JWT em rotas protegidas.
+  - `passport-local` pode ser usado para validar e-mail e senha como primeira etapa.
+  - O guard `JwtAuthGuard` usa a estratégia JWT para proteger controllers.
+
+> Em resumo: `bcrypt` garante que a senha esteja segura no banco, `JWT` mantém a sessão sem estado, e `Passport` organiza a validação do token e a proteção de rotas.
+
 ---
 
 ## Explicação Detalhada: Como o Login acessa o Banco de Dados?
@@ -71,6 +87,10 @@ constructor(
 | Usa o padrão "Service separado para cada operação" | Usa biblioteca de autenticação |
 
 **Nota**: O Login **reutiliza a entidade Usuario** que já existe! Não precisamos criar uma nova entidade, pois os dados do usuário (e-mail, senha) já estão na tabela de usuários.
+
+> Importante: o módulo de autenticação não deve criar uma tabela `Auth` separada quando as credenciais estão armazenadas em `Usuario`.
+> No seu código temporário, o `AuthService` está certo ao injetar `Repository<Usuario>` em vez de `Repository<Auth>`.
+> Campos adicionais como `emailValidado`, `tokenValidacaoEmail` ou flags de 2FA também devem ficar na entidade `Usuario`, porque são propriedades do próprio usuário.
 
 ---
 
@@ -244,6 +264,34 @@ export class AuthService {
   }
 }
 ```
+
+#### 2.4.1. Validação de e-mail e 2FA no fluxo de login
+
+O login pode e deve verificar regras adicionais antes de gerar o token JWT:
+- se o e-mail do usuário estiver marcado como não validado (`emailValidado = false`);
+- se o usuário tiver 2FA habilitado e precisar de uma segunda etapa.
+
+No backend, o serviço de autenticação pode fazer essas validações antes de assinar o token:
+
+```typescript
+if (!usuario.emailValidado) {
+  throw new HttpException(
+    'E-mail não validado. Verifique sua caixa de entrada para confirmar o cadastro.',
+    HttpStatus.UNAUTHORIZED,
+  );
+}
+
+if (usuario.isTwoFactorEnabled) {
+  // Exemplo de fluxo 2FA: não gerar o JWT final ainda,
+  // apenas iniciar a etapa de verificação do código.
+  return {
+    message: 'Código 2FA enviado para o e-mail do usuário.',
+    requiresTwoFactor: true,
+  } as any;
+}
+```
+
+Depois que o e-mail estiver validado e o código 2FA confirmado, o serviço pode gerar o token JWT normalmente.
 
 #### 2.5. Criação da Estratégia JWT
 
@@ -889,13 +937,41 @@ import ProtectedRoute from "../../components/auth/ProtectedRoute";
 
 ---
 
-### 7. Próximos Passos
+### 7. Como este tutorial conversa com as outras tarefas
+
+O login é uma peça do fluxo de segurança maior, e deve ser integrado com as outras tarefas:
+
+1. **TAREFA-6: Validar Email**
+   - O cadastro deve criar o usuário com `emailValidado = false`.
+   - O backend deve gerar um token de validação e enviar por e-mail.
+   - O login deve bloquear ou limitar o acesso quando `emailValidado` for falso.
+   - Isso garante que apenas usuários com e-mail confirmado possam obter o JWT completo.
+
+2. **TAREFA-5: 2FA**
+   - Após validar e-mail e senha, o sistema pode entrar em um segundo passo de autenticação.
+   - Na primeira etapa, o login apenas confirma as credenciais e envia o código 2FA.
+   - Na segunda etapa, o usuário envia o código e o backend gera o JWT definitivo.
+   - Esse fluxo exige duas requisições diferentes, mas mantém a mesma ideia de autenticação segura.
+
+3. **Proteção de rotas**
+   - O frontend só deve permitir acessos a telas seguras quando houver um token válido.
+   - O backend deve usar `JwtAuthGuard` nas rotas que exigem autenticação.
+   - O frontend deve remover o token ao fazer logout.
+
+4. **Consistência entre frontend e backend**
+   - Se o backend retorna `accessToken`, o frontend deve armazenar exatamente esse campo.
+   - Se o backend usar `tokenJWT`, ajuste o `apiLogin()` e o localStorage para o mesmo nome.
+   - O importante é que os nomes de campo sejam consistentes entre request/resposta e o hook de login.
+
+---
+
+### 8. Próximos Passos
 
 Após implementar o Login, você poderá implementar:
 
-1. **2FA (Tarefa 5)**: Autenticação de dois fatores (envio de código por e-mail)
-2. **Validar Email (Tarefa 6)**: Verificação de e-mail do usuário
-3. **Proteção de rotas**: Proteger as rotas do sistema para que apenas usuários logados possam acessar
+1. **2FA (Tarefa 5)**: Autenticação de dois fatores (envio de código por e-mail).
+2. **Validar Email (Tarefa 6)**: Verificação de e-mail do usuário antes de liberar o login completo.
+3. **Proteção de rotas**: Proteger as rotas do sistema com guardas no backend e redirecionamento no frontend.
 
 ---
 
