@@ -54,3 +54,14 @@ passport-local
 npm install -D @types/passport-jwt
 
 npm install -D @types/passport-local
+
+
+## AULA DO DIA 13-05-2026
+
+npm install jsonwebtoken
+npm install -D @types/jsonwebtoken
+
+npm install -D @types/jsonwebtoken
+
+
+a paginacao é só para o findall e o hateoas só para os modulos de listagem, para paginacao
