@@ -58,10 +58,18 @@ npm install -D @types/passport-local
 
 ## AULA DO DIA 13-05-2026
 
+npm install @nestjs/jwt
+
 npm install jsonwebtoken
 npm install -D @types/jsonwebtoken
 
 npm install -D @types/jsonwebtoken
 
+### correto ###
+npm install passport-local @nestjs/passport passport
+npm install -D @types/passport-local
+###
 
+
+### lembrete:
 a paginacao é só para o findall e o hateoas só para os modulos de listagem, para paginacao

@@ -5,9 +5,9 @@ import { JwtService } from '@nestjs/jwt';
 
 import { JwtPayload } from 'jsonwebtoken';
 
-interface Usertoken {
-  idUsuario: number;
-  email: string;
+export interface UserToken {
+  idUsuario?: number;
+  email?: string;
 }
 
 @Injectable()
@@ -17,8 +17,8 @@ export class JsonWebTokenService {
     private readonly configService: ConfigService,
   ) {}
 
-  async createAccessToken(usuario: Usertoken, timer?: number) {
-    const { idUsuario } = usuario;
+  async createAccessToken(userToken: UserToken, timer?: number) {
+    const { idUsuario } = userToken; // vou usar userToken em vez de usuario, para deixar mais didático
     const data: JwtPayload = {
       idUsuario,
     };
@@ -38,8 +38,8 @@ export class JsonWebTokenService {
       idUsuario,
     };
 
-    const expireInRefreshToken = this.expireInSecondsAccessToken(timer);
-    const secretRefreshToken = this.secretAccessToken();
+    const expireInRefreshToken = this.expireInSecondsRefreshToken();
+    const secretRefreshToken = this.secretRefreshToken();
     const refreshToken = await this.jwtService.signAsync(data, {
       secret: secretRefreshToken,
       expiresIn: `${expireInRefreshToken}s`,
