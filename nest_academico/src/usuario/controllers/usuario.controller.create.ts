@@ -1,5 +1,3 @@
-/*
-
 import {
   Body,
   Controller,
@@ -11,30 +9,31 @@ import {
 import { ApiTags } from '@nestjs/swagger';
 import type { Request } from 'express';
 import { ROTA } from '../../commons/constants/url.sistema';
-import { ApiPostDoc } from '../../commons/decorators/swagger.decorators';
 import { Result } from '../../commons/mensagem/mensagem';
 import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { gerarLinks } from '../../commons/utils/hateoas.utils';
 import { USUARIO } from '../constants/usuario.constants';
 
-import { UsuarioServiceCreate } from '../service/usuario.service.create';
-import { UsuarioRequest } from '../dto/request/usuario.request';
-import { UsuarioResponse } from '../dto/response/usuario.response';
+import { UsuarioService } from '../service/usuario.service';
+// import { UsuarioServiceCreate } from '../service/usuario.service.create';
+// import { UsuarioRequest } from '../dto/request/usuario.request';
+// import { UsuarioResponse } from '../dto/response/usuario.response';
 
 @ApiTags('Usuario')
 @Controller(ROTA.USUARIO.BASE)
 export class UsuarioControllerCreate {
-  constructor(private readonly usuarioServiceCreate: UsuarioServiceCreate) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   @HttpCode(HttpStatus.CREATED)
   @Post(ROTA.USUARIO.CREATE)
-  @ApiPostDoc(USUARIO.OPERACAO.CRIAR, UsuarioRequest, UsuarioResponse)
+  // @ApiPostDoc(USUARIO.OPERACAO.CRIAR, UsuarioRequest, UsuarioResponse)
   async create(
     @Req() req: Request,
-    @Body() usuarioRequest: UsuarioRequest,
-  ): Promise<Result<UsuarioResponse>> {
+    // @Body() usuarioRequest: UsuarioRequest,
+    @Body() usuarioRequest: any,
+  ): Promise<Result<any>> {
     const _link = gerarLinks(req, USUARIO.ENTITY);
-    const response = await this.usuarioServiceCreate.create(usuarioRequest);
+    const response = await this.usuarioService.create(usuarioRequest);
     return MensagemSistema.showMensagem(
       HttpStatus.CREATED,
       'Usuário cadastrado com sucesso!',
@@ -45,5 +44,3 @@ export class UsuarioControllerCreate {
     );
   }
 }
-
-*/

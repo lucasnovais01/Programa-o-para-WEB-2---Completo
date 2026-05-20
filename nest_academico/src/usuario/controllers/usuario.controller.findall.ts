@@ -1,7 +1,5 @@
 // POSTMAN: (GET) http://localhost:8000/rest/sistema/usuario/listar
 
-/*
-
 import {
   Controller,
   Get,
@@ -18,13 +16,13 @@ import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { Page } from '../../commons/pagination/page.sistema';
 
 import { USUARIO } from '../constants/usuario.constants';
-
-import { UsuarioServiceFindAll } from '../service/usuario.service.findall';
-import { UsuarioResponse } from '../dto/response/usuario.response';
+import { UsuarioService } from '../service/usuario.service';
+// import { UsuarioServiceFindAll } from '../service/usuario.service.findall';
+// import { UsuarioResponse } from '../dto/response/usuario.response';
 
 @Controller(ROTA.USUARIO.BASE)
 export class UsuarioControllerFindAll {
-  constructor(private readonly usuarioServiceFindAll: UsuarioServiceFindAll) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   @HttpCode(HttpStatus.OK)
   @Get(ROTA.USUARIO.LIST)
@@ -36,8 +34,8 @@ export class UsuarioControllerFindAll {
     @Query('props') props?: string,
     @Query('order') order?: 'ASC' | 'DESC',
     @Query('searchTerm') search?: string,
-  ): Promise<Result<Page<UsuarioResponse>>> {
-    const response = await this.usuarioServiceFindAll.findAll(
+  ): Promise<Result<Page<any>>> {
+    const response = await this.usuarioService.findAll(
       page ? Number(page) : PAGINATION.PAGE,
       pageSize ? Number(pageSize) : PAGINATION.PAGESIZE,
       props ? props : USUARIO.TABLE_FIELD.NOME_USUARIO,
@@ -54,5 +52,3 @@ export class UsuarioControllerFindAll {
     );
   }
 }
-
-*/

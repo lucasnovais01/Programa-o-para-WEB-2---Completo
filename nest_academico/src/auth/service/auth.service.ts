@@ -42,10 +42,7 @@ export class AuthService {
     return refreshToken;
   }
 
-  async getAuthenticatedUser(
-    email: string,
-    senha: string,
-  ): Promise<Usuario | null> {
+  async getAuthenticatedUser(email: string, senha: string): Promise<Usuario> {
     const usuario = await this.findByEmail(email);
     if (!usuario) {
       throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);

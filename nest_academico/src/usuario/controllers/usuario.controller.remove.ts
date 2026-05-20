@@ -1,5 +1,3 @@
-/*
-
 import {
   Controller,
   Delete,
@@ -16,11 +14,11 @@ import { MensagemSistema } from '../../commons/mensagem/mensagem.sistema';
 import { gerarLinks } from '../../commons/utils/hateoas.utils';
 
 import { USUARIO } from '../constants/usuario.constants';
-import { UsuarioServiceRemove } from '../service/usuario.service.remove';
+import { UsuarioService } from '../service/usuario.service';
 
 @Controller(ROTA.USUARIO.BASE)
 export class UsuarioControllerRemove {
-  constructor(private readonly usuarioServiceRemove: UsuarioServiceRemove) {}
+  constructor(private readonly usuarioService: UsuarioService) {}
 
   @HttpCode(HttpStatus.OK) //NO_CONTENT
   @Delete(ROTA.USUARIO.DELETE)
@@ -29,7 +27,7 @@ export class UsuarioControllerRemove {
     @Param('id', ParseIntPipe) id: number,
   ): Promise<Result<void>> {
     const _link = gerarLinks(res, USUARIO.ENTITY);
-    await this.usuarioServiceRemove.remove(id);
+    await this.usuarioService.remove(id);
     return MensagemSistema.showMensagem(
       HttpStatus.OK,
       'Usuário excluído com sucesso!',
@@ -40,5 +38,3 @@ export class UsuarioControllerRemove {
     );
   }
 }
-
-*/
