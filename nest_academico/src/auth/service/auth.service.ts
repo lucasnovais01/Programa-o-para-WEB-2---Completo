@@ -1,11 +1,10 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Usuario } from '@/usuario/entity/usuario.entity';
-import { JsonWebTokenService } from './jwt.service';
 import * as bcrypt from 'bcrypt';
+import { Repository } from 'typeorm';
+import { Usuario } from '../../usuario/entities/usuario.entity';
+import { JsonWebTokenService, UserToken } from './jwt.service';
 
-// O injectable serve para ..
 @Injectable()
 export class AuthService {
   constructor(
@@ -17,18 +16,21 @@ export class AuthService {
   async getJwtAccessToken(usuario: Usuario) {
     const { accessToken, expireInAccessToken } =
       await this.jsonWebTokenService.createAccessToken(usuario);
-    return accessToken;
 
     const cookie = this.getCookieAccessToken(accessToken, expireInAccessToken);
-    // throw new Error('Method not implemented.');
+    return {
+      cookie,
+      accessToken,
+      expireInAccessToken,
+    };
   }
 
   private getCookieAccessToken(
     token: string,
     expiresInSeconds: number,
   ): string {
-    return `Refresh=${token}; HttpOnly: true, Path=/; Max-Age=${expiresInSeconds}; SameSite=Strict`;
-  } // ele vai receber o token e o dado
+    return `Refres=${token}; HttpOnly: true, Path=/; Max-Age=${expiresInSeconds}; SameSite=Strict`;
+  }
 
   async getJwtRefreshToken(usuario: Usuario) {
     const userToken: UserToken = {
@@ -36,35 +38,29 @@ export class AuthService {
     };
 
     const { refreshToken } =
-      await this.jsonWebTokenService.createRefreshToken(userToken); // deixar o userToken em ez de Usuario, para deixar mais didático
+      await this.jsonWebTokenService.createRefreshtoken(userToken);
     return refreshToken;
   }
 
-  async getAuthenticatedUser(email: string, senha: string): Promise<Usuario> {
-    //const usuario = await this.usuarioRepository.findByEmail();
+  async getAuthenticatedUser(
+    email: string,
+    senha: string,
+  ): Promise<Usuario | null> {
     const usuario = await this.findByEmail(email);
-    await this.verificarSenha(senha, usuario.senha);
-
-    return usuario;
-  }
-  /*
-  async findByEmail(email: string): Promise<Usuario | null> {
-    const usuario = await this.usuarioRepository
-      .createQueryBuilder('usuari')
-      .where('usuario.email_usuario = :email', { email })
-      .getOne();
-
     if (!usuario) {
       throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);
     }
-
+    const matching = await this.verificarSenha(senha, usuario.senha);
+    if (!matching) {
+      throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST);
+    }
     return usuario;
   }
-*/
-  async findByEmail(email: string): Promise<Usuario> {
+
+  async findByEmail(email: string): Promise<Usuario | null> {
     const usuario = await this.usuarioRepository
-      .createQueryBuilder('usuario') // ← corrigido
-      .where('usuario.email_usuario = :email', { email })
+      .createQueryBuilder('usuario')
+      .where('usuario.email = :email', { email })
       .getOne();
 
     if (!usuario) {
@@ -76,7 +72,6 @@ export class AuthService {
 
   async verificarSenha(senha: string, hashedSenha: string): Promise<boolean> {
     const isSenhaMatching = await bcrypt.compare(senha, hashedSenha);
-
     if (!isSenhaMatching) {
       throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST);
     }

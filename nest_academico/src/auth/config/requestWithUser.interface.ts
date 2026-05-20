@@ -1,7 +1,9 @@
-import { Usuario } from '@/usuario/entity/usuario.entity';
+import { Request } from 'express';
+import { Usuario } from '../../usuario/entities/usuario.entity';
 
 interface RequestWithUser extends Request {
   // é obrigatorio usar a palavra 'user', pq o npm install passport só trabalha com esta palavra
+
   user: Usuario;
 }
 

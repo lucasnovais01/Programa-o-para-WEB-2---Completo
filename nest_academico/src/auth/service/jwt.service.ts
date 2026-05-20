@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-
 import { JwtService } from '@nestjs/jwt';
-
 import { JwtPayload } from 'jsonwebtoken';
 
 export interface UserToken {
@@ -18,7 +16,7 @@ export class JsonWebTokenService {
   ) {}
 
   async createAccessToken(userToken: UserToken, timer?: number) {
-    const { idUsuario } = userToken; // vou usar userToken em vez de usuario, para deixar mais didático
+    const { idUsuario } = userToken;
     const data: JwtPayload = {
       idUsuario,
     };
@@ -32,7 +30,7 @@ export class JsonWebTokenService {
     return { accessToken, expireInAccessToken };
   }
 
-  async createRefreshToken(usuario: UserToken) {
+  async createRefreshtoken(usuario: UserToken) {
     const { idUsuario } = usuario;
     const data: JwtPayload = {
       idUsuario,
@@ -57,8 +55,7 @@ export class JsonWebTokenService {
 
   private expireInSecondsAccessToken(timer?: number): number {
     return (
-      timer ??
-      this.configService.getOrThrow('JWT_ACCESS_TOKEN_EXPIRATION_TIMER')
+      timer ?? this.configService.getOrThrow('JWT_ACCESS_TOKEN_EXPIRATION_TIME')
     );
   }
 
