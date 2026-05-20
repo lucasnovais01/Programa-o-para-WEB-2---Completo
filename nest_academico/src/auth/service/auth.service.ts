@@ -47,7 +47,8 @@ export class AuthService {
     if (!usuario) {
       throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);
     }
-    const matching = await this.verificarSenha(senha, usuario.senha);
+    // COCAO usa senha, mas eu fiz com senhaUsuario, entao tem que ser senhaUsuario
+    const matching = await this.verificarSenha(senha, usuario.senhaUsuario);
     if (!matching) {
       throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST);
     }
@@ -57,7 +58,9 @@ export class AuthService {
   async findByEmail(email: string): Promise<Usuario | null> {
     const usuario = await this.usuarioRepository
       .createQueryBuilder('usuario')
-      .where('usuario.email = :email', { email })
+
+      // COCAO fez com email, mas eu fiz com emailUsuario, entao tem que ser emailUsuario
+      .where('usuario.emailUsuario = :email', { email })
       .getOne();
 
     if (!usuario) {

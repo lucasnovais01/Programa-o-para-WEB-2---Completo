@@ -41,7 +41,7 @@ export default function ExcluirUsuario() {
     }
 
     try {
-      const response = apiDeleteUsuario(idUsuario);
+      const response = await apiDeleteUsuario(idUsuario);
       console.log(response);
       navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {

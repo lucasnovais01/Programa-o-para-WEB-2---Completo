@@ -62,6 +62,10 @@ export class UsuarioService {
   }
 
   async create(data: Partial<Usuario>): Promise<Usuario> {
+    // Evitar que um id vazio/string seja enviado e force um insert sem chave primária
+    if ((data as any).idUsuario === '' || (data as any).idUsuario == null) {
+      delete (data as any).idUsuario;
+    }
     const usuario = this.usuarioRepository.create(data);
     return this.usuarioRepository.save(usuario);
   }

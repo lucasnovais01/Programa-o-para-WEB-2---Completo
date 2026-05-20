@@ -164,9 +164,13 @@ export const useCriar = () => {
       return;
     }
 
+    // 20-05-2026 - ADICIONADO O AWAIT AQUI PARA ESPERAR A RESPOSTA DO BACKEND ANTES DE REDIRECIONAR, POIS SE NÃO FIZER ISSO, O REDIRECIONAMENTO ACONTECE ANTES DO BACKEND RESPONDER E O USUÁRIO NÃO CONSEGUE VER A MENSAGEM DE ERRO QUANDO HÁ UM PROBLEMA COM OS DADOS ENVIADOS (EX: EMAIL JÁ EXISTENTE)
+
     try {
-      const { confirmarSenhaUsuario, ...dadosParaEnviar } = model;
-      const response = apiPostUsuario(dadosParaEnviar as Usuario);
+      const { confirmarSenhaUsuario, idUsuario, ...dadosParaEnviar } = model;
+      // garantir que não enviamos id vazio ao backend
+      const payload = dadosParaEnviar as Usuario;
+      const response = await apiPostUsuario(payload);
       console.log(response);
       navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {

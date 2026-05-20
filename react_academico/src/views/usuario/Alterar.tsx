@@ -3,7 +3,7 @@ import { MdCancel } from "react-icons/md";
 import MensagemErro from "../../components/mensagem/MensagemErro";
 
 import React from "react";
-import { useResources } from "../../services/providers/ResourcesProviders";
+// import { useResources } from "../../services/providers/ResourcesProviders";
 import { ROTA } from "../../services/router/url";
 import { USUARIO } from "../../services/usuario/constants/usuario.constants";
 import { useAlterar } from "../../services/usuario/hook/useAlterar";
@@ -17,8 +17,9 @@ export default function AlterarUsuario() {
     onSubmitForm,
     handleCancel,
     getInputClass,
-  } = useAlterar();
-  
+  } = useAlterar();  
+
+  /*
   const id=1;
   const { getEndpoint } = useResources();
     // hook Memo() => mantém na memória 
@@ -33,6 +34,7 @@ export default function AlterarUsuario() {
       console.error('recurso inexistente');
       return;
     }
+  */
 
   return (
     <div className="display">

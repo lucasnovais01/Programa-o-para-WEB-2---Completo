@@ -256,7 +256,9 @@ export const useAlterar = () => {
     return "form-control app-label mt-2";
   };
 
-  const onSubmitForm = async (e: React.FormEvent, url: string) => {
+  // 20-05-2026 - retirado o ,url: string) do onSubmitForm porque não preciso mais passar a URL como parâmetro, já que a URL está hardcoded dentro da função apiPutUsuario, e isso facilita a leitura e evita confusão com o backend. Se fosse um projeto maior, aí sim faria sentido centralizar as URLs em um arquivo de constantes.
+  // const onSubmitForm = async (e: React.FormEvent, url: string) => {
+  const onSubmitForm = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!idUsuario || !model) {
@@ -268,8 +270,11 @@ export const useAlterar = () => {
       return;
     }
 
+
+    // 20-05-2026 - Adicionado o await, e tirado o ,url de dentro do parenteses do apiPutUsuario, porque a URL já está hardcoded dentro da função apiPutUsuario, e isso facilita a leitura e evita confusão com o backend. Se fosse um projeto maior, aí sim faria sentido centralizar as URLs em um arquivo de constantes.
+
     try {
-      const response = apiPutUsuario(idUsuario, model, url);
+      const response = await apiPutUsuario(idUsuario, model);
       console.log(response);
       navigate(ROTA.USUARIO.LISTAR);
     } catch (error: any) {
