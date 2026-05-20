@@ -52,6 +52,8 @@ npm install class-validator class-transformer
 
 ### 2.2 Estrutura de arquivos do módulo `auth`
 
+A autenticação não precisa de vários módulos separados. No NestJS, você deve usar um único módulo `AuthModule` quando todos os métodos lidam com o mesmo recurso — neste caso, a tabela `USUARIO`.
+
 Crie a pasta `nest_academico/src/auth` com esta estrutura:
 
 - `auth.module.ts`
@@ -60,11 +62,15 @@ Crie a pasta `nest_academico/src/auth` com esta estrutura:
 - `auth.constants.ts`
 - `dto/request/login.request.ts`
 - `dto/response/login.response.ts`
+- `dto/request/recovery.request.ts`
+- `dto/request/reset-password.request.ts`
+- `dto/request/validate-email.request.ts`
+- `dto/request/two-factor.request.ts`
 - `guards/jwt-auth.guard.ts`
 - `strategies/jwt.strategy.ts`
 - `service/email.service.ts`
 
-Esses arquivos são o núcleo da autenticação.
+Esses arquivos são o núcleo da autenticação e todos pertencem ao mesmo módulo `auth`.
 
 ---
 
@@ -103,6 +109,69 @@ export class LoginRequest {
 }
 ```
 
+Crie `nest_academico/src/auth/dto/request/recovery.request.ts`:
+
+```ts
+// nest_academico/src/auth/dto/request/recovery.request.ts
+import { IsEmail, IsNotEmpty } from 'class-validator';
+
+export class RecoveryRequest {
+  @IsEmail()
+  @IsNotEmpty()
+  emailUsuario: string;
+}
+```
+
+Crie `nest_academico/src/auth/dto/request/reset-password.request.ts`:
+
+```ts
+// nest_academico/src/auth/dto/request/reset-password.request.ts
+import { IsNotEmpty, IsString, MinLength } from 'class-validator';
+
+export class ResetPasswordRequest {
+  @IsString()
+  @IsNotEmpty()
+  token: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(6)
+  novaSenha: string;
+}
+```
+
+Crie `nest_academico/src/auth/dto/request/validate-email.request.ts`:
+
+```ts
+// nest_academico/src/auth/dto/request/validate-email.request.ts
+import { IsNotEmpty, IsString } from 'class-validator';
+
+export class ValidateEmailRequest {
+  @IsString()
+  @IsNotEmpty()
+  token: string;
+}
+```
+
+Crie `nest_academico/src/auth/dto/request/two-factor.request.ts`:
+
+```ts
+// nest_academico/src/auth/dto/request/two-factor.request.ts
+import { Type } from 'class-transformer';
+import { IsInt, IsNotEmpty, IsString } from 'class-validator';
+
+export class TwoFactorRequest {
+  @Type(() => Number)
+  @IsInt()
+  @IsNotEmpty()
+  idUsuario: number;
+
+  @IsString()
+  @IsNotEmpty()
+  codigo: string;
+}
+```
+
 Crie `nest_academico/src/auth/dto/response/login.response.ts`:
 
 ```ts
@@ -128,21 +197,26 @@ Crie `nest_academico/src/auth/service/auth.service.ts`:
 
 ```ts
 // nest_academico/src/auth/service/auth.service.ts
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { compare, hash } from 'bcrypt';
+import { randomBytes } from 'crypto';
 import { Usuario } from '../../usuario/entities/usuario.entity';
 import { LoginResponse } from '../dto/response/login.response';
-import { BCRYPT_SALT_ROUNDS, JWT_EXPIRES_IN } from '../constants/auth.constants';
+import { BCRYPT_SALT_ROUNDS } from '../constants/auth.constants';
+import { EmailService } from './email.service';
 
 @Injectable()
 export class AuthService {
+  private readonly logger = new Logger(AuthService.name);
+
   constructor(
     @InjectRepository(Usuario)
-    private usuarioRepository: Repository<Usuario>,
-    private jwtService: JwtService,
+    private readonly usuarioRepository: Repository<Usuario>,
+    private readonly jwtService: JwtService,
+    private readonly emailService: EmailService,
   ) {}
 
   async validateUser(emailUsuario: string, senhaUsuario: string): Promise<Usuario> {
@@ -162,7 +236,6 @@ export class AuthService {
   async login(emailUsuario: string, senhaUsuario: string): Promise<LoginResponse> {
     const usuario = await this.validateUser(emailUsuario, senhaUsuario);
     const payload = { sub: usuario.idUsuario, emailUsuario: usuario.emailUsuario };
-
     const accessToken = this.jwtService.sign(payload);
 
     return {
@@ -187,14 +260,100 @@ export class AuthService {
     if (!usuario) {
       throw new HttpException('Usuário não encontrado.', HttpStatus.NOT_FOUND);
     }
+    usuario.senhaUsuario = await this.hashPassword(novaSenha);
+    await this.usuarioRepository.save(usuario);
+  }
+
+  async sendValidationEmail(idUsuario: number): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
+    if (!usuario) {
+      throw new HttpException('Usuário não encontrado.', HttpStatus.NOT_FOUND);
+    }
+
+    usuario.emailToken = randomBytes(32).toString('hex');
+    await this.usuarioRepository.save(usuario);
+
+    const confirmationUrl = `${process.env.FRONTEND_URL}/confirmar-email?token=${usuario.emailToken}`;
+    await this.emailService.sendMail(
+      usuario.emailUsuario,
+      'Confirme seu e-mail',
+      `<p>Olá ${usuario.nomeUsuario}, clique no link para confirmar seu e-mail:</p><p><a href="${confirmationUrl}">Confirmar e-mail</a></p>`,
+    );
+  }
+
+  async validateEmail(token: string): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { emailToken: token } });
+    if (!usuario) {
+      throw new HttpException('Token de confirmação inválido.', HttpStatus.BAD_REQUEST);
+    }
+
+    usuario.statusValidacao = 1;
+    usuario.emailToken = null;
+    await this.usuarioRepository.save(usuario);
+  }
+
+  async requestPasswordRecovery(emailUsuario: string): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { emailUsuario } });
+    if (!usuario) {
+      return;
+    }
+
+    usuario.recoveryToken = randomBytes(32).toString('hex');
+    usuario.tokenExpires = new Date(Date.now() + 1000 * 60 * 60); // 1 hora
+    await this.usuarioRepository.save(usuario);
+
+    const recoveryUrl = `${process.env.FRONTEND_URL}/resetar-senha?token=${usuario.recoveryToken}`;
+    await this.emailService.sendMail(
+      usuario.emailUsuario,
+      'Recuperação de senha',
+      `<p>Olá ${usuario.nomeUsuario}, clique no link para redefinir sua senha:</p><p><a href="${recoveryUrl}">Redefinir senha</a></p>`,
+    );
+  }
+
+  async resetPassword(token: string, novaSenha: string): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { recoveryToken: token } });
+    if (!usuario || !usuario.tokenExpires || usuario.tokenExpires < new Date()) {
+      throw new HttpException('Token inválido ou expirado.', HttpStatus.BAD_REQUEST);
+    }
 
     usuario.senhaUsuario = await this.hashPassword(novaSenha);
+    usuario.recoveryToken = null;
+    usuario.tokenExpires = null;
+    await this.usuarioRepository.save(usuario);
+  }
+
+  async sendTwoFactorCode(idUsuario: number): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
+    if (!usuario) {
+      throw new HttpException('Usuário não encontrado.', HttpStatus.NOT_FOUND);
+    }
+
+    const codigo = Math.floor(100000 + Math.random() * 900000).toString();
+    usuario.codigoTwoFactor = codigo;
+    usuario.codigoTwoFactorExpiracao = new Date(Date.now() + 5 * 60 * 1000); // 5 minutos
+    await this.usuarioRepository.save(usuario);
+
+    await this.emailService.sendMail(
+      usuario.emailUsuario,
+      'Código 2FA',
+      `<p>Seu código de confirmação é <strong>${codigo}</strong>. Ele expira em 5 minutos.</p>`,
+    );
+  }
+
+  async verifyTwoFactorCode(idUsuario: number, codigo: string): Promise<void> {
+    const usuario = await this.usuarioRepository.findOne({ where: { idUsuario } });
+    if (!usuario || usuario.codigoTwoFactor !== codigo || !usuario.codigoTwoFactorExpiracao || usuario.codigoTwoFactorExpiracao < new Date()) {
+      throw new HttpException('Código 2FA inválido ou expirado.', HttpStatus.BAD_REQUEST);
+    }
+
+    usuario.codigoTwoFactor = null;
+    usuario.codigoTwoFactorExpiracao = null;
     await this.usuarioRepository.save(usuario);
   }
 }
 ```
 
-> O serviço expõe `login`, `validateUser`, `hashPassword` e `changePassword`, que são funções úteis para recuperar senha e confirmar usuário.
+> `AuthService` agora contém todos os métodos de autenticação: login, validação de e-mail, recuperação de senha e 2FA.
 
 ---
 
@@ -242,12 +401,18 @@ Crie `nest_academico/src/auth/auth.controller.ts`:
 
 ```ts
 // nest_academico/src/auth/auth.controller.ts
-import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UsePipes, ValidationPipe } from '@nestjs/common';
 import { AuthService } from './service/auth.service';
 import { LoginRequest } from './dto/request/login.request';
+import { RecoveryRequest } from './dto/request/recovery.request';
+import { ResetPasswordRequest } from './dto/request/reset-password.request';
+import { ValidateEmailRequest } from './dto/request/validate-email.request';
+import { TwoFactorRequest } from './dto/request/two-factor.request';
 import { LoginResponse } from './dto/response/login.response';
 
-@Controller('rest/auth')
+// Use o caminho de rota do projeto em vez de repetir o prefixo `rest`.
+// Se você tiver `ROTA.AUTH.BASE` definido, use-o aqui. Caso contrário, use a string abaixo:
+@Controller('sistema/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -255,6 +420,41 @@ export class AuthController {
   @UsePipes(new ValidationPipe({ whitelist: true }))
   async login(@Body() loginRequest: LoginRequest): Promise<LoginResponse> {
     return this.authService.login(loginRequest.emailUsuario, loginRequest.senhaUsuario);
+  }
+
+  @Post('recovery')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async recovery(@Body() recoveryRequest: RecoveryRequest) {
+    await this.authService.requestPasswordRecovery(recoveryRequest.emailUsuario);
+    return { message: 'Se o e-mail estiver cadastrado, você receberá instruções.' };
+  }
+
+  @Post('reset')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async reset(@Body() resetRequest: ResetPasswordRequest) {
+    await this.authService.resetPassword(resetRequest.token, resetRequest.novaSenha);
+    return { message: 'Senha redefinida com sucesso.' };
+  }
+
+  @Get('validate-email')
+  @UsePipes(new ValidationPipe({ transform: true }))
+  async validateEmail(@Query() validateEmailRequest: ValidateEmailRequest) {
+    await this.authService.validateEmail(validateEmailRequest.token);
+    return { message: 'E-mail confirmado com sucesso.' };
+  }
+
+  @Post('2fa/send')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async sendTwoFactor(@Body() twoFactorRequest: TwoFactorRequest) {
+    await this.authService.sendTwoFactorCode(twoFactorRequest.idUsuario);
+    return { message: 'Código 2FA enviado por e-mail.' };
+  }
+
+  @Post('2fa/verify')
+  @UsePipes(new ValidationPipe({ whitelist: true }))
+  async verifyTwoFactor(@Body() twoFactorRequest: TwoFactorRequest) {
+    await this.authService.verifyTwoFactorCode(twoFactorRequest.idUsuario, twoFactorRequest.codigo);
+    return { message: 'Código 2FA verificado com sucesso.' };
   }
 }
 ```
@@ -272,6 +472,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthController } from './auth.controller';
 import { AuthService } from './service/auth.service';
+import { EmailService } from './service/email.service';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { Usuario } from '../usuario/entities/usuario.entity';
 import { JWT_EXPIRES_IN, JWT_SECRET } from './constants/auth.constants';
@@ -285,7 +486,7 @@ import { JWT_EXPIRES_IN, JWT_SECRET } from './constants/auth.constants';
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, EmailService],
   exports: [AuthService],
 })
 export class AuthModule {}
@@ -311,6 +512,8 @@ export class AppModule {}
 
 ### 2.9 Confirmar e-mail + recuperação de senha
 
+> Observação: este fluxo não precisa de módulos separados para cada tarefa. Tudo deve ficar em um único `AuthModule`, com `AuthService` e `AuthController`, porque os métodos apenas estendem o comportamento do usuário existente na tabela `USUARIO`.
+
 #### 2.9.1 Alterações na entidade `Usuario`
 
 Abra `nest_academico/src/usuario/entities/usuario.entity.ts` e adicione as colunas:
@@ -327,9 +530,15 @@ Abra `nest_academico/src/usuario/entities/usuario.entity.ts` e adicione as colun
 
   @Column({ name: 'TOKEN_EXPIRES', type: 'datetime', nullable: true })
   tokenExpires?: Date;
+
+  @Column({ name: 'CODIGO_TWO_FACTOR', type: 'varchar', length: 10, nullable: true })
+  codigoTwoFactor?: string;
+
+  @Column({ name: 'CODIGO_TWO_FACTOR_EXPIRACAO', type: 'datetime', nullable: true })
+  codigoTwoFactorExpiracao?: Date;
 ```
 
-> Esses campos permitem guardar o token de confirmação e o token de recuperação de senha.
+> Esses campos permitem guardar o token de confirmação, a recuperação de senha e o código de 2FA.
 
 #### 2.9.2 EmailService básico
 
@@ -367,6 +576,30 @@ export class EmailService {
   }
 }
 ```
+
+> Para desenvolvimento, recomendo usar Mailtrap. Ele captura os e-mails em uma caixa de entrada de teste e evita precisar de SMTP real.
+
+#### Configuração prática do Mailtrap
+
+1. Abra `https://mailtrap.io` e crie uma conta gratuita.
+2. Crie um novo `Inbox` em Email Testing.
+3. No painel do Inbox, encontre as configurações SMTP.
+4. No dropdown, escolha `Nodemailer`.
+5. Copie `host`, `port`, `user` e `pass`.
+6. Coloque esses valores em seu `.env`:
+
+```env
+SMTP_HOST=sandbox.smtp.mailtrap.io
+SMTP_PORT=2525
+SMTP_USER=SEU_USER_DO_MAILTRAP
+SMTP_PASS=SUA_PASS_DO_MAILTRAP
+EMAIL_FROM=no-reply@meusistema.com
+```
+
+7. Reinicie o backend e verifique o log do `EmailService`.
+8. Abra o Mailtrap e veja o e-mail de confirmação ou recuperação na interface do teste.
+
+> Mailtrap não envia o e-mail para uma caixa real: ele mostra o e-mail somente para você. Isso é perfeito para desenvolvimento e evita configuração de Gmail ou SMTP real.
 
 #### 2.9.3 Registro com token de confirmação
 
@@ -588,17 +821,17 @@ export interface LoginResult {
 }
 
 export async function apiLogin(body: LoginBody): Promise<LoginResult> {
-  const response = await http.post<LoginResult>('/rest/auth/login', body);
+  const response = await http.post<LoginResult>('/rest/sistema/auth/login', body);
   return response.data;
 }
 
 export async function apiRecovery(emailUsuario: string): Promise<{ message: string }> {
-  const response = await http.post('/rest/auth/recovery', { emailUsuario });
+  const response = await http.post('/rest/sistema/auth/recovery', { emailUsuario });
   return response.data;
 }
 
 export async function apiReset(token: string, novaSenha: string): Promise<{ message: string }> {
-  const response = await http.post('/rest/auth/reset', { token, novaSenha });
+  const response = await http.post('/rest/sistema/auth/reset', { token, novaSenha });
   return response.data;
 }
 ```
@@ -859,7 +1092,7 @@ Se quiser usar nomes explicitamente em caixa alta para casar com o DDL atual, ad
 
 ### 5.1 Testar login via Postman
 
-1. URL: `POST http://localhost:8000/rest/auth/login`
+1. URL: `POST http://localhost:8000/rest/sistema/auth/login`
 2. Body JSON:
 
 ```json
@@ -896,7 +1129,7 @@ Authorization: Bearer <accessToken>
 
 ### 5.4 Testar recuperação de senha
 
-1. Chame `POST /rest/auth/recovery` com o e-mail do usuário.
+1. Chame `POST /rest/sistema/auth/recovery` com o e-mail do usuário.
 2. Verifique no banco se `RECOVERY_TOKEN` e `TOKEN_EXPIRES` foram preenchidos.
 3. Acesse a rota de reset no frontend com `?token=<RECOVERY_TOKEN>`.
 4. Submeta nova senha e confirme no banco se `SENHA` foi atualizada.
@@ -916,7 +1149,7 @@ Authorization: Bearer <accessToken>
 ## 7. Checklist final para entrega
 
 - [ ] `AuthModule` criado e importado em `AppModule`.
-- [ ] `AuthController` responde em `/rest/auth/login`.
+- [ ] `AuthController` responde em `/rest/sistema/auth/login`.
 - [ ] `JwtStrategy` e `JwtAuthGuard` estão funcionando.
 - [ ] Frontend salva token em `localStorage` e envia `Authorization`.
 - [ ] `PrivateRoute` bloqueia páginas sem login.
@@ -930,13 +1163,6 @@ Authorization: Bearer <accessToken>
 
 Se quiser, posso agora criar os arquivos do backend `nest_academico/src/auth` com o código pronto, e também montar as telas `Login`, `EsqueciSenha` e `ResetSenha` no frontend para você. Se você quiser, eu faço isso diretamente no workspace.
 
-
-- `POST /rest/auth/recovery` com `{ email }` → o backend deve setar `recovery_token` e `token_expires` e enviar e-mail
-- `POST /rest/auth/reset` com `{ token, novaSenha }` → atualiza senha (hash) se token válido
-
----
-
-**6. Dicas, armadilhas comuns e checklist final**
 
 - Nunca armazene senha em texto puro — use `bcrypt.hash(, saltRounds)` ao criar/alterar senha.
 - Use variáveis de ambiente para `JWT_SECRET` e credenciais SMTP.
