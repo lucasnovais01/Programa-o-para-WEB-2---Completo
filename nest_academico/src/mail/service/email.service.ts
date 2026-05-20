@@ -2,6 +2,7 @@ import { Global, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
+import { MailPayload } from '../config/mail-options';
 
 @Global()
 @Injectable()
@@ -22,5 +23,18 @@ export class EmailService {
       },
       ignoreTLS: this.configService.get('EMAIL_TLS'),
     });
+  }
+
+  // se deu certo, envia o email caso contrário a mensagem chata
+  async sendMail(options: MailPayload) {
+    if (!options.from) {
+      throw new EmailException();
+    }
+
+    try {
+      await this.mailTransport.sendMail({});
+    } catch (error: any) {
+      throw new Error('Falha no envio do mail' + error.message);
+    }
   }
 }
