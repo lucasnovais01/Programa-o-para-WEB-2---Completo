@@ -1,4 +1,4 @@
-import { HttpException } from "@nestjs/common";
+import { HttpException } from '@nestjs/common';
 
 export interface ExceptionPayload {
   statusCode: number; // codigos http 200, 300, 400, ...
@@ -6,4 +6,8 @@ export interface ExceptionPayload {
   error?: string | null; // "Conflito de email de cadastro no email"
 }
 
-export class NegocioException extends HttpException {}
+export class NegocioException extends HttpException {
+  constructor(payload: ExceptionPayload) {
+    super(payload, payload.statusCode); // Envia para o PAI
+  }
+}
