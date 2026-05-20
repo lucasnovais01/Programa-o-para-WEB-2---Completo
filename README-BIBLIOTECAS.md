@@ -19,3 +19,10 @@ npm install
 
 
 
+20-05-2026
+
+npm install mailer
+
+npm install nodemailer
+
+@types/npm install mailer
