@@ -4,7 +4,7 @@ export interface MailPayload {
   subject: string;
   text: string;
   html?: string;
-  context: { [key: string]: any };
+  context?: { [key: string]: any };
   template?: string; // se tiver template, usa o template, mas pode ser uma tela em branco, só com a mensagem
   attachments?: any[];
 }
