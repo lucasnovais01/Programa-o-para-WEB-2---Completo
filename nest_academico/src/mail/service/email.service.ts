@@ -37,23 +37,25 @@ export class EmailService {
       );
     }
 
+    /*
     context: [
       "nome": "Francisco",
       "texto": "Voce efetou o cadastro no nosso sistema"
       "motivo": "Utilize o link para confirmar o seu registro"
       "url": "http://local:8000/confirmation?=token"
     ]
+    */
 
     if (options.context) {
-      Object.entries(options.context).forEach(([key, value]) => { // no ForEach, vai pegar a chave e o valor
-        const regex = new RegExp(`{{${key}}}`, "g");
+      Object.entries(options.context).forEach(([key, value]) => {
+        // no ForEach, vai pegar a chave e o valor
+        const regex = new RegExp(`{{${key}}}`, 'g');
         if (options.html) {
-          options.html = options.html.replace(regex, String(value))
-        }
-        else {
+          options.html = options.html.replace(regex, String(value));
+        } else {
           options.text = options.text.replace(regex, String(value));
         }
-      })
+      });
     }
 
     /*
@@ -87,7 +89,7 @@ export class EmailService {
     try {
       await this.mailTransport.sendMail({
         from: options.from,
-        to: Array.isArray(options.to) ? options.to.join(", ") : options.to, // se for um array, pega tudo, coloca virgula e espaço, se não for aaray, retorna o options.to
+        to: Array.isArray(options.to) ? options.to.join(', ') : options.to, // se for um array, pega tudo, coloca virgula e espaço, se não for aaray, retorna o options.to
         subject: options.subject,
         html: options.html,
         text: options.text,
@@ -98,26 +100,24 @@ export class EmailService {
     }
   }
 
-    async avisoDeLogin(email: string, nome: string) {
-      
-    }
+  async avisoDeLogin(email: string, nome: string) {}
 
   // O professor usou o código: "http://localhost:8000/rest/sistema/confirmation?token={token}"
   // Mas pode ser diferente para cada sistema
   async sendRegisterEmailConfirmation(
-    email: string, 
-    nome: string, 
+    email: string,
+    nome: string,
     token: string,
   ) {
     const url = `http://localhost:8000/rest/sistema/confirmation?token={token}`;
     return this.prepararEnviar(
       email,
-      "verifique a sua caixa postal de e-mail",
-      "Confirmação de Registro",
-      "Obrigado por se registrar em nosso sistema! Use o Link abaixo para ativar sua conta: ",
+      'verifique a sua caixa postal de e-mail',
+      'Confirmação de Registro',
+      'Obrigado por se registrar em nosso sistema! Use o Link abaixo para ativar sua conta: ',
       url,
-      nome
-    )
+      nome,
+    );
   }
 
   // vamos criar uma função
@@ -146,9 +146,8 @@ export class EmailService {
     return this.sendMail(options);
   }
 
-
   // Está parte é muito importante, pois se tiver algum erro, é muito dificil de identificar
-  private generateHtml(title: string, message: string) : string {
+  private generateHtml(title: string, message: string): string {
     return `
       <!DOCTYPE html>
       <html>
