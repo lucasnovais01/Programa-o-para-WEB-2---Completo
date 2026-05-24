@@ -19,10 +19,25 @@ npm install
 
 
 
+npm install bcrypt
+npm i --save-dev @types/bcrypt
+
+###
+npm install @nestjs/passport passport
+
+
+
+npm install @nestjs/jwt
+npm install jsonwebtoken
+npm install -D @types/jsonwebtoken
+
 20-05-2026
 
 npm install mailer
-
 npm install nodemailer
-
 @types/npm install mailer
+
+#
+npm install @nest passport-jwt
+npm install @nest passport-local
+##
