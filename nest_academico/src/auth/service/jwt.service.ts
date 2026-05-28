@@ -3,9 +3,17 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from 'jsonwebtoken';
 
-export interface UserToken {
+export interface EfetivaPermissao {
+  resource: string;
+  actions: string[];
+}
+
+export interface jwtPayload {
   idUsuario?: number;
   email?: string;
+  nome?: string;
+  role?: string[];
+  permissions?: EfetivaPermissao[];
 }
 
 @Injectable()

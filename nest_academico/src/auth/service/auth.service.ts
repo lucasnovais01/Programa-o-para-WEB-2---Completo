@@ -29,8 +29,18 @@ export class AuthService {
     token: string,
     expiresInSeconds: number,
   ): string {
-    return `Refres=${token}; HttpOnly: true, Path=/; Max-Age=${expiresInSeconds}; SameSite=Strict`;
+    return `Authentication=${token}; HttpOnly: true, Path=/; Max-Age=${expiresInSeconds}; SameSite=Lax; Secure`;
   }
+  /*
+    Authentication - o nome do cookie
+    token - jwt json web toke
+    httpOnly - invadir o quebra o cookie
+    Path - caminho - em o cookie pode ser acessado
+      // exemplo
+    Max-Age - tempo de vida 3600 (equivalente a 1hora), use este padrão
+    SameSite - Lax, Strict, none
+    Secure
+  */
 
   async getJwtRefreshToken(usuario: Usuario) {
     const userToken: UserToken = {

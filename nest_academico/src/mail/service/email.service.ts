@@ -1,4 +1,5 @@
-import { Global, Injectable } from '@nestjs/common';
+import { Global } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { createTransport } from 'nodemailer';
 import Mail from 'nodemailer/lib/mailer';
@@ -6,7 +7,7 @@ import { MailPayload } from '../config/mail-options';
 //
 import { EmailExceptions } from '@/commons/exceptions/error/email.exceptions';
 
-@Global()
+//@Global()
 @Injectable()
 export class EmailService {
   private mailTransport: Mail;

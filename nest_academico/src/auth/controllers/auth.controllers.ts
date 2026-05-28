@@ -1,3 +1,20 @@
+// Professor disse que aqui possi um erro, chato, vai dar tal problema.
+// Para acha o erro.
+
+// O erro está aqui.
+// req.res?.setHeader('Set-Cookie', [cookie, accessToken]);
+// O setHeader está recebendo [cookie, accessToken], mas:
+
+// cookie = é a string do cookie HTTP-only (formato Refresh=...; HttpOnly; Path=/)
+// accessToken = é o token JWT em si, uma string pura como eyJhbGc...
+// O Access Token não é um cookie, não tem o formato correto para ser setado no header Set-Cookie. Ele seria rejeitado/ignorado pelo navegador.
+
+// Correto
+// req.res?.setHeader('Set-Cookie', cookie); // só o cookie formatado
+// return {
+//  accessToken,  // access token vai no BODY da resposta
+//  ... };
+
 import { Controller, Post, Req, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from '../config/guard/local.auth.guard';
 import type RequestWithUser from '../config/requestWithUser.interface';
