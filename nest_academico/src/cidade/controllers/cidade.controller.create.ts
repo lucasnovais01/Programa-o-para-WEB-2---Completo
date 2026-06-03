@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Post,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { ROTA } from '../../commons/constants/url.sistema';
@@ -18,7 +19,9 @@ import { CidadeResponse } from '../dto/response/cidade.response';
 import { CidadeServiceCreate } from '../service/cidade.service.create';
 
 import type { Request } from 'express';
+import JwtAccessTokenGuard from '@/auth/config/guard/jwt.access.guard';
 
+@UseGuards(JwtAccessTokenGuard)
 @ApiTags('Cidade')
 @Controller(ROTA.CIDADE.BASE)
 export class CidadeControllerCreate {

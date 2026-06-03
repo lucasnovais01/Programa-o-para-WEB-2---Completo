@@ -9,7 +9,7 @@ import { AuthService } from './service/auth.service';
 import { JsonWebTokenService } from './service/jwt.service';
 import { JwtVerificationTokenStrategy } from './config/strategy/jwt/jwt.verification.strategy';
 import { JwtRefreshTokenStrategy } from './config/strategy/jwt/jwt.refresh.strategy';
-import { JwtAccessTokenStrategy } from './config/strategy/jwt/jwt.acess.strategy';
+import { JwtAccessTokenStrategy } from './config/strategy/jwt/jwt.access.strategy';
 
 const providers = [
   AuthService,
