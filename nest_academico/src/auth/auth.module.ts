@@ -7,6 +7,18 @@ import { LocalStrategy } from './config/strategy/local/local.stragy';
 import { AuthController } from './controllers/auth.controllers';
 import { AuthService } from './service/auth.service';
 import { JsonWebTokenService } from './service/jwt.service';
+import { JwtVerificationTokenStrategy } from './config/strategy/jwt/jwt.verification.strategy';
+import { JwtRefreshTokenStrategy } from './config/strategy/jwt/jwt.refresh.strategy';
+import { JwtAccessTokenStrategy } from './config/strategy/jwt/jwt.acess.strategy';
+
+const providers = [
+  AuthService,
+  LocalStrategy,
+  JsonWebTokenService,
+  JwtAccessTokenStrategy,
+  JwtRefreshTokenStrategy,
+  JwtVerificationTokenStrategy,
+];
 
 @Module({
   imports: [
@@ -25,7 +37,7 @@ import { JsonWebTokenService } from './service/jwt.service';
     }),
   ],
 
-  providers: [AuthService, LocalStrategy, JsonWebTokenService],
+  providers: [...providers],
   controllers: [AuthController],
 })
 export class AuthModule {}

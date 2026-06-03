@@ -41,3 +41,8 @@ npm install nodemailer
 npm install @nest passport-jwt
 npm install @nest passport-local
 ##
+
+
+## Aula do dia 03-06-2026
+npm install cookie-parse
+npm install @types/cookie-parse
