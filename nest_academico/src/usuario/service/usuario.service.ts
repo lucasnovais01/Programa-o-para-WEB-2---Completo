@@ -13,6 +13,28 @@ export class UsuarioService {
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
 
+  async buscarPorId(id: number):Promise<> {
+    try {
+      const usuario = await this.usuarioRepository
+        .createQueryBuilder('usuario')
+        .where('usuario.idUsuario = :id', { id })
+        .getOne();
+      if (!usuario) {
+        throw new ApiException(
+          HttpStatus.NOT_FOUND,
+          'Usuário não localizado no sistema',
+        );
+      }
+      return usuario;
+    } catch (error: any) {
+      throw new ApiException(
+        HttpStatus.NOT_FOUND,
+        'Usuário não localizado no sistema',
+      );
+    }
+  }
+  // 
+
   async findAll(
     page = 1,
     pageSize = 5,

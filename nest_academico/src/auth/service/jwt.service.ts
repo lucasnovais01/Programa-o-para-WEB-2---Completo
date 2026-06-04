@@ -77,3 +77,6 @@ export class JsonWebTokenService {
     });
   }
 }
+
+// consertar o verifyToken
+// <{ isValid: boolean, isExpired: boolean, }
