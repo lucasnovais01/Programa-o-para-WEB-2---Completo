@@ -3,8 +3,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
-import { RequestUserPayload } from '../config/requestWithUser.interface';
 import { JsonWebTokenService, UserToken } from './jwt.service';
+import { RequestUserPayload } from '../config/requestWithUser.interface';
 
 @Injectable()
 export class AuthService {
@@ -32,15 +32,16 @@ export class AuthService {
   ): string {
     return `Authentication=${token}; HttpOnly: true, Path=/; Max-Age=${expiresInSeconds}; SameSite=Lax; Secure`;
   }
+
   /*
-    Authentication - o nome do cookie
+    Authentication - o nome do cookie 
     token - jwt json web toke
-    httpOnly - invadir o quebra o cookie
+    httpOnly - invadir o quebra o cookie e 
     Path - caminho - em o cookie pode ser acessado
-      // exemplo
-    Max-Age - tempo de vida 3600 (equivalente a 1hora), use este padrão
-    SameSite - Lax, Strict, none
-    Secure
+        //exemplo
+    Max-Age - tempo de vida 3600 -  never ----> 1h, 2d      
+    SameSite = Law, Strict, none 
+  
   */
 
   async getJwtRefreshToken(usuario: Usuario) {
@@ -53,13 +54,15 @@ export class AuthService {
     return refreshToken;
   }
 
-  async getAuthenticatedUser(email: string, senha: string): Promise<Usuario> {
+  async getAuthenticatedUser(
+    email: string,
+    senha: string,
+  ): Promise<Usuario | null> {
     const usuario = await this.findByEmail(email);
     if (!usuario) {
       throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);
     }
-    // COCAO usa senha, mas eu fiz com senhaUsuario, entao tem que ser senhaUsuario
-    const matching = await this.verificarSenha(senha, usuario.senhaUsuario);
+    const matching = await this.verificarSenha(senha, usuario.senha);
     if (!matching) {
       throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST);
     }
@@ -69,9 +72,7 @@ export class AuthService {
   async findByEmail(email: string): Promise<Usuario | null> {
     const usuario = await this.usuarioRepository
       .createQueryBuilder('usuario')
-
-      // COCAO fez com email, mas eu fiz com emailUsuario, entao tem que ser emailUsuario
-      .where('usuario.emailUsuario = :email', { email })
+      .where('usuario.email = :email', { email })
       .getOne();
 
     if (!usuario) {
