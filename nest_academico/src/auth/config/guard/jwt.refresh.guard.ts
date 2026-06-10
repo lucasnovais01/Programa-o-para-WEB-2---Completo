@@ -1,21 +1,23 @@
 import { ExecutionContext, HttpStatus, Injectable } from '@nestjs/common';
-import { AuthGuard as PassportAuthGuard } from '@nest/passport';
-import { UsuarioService } from '@/usuario/service/usuario.service';
-import { JsonWebTokenService } from '@/auth/service/jwt.service';
+import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
+import { ApiException } from '../../../commons/exceptions/error/api.exceptions';
+import { UsuarioService } from '../../../usuario/service/usuario.service';
+import { JsonWebTokenService } from '../../service/jwt.service';
 
 @Injectable()
-export default class JwtAccessTokenGuard extends PassportAuthGuard(
-  'jwt-access',
+export default class JwtRefreshTokenGuard extends PassportAuthGuard(
+  'jwt-refresh',
 ) {
   constructor(
     private readonly usuarioService: UsuarioService,
     private readonly jwtService: JsonWebTokenService,
   ) {
     super({
-      passReToCallback: true,
+      passReqToCallbak: true,
     });
   }
-  async canActivate(context: ExecutionContext) : Promise<boolean> {
+
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const cookieAccessToken = this.extractToken(request);
 
@@ -25,6 +27,7 @@ export default class JwtAccessTokenGuard extends PassportAuthGuard(
         'Não existe sessão para o usuário',
       );
     }
+
     const { isValid, isExpired, payload } =
       await this.jwtService.verifyToken(cookieAccessToken);
 
@@ -34,10 +37,11 @@ export default class JwtAccessTokenGuard extends PassportAuthGuard(
         'Token de acesso não é válido',
       );
     }
+
     if (isExpired) {
       throw new ApiException(
         HttpStatus.UNAUTHORIZED,
-        'Token de acesso não é válido',
+        'Token de acesso expirado!',
       );
     }
 
@@ -50,16 +54,16 @@ export default class JwtAccessTokenGuard extends PassportAuthGuard(
       email: usuarioLogado.email,
       name: usuarioLogado.nomeUsuario,
       role: '',
-      permission: '',
+      permissions: '',
       isVerified: usuarioLogado.email ? true : false,
     };
 
-    // return payload;
+    return true;
   }
+
   private extractToken(request: any) {
     const cookieName = process.env.SESSION_COOKIE_NAME || 'Authentication';
     const sessionToken = request.cookies?.[cookieName];
-
     return sessionToken;
   }
 }

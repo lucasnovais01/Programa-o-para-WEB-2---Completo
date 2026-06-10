@@ -2,13 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from 'jsonwebtoken';
+import { RequestUserPayload } from '../config/requestWithUser.interface';
+
+export type TokenType = 'access' | 'refresh' | 'verification';
 
 export interface EfetivaPermissao {
   resource: string;
   actions: string[];
 }
 
-export interface jwtPayload {
+export interface UserToken {
   idUsuario?: number;
   email?: string;
   nome?: string;
@@ -23,7 +26,7 @@ export class JsonWebTokenService {
     private readonly configService: ConfigService,
   ) {}
 
-  async createAccessToken(userToken: UserToken, timer?: number) {
+  async createAccessToken(userToken: RequestUserPayload, timer?: number) {
     const { idUsuario } = userToken;
     const data: JwtPayload = {
       idUsuario,
@@ -61,6 +64,10 @@ export class JsonWebTokenService {
     return this.configService.getOrThrow('JWT_REFRESH_TOKEN_SECRET');
   }
 
+  private secretVerificationToken() {
+    return this.configService.getOrThrow('JWT_VERIFICATION_TOKEN_SECRET');
+  }
+
   private expireInSecondsAccessToken(timer?: number): number {
     return (
       timer ?? this.configService.getOrThrow('JWT_ACCESS_TOKEN_EXPIRATION_TIME')
@@ -71,12 +78,40 @@ export class JsonWebTokenService {
     return this.configService.getOrThrow('JWT_REFRESH_TOKEN_EXPIRATION_TIME');
   }
 
-  async verifyToken(token: string) {
-    return await this.jwtService.verify(token, {
-      secret: this.configService.getOrThrow('JWT_VERIFICATION_TOKEN_SECRET'),
-    });
+  async verifyToken(
+    token: string,
+    type: TokenType = 'access',
+  ): Promise<{ isValid: boolean; isExpired: boolean; payload: any | null }> {
+    const secret = this.getSecretTokenType(type);
+    try {
+      const payload = await this.jwtService.verify(token, {
+        secret,
+      });
+      return {
+        isValid: true,
+        isExpired: false,
+        payload,
+      };
+    } catch (error: any) {
+      const expiredPayload = this.jwtService.decode(token);
+      const isExpired = error.name === 'TokenExpiredError';
+      return {
+        isValid: false,
+        isExpired: isExpired,
+        payload: expiredPayload || null,
+      };
+    }
+  }
+
+  private getSecretTokenType(type: TokenType): string {
+    switch (type) {
+      case 'refresh':
+        return this.secretRefreshToken();
+      case 'verification':
+        return this.secretVerificationToken();
+      case 'access':
+      default:
+        return this.secretAccessToken();
+    }
   }
 }
-
-// consertar o verifyToken
-// <{ isValid: boolean, isExpired: boolean, }

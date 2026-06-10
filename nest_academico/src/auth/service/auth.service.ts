@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
+import { RequestUserPayload } from '../config/requestWithUser.interface';
 import { JsonWebTokenService, UserToken } from './jwt.service';
 
 @Injectable()
@@ -13,7 +14,7 @@ export class AuthService {
     private readonly jsonWebTokenService: JsonWebTokenService,
   ) {}
 
-  async getJwtAccessToken(usuario: Usuario) {
+  async getJwtAccessToken(usuario: RequestUserPayload) {
     const { accessToken, expireInAccessToken } =
       await this.jsonWebTokenService.createAccessToken(usuario);
 

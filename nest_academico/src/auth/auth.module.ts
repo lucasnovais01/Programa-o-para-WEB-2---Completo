@@ -1,17 +1,18 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
+import { PassportModule } from '@nestjs/passport';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Usuario } from '../usuario/entities/usuario.entity';
+import { JwtAccessTokenStrategy } from './config/strategy/jwt/jwt.access.strategy';
+import { JwtRefreshTokenStrategy } from './config/strategy/jwt/jwt.refresh.strategy';
+import { JwtVerificationTokenStrategy } from './config/strategy/jwt/jwt.verification.strategy';
 import { LocalStrategy } from './config/strategy/local/local.stragy';
 import { AuthController } from './controllers/auth.controllers';
 import { AuthService } from './service/auth.service';
 import { JsonWebTokenService } from './service/jwt.service';
-import { JwtVerificationTokenStrategy } from './config/strategy/jwt/jwt.verification.strategy';
-import { JwtRefreshTokenStrategy } from './config/strategy/jwt/jwt.refresh.strategy';
-import { JwtAccessTokenStrategy } from './config/strategy/jwt/jwt.access.strategy';
 
-const providers = [
+const provider = [
   AuthService,
   LocalStrategy,
   JsonWebTokenService,
@@ -23,6 +24,7 @@ const providers = [
 @Module({
   imports: [
     TypeOrmModule.forFeature([Usuario]),
+    PassportModule,
     ConfigModule,
     JwtModule.registerAsync({
       global: true,
@@ -37,7 +39,7 @@ const providers = [
     }),
   ],
 
-  providers: [...providers],
+  providers: [...provider],
   controllers: [AuthController],
 })
 export class AuthModule {}
