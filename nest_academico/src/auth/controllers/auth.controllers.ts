@@ -15,11 +15,12 @@
 //  accessToken,  // access token vai no BODY da resposta
 //  ... };
 
-import { Controller, Post, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { UsuarioService } from '../../usuario/service/usuario.service';
 import { LocalAuthGuard } from '../config/guard/local.auth.guard';
 import RequestWithUser from '../config/requestWithUser.interface';
 import { AuthService } from '../service/auth.service';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('auth')
 export class AuthController {
@@ -40,4 +41,10 @@ export class AuthController {
 
     return 'cookie processado';
   }
+
+  //Precisa do Get e vai conversar com src\auth\config\guard\google.auth.guard.ts
+
+  @UseGuards(AuthGuard('google'))
+  @Get('google')
+  async googleAuth() {}
 }
