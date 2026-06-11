@@ -7,16 +7,18 @@ export class GoogleAuthStrategy extends PassportStrategy(Strategy, 'google') {
     super({
       clientID: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-      callBackURL: process.env.GOOGLE_CALLBACK_URL as string,
+      callbackURL: process.env.GOOGLE_CALLBACK_URL as string,
       scope: ['email', 'profile'],
       passReqToCallback: true,
     });
   }
 
+  // talvz precise de uma notificação perguntando se o usuário consente na coleta de dados
+
   validate(
-    req: Request,
+    req: Request, // req serve para pegar o ip do cliente, o request do nest, nome da máquina, OS da máquina, etc..
     accessToken: string,
     refreshToken: string,
-    profile: any,
+    profile: any, // é jogado dentro da uma tabela, geralmente é chamado de socialLogin por exemplo, e sempre é cardinalidade 1.. para ..1 com o usuario
   ) {}
 }
