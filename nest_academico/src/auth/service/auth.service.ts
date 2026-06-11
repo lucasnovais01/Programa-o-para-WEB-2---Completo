@@ -89,4 +89,18 @@ export class AuthService {
     }
     return true;
   }
+
+  // type OAuthProvider = "google" | "facebook" | "instagram" | "microsoft"
+
+  // Aqui passamos o tipo, o nome, do provider, se for google, então é "google"
+  async findOrCreateUser = (
+    provider: OAuthProvider,
+    profile: any,
+    accesstoken: string,
+    refreshtoken: string,
+  ) => {
+
+    const oauthEmail = profile.email?.[0].value || profile._json?.email
+
+  }
 }

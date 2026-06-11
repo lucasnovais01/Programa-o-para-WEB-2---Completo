@@ -46,3 +46,11 @@ npm install @nest passport-local
 ## Aula do dia 03-06-2026
 npm install cookie-parse
 npm install @types/cookie-parse
+
+
+
+### passporte da google
+
+npm install passport-google-oauth20
+
+npm install --save-dev @types/passport-google-oauth20
