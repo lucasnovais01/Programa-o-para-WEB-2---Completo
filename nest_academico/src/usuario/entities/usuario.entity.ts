@@ -18,6 +18,7 @@ export class Usuario extends BaseEntity {
 
   @Column({ name: 'SENHA' })
   senhaUsuario!: string;
+  email: any;
 
   /*
   // Campos do DDL modelo do professor, mantidos como comentário:

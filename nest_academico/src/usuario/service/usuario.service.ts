@@ -5,6 +5,7 @@ import { Pageable } from '../../commons/pagination/page.response';
 import { Page } from '../../commons/pagination/page.sistema';
 import { USUARIO } from '../constants/usuario.constants';
 import { Usuario } from '../entities/usuario.entity';
+import { ApiException } from '@/commons/exceptions/error/api.exceptions';
 
 @Injectable()
 export class UsuarioService {
@@ -13,7 +14,7 @@ export class UsuarioService {
     private readonly usuarioRepository: Repository<Usuario>,
   ) {}
 
-  async buscarPorId(id: number):Promise<> {
+  async buscarPorId(id: number): Promise<Usuario> {
     try {
       const usuario = await this.usuarioRepository
         .createQueryBuilder('usuario')
@@ -33,7 +34,7 @@ export class UsuarioService {
       );
     }
   }
-  // 
+  //
 
   async findAll(
     page = 1,
@@ -72,6 +73,8 @@ export class UsuarioService {
     const [content, totalElements] = await query.getManyAndCount();
     return Page.of(content, totalElements, pageable);
   }
+
+  // Eu não sei se devo colocar <> ou <Usuario> dentro desta promise
 
   async findOne(id: number): Promise<Usuario> {
     const usuario = await this.usuarioRepository.findOne({

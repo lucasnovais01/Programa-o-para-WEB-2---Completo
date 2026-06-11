@@ -18,9 +18,10 @@
 import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { UsuarioService } from '../../usuario/service/usuario.service';
 import { LocalAuthGuard } from '../config/guard/local.auth.guard';
-import RequestWithUser from '../config/requestWithUser.interface';
+
 import { AuthService } from '../service/auth.service';
 import { AuthGuard } from '@nestjs/passport';
+import type RequestWithUser from '../config/requestWithUser.interface';
 
 @Controller('auth')
 export class AuthController {

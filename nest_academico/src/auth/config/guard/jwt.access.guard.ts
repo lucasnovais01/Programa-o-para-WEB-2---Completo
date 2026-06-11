@@ -1,8 +1,9 @@
 import { ExecutionContext, HttpStatus, Injectable } from '@nestjs/common';
 import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
-import { ApiException } from '../../../commons/exceptions/error/api.exceptions';
+// import { ApiException } from '../../../commons/exceptions/error/api.exceptions';
 import { UsuarioService } from '../../../usuario/service/usuario.service';
 import { JsonWebTokenService } from '../../service/jwt.service';
+import { ApiException } from '@/commons/exceptions/error/api.exceptions';
 
 @Injectable()
 export default class JwtAccessTokenGuard extends PassportAuthGuard(
@@ -48,6 +49,8 @@ export default class JwtAccessTokenGuard extends PassportAuthGuard(
     const usuarioLogado = await this.usuarioService.buscarPorId(
       payload.idUsuario,
     );
+
+    // Tem um erro que diz que email não pertene a usuario? como assim
 
     request.user = {
       idUsuario: usuarioLogado.idUsuario,

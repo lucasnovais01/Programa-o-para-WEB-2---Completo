@@ -62,7 +62,7 @@ export class AuthService {
     if (!usuario) {
       throw new HttpException('Usuário não cadastrado', HttpStatus.NOT_FOUND);
     }
-    const matching = await this.verificarSenha(senha, usuario.senha);
+    const matching = await this.verificarSenha(senha, usuario.senhaUsuario);
     if (!matching) {
       throw new HttpException('Credenciais inválidas', HttpStatus.BAD_REQUEST);
     }

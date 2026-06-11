@@ -7,10 +7,11 @@ import { Usuario } from '../usuario/entities/usuario.entity';
 import { JwtAccessTokenStrategy } from './config/strategy/jwt/jwt.access.strategy';
 import { JwtRefreshTokenStrategy } from './config/strategy/jwt/jwt.refresh.strategy';
 import { JwtVerificationTokenStrategy } from './config/strategy/jwt/jwt.verification.strategy';
-import { LocalStrategy } from './config/strategy/local/local.stragy';
+
 import { AuthController } from './controllers/auth.controllers';
 import { AuthService } from './service/auth.service';
 import { JsonWebTokenService } from './service/jwt.service';
+import { LocalStrategy } from './config/strategy/local/local.strategy';
 
 const provider = [
   AuthService,
