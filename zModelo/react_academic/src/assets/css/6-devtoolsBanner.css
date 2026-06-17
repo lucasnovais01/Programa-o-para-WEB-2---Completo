@@ -1,0 +1,25 @@
+
+.devtools-banner {
+  background: linear-gradient(to right, var(--text-gray-600), var(--text-gray-800));
+  padding: 4rem 2rem;
+  border-radius: var(--border-radius-xl);
+  text-align: center;
+  color: var(--text-white);
+  margin-bottom: 2rem;
+}
+
+.devtools-banner i {
+  font-size: var(--font-size-5xl);
+  margin-bottom: 1rem;
+}
+
+.devtools-banner h1 {
+  font-size: var(--font-size-4xl);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.devtools-banner p {
+  font-size: var(--font-size-lg);
+  color: var(--text-gray-100);
+}

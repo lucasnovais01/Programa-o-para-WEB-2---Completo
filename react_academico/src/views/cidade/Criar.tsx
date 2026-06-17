@@ -13,19 +13,20 @@ export default function CriarCidade() {
       <div className="card animated fadeInDown">
         <h2>Nova Cidade</h2>
         <form onSubmit={(e) => onSubmitForm(e)}>
-          <div className="mb-2 mt-4"></div>{" "}
-          <Input
-            label={CIDADE.LABEL.CODIGO}
-            id={CIDADE.FIELDS.CODIGO}
-            name={CIDADE.FIELDS.CODIGO}
-            value={model?.codCidade}
-            onChange={(e) =>
-              handleChangeField(CIDADE.FIELDS.CODIGO, e.target.value)
-            }
-            onBlur={(e) => validateField(CIDADE.FIELDS.CODIGO, e)}
-            error={errors.codCidade}
-            errorMensagem={errors.codCidadeMensagem}
-          />
+          <div className="mb-2 mt-4">
+            <Input
+              label={CIDADE.LABEL.CODIGO}
+              id={CIDADE.FIELDS.CODIGO}
+              name={CIDADE.FIELDS.CODIGO}
+              value={model?.codCidade}
+              onChange={(e) =>
+                handleChangeField(CIDADE.FIELDS.CODIGO, e.target.value)
+              }
+              onBlur={(e) => validateField(CIDADE.FIELDS.CODIGO, e)}
+              error={errors.codCidade}
+              errorMensagem={errors.codCidadeMensagem}
+            />
+          </div>
           <div className="mb-2 mt-4">
             <Input
               label={CIDADE.LABEL.NOME}

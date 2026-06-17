@@ -1,0 +1,151 @@
+/* ========= FORMULÁRIO DE ALTERAÇÃO (TWO-COLUMN LAYOUT) ========= */
+.form-grid {
+  display: grid;
+  grid-template-columns: 160px 1fr;
+  column-gap: 1.5rem;
+  row-gap: 0.9rem;
+  margin-bottom: 2rem;
+}
+
+/* Wrapper que envolve label + field + mensagem */
+.form-group {
+  display: contents;
+}
+
+.form-group label {
+  grid-column: 1;
+  font-weight: 600;
+  color: var(--text-gray-700);
+  margin: 0;
+  font-size: var(--font-size-sm);
+  text-align: right;
+  padding-right: 0.75rem;
+  align-self: start;
+  padding-top: 0.75rem;
+}
+
+/* Container que envolve input + mensagem de erro */
+.form-field-wrapper {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-default);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  transition: var(--transition-fast);
+  font-family: var(--font-base);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--text-blue-600);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Mensagens de erro */
+.input-error-messages {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.invalid-feedback {
+  font-size: 0.8125rem;
+  color: var(--text-red-600);
+  font-weight: 500;
+  margin: 0;
+  padding: 0;
+}
+
+/* Botões de ação - lado a lado */
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-default);
+}
+
+.form-actions button {
+  padding: 0.75rem 2rem;
+  font-weight: 600;
+  border-radius: var(--border-radius-lg);
+  transition: var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border: none;
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+}
+
+.form-actions button.btn-sucess {
+  background: var(--bg-green-500);
+  color: var(--text-white);
+}
+
+.form-actions button.btn-sucess:hover {
+  background: var(--text-green-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.form-actions button.btn-delete {
+  background: var(--bg-red-500);
+  color: var(--text-white);
+}
+
+.form-actions button.btn-delete:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
+  box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.2);
+}
+
+.form-actions button.btn-delete:disabled {
+  background: #fca5a5;
+  cursor: not-allowed;
+}
+
+.form-actions button.btn-cancel {
+  background: var(--bg-gray-100);
+  color: var(--text-gray-700);
+}
+
+.form-actions button.btn-cancel:hover {
+  background: var(--text-gray-200);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Responsivo: Mobile */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  /* On mobile labels should be left-aligned above inputs */
+  .form-group label {
+    text-align: left;
+    padding-right: 0;
+    margin-bottom: 0.5rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .form-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}

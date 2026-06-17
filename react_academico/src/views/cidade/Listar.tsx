@@ -1,9 +1,9 @@
 import React, {
-  useCallback,
-  useEffect,
-  useState,
-  type ChangeEvent,
-  type MouseEvent,
+    useCallback,
+    useEffect,
+    useState,
+    type ChangeEvent,
+    type MouseEvent,
 } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaPlus, FaRegTrashAlt } from 'react-icons/fa';
@@ -153,7 +153,9 @@ export default function ListarCidade() {
             alignItems: 'center',
           }}
         >
-          <h2>{CIDADE.TITULO.LISTA}</h2>
+          <div>
+            <h2>{CIDADE.TITULO.LISTA}</h2>
+          </div>
           <Link to="/sistema/cidade/criar" className="btn btn-add">
             <span className="btn-icon">
               <i>

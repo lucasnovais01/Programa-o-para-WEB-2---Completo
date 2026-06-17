@@ -37,7 +37,9 @@ function gerarRotaAuth(entity: string) {
   };
 }
 
+// Adicionado DASHBOARD dentro do const ROTA para ficar mais organizado, pois ele é uma rota do sistema, mas não pertence a nenhuma entidade específica como CIDADE ou USUARIO.
 export const ROTA = {
+  DASHBOARD,
   CIDADE:  gerarRotaSistema(CIDADE.ALIAS),
   USUARIO: gerarRotaSistema(USUARIO.ALIAS),
 

@@ -1,0 +1,35 @@
+/* Utilitários (do site original) */
+.text-center { text-align: center; }
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.space-x-2 > * + * { margin-left: 0.5rem; }
+.space-x-3 > * + * { margin-left: 0.75rem; }
+.space-x-4 > * + * { margin-left: 1rem; }
+.space-x-6 > * + * { margin-left: 1.5rem; }
+.space-y-2 > * + * { margin-top: 0.5rem; }
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-6 > * + * { margin-top: 1.5rem; }
+
+.hidden { display: none !important; }
+
+/* Status, Tabs, Table (corrigido) */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+.status-disponivel { background: #22C55E; color: white; }
+.status-ocupado { background: #EF4444; color: white; }
+
+.dev-tab { white-space: nowrap; transition: all 0.2s; }
+.dev-table { min-width: 100%; border-collapse: collapse; }
+.dev-table th { background: #F3F4F6; padding: 0.75rem; text-align: left; font-weight: 600; border-bottom: 1px solid #E5E7EB; }
+.dev-table td { padding: 0.75rem; border-bottom: 1px solid #E5E7EB; }
+
+/* Resto dos útilitarios, abaixo, do site original (adicionar se precisar) */

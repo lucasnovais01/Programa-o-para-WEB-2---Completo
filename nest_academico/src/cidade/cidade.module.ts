@@ -1,3 +1,4 @@
+import { AuthModule } from '@/auth/auth.module';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CidadeControllerCreate } from './controllers/cidade.controller.create';
@@ -29,7 +30,7 @@ const cidadeServices = [
 ];
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Cidade])],
+  imports: [TypeOrmModule.forFeature([Cidade]), AuthModule],
   controllers: [...cidadeControllers],
   providers: [...cidadeServices],
   exports: [TypeOrmModule, ...cidadeServices],

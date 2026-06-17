@@ -1,0 +1,171 @@
+/* ========= DASHBOARD ========= */
+
+.display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.card {
+  background: var(--bg-white);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+}
+
+.animated {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+}
+
+.fadeInDown {
+  animation-name: fadeInDown;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* NOVO CSS ABAIXO */
+/* ========= CONTAINER CRUD ========= */
+.crud-container {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 2px solid var(--border-default);
+}
+
+.crud-container h2 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--text-gray-700);
+  margin-bottom: 1.5rem;
+}
+
+/* Grid de botões CRUD */
+.crud-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .crud-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+  }
+}
+
+/* Estilo base dos botões CRUD */
+.crud-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem; /* ALTURA X LARGURA */
+  border-radius: var(--border-radius-lg);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+  transition: var(--transition-normal);
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.crud-btn i {
+  font-size: var(--font-size-2xl);
+}
+
+/* Estados dos botões por tipo */
+.crud-listar {
+  background: var(--bg-blue-100);
+  color: var(--text-blue-700);
+  border-color: var(--text-blue-700);
+}
+
+.crud-listar:hover {
+  background: var(--text-blue-700);
+  color: var(--text-white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.crud-buscar {
+  background: var(--bg-purple-100);
+  color: var(--bg-purple-600);
+  border-color: var(--bg-purple-600);
+}
+
+.crud-buscar:hover {
+  background: var(--bg-purple-600);
+  color: var(--text-white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.crud-criar {
+  background: var(--bg-green-100);
+  color: var(--text-green-600);
+  border-color: var(--text-green-600);
+}
+
+.crud-criar:hover {
+  background: var(--text-green-600);
+  color: var(--text-white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.crud-atualizar {
+  background: #fef08a;
+  color: #ca8a04;
+  border-color: #ca8a04;
+}
+
+.crud-atualizar:hover {
+  background: #ca8a04;
+  color: var(--text-white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.crud-excluir {
+  background: #fee2e2;
+  color: var(--text-red-600);
+  border-color: var(--text-red-600);
+}
+
+.crud-excluir:hover {
+  background: var(--text-red-600);
+  color: var(--text-white);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Responsivo: Mobile */
+@media (max-width: 640px) {
+  .crud-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .crud-btn {
+    padding: 1rem 0.75rem;
+    font-size: var(--font-size-xs);
+  }
+
+  .crud-btn i {
+    font-size: var(--font-size-xl);
+  }
+}

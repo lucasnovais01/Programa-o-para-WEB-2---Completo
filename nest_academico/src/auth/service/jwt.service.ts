@@ -57,25 +57,33 @@ export class JsonWebTokenService {
   }
 
   private secretAccessToken() {
-    return this.configService.getOrThrow('JWT_ACCESS_TOKEN_SECRET');
+    // Usa os nomes explícitos do .env definidos no modelo do professor.
+    return this.configService.getOrThrow<string>('JWT_ACCESS_TOKEN_SECRET');
   }
 
   private secretRefreshToken() {
-    return this.configService.getOrThrow('JWT_REFRESH_TOKEN_SECRET');
+    return this.configService.getOrThrow<string>('JWT_REFRESH_TOKEN_SECRET');
   }
 
   private secretVerificationToken() {
-    return this.configService.getOrThrow('JWT_VERIFICATION_TOKEN_SECRET');
-  }
-
-  private expireInSecondsAccessToken(timer?: number): number {
-    return (
-      timer ?? this.configService.getOrThrow('JWT_ACCESS_TOKEN_EXPIRATION_TIME')
+    return this.configService.getOrThrow<string>(
+      'JWT_VERIFICATION_TOKEN_SECRET',
     );
   }
 
+  private expireInSecondsAccessToken(timer?: number): number {
+    const expirationTime = Number(
+      this.configService.getOrThrow<string>('JWT_ACCESS_TOKEN_EXPIRATION_TIME'),
+    );
+    return timer ?? expirationTime;
+  }
+
   private expireInSecondsRefreshToken() {
-    return this.configService.getOrThrow('JWT_REFRESH_TOKEN_EXPIRATION_TIME');
+    return Number(
+      this.configService.getOrThrow<string>(
+        'JWT_REFRESH_TOKEN_EXPIRATION_TIME',
+      ),
+    );
   }
 
   async verifyToken(

@@ -12,7 +12,7 @@ export class Usuario extends BaseEntity {
   @Column({ name: 'SOBRENOME_USUARIO' })
   sobrenomeUsuario!: string;
 
-  @Column({ name: 'EMAIL' })
+  @Column({ name: 'EMAIL', unique: true })
   // email!: string; // COCAO utilizou email!: e senha!:, mas eu escrevi emailUsuario!: e senhaUsuario!: para manter o padrão de nomeação com o restante do código
   emailUsuario!: string;
 

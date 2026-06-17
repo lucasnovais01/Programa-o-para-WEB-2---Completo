@@ -133,7 +133,7 @@ export const useAlterar = () => {
         if (!value || String(value).trim().length === 0) {
           messages.push(CIDADE.INPUT_ERROR.NOME.BLANK);
         }
-        if (String(value).length > 0 && String(value).length < 6) {
+        if (String(value).length > 0 && String(value).length < 3) {
           messages.push(CIDADE.INPUT_ERROR.NOME.MIN_LEN);
         }
         if (String(value).length > 100) {
@@ -172,7 +172,7 @@ export const useAlterar = () => {
       nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.BLANK);
     }
     if (model.nomeCidade) {
-      if (model.nomeCidade.length > 0 && model.nomeCidade.length < 6) {
+      if (model.nomeCidade.length > 0 && model.nomeCidade.length < 3) {
         nomeCidadeMessages.push(CIDADE.INPUT_ERROR.NOME.MIN_LEN);
       }
       if (model.nomeCidade.length > 100) {

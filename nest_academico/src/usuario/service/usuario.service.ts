@@ -1,11 +1,12 @@
+import { ApiException } from '@/commons/exceptions/error/api.exceptions';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import * as bcrypt from 'bcrypt';
 import { Repository } from 'typeorm';
 import { Pageable } from '../../commons/pagination/page.response';
 import { Page } from '../../commons/pagination/page.sistema';
 import { USUARIO } from '../constants/usuario.constants';
 import { Usuario } from '../entities/usuario.entity';
-import { ApiException } from '@/commons/exceptions/error/api.exceptions';
 
 @Injectable()
 export class UsuarioService {
@@ -86,17 +87,73 @@ export class UsuarioService {
     return usuario;
   }
 
+  private async findByEmail(email: string): Promise<Usuario | null> {
+    if (!email) {
+      return null;
+    }
+    return this.usuarioRepository.findOne({ where: { emailUsuario: email } });
+  }
+
   async create(data: Partial<Usuario>): Promise<Usuario> {
+    // DEBUG didático e importante: acompanhar o fluxo de criação de usuário.
+    console.log('[DEBUG][UsuarioService] create start', {
+      emailUsuario: data.emailUsuario,
+      idUsuario: data.idUsuario,
+    });
+
     // Evitar que um id vazio/string seja enviado e force um insert sem chave primária
     if ((data as any).idUsuario === '' || (data as any).idUsuario == null) {
       delete (data as any).idUsuario;
     }
+
+    if (data.emailUsuario) {
+      const usuarioExistente = await this.findByEmail(data.emailUsuario);
+      if (usuarioExistente) {
+        console.log('[DEBUG][UsuarioService] create failed - email exists', {
+          emailUsuario: data.emailUsuario,
+          existingId: usuarioExistente.idUsuario,
+        });
+        throw new ApiException(
+          HttpStatus.CONFLICT,
+          'Email já cadastrado no sistema',
+        );
+      }
+    }
+
+    if (data.senhaUsuario) {
+      const saltRounds = 10;
+      data.senhaUsuario = await bcrypt.hash(data.senhaUsuario, saltRounds);
+    }
+
     const usuario = this.usuarioRepository.create(data);
-    return this.usuarioRepository.save(usuario);
+    const savedUsuario = await this.usuarioRepository.save(usuario);
+
+    console.log('[DEBUG][UsuarioService] create success', {
+      idUsuario: savedUsuario.idUsuario,
+      emailUsuario: savedUsuario.emailUsuario,
+    });
+
+    return savedUsuario;
   }
 
   async update(id: number, data: Partial<Usuario>): Promise<Usuario> {
     const usuario = await this.findOne(id);
+
+    if (data.emailUsuario && data.emailUsuario !== usuario.emailUsuario) {
+      const usuarioExistente = await this.findByEmail(data.emailUsuario);
+      if (usuarioExistente && usuarioExistente.idUsuario !== id) {
+        throw new ApiException(
+          HttpStatus.CONFLICT,
+          'Email já cadastrado no sistema',
+        );
+      }
+    }
+
+    if (data.senhaUsuario) {
+      const saltRounds = 10;
+      data.senhaUsuario = await bcrypt.hash(data.senhaUsuario, saltRounds);
+    }
+
     Object.assign(usuario, data);
     return this.usuarioRepository.save(usuario);
   }

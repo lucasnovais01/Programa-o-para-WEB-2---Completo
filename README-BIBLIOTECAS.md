@@ -52,5 +52,20 @@ npm install @types/cookie-parse
 ### passporte da google
 
 npm install passport-google-oauth20
-
 npm install --save-dev @types/passport-google-oauth20
+
+
+# npm install passport-google-oauth20 nodemailer @types/passport-google-oauth20 @types/nodemailer --save" #
+
+# nest_academico && npm install passport-jwt @types/passport-jwt --save" #
+
+
+
+
+## Nodemailer
+
+npm install nodemailer
+
+## bcrypt
+
+// import { hash } from 'bcrypt'; // npm install bcrypt + npm install -D @types/bcrypt

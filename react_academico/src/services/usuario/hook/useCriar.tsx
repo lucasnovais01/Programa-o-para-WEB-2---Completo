@@ -31,7 +31,8 @@ export const useCriar = () => {
       case USUARIO.FIELDS.NOME:
         if (!value || String(value).trim().length === 0)
           messages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
-        if (String(value).length > 0 && String(value).length < 6)
+        // O limite mínimo do nome deve ser 3, conforme a mensagem de erro usada.
+        if (String(value).length > 0 && String(value).length < 3)
           messages.push(USUARIO.INPUT_ERROR.NOME.MIN_LEN);
         if (String(value).length > 100)
           messages.push(USUARIO.INPUT_ERROR.NOME.MAX_LEN);
@@ -40,7 +41,8 @@ export const useCriar = () => {
       case USUARIO.FIELDS.SOBRENOME:
         if (!value || String(value).trim().length === 0)
           messages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
-        if (String(value).length > 0 && String(value).length < 6)
+        // O limite mínimo do sobrenome deve ser 3, conforme a mensagem de erro usada.
+        if (String(value).length > 0 && String(value).length < 3)
           messages.push(USUARIO.INPUT_ERROR.SOBRENOME.MIN_LEN);
         if (String(value).length > 100)
           messages.push(USUARIO.INPUT_ERROR.SOBRENOME.MAX_LEN);
@@ -82,7 +84,8 @@ export const useCriar = () => {
     if (!model.nomeUsuario || model.nomeUsuario.trim().length === 0)
       nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
     if (model.nomeUsuario) {
-      if (model.nomeUsuario.length > 0 && model.nomeUsuario.length < 6)
+      // Usamos o mínimo de 3 caracteres aqui porque a mensagem de erro diz 3.
+      if (model.nomeUsuario.length > 0 && model.nomeUsuario.length < 3)
         nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.MIN_LEN);
       if (model.nomeUsuario.length > 100)
         nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.MAX_LEN);
@@ -98,7 +101,7 @@ export const useCriar = () => {
     if (!model.sobrenomeUsuario || model.sobrenomeUsuario.trim().length === 0)
       sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
     if (model.sobrenomeUsuario) {
-      if (model.sobrenomeUsuario.length > 0 && model.sobrenomeUsuario.length < 6)
+      if (model.sobrenomeUsuario.length > 0 && model.sobrenomeUsuario.length < 3)
         sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.MIN_LEN);
       if (model.sobrenomeUsuario.length > 100)
         sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.MAX_LEN);

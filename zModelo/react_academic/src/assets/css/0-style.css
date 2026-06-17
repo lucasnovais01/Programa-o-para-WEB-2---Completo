@@ -1,0 +1,45 @@
+/* Começo de modularizar o css */
+
+@import url("./1-base.css");
+@import url("./2-index.css");
+@import url("./3-animacoes.css");
+
+@import url("./5-devtools.css");
+@import url("./6-devtoolsBanner.css");
+
+@import url("./7-form.css");
+@import url("./header-auth.css");
+
+
+@import url("./10-dashboard.css");
+
+@import url("./breadcrumb.css");
+@import url("./card.css");
+@import url("./table.css");
+@import url("./toast.css"); 
+
+@import url("./11-responsividade.css");
+
+/*
+@import url("./header.css");
+@import url("./footer.css");
+*/
+
+/*
+@import url("./dashboard.css");
+@import url("./devtools.css");
+*/
+
+
+
+/* Páginas futuras (descomentar quando necessário) */
+/*
+
+observação pra mim mesmo, criar um pasta chamada pages ou deixar dentro da views mesmo
+
+@import url("./pages/home.css");
+@import url("./pages/login.css");
+@import url("./pages/funcionarios.css");
+@import url("./pages/sobre.css");
+@import url("./pages/faq.css");
+*/

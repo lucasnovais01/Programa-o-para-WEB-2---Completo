@@ -1,9 +1,9 @@
 import {
-  useCallback,
-  useEffect,
-  useState,
-  type ChangeEvent,
-  type MouseEvent,
+    useCallback,
+    useEffect,
+    useState,
+    type ChangeEvent,
+    type MouseEvent,
 } from 'react';
 import { BsPencilSquare } from 'react-icons/bs';
 import { FaPlus, FaRegTrashAlt } from 'react-icons/fa';
@@ -101,7 +101,9 @@ export default function ListarUsuario() {
     <div className="display">
       <div className="card animated fadeInDown">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <h2>{USUARIO.TITULO.LISTA}</h2>
+          <div>
+            <h2>{USUARIO.TITULO.LISTA}</h2>
+          </div>
           <Link to={ROTA.USUARIO.CRIAR} className="btn btn-add">
             <span className="btn-icon"><i><FaPlus /></i></span>
             Novo

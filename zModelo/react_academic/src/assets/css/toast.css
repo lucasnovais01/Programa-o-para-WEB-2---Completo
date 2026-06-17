@@ -1,0 +1,22 @@
+/* COMPONENTE Toast, serve pra animação e poscionamento */
+.toast {
+  background: var(--bg-white);
+  border-left: 4px solid var(--bg-green-500); /* Borda vibrante para sucesso */
+  box-shadow: var(--shadow-md);
+  border-radius: var(--border-radius-lg);
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  animation: slideInRight var(--animation-duration) ease-out; /* Animação de entrada */
+  position: fixed; /* Posicionamento fixo */
+  top: 20px; /* Distância do topo */
+  right: 16px; /* Distância da direita */
+  z-index: 50; /* Sobreposição */
+}
+
+.toast.error {
+  border-left-color: var(--bg-red-500); /* Borda vermelha para erro */
+}
+
+.toast .flex {
+  gap: 0.5rem; /* Espaçamento entre ícone e texto */
+}

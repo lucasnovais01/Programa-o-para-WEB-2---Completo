@@ -1,0 +1,17 @@
+/* Minimal header auth styles */
+.user-area {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.user-name {
+  color: var(--text-gray-700);
+  font-weight: 600;
+  margin-right: 0.4rem;
+}
+
+/* adjust small screens */
+@media (max-width: 600px) {
+  .user-name { display: none; }
+}

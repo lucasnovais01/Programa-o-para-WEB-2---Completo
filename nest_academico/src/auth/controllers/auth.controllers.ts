@@ -19,9 +19,11 @@ import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { UsuarioService } from '../../usuario/service/usuario.service';
 import { LocalAuthGuard } from '../config/guard/local.auth.guard';
 
-import { AuthService } from '../service/auth.service';
 import { AuthGuard } from '@nestjs/passport';
-import type RequestWithUser from '../config/requestWithUser.interface';
+import type { Request } from 'express';
+import { Usuario } from '../../usuario/entities/usuario.entity';
+import { AuthService } from '../service/auth.service';
+// import type RequestWithUser from '../config/requestWithUser.interface';
 
 @Controller('auth')
 export class AuthController {
@@ -32,6 +34,7 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('/session/login')
+  /*
   async login(@Req() req: RequestWithUser) {
     //console.log(req.user);
     const { cookie, accessToken } = await this.authService.getJwtAccessToken(
@@ -41,9 +44,38 @@ export class AuthController {
     req.res?.setHeader('Set-Cookie', [cookie, accessToken]);
 
     return 'cookie processado';
+  */
+  async login(@Req() req: Request) {
+    const usuario = req.user as Usuario;
+    console.log('[DEBUG][AuthController] login start', {
+      emailUsuario: usuario.emailUsuario,
+      idUsuario: usuario.idUsuario,
+    });
+
+    const { accessToken, expireInAccessToken } =
+      await this.authService.getJwtAccessToken({
+        idUsuario: usuario.idUsuario,
+      } as any);
+
+    console.log('[DEBUG][AuthController] login token generated', {
+      accessToken,
+      expiresIn: expireInAccessToken,
+    });
+
+    return {
+      accessToken,
+      tokenType: 'Bearer',
+      expiresIn: expireInAccessToken,
+      usuario: {
+        idUsuario: usuario.idUsuario,
+        nomeUsuario: usuario.nomeUsuario,
+        sobrenomeUsuario: usuario.sobrenomeUsuario,
+        emailUsuario: usuario.emailUsuario,
+      },
+    };
   }
 
-  //Precisa do Get e vai conversar com src\auth\config\guard\google.auth.guard.ts
+  // Precisa do Get e vai conversar com src\auth\config\guard\google.auth.guard.ts
 
   @UseGuards(AuthGuard('google'))
   @Get('google')

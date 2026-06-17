@@ -1,0 +1,10 @@
+/* ========= RESPONSIVIDADE ========= */
+@media (max-width: 768px) {
+  .devtools-banner h1 {
+    font-size: var(--font-size-3xl);
+  }
+
+  .devtools-banner p {
+    font-size: var(--font-size-base);
+  }
+}

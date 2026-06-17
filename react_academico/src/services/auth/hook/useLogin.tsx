@@ -89,31 +89,45 @@ export const useLogin = () => {
     setIsLoading(true);
 
     try {
+      // Chama o backend com os dados do formulário de login.
+      // Aqui evitamos usar a rota de navegação do frontend (ROTA.AUTH.LOGIN),
+      // porque esta rota é apenas a página de login no React.
+      // O backend expõe `/auth/session/login` como endpoint de API.
       const response = await apiLogin(model);
-      
-      // Armazenar o token no localStorage
+
+      // O backend agora retorna o token JWT e os dados do usuário
+      // em vez de enviar apenas uma string de texto.
+      // Por isso podemos armazenar o accessToken e o usuário no localStorage.
       localStorage.setItem('accessToken', response.accessToken);
-      localStorage.setItem('usuario', JSON.stringify(response.usuario));
-      
-      /* consertar, está dando erro
+      if (response.usuario) {
+        localStorage.setItem('usuario', JSON.stringify(response.usuario));
+      } else {
+        localStorage.removeItem('usuario');
+      }
 
-      // Redirecionar para a página inicial ou dashboard
+      // Notifica outros listeners (incluindo useAuth) que a autenticação mudou
+      try {
+        window.dispatchEvent(new CustomEvent('auth-change'));
+      } catch (e) {
+        const evt = document.createEvent('Event');
+        evt.initEvent('auth-change', true, true);
+        window.dispatchEvent(evt);
+      }
+
+      // Antes o código estava comentado porque o redirecionamento dava erro.
+      // Esse erro existia porque o backend não retornava a mesma estrutura JSON
+      // que o frontend esperava. Agora o fluxo está alinhado e podemos seguir.
       navigate(ROTA.DASHBOARD);
-      */
-    }
-    catch (error: any) {
-
+    } catch (error: any) {
       console.log(error);
 
-      if (error.response?.data?.message) {
-        setErrors({
-          geral: [error.response.data.message]
-        });
-      } else {
-        setErrors({
-          geral: ['Erro ao realizar login. Tente novamente.']
-        });
-      }
+      const errorMessage =
+        error?.response?.data?.message ||
+        'Erro ao realizar login. Tente novamente.';
+
+      setErrors({
+        geral: errorMessage,
+      });
     } finally {
       setIsLoading(false);
     }
@@ -122,6 +136,15 @@ export const useLogin = () => {
   const logout = () => {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('usuario');
+
+    // Notifica outros listeners que a logout ocorreu
+    try {
+      window.dispatchEvent(new CustomEvent('auth-change'));
+    } catch (e) {
+      const evt = document.createEvent('Event');
+      evt.initEvent('auth-change', true, true);
+      window.dispatchEvent(evt);
+    }
 
     navigate(ROTA.AUTH.LOGIN);
   };

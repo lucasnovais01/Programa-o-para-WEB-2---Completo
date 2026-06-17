@@ -1,0 +1,10 @@
+/* COMPONENTE: card - Não sei se vou manter ou não */
+.card {
+  background: var(--bg-white);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-lg);
+  padding: 2rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}

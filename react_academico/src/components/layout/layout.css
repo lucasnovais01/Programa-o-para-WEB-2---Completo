@@ -13,6 +13,14 @@
   font-size: 1.2rem;
 }
 
+#defaultLayout aside .sidebar-title {
+  color: white;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  white-space: normal;
+  word-break: break-word;
+}
+
 #defaultLayout aside > a {
   display: block;
   padding: 0.75rem 1rem;

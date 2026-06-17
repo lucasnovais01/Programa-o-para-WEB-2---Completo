@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ROTA } from "../../router/url";
 import { apiGetUsuario, apiPutUsuario } from "../api/api.usuario";
 import {
-  USUARIO,
-  fieldsUsuario,
-  mapaCampoParaMensagem,
+    USUARIO,
+    fieldsUsuario,
+    mapaCampoParaMensagem,
 } from "../constants/usuario.constants";
 import type { ErrosUsuario, Usuario } from "../type/Usuario";
 
@@ -129,7 +129,7 @@ export const useAlterar = () => {
         if (!value || String(value).trim().length === 0) {
           messages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
         }
-        if (String(value).length > 0 && String(value).length < 6) {
+        if (String(value).length > 0 && String(value).length < 3) {
           messages.push(USUARIO.INPUT_ERROR.NOME.MIN_LEN);
         }
         if (String(value).length > 100) {
@@ -140,7 +140,7 @@ export const useAlterar = () => {
         if (!value || String(value).trim().length === 0) {
           messages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
         }
-        if (String(value).length > 0 && String(value).length < 6) {
+        if (String(value).length > 0 && String(value).length < 3) {
           messages.push(USUARIO.INPUT_ERROR.SOBRENOME.MIN_LEN);
         }
         if (String(value).length > 100) {
@@ -181,7 +181,7 @@ export const useAlterar = () => {
       nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.BLANK);
     }
     if (model.nomeUsuario) {
-      if (model.nomeUsuario.length > 0 && model.nomeUsuario.length < 6) {
+      if (model.nomeUsuario.length > 0 && model.nomeUsuario.length < 3) {
         nomeUsuarioMessages.push(USUARIO.INPUT_ERROR.NOME.MIN_LEN);
       }
       if (model.nomeUsuario.length > 100) {
@@ -200,7 +200,7 @@ export const useAlterar = () => {
       sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.BLANK);
     }
     if (model.sobrenomeUsuario) {
-      if (model.sobrenomeUsuario.length > 0 && model.sobrenomeUsuario.length < 6) {
+      if (model.sobrenomeUsuario.length > 0 && model.sobrenomeUsuario.length < 3) {
         sobrenomeUsuarioMessages.push(USUARIO.INPUT_ERROR.SOBRENOME.MIN_LEN);
       }
       if (model.sobrenomeUsuario.length > 100) {

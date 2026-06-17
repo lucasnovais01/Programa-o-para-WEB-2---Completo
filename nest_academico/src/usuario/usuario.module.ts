@@ -11,6 +11,7 @@ import { UsuarioService } from './service/usuario.service';
 @Module({
   imports: [TypeOrmModule.forFeature([Usuario])],
   providers: [UsuarioService],
+  exports: [UsuarioService],
   controllers: [
     UsuarioControllerFindAll,
     UsuarioControllerCreate,

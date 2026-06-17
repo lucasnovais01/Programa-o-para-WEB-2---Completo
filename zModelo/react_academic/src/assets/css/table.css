@@ -1,0 +1,43 @@
+/* Conteiner de tabela que tenha Responsividade */
+.table-container {
+  overflow-x: auto; /* Rolagem horizontal em telas pequenas */
+  box-shadow: var(--shadow-sm); /* Sombra sutil para destaque */
+}
+
+/* Badges de Status - Correção 7: Cores vibrantes */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--text-white); /* Contraste alto */
+}
+
+.status-livre { background: var(--bg-green-500); }
+.status-ocupado { background: var(--bg-red-500); }
+.status-manutencao { background: var(--bg-yellow-500); }
+
+/* Ações - Correção 5: Botões com hover e espaçamento */
+.actions {
+  white-space: nowrap;
+  display: flex;
+  gap: 0.5rem; /* Espaçamento entre ícones */
+}
+
+.btn-edit, .btn-delete {
+  background: none;
+  border: none;
+  font-size: var(--font-size-lg); /* Tamanho visível */
+  cursor: pointer;
+  padding: 0.25rem;
+  transition: var(--transition-fast); /* Transição suave */
+}
+
+.btn-edit { color: var(--text-blue-600); }
+.btn-edit:hover { color: var(--text-blue-700); } /* Efeito hover */
+
+.btn-delete { color: var(--text-red-600); }
+.btn-delete:hover { color: var(--text-red-700); } /* Efeito hover */
