@@ -14,6 +14,11 @@ const ATUALIZAR = `alterar`;
 const EXCLUIR = `excluir`;
 
 const LOGIN = `login`;
+/*
+const RECUPERAR = `recuperar`;
+const RESETAR = `resetar`;
+const CONFIRMAREMAIL = `confirmarEmail`;
+*/
 
 function gerarRotaSistema(entity: string) {
   const base = `${ROTA_SISTEMA}/${entity}`;
@@ -27,6 +32,11 @@ function gerarRotaSistema(entity: string) {
     // Tentando de tudo para funcionar
 
     LOGIN: `/${base}/${LOGIN}}` // TEM QUE ESTAR COM LETRA MAIUSCULA
+    /*
+    RECUPERAR: `/${base}/${RECUPERAR}}`,
+    RESETAR: `/${base}/${RESETAR}}`,
+    CONFIRMAREMAIL: `/${base}/${CONFIRMAREMAIL}
+    */
   };
 }
 // AUTH tem estrutura própria, só tem LOGIN, POR ISTO ESTAVA DANDO ERRO, POIS TENTAVA GERAR ROTAS QUE NÃO EXISTEM PARA AUTH
@@ -34,6 +44,11 @@ function gerarRotaAuth(entity: string) {
   const base = `${ROTA_SISTEMA}/${entity}`;
   return {
     LOGIN: `/${base}/login`,
+    /*
+    RECUPERAR: `/${base}/recuperar`,
+    RESETAR: `/${base}/resetar`,
+    CONFIRMAREMAIL: `/${base}/confirmarEmail`,
+    */
   };
 }
 
@@ -44,4 +59,9 @@ export const ROTA = {
   USUARIO: gerarRotaSistema(USUARIO.ALIAS),
 
   AUTH:    gerarRotaAuth(AUTH.ALIAS),  // AUTH tem estrutura própria — só tem LOGIN
+// NOVAS ROTAS DE RECUPERAÇÃO
+  RECUPERAR_SENHA: {
+    SOLICITAR: '/sistema/auth/recuperar',     // forgot-password
+    RESETAR: '/sistema/auth/resetar',         // reset-password?token=xxx
+  },
 };

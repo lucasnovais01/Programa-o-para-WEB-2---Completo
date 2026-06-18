@@ -169,4 +169,28 @@ Linha 9 — {{ nome }} é sintaxe de template engine (ex: Handlebars/Angular), n
 Linha 11 — Faltando fechar a chave } da função.
     */
   }
+
+  // sssssssssssssssssssssssssssssss
+
+  async sendPasswordResetEmail(email: string, nome: string, token: string) {
+    const url = `http://localhost:3000/sistema/auth/resetar?token=${token}`;
+
+    const html = `
+      <h2>Recuperação de Senha</h2>
+      <p>Olá ${nome},</p>
+      <p>Clique no link abaixo para redefinir sua senha:</p>
+      <a href="${url}" target="_blank">Redefinir Senha</a>
+      <p><small>Este link expira em 15 minutos.</small></p>
+    `;
+
+    const options: MailPayload = {
+      to: email,
+      from: this.configService.getOrThrow('EMAIL_FROM'),
+      subject: 'Recuperação de Senha - Sistema Acadêmico',
+      html,
+      text: `Olá ${nome}, acesse ${url} para redefinir sua senha. Link válido por 15 minutos.`, // ← OBRIGATÓRIO
+    };
+
+    return this.sendMail(options);
+  }
 }

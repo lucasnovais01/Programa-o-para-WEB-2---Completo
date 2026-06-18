@@ -9,7 +9,7 @@ import { ROTA } from "../../services/router/url";
 
 const handleGoogleLogin = () => {
 
-  window.location.href = "http://localhost:8000/authgoogle"
+  window.location.href = "http://localhost:8000/auth/google"
 
 };
 
@@ -80,18 +80,6 @@ export default function Login() {
             )}
           </div>
 
-          <div className="mb-2 mt-4">
-
-            {/* Ainda não foi feito esta rota
-
-            <Link to={ROTA.RECUPERAR_SENHA.SOLICITAR} className="text-decoration-none">
-              Esqueci minha senha
-            </Link>
-
-            */}
-
-          </div>
-
           <div className="btn-content mt-4">
             <button
               id="submit"
@@ -111,12 +99,27 @@ export default function Login() {
 
           <div className="mt-3 text-center">
             <p className="text-muted">
+              Esqueceu sua senha{" "}
+              <Link to={ROTA.RECUPERAR_SENHA.SOLICITAR} className="text-decoration-none">
+                Esqueci minha senha
+              </Link>
+            </p>
+          </div>
+
+          <div className="mb-2 mt-4">
+            {/* Ainda não foi feito esta rota
+            <Link to={ROTA.RECUPERAR_SENHA.SOLICITAR} className="text-decoration-none">
+              Esqueci minha senha
+            </Link>
+            */}
+          </div>
+
+          <div className="mt-3 text-center">
+            <p className="text-muted">
               Não tem uma conta?{" "}
               <Link to={ROTA.USUARIO.CRIAR}>Cadastre-se</Link>
             </p>
           </div>
-
-
 
 
           <button 

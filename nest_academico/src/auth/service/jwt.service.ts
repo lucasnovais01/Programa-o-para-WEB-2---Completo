@@ -122,4 +122,14 @@ export class JsonWebTokenService {
         return this.secretAccessToken();
     }
   }
+
+  generateVerificationToken(idUsuario: number) {
+    const data: JwtPayload = { idUsuario };
+    const expireIn = 15 * 60; // 15 minutos
+
+    return this.jwtService.sign(data, {
+      secret: this.configService.getOrThrow('JWT_VERIFICATION_TOKEN_SECRET'),
+      expiresIn: `${expireIn}s`,
+    });
+  }
 }

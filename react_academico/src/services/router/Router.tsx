@@ -20,6 +20,12 @@ import ProtectedRoute from "../../components/auth/ProtectedRoute";
 //
 import { ROTA } from "./url";
 import Login from "../../views/auth/Login";
+import RequestPasswordRecovery from "../../views/auth/RequestPasswordRecovery";
+import ResetPassword from "../../views/auth/ResetPassword";
+
+// import Recuperar from "../../views/auth/Login";
+// import Resetar from "../../views/auth/Login";
+// import ConfirmarEmail from "../../views/auth/Login";
 
 //localhost:3000/sistema/cidade/listar
 
@@ -84,6 +90,30 @@ export const routes: RouteObject[] = [
         path: ROTA.AUTH.LOGIN,
         element: <Login />,
       },
+
+
+      {
+        path: ROTA.RECUPERAR_SENHA.SOLICITAR,
+        element: <RequestPasswordRecovery />,
+      },
+      {
+        path: ROTA.RECUPERAR_SENHA.RESETAR,
+        element: <ResetPassword />,
+      },
+      /*
+      {
+        path: ROTA.AUTH.RECUPERAR,
+        element: <Recuperar /> //
+      },
+      {
+        path: ROTA.AUTH.RESETAR,
+        element: <Resetar /> //
+      },
+      {
+        path: ROTA.AUTH.CONFIRMAREMAIL,
+        element: <ConfirmarEmail /> //
+      },
+      */
     ],
   },
 ];

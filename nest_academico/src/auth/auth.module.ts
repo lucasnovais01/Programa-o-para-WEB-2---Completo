@@ -14,6 +14,8 @@ import { LocalStrategy } from './config/strategy/local/local.strategy';
 import { AuthController } from './controllers/auth.controllers';
 import { AuthService } from './service/auth.service';
 import { JsonWebTokenService } from './service/jwt.service';
+import { PasswordController } from './controllers/password.controller';
+import { EmailService } from '@/mail/service/email.service';
 
 const provider = [
   AuthService,
@@ -23,6 +25,7 @@ const provider = [
   JwtRefreshTokenStrategy,
   JwtVerificationTokenStrategy,
   JwtAccessTokenGuard,
+  EmailService,
 ];
 
 @Module({
@@ -51,6 +54,6 @@ const provider = [
 
   providers: [...provider],
   exports: [JsonWebTokenService, JwtAccessTokenGuard],
-  controllers: [AuthController],
+  controllers: [AuthController, PasswordController],
 })
 export class AuthModule {}

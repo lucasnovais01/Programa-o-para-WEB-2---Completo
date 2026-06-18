@@ -29,6 +29,9 @@ export const AUTH = {
   // Login só tem uma tela, então removi LISTA/CRIAR/ATUALIZAR/EXCLUIR
   TITULO: {
     LOGIN: `${ENTITY_NAME}`,
+    // RECUPERAR: `${ENTITY_NAME}`,
+    // RESETAR: `${ENTITY_NAME}`,
+    // CONFIRMAREMAIL: `${ENTITY_NAME}`,
   },
 
   INPUT_ERROR: {

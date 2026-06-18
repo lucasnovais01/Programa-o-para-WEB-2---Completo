@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { Usuario } from '../../usuario/entities/usuario.entity';
 import { RequestUserPayload } from '../config/requestWithUser.interface';
 import { JsonWebTokenService, UserToken } from './jwt.service';
+import { EmailService } from '@/mail/service/email.service';
 
 // Definimos o tipo do provider OAuth para documentar os valores aceitos
 // e evitar o uso de strings hardcoded espalhadas pelo código.
@@ -16,6 +17,7 @@ export class AuthService {
     @InjectRepository(Usuario)
     private readonly usuarioRepository: Repository<Usuario>,
     private readonly jsonWebTokenService: JsonWebTokenService,
+    private readonly emailService: EmailService,
   ) {}
 
   async getJwtAccessToken(usuario: RequestUserPayload) {
@@ -165,4 +167,47 @@ export class AuthService {
     // e o modificador async na posição correta.
     const oauthEmail = profile.email?.[0].value || profile._json?.email;
   };
+
+
+
+// ======================== RECUPERAÇÃO DE SENHA ========================
+
+  async forgotPassword(email: string) {
+    const usuario = await this.findByEmail(email).catch(() => null);
+
+    if (!usuario) {
+      return { mensagem: 'Se o e-mail estiver cadastrado, você receberá um link.' };
+    }
+
+    const token = this.jsonWebTokenService.generateVerificationToken(usuario.idUsuario!);
+
+    await this.emailService.sendPasswordResetEmail(
+      usuario.emailUsuario,
+      usuario.nomeUsuario || 'Usuário',
+      token
+    );
+
+    return { mensagem: 'Link de recuperação enviado com sucesso!' };
+  }
+
+  async resetPassword(token: string, novaSenha: string) {
+    const payload = await this.jsonWebTokenService.verifyToken(token, 'verification');
+
+    if (!payload.isValid || !payload.payload?.idUsuario) {
+      throw new HttpException('Token inválido ou expirado', HttpStatus.BAD_REQUEST);
+    }
+
+    const usuario = await this.usuarioRepository.findOne({
+      where: { idUsuario: payload.payload.idUsuario },
+    });
+
+    if (!usuario) {
+      throw new HttpException('Usuário não encontrado', HttpStatus.NOT_FOUND);
+    }
+
+    usuario.senhaUsuario = novaSenha;
+    await this.usuarioRepository.save(usuario);
+
+    return { mensagem: 'Senha alterada com sucesso!' };
+  }
 }
